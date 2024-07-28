@@ -1,13 +1,28 @@
 .register-out-wrap{
     display: flex;
-    background:green;
-    height: 100vh;
+    height: calc(100vh - var(--header-height));
+    background-image: url('/home/subram/Desktop/React_practice/react_practice/public/assets/teaching.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     align-items: center;
 }
 .register-content{
     flex: 0.4;
     align-self: center;
+    color: white; /* Text color for contrast */
+  font-size: 24px; /* Adjust font size as needed */
+  font-weight: bold; /* Make the text bold */
+  text-align: center; /* Center align the text */
+  padding: 10px; /* Add padding around the text */
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better contrast */
+  border-radius: 5px; /* Rounded corners for the background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
 }
 .register-comp{
     flex: 0.6;
+    height: calc(100vh - var(--header-height));
+    overflow: overlay;
+}
+a{
+    color: #007bff;
 }

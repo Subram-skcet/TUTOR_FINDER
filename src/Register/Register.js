@@ -15,8 +15,8 @@ const Register = () => {
     <div className='top-wst'></div>
     <div className='register-out-wrap'>
        <div className='register-content'>
-          <h1>Register as {state.name}</h1>
-          <h4>Aldready have an account? <a href='/login'>Log in</a></h4>
+          <h1>Register as a {state.name}</h1>
+          <h4>Already have an account? <a href='/login'>Log in</a></h4>
        </div>
        <div className='register-comp'>
          {state?.name==='Teacher'? <RegisterTeacher/>:<RegisterStudent/>}

@@ -1,26 +1,32 @@
 .login-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f0f2f5;
 }
 
 .checkbox-container {
     display: flex;
-    justify-content: space-between;
     margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    width: 100%;
 }
 
 .checkbox-container input[type="checkbox"] {
     margin-right: 10px;
 }
 
+.checkbox-container label {
+    margin-right: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
 .login-form {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
 }
 
 .form-group {
@@ -30,14 +36,15 @@
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 16px;
+    color: #333;
 }
 
 .form-group input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 16px;
 }
 
@@ -45,13 +52,13 @@
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 5px;
-    background-color: #007BFF;
-    color: white;
+    border-radius: 4px;
+    background: #007bff;
+    color: #fff;
     font-size: 16px;
     cursor: pointer;
 }
 
 .form-group button:hover {
-    background-color: #0056b3;
+    background: #0056b3;
 }

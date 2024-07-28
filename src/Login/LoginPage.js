@@ -15,16 +15,19 @@ const LoginPage = () => {
   };
 
   return (
+    <>
+     <div className='top-wst'></div>
     <div className='login-pg-wrap'>
         <div className='login-content-wrap'>
            <h2>Don't have an account?</h2>
-           <a onClick={RegisterNavigateTeacher}>Regsiter as Teacher</a>
-           <a onClick={RegisterNavigateStudent}>Regsiter as Student</a>
+           <a onClick={RegisterNavigateTeacher}>Register as Teacher</a>
+           <a onClick={RegisterNavigateStudent}>Register as Student</a>
         </div>
         <div className='login-div'>
           <Login/>
         </div>
     </div>
+    </>
   )
 }
 

@@ -35,6 +35,7 @@ const Login = () => {
     return (
         <div className="login-container">
             <div className="checkbox-container">
+                <div>
                 <input
                     type="checkbox"
                     id="asteacher"
@@ -43,6 +44,9 @@ const Login = () => {
                     onChange={handleCheckboxChange}
                 />
                 <label htmlFor="asteacher">LogIn as Teacher</label>
+                </div>
+                <div>
+
                 <input
                     type="checkbox"
                     id="asstud"
@@ -51,6 +55,7 @@ const Login = () => {
                     onChange={handleCheckboxChange}
                 />
                 <label htmlFor="asstud">LogIn as Student</label>
+                 </div>
             </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">

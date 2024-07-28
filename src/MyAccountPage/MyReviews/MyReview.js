@@ -22,7 +22,7 @@ const MyReview = () => {
     const [reviews, setReviews] = useState(initialReviews);
       
   return (
-    <div className="reviews-container">
+    <div className="account-page-reviews-container">
           <h3 className="reviews-heading">Student Reviews</h3>
           <div className="reviews-section rev-sec">
             {reviews.map(review => (

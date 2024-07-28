@@ -6,7 +6,7 @@ const MyAccount = () => {
   return (
     <div className='acc-wrap' onClick={()=>navigate("/myaccount")}>
         <div>
-            <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzCW8ayM9K_iNzX81NSjgpGcl30jDvsTSiIg&s' className='acc-img'/>
+            <img src='https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' className='acc-img'/>
             <div>
                 <p className='acc-p'><strong>My Account</strong></p>
             </div>

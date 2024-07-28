@@ -1,69 +1,24 @@
-body {
-    font-family: Arial, sans-serif;
-    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqwOTr4A3A_3fjFny8uCLzFiCuUpHWDytoAQ&s"); */
-    margin: 0;
-    padding: 0;
-  }
-  
+:root {
+  --header-height: 130px;
+}
   .container {
-    max-width: 800px;
-    margin: 50px auto;
+    width: 100%;
+    height:calc(100vh - var(--header-height));
+    /* max-width: 800px; */
+    /* margin: 50px auto; */
     padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
+    /* background-color: #fff; */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
   }
   
   .filter-tit-h1{
     text-align: center;
     color: #333;
   }
-  
-  .search-bar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .search-bar > div {
-    flex: 1 1 45%;
-    margin-bottom: 20px;
-  }
-  
-  .main-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .main-select, .main-input{
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  button.serachpg-search-btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
-  }
-  
-  button.serachpg-search-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .search-results {
-    margin-top: 20px;
-  }
+
 
   /* TutorCard.css */
 .tutor-card {
@@ -73,7 +28,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 100%;
+  width: 90%;
   margin: 20px auto;
   font-family: Arial, sans-serif;
   border: 2px solid black;
@@ -126,10 +81,25 @@ body {
 .card-details p strong {
   color: #333;
 }
-.search-results{
+.results-prt{
+  flex: 0.5;
   display: flex;
   flex-direction: column;
-  height: 500px;
+  height: 100%;
+}
+.search-results{
+  backdrop-filter: blur(10px);
   overflow-y: overlay;
+}
+.search-results::-webkit-scrollbar {
+  display: none;
+}
+.search-prt{
+  flex: 0.5;
+  display: flex;
+  flex-direction: column;
+}
+.main-pg-h1{
+  margin-bottom: 0;
 }
   

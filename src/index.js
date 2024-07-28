@@ -21,7 +21,8 @@ import MyProfile from './MyAccountPage/MyProfile/MyProfile';
 import AddTution from './MyAccountPage/AddTution/AddTution';
 import MyReview from './MyAccountPage/MyReviews/MyReview';
 import MyTution from './MyAccountPage/MyTution/MyTution';
-
+import Home from './Home/Home';
+import ImageSlider from './Home/ImageSlider/ImageSlider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,7 +33,10 @@ root.render(
       </BrowserRouter>
     </DataLayer>
   </React.StrictMode>
-        //  <MyTution/>
+        //  <Home/>
+        // <ImageSlider/>
+    //  <Layout/>
+    //  <MyTution/>
         // <App>
         //   <MyProfile/>
         // </App>
@@ -46,11 +50,9 @@ root.render(
     // <Login/>
       // <Search/>
     //  <Main/>
-    // <Home/>
     // <RegsiterStudent/>
     // <RegisterTeacher/>
     // <PopUp/>
-    // <Layout/>
     // <Enroll/>
     // <App />
 );

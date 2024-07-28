@@ -6,6 +6,7 @@ import Main from '../Main/Main';
 import LoginPage from '../Login/LoginPage';
 import MyProfileRoute from '../MyAccountPage/MyProfileRoute';
 import App from '../App';
+import TeacherProfile from '../TeacherProfile/TeacherProfile';
 
 const Router = () => {
   const routes = useRoutes([
@@ -24,6 +25,10 @@ const Router = () => {
     {
       path: '/login',
       element: <LayoutWrapper><LoginPage /></LayoutWrapper>,
+    },
+    {
+      path:'/teacherprofile',
+      element: <LayoutWrapper><TeacherProfile/></LayoutWrapper>,
     },
     {
       path: '*',

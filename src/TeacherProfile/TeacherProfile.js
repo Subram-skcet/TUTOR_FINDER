@@ -5,8 +5,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is correc
 const backgroundImage = 'https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg?ga=GA1.1.711888986.1720101620&semt=ais_user'; // Example background image URL
 
 const initialReviews = [
-  { id: 1, text: 'This teacher is amazing!', likeCount: 0, dislikeCount: 0, activeRating: null },
-  { id: 2, text: 'Great teaching methods.', likeCount: 0, dislikeCount: 0, activeRating: null }
+  { id: 1, text: 'This teacher is amazing!', likeCount: 11363, dislikeCount: 364, activeRating: null },
+  { id: 2, text: 'Great teaching methods.', likeCount: 14, dislikeCount: 3, activeRating: null },
+  { id: 3, text: 'Good Teacher for State Board Syllabus.', likeCount: 3424, dislikeCount: 63, activeRating: null }
 ];
 
 const TeacherProfile = () => {
@@ -51,6 +52,8 @@ const TeacherProfile = () => {
   };
 
   return (
+    <>
+     <div className='top-wst'></div>
     <div className="profile-page" style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className="profile-container">
         <div className="profile-header">
@@ -78,10 +81,12 @@ const TeacherProfile = () => {
           <div className="label">Years of Experience</div>
           <div className="value">5</div>
         </div>
+        <hr className='hr-tag'></hr>
         <div className="about-section">
           <p className="about-heading">About</p>
           <p className="about-content">Security Researcher | Bug Bounty Hunter | THM Top 2% |🏅Secured Microsoft, NASA, United Nations, U.S Department of Homeland Security, Indian Government +21 More Companies🌟</p>
         </div>
+        <hr className='hr-tag'></hr>
         <div className="reviews-container">
           <h3 className="reviews-heading">Student Reviews</h3>
           <div className="reviews-section">
@@ -117,12 +122,14 @@ const TeacherProfile = () => {
               value={newReviewText}
               onChange={(e) => setNewReviewText(e.target.value)}
               placeholder="Write review..."
+              className='profile-page-textarea'
             ></textarea>
             <button className="submit-button" onClick={handleSubmitReview}>Submit</button>
           </div>
         </div>
       </div>
     </div>
+    </>
   );
 };
 

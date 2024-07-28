@@ -77,9 +77,8 @@ const Search = () => {
 
   const districts = stateDistricts[searchDetails.state] || [];
   return (
-    <div className='container'>
-
-    <h1>Filter</h1>
+    <>
+    <div className='search-container'>
       <div className="search-bar">
         <div>
           <label>Search By Name:</label>
@@ -141,6 +140,7 @@ const Search = () => {
       </div>
       <button onClick={handleSubmit} className="serachpg-search-btn">Search</button>
     </div>
+    </>
   )
 }
 

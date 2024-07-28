@@ -1,5 +1,10 @@
 import React, { useState } from 'react'
 const RegisterStudent = () => {
+    const regbtnstyle ={
+        width:'max-content',
+        display:'block',
+        marginInline:'auto'
+    }
     const [userDetails,setDetails]=useState(
         {
             name:'',
@@ -34,7 +39,7 @@ const RegisterStudent = () => {
                 <input type='password' name='password' id='password' value={userDetails.password} onChange={handleChange}/>
             </div>
             <div className='submit-btn-div'></div>
-            <button onClick={handleSubmit} className='submit-btn'>Regsiter</button>
+            <button onClick={handleSubmit} className='submit-btn' style={regbtnstyle}>Register</button>
         </form>
     </div>
   )
