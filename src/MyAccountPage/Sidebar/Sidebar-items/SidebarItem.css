@@ -1,0 +1,11 @@
+.sb-items{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    background-color: green;
+    padding-left: 1rem;
+}
+.sb-para{
+    font-size: 20px;
+}

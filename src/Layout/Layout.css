@@ -1,0 +1,33 @@
+.out-wrap{
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 130px;
+    background: red;
+}
+.acc-wrap{
+    margin-right: 50px;
+}
+img{
+    width: 100px;
+    height: 100px;
+    margin-left: 1rem;
+}
+.nav-links{
+    margin-right: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    width:500px;
+    justify-content: space-between;
+    background: green;
+}
+.itms-cntr{
+   display: flex;
+   align-items: center;
+}
+.img-sz{
+    width: 20px;
+    height: 20px;
+}

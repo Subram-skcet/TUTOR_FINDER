@@ -1,0 +1,37 @@
+.home-wrap{
+    display: flex;
+    height: 500px;
+    background: green;
+}
+h1{
+    font-size:60px;
+}
+.home-content{
+    margin-left: 10px;
+    align-self: center;
+    flex: 0.5;
+}
+.home-img-div{
+    flex: 0.5;
+}
+.home-img{
+   width: 100%;
+   height: 100%;
+}
+.home-srch-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 50px;
+}
+button{
+    border-radius: 10px;
+    font-size: 20px;
+}
+.about-para{
+    font-size: 30px;
+}
+.about-h1{
+    text-align: center;
+}

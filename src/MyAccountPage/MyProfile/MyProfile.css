@@ -1,0 +1,14 @@
+.edit-prof-btn{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+    border-radius: 20px;
+}
+.spz{
+    margin-top: 1rem;
+}
+.about-content{
+    width: 100%;
+    height: 100%;
+}

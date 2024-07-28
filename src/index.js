@@ -1,14 +1,58 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './index.css'
+import Layout from './Layout/Layout';
+import PopUp from './TeacherPopUp/PopUp';
+import RegisterTeacher from './RegisterPage/Teacher/RegisterTeacher';
+import Main from './Main/Main';
+import { BrowserRouter } from 'react-router-dom';
+import Route from './Routes/Route';
+import Search from './Search/Search';
+import Login from './Login/Login';
+import LoginPage from './Login/LoginPage';
+import { DataLayer } from './StateProviders/StateProvider';
+import reducer,{initialState} from './StateProviders/reducer';
+import AccountLayout from './MyAccountPage/AccountLayout/AccountLayout';
+import Sidebar from './MyAccountPage/Sidebar/Sidebar';
+import TeacherProfile from './TeacherProfile/TeacherProfile';
+import App from './MyAccountPage/MyAccountPageApp/App';
+import MyProfile from './MyAccountPage/MyProfile/MyProfile';
+import AddTution from './MyAccountPage/AddTution/AddTution';
+import MyReview from './MyAccountPage/MyReviews/MyReview';
+import MyTution from './MyAccountPage/MyTution/MyTution';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <DataLayer initialState={initialState} reducer={reducer}>
+      <BrowserRouter>
+          <Route/>
+      </BrowserRouter>
+    </DataLayer>
   </React.StrictMode>
+        //  <MyTution/>
+        // <App>
+        //   <MyProfile/>
+        // </App>
+        //  <MyReview/>
+      //  <AddTution/>
+          // <Sidebar/>
+          // <TeacherProfile/>
+          // <AccountLayout/>
+        // <MyAccount/>
+      // <LoginPage/>
+    // <Login/>
+      // <Search/>
+    //  <Main/>
+    // <Home/>
+    // <RegsiterStudent/>
+    // <RegisterTeacher/>
+    // <PopUp/>
+    // <Layout/>
+    // <Enroll/>
+    // <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

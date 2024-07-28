@@ -1,0 +1,22 @@
+.acc-wrap{
+    display: flex;
+    width: max-content;
+    height: max-content;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+    background-color: rgb(172, 224, 224);
+}
+.acc-img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.acc-p{
+    margin-top: 1rem;
+    text-align: center;
+}
