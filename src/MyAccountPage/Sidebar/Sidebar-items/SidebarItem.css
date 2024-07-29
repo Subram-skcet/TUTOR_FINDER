@@ -3,9 +3,13 @@
     gap: 1rem;
     align-items: center;
     width: 100%;
-    background-color: green;
+    color: white;
     padding-left: 1rem;
 }
 .sb-para{
     font-size: 20px;
+}
+.sb-items:hover{
+    cursor: pointer;
+    background-color:  #555;;
 }

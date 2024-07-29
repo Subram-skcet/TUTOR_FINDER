@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom'
 const MyAccount = () => {
   const navigate = useNavigate();
   return (
-    <div className='acc-wrap' onClick={()=>navigate("/myaccount")}>
+    <div className='acc-wrap' onClick={()=>navigate("/myaccount/myprofile")}>
         <div>
-            <img src='https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' className='acc-img'/>
+            <img src='https://www.shutterstock.com/image-photo/young-asian-teacher-man-teaching-260nw-1928551622.jpg' className='acc-img'/>
             <div>
                 <p className='acc-p'><strong>My Account</strong></p>
             </div>

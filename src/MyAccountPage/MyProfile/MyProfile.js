@@ -3,12 +3,18 @@ import './MyProfile.css';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is correctly imported
 import EditIcon from '@mui/icons-material/Edit';
 import SidebarItem from '../Sidebar/Sidebar-items/SidebarItem';
+import SaveIcon from '@mui/icons-material/Save';
+
+
+
 const backgroundImage = 'https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg?ga=GA1.1.711888986.1720101620&semt=ais_user'; // Example background image URL
+
+
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
-    name: 'Kamil Rahuman M',
+    name: 'Smith',
     subjectHandling: 'Cyber Security',
     board: 'CBSE, TNSB, KRSB, etc.',
     teachingLanguage: 'Tamil, English',
@@ -39,6 +45,7 @@ const MyProfile = () => {
       <div className="profile-container">
         <div className="profile-header">
           <div className="profile-picture">
+            
             {/* Add profile picture here */}
           </div>
           <h1>{profile.name}</h1>
@@ -130,9 +137,9 @@ const MyProfile = () => {
           )}
         </div>
         <button className="edit-prof-btn spz" onClick={isEditing ? handleSaveClick : handleEditClick}>
-          <div className="layout-icons">
-            <EditIcon />
-            <p>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
+        <div className={`itms-cntr style-links ${isEditing? 'edit-styl':'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
+          {isEditing?<SaveIcon/>: <EditIcon />}
+            <p className='icon-para'>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
           </div>
         </button>
       </div>

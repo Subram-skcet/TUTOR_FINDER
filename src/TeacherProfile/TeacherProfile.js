@@ -60,11 +60,11 @@ const TeacherProfile = () => {
           <div className="profile-picture">
             {/* Add profile picture here */}
           </div>
-          <h1>Kamil Rahuman M</h1>
+          <h1>Smith</h1>
         </div>
         <div className="profile-details">
           <div className="label">Name</div>
-          <div className="value">Kamil Rahuman M</div>
+          <div className="value">Smith</div>
           
           <div className="label">Subject Handling</div>
           <div className="value">Cyber Security</div>
@@ -76,7 +76,7 @@ const TeacherProfile = () => {
           <div className="value">Tamil, English</div>
           
           <div className="label">Standard Handling</div>
-          <div className="value">For All</div>
+          <div className="value">X - XII</div>
           
           <div className="label">Years of Experience</div>
           <div className="value">5</div>

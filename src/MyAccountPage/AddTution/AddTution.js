@@ -3,8 +3,10 @@
 import React, { useState } from 'react';
 import SelectedSubject from './Subjects';
 import './AddTution.css'; // Import the CSS file for styling
+import { useNavigate } from 'react-router-dom';
 
 const AddTution = () => {
+  const navigate =  useNavigate()
   const [TutionDetails, setDetails] = useState({
     Subjects: [],
     startTime: '',
@@ -62,6 +64,7 @@ const AddTution = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(TutionDetails);
+    navigate('/myaccount/mytutions')
   };
 
   return (

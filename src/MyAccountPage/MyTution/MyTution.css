@@ -1,7 +1,6 @@
 .my-tutions{
-    width: 500px;
-    height: 500px;
-    background: yellow;
+    width: 700px;
+    height: calc(100vh - var(--header-height) - 50px);
     overflow-y: overlay;
 }
 .my-tution-container{
@@ -9,4 +8,38 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+.green-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding around text */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline */
+    display: inline-block; /* Allow margin/padding */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.green-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+.del-bck{
+    background: red;
+    color: white;
+}
+.ed-bck{
+    background: blue;
+    color: white;
+}
+.sv-bck{
+    background: green;
+    color: white;
+}
+.add-tut-bck{
+    background: green;
+    color: white;
 }

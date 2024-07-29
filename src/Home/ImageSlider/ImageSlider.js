@@ -1,24 +1,29 @@
 import React from 'react';
 import './ImageSlider.css';
+import sliderImg1 from '../../assets/slider-img1.webp';
+import sliderImg2 from '../../assets/slider-img2.jpg';
+import sliderImg3 from '../../assets/slider-img3.jpg';
+import sliderImg4 from '../../assets/slider-img4.avif';
+
 
 const ImageSlider = () => {
   return (
     <div className='slider-container'>
       <div className='img-wrapper'>
         <img
-          src="https://www.brunel.ac.uk/news-and-events/news/images/tuition-920.jpg?q=70&f=webp"
+          src={sliderImg1}
           alt="Student at university"
         />
         <img
-          src='https://res.cloudinary.com/highereducation/images/f_auto,q_auto/v1659634197/BestColleges.com/BC_What-Is-Student-Teaching_247733fd61/BC_What-Is-Student-Teaching_247733fd61.jpg'
+          src={sliderImg2}
           alt="Student teaching"
         />
         <img
-          src='https://images.pexels.com/photos/5212345/pexels-photo-5212345.jpeg?cs=srgb&dl=pexels-max-fischer-5212345.jpg&fm=jpg'
+          src={sliderImg3}
           alt="Classroom with students"
         />
         <img
-          src='https://www.totaljobs.com/advice/wp-content/uploads/Teacher-job-description-1-1024x576.jpg'
+          src={sliderImg4}
           alt="Teacher in classroom"
         />
       </div>

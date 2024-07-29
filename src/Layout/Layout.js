@@ -55,11 +55,11 @@ const Layout = (props) => {
           </div>
              <div className={`${logged ? `nav-btm-flx`:``}`}>
               <div className='nav-links-bottom'>
-                 <div className='itms-cntr style-links'>
+                 <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
                     <SearchIcon/>
                      <p>Search</p>
                  </div>
-                 <div className='itms-cntr style-links'>
+                 <div className='itms-cntr style-links' onClick={()=>navigate('/')}>
                     <HomeIcon/>
                     <p>Home</p>
                   </div>

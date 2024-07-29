@@ -8,13 +8,14 @@ const AccountLayout = () => {
   return (
     <div>
         <div className='account-layout'>
-            <div className='layout-icons' onClick={()=>navigate('/')}>
-                <HomeIcon fontSize='medium'/>
-                <p className='icon-para'>Home</p>
-            </div>
-            <div className='layout-icons'>
-                <SettingsIcon/>
-                <p className='icon-para'>Settings</p>
+
+            <div className='itms-cntr style-links' onClick={()=>navigate('/')}>
+                    <HomeIcon/>
+                    <p>Home</p>
+              </div>
+             <div className='itms-cntr style-links' onClick={()=>navigate('/')}>
+                    <SettingsIcon/>
+                    <p>Settings</p>
             </div>
         </div>
     </div>

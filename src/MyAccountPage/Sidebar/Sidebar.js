@@ -11,7 +11,7 @@ const Sidebar = () => {
     <div className='sidebar-tot-wrap'>
         <div className='sidebar-content-wrap'>
         <div className='sidebar-img-div'>
-            <img src='https://www.shutterstock.com/image-photo/profile-picture-smiling-successful-young-260nw-2040223583.jpg' className='sidebar-img'></img>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTj8o-yBumI9pzBAgBD4G6Wnvi5rP2F9AtZUg&s" className='sidebar-img'></img>
         </div>
         <div className='sidebar-items'>
                <div onClick={()=>navigate('/myaccount/myprofile')}>

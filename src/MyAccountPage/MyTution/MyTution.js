@@ -3,6 +3,9 @@ import './MyTution.css';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import SaveIcon from '@mui/icons-material/Save';
+
 const MyTution = () => {
     const navigate = useNavigate()
   const [tutions, setTutions] = useState([
@@ -52,21 +55,21 @@ const MyTution = () => {
             <div className='tution-options'>
               {editIndex === index ? (
                 <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
-                  <div className='layout-icons'>
-                    <EditIcon />
+                  <div className='itms-cntr style-links sv-bck'>
+                    <SaveIcon />
                     <p>Save</p>
                   </div>
                 </button>
               ) : (
                 <button className='edit-prof-btn spz' onClick={() => handleEditClick(index)}>
-                  <div className='layout-icons'>
+                  <div className='itms-cntr style-links ed-bck'>
                     <EditIcon />
                     <p>Edit</p>
                   </div>
                 </button>
               )}
               <button className='edit-prof-btn spz' onClick={() => handleDeleteClick(index)}>
-                <div className='layout-icons'>
+                <div className='itms-cntr style-links del-bck'>
                   <DeleteIcon />
                   <p>Delete</p>
                 </div>
@@ -76,7 +79,12 @@ const MyTution = () => {
         ))}
       </div>
       <div>
-        <button onClick={()=>navigate('/myaccount/addtution')}>Add Tution</button>
+      <button className='edit-prof-btn spz' onClick={()=>navigate('/myaccount/addtution')}>
+                <div className='itms-cntr style-links add-tut-bck'>
+                  <AddIcon />
+                  <p>Add Tution</p>
+                </div>
+      </button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 .register-out-wrap{
     display: flex;
     height: calc(100vh - var(--header-height));
-    background-image: url('/home/subram/Desktop/React_practice/react_practice/public/assets/teaching.jpg');
+    background-image: url('/home/subram/Desktop/React_practice/react_practice/src/assets/teaching.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;

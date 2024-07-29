@@ -27,7 +27,7 @@
     border-radius: 50%;
     margin: 0 auto;
     margin-bottom: 20px;
-    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF7ZeiBqb0LXy2n7ERZ0B1oFgqvZnD-w_8OA&s'); /* Replace with actual profile picture URL */
+    background-image: url('https://www.shutterstock.com/image-photo/young-asian-teacher-man-teaching-260nw-1928551622.jpg'); /* Replace with actual profile picture URL */
     background-size: cover;
     border: 4px solid #0abb77;
 }
@@ -54,6 +54,7 @@
 .about-section {
     text-align: center;
     margin-top: 10px; /* Space above the section */
+    margin-bottom: 10px;
     padding: 20px; /* Padding inside the section */
     /* background-color: #ffffff; Set background color to white */
     background: rgba(77, 40, 40, 0.1);
