@@ -1,5 +1,28 @@
 export const initialState = {
-    logged:false
+    logged:false,
+    asTeacher:{
+       _id:'',
+       profilepic:'',
+       name:'',
+       about:'',
+       mobileno:'',
+       numOfReviews:0,
+       numOfTutions:0,
+       qualification:'',
+       subjects:[],
+       year_of_exp:0,
+       district:'',
+       state:'',
+       averageRating:0,
+       email:''
+    },
+    asStudent:{
+       img:'',
+       name:'',
+       likedReviews:[],
+       dislikedReviews:[],
+       favouriteTutions:[]
+    }
   };
   
   const reducer = (state, action) => {
@@ -9,6 +32,11 @@ export const initialState = {
         return {
           ...state,
           logged: action.logged,
+        };
+        case "SET_TEACHER":
+        return {
+          ...state,
+          asTeacher:action.payload,
         };
   
       default:

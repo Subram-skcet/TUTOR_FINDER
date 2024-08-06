@@ -1,127 +1,158 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './MyProfile.css';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is correctly imported
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import EditIcon from '@mui/icons-material/Edit';
-import SidebarItem from '../Sidebar/Sidebar-items/SidebarItem';
 import SaveIcon from '@mui/icons-material/Save';
-
-
-
-const backgroundImage = 'https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg?ga=GA1.1.711888986.1720101620&semt=ais_user'; // Example background image URL
-
-
+import { useDataLayerValue } from '../../StateProviders/StateProvider';
+import axios from 'axios';
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [{ asTeacher }, dispatch] = useDataLayerValue();
   const [profile, setProfile] = useState({
-    name: 'Smith',
-    subjectHandling: 'Cyber Security',
-    board: 'CBSE, TNSB, KRSB, etc.',
-    teachingLanguage: 'Tamil, English',
-    standardHandling: 'For All',
-    experience: '5',
-    about: 'Security Researcher | Bug Bounty Hunter | THM Top 2% |🏅Secured Microsoft, NASA, United Nations, U.S Department of Homeland Security, Indian Government +21 More Companies🌟'
+    profilepic: asTeacher.profilepic || 'https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png',
+    name: asTeacher.name || '',
+    about: asTeacher.about || '',
+    mobileno: asTeacher.mobileno || '',
+    numOfReviews: asTeacher.numOfReviews || 0,
+    numOfTutions: asTeacher.numOfTutions || 0,
+    qualification: asTeacher.qualification || '',
+    subjects: asTeacher.subjects.join(', ') || 'Not specified',
+    year_of_exp: asTeacher.year_of_exp || 0,
+    district: asTeacher.district || '',
+    state: asTeacher.state || '',
+    averageRating: 4,
+    email: asTeacher.email || ''
   });
+  const [selectedImage, setSelectedImage] = useState({
+    url: profile.profilepic,
+    file: null
+  });
+  const fileInputRef = useRef(null);
+
+  const backgroundStyle = {
+    backgroundImage: `url(${selectedImage.url})`,
+    backgroundSize: 'cover',
+    border: '4px solid #0abb77',
+    position: 'relative'
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      [name]: value,
-    }));
+    setProfile(prevProfile => ({ ...prevProfile, [name]: value }));
   };
 
-  const handleEditClick = () => {
-    setIsEditing(!isEditing);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage({
+        url: URL.createObjectURL(file),
+        file: file
+      });
+    }
   };
 
-  const handleSaveClick = () => {
-    // Add save logic here
+  const handleEditClick = () => setIsEditing(!isEditing);
+
+  const handleSaveClick = async () => {
+    let updatedProfilePic = profile.profilepic;
+
+    if (selectedImage.file) {
+      const formData = new FormData();
+      formData.append('image', selectedImage.file);
+      try {
+        const response = await axios.post('http://localhost:3001/api/v1/student/upload?for=teacher', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        updatedProfilePic = response.data.image;
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    const subjectsArray = Array.isArray(profile.subjects) ? profile.subjects : profile.subjects.split(',').map(subject => subject.trim());
+
+    try {
+      const response = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { ...profile, profilepic: updatedProfilePic });
+      const updatedProfile = response.data.teacher;
+      setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
+      dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+    } catch (error) {
+      console.log(error.message);
+    }
+
     setIsEditing(false);
   };
 
+  const handleIconClick = () => fileInputRef.current.click();
+
   return (
-    <div className="profile-page" style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className="profile-page">
       <div className="profile-container">
         <div className="profile-header">
-          <div className="profile-picture">
-            
-            {/* Add profile picture here */}
+          <div className="account-picture" style={backgroundStyle}>
+            <div className={`profile-img-edit ${!isEditing ? 'invis' : ''}`} onClick={handleIconClick}>
+              <EditIcon fontSize='large' />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                style={{ display: 'none' }}
+                onChange={handleFileChange}
+              />
+            </div>
           </div>
           <h1>{profile.name}</h1>
         </div>
         <div className="profile-details">
-          <div className="label">Name</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="name"
-              value={profile.name}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.name}</div>
-          )}
-
-          <div className="label">Subject Handling</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="subjectHandling"
-              value={profile.subjectHandling}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.subjectHandling}</div>
-          )}
-
-          <div className="label">Board</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="board"
-              value={profile.board}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.board}</div>
-          )}
-
-          <div className="label">Teaching Language</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="teachingLanguage"
-              value={profile.teachingLanguage}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.teachingLanguage}</div>
-          )}
-
-          <div className="label">Standard Handling</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="standardHandling"
-              value={profile.standardHandling}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.standardHandling}</div>
-          )}
-
-          <div className="label">Years of Experience</div>
-          {isEditing ? (
-            <input
-              className="value"
-              name="experience"
-              value={profile.experience}
-              onChange={handleChange}
-            />
-          ) : (
-            <div className="value">{profile.experience}</div>
-          )}
+          {Object.entries({
+            Name: 'name',
+            'Mobile Number': 'mobileno',
+            Qualification: 'qualification',
+            'Subjects': 'subjects',
+            'Years of Experience': 'year_of_exp',
+            District: 'district',
+            State: 'state',
+            Email: 'email'
+          }).map(([label, key]) => (
+            <React.Fragment key={key}>
+              <div className="label">{label}</div>
+              {isEditing ? (
+                <input
+                  className="value"
+                  name={key}
+                  value={profile[key]}
+                  onChange={handleChange}
+                />
+              ) : (
+                <div className="value">{profile[key]}</div>
+              )}
+            </React.Fragment>
+          ))}
+          {Object.entries({
+            'Number of Tuitions': 'numOfTutions',
+            'Average Rating': 'averageRating',
+          }).map(([label, key]) => (
+            <React.Fragment key={key}>
+              <div className="label">{label}</div>
+              <div className="value">
+                {label === 'Average Rating' ? (
+                  <div className="rating">
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <span
+                        key={index}
+                        className={`star ${index < profile.averageRating ? 'filled' : 'notfilled'}`}
+                      >
+                        &#9733;
+                      </span>
+                    ))} ({profile.numOfReviews})
+                  </div>
+                ) : (
+                  <>{profile[key]}</>
+                )}
+              </div>
+            </React.Fragment>
+          ))}
         </div>
         <div className="about-section">
           <p className="about-heading">About</p>
@@ -137,8 +168,8 @@ const MyProfile = () => {
           )}
         </div>
         <button className="edit-prof-btn spz" onClick={isEditing ? handleSaveClick : handleEditClick}>
-        <div className={`itms-cntr style-links ${isEditing? 'edit-styl':'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
-          {isEditing?<SaveIcon/>: <EditIcon />}
+          <div className={`itms-cntr style-links ${isEditing ? 'edit-styl' : 'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
+            {isEditing ? <SaveIcon /> : <EditIcon />}
             <p className='icon-para'>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
           </div>
         </button>

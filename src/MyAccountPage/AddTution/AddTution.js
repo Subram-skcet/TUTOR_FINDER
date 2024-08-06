@@ -4,9 +4,13 @@ import React, { useState } from 'react';
 import SelectedSubject from './Subjects';
 import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
+import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Import the StateProvider hook
+import axios from 'axios';
 
 const AddTution = () => {
-  const navigate =  useNavigate()
+  const navigate = useNavigate();
+  const [{ asTeacher }] = useDataLayerValue(); // Get createdBy id from StateProvider
+
   const [TutionDetails, setDetails] = useState({
     Subjects: [],
     startTime: '',
@@ -61,15 +65,31 @@ const AddTution = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(TutionDetails);
-    navigate('/myaccount/mytutions')
+    try {
+      const formattedSubjects = TutionDetails.Subjects.map(subject => subject.toLowerCase());
+      const formattedBoards = TutionDetails.Boards.map(board => board.toLowerCase());
+  
+      const response = await axios.post('http://localhost:3001/api/v1/tution/', {
+        createdBy: asTeacher._id,
+        subjects: formattedSubjects,
+        duration: [TutionDetails.startTime, TutionDetails.endTime],
+        days: [TutionDetails.startDay, TutionDetails.endDay],
+        standard: [TutionDetails.startStd, TutionDetails.endStd],
+        fees: TutionDetails.Fees,
+        boards: formattedBoards,
+      });
+      console.log(response.data);
+      navigate('/myaccount/mytutions');
+    } catch (error) {
+      console.error('Error posting tuition details:', error);
+    }
   };
 
   return (
     <div className="form-container">
-       <h1>Add Tution</h1>
+      <h1>Add Tution</h1>
       <form className="add-tution-form">
         <div className="form-group">
           <label>Select Subject</label>
