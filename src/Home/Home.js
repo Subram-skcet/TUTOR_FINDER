@@ -2,6 +2,8 @@ import './Home.css'
 import Search from '../Search/Search'
 import { useState } from 'react';
 import ImageSlider from './ImageSlider/ImageSlider';
+
+
 const Home = (props) => {
   const [srch,setSrch] = useState(false)
   return (
@@ -12,7 +14,7 @@ const Home = (props) => {
           {srch?
           <>
               <h1 className='search-h1'>Filter</h1>
-          <Search/> 
+          <Search /> 
           </>
           :
           <>

@@ -9,6 +9,7 @@
 .acc-layout{
     width: 100%;
     position: fixed;
+    z-index: 1;
 }
 .wst{
     height: 70px;

@@ -1,0 +1,67 @@
+.review-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .profilePic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 12px;
+  }
+  
+  .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .rating {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
+  }
+  
+  .star {
+    color: #ffc107;
+    margin-right: 4px;
+  }
+  
+  .review {
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+  
+  .likeSection,
+  .dislikeSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .icon {
+    margin-right: 4px;
+    font-size: 18px;
+  }
+
+  .like{
+    color: #FFD700;
+  }
+  .dislike{
+    color: red;
+  }
+  
