@@ -63,6 +63,8 @@ const Search = ({ onSearch }) => {
   const districts = stateDistricts[searchDetails.state] || [];
   return (
     <div className='search-container'>
+      <div className='search-space'>
+
       <div className="search-bar">
         <div>
           <label>Search By Name:</label>
@@ -122,7 +124,8 @@ const Search = ({ onSearch }) => {
           </select>
         </div>
       </div>
-      <button onClick={handleSubmit} className="serachpg-search-btn">Search</button>
+      </div>
+      <button onClick={handleSubmit} className="searchpg-search-btn">Search</button>
     </div>
   );
 };

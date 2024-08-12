@@ -10,8 +10,8 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .acc-img{
-    width: 100px;
-    height: 100px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     border: 5px solid green;
     display: block;
@@ -22,8 +22,8 @@
     margin-top: 0.5rem;
     text-align: center;
 }
-.acc-wrap:hover{
+/* .acc-wrap:hover{
     background-color: rgba(121, 103, 103, 0.5);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     transform: scale(1.02);
-}
+} */

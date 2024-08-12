@@ -1,5 +1,8 @@
+import { act } from "react";
+
 export const initialState = {
     logged:false,
+    logged_as:null,
     asTeacher:{
        _id:'',
        profilepic:'',
@@ -17,27 +20,41 @@ export const initialState = {
        email:''
     },
     asStudent:{
+       _id:'',
+       profilepic:'',
        img:'',
        name:'',
        likedReviews:[],
        dislikedReviews:[],
-       favouriteTutions:[]
+       favouriteTutions:[],
+       email:''
     }
   };
   
   const reducer = (state, action) => {
+    console.log(state,action);
     // Action -> type, [playload]
     switch (action.type) {
         case "LOG_USER":
         return {
           ...state,
-          logged: action.logged,
+          logged: action.payload,
+        };
+        case "LOGGED_USER":
+        return {
+          ...state,
+          logged_as: action.payload,
         };
         case "SET_TEACHER":
         return {
           ...state,
           asTeacher:action.payload,
         };
+        case "SET_STUDENT":
+          return {
+            ...state,
+            asStudent:action.payload
+          };
   
       default:
         return state;

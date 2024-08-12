@@ -1,10 +1,9 @@
 .search-container {
-    max-width: 700px;
+    width: 550px;
     /* margin: 50px auto; */
     padding: 20px;
-    background-color: pink;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
   
   .search-h1 {
@@ -14,6 +13,9 @@
   
   .search-bar {
     display: flex;
+    width: 100%;
+    row-gap: 2rem;
+    column-gap: 3rem;
     flex-wrap: wrap;
     justify-content: space-between;
   }
@@ -32,14 +34,14 @@
   }
   
   input, select {
-    width: 70%;
+    width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 10px;
     font-size: 16px;
   }
   
-  button.serachpg-search-btn {
+  button.searchpg-search-btn {
     display: block;
     margin-inline: auto ;
     width: 100px;
@@ -52,6 +54,7 @@
     cursor: pointer;
   }
   
-  button.serachpg-search-btn:hover {
+  button.searchpg-search-btn:hover {
     background-color: #0056b3;
   }
+

@@ -58,8 +58,11 @@
     font-size: 18px;
   }
 
-  .like{
+  .rated{
     color: #FFD700;
+  }
+  .like{
+    color: green;
   }
   .dislike{
     color: red;

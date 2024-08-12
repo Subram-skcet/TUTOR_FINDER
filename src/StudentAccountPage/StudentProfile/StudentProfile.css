@@ -1,0 +1,41 @@
+/* General styling for the student profile container */
+.student-profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f2f5; /* Light background color */
+  padding: 20px;
+}
+
+/* Header styling to center content and add space */
+.student-profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Profile picture styling */
+.student-profile-picture img {
+  border-radius: 50%;
+  width: 120px; /* Adjust size as needed */
+  height: 120px; /* Adjust size as needed */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border: 3px solid #ccc; /* Optional border around the profile picture */
+}
+
+/* Styling for the profile info section */
+.student-profile-info h1 {
+  margin-top: 10px;
+  font-size: 24px; /* Adjust size as needed */
+  color: #333; /* Dark text color for better readability */
+}
+
+/* Footer styling to add some extra text or message */
+.student-profile-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #888; /* Lighter color for less emphasis */
+}

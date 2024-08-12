@@ -10,10 +10,10 @@ const MyProfileRoute = () => {
   return (
     <App>
         <Routes>
-            <Route index path="/myaccount/myprofile" element={<MyProfile/>}/>
-            <Route path="/myaccount/mytutions" element={<MyTution/>}/>
-            <Route path="/myaccount/addtution" element={<AddTution/>}/>
-            <Route path="/myaccount/myreview" element={<MyReview/>}/>
+            <Route index path="myprofile" element={<MyProfile/>}/>
+            <Route path="mytutions" element={<MyTution/>}/>
+            <Route path="addtution" element={<AddTution/>}/>
+            <Route path="myreviews" element={<MyReview/>}/>
         </Routes>
     </App>
   )

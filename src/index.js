@@ -23,16 +23,18 @@ import MyReview from './MyAccountPage/MyReviews/MyReview';
 import MyTution from './MyAccountPage/MyTution/MyTution';
 import Home from './Home/Home';
 import ImageSlider from './Home/ImageSlider/ImageSlider';
+import LoginModal from './components/LoginModal/LoginModal'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <DataLayer initialState={initialState} reducer={reducer}>
-      <BrowserRouter>
-          <Route/>
-      </BrowserRouter>
+     <BrowserRouter>
+         <Route/>
+     </BrowserRouter>
     </DataLayer>
   </React.StrictMode>
+        // <LoginModal/>
         //  <Home/>
         // <ImageSlider/>
     //  <Layout/>

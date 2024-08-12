@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MyReview.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
+import ReviewCard from '../../components/ReviewCard/ReviewCard'
 
 const MyReview = () => {
   const [{ asTeacher }] = useDataLayerValue(); // Get teacher ID from state provider
@@ -25,24 +26,16 @@ const MyReview = () => {
       <h3 className="reviews-heading">Student Reviews</h3>
       <div className="reviews-section rev-sec">
         {reviews.map(review => (
-          <div className="review" key={review._id}>
-            <div className="review-picture">
-              {/* Add reviewer picture here */}
-            </div>
-            <div className="review-text">
-              <p>{review.review}</p>
-              <div className="rating">
-                <div className={`like ${review.activeRating === 'like' ? 'active' : ''}`}>
-                  <i className="fas fa-thumbs-up fa-3x"></i>
-                  <span className="count">{review.like.length}</span>
-                </div>
-                <div className={`dislike ${review.activeRating === 'dislike' ? 'active' : ''}`}>
-                  <i className="fas fa-thumbs-down fa-3x"></i>
-                  <span className="count">{review.dislike.length}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            <ReviewCard 
+            id={review._id} // Unique key for each review
+            name={review.createdBy.name} 
+            profilepic={review.createdBy.profilepic} 
+            rating={review.rating} 
+            review={review.review}
+            like={review.like} 
+            dislike={review.dislike}
+            isClickable={false}
+            />
         ))}
       </div>
     </div>

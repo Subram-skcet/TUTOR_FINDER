@@ -7,6 +7,8 @@ import LoginPage from '../Login/LoginPage';
 import MyProfileRoute from '../MyAccountPage/MyProfileRoute';
 import App from '../App';
 import TeacherProfile from '../TeacherProfile/TeacherProfile';
+import StudentProfileRoutes from '../StudentAccountPage/Routes'
+
 
 const Router = () => {
   const routes = useRoutes([
@@ -31,7 +33,11 @@ const Router = () => {
       element: <LayoutWrapper><TeacherProfile/></LayoutWrapper>,
     },
     {
-      path: '*',
+      path:'/myaccount/studentprofile/*',
+      element:<StudentProfileRoutes/>,
+    },
+    {
+      path: '/myaccount/teacherprofile/*',
       element: <MyProfileRoute />,
     },
   ]);

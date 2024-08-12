@@ -1,14 +1,23 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './TeacherProfile.css';
 import axios from 'axios';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is correctly imported
 import ReviewCard from '../components/ReviewCard/ReviewCard';
+import Rating from '../components/Rating/Rating'
+import { useDataLayerValue } from '../StateProviders/StateProvider';
+import Modal from '../components/Modal/Modal';
+import LoginModal from '../components/LoginModal/LoginModal';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
   const [newReviewText, setNewReviewText] = useState('');
   const location = useLocation();
+  const [showRating,setShowRating] = useState(false)
+  const textareaRef = useRef(null)
+  const [{asStudent,logged,logged_as},dispatch] =  useDataLayerValue()
+  const [isLoginModalOpen,setLoginModelOpen] = useState(false)
+
   let props = location.state.profileDetails;
   // console.log(props);
 
@@ -17,70 +26,97 @@ const TeacherProfile = () => {
     backgroundSize: 'cover',
     border: '4px solid #0abb77',
   };
-   
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const response = await axios.get(`http://localhost:3001/api/v1/review/${props._id}`,{
-          params:{
-            mode:"teacher"
-          }
-        });
-        console.log(response);
-        setReviews(response.data.reviews)
-        // Handle response and set reviews if needed
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-      }
-    };
 
+  const fetchReviews = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/v1/review/${props._id}`,{
+        params:{
+          mode:"teacher"
+        }
+      });
+      console.log(response);
+      setReviews(response.data.reviews)
+      // Handle response and set reviews if needed
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    }
+  };
+  
+  useEffect(() => {
     fetchReviews();
+    
   }, []);
 
 
   // Example: props.reviewData could be used to prepopulate reviews if needed
 
-  const handleRatingClick = (reviewId, rating) => {
-    setReviews(reviews.map(review => {
-      if (review.id === reviewId) {
-        let newLikeCount = review.likeCount;
-        let newDislikeCount = review.dislikeCount;
+  const ReviewExists = () =>{
+     reviews.filter()
+  }
 
-        if (rating === 'like') {
-          newLikeCount += 1;
-        } else if (rating === 'dislike') {
-          newDislikeCount += 1;
-        }
+  const childRef = useRef();
 
-        return {
-          ...review,
-          likeCount: newLikeCount,
-          dislikeCount: newDislikeCount,
-          activeRating: review.activeRating === rating ? null : rating
-        };
-      }
-      return review;
-    }));
-  };
-
-  const handleSubmitReview = () => {
-    if (newReviewText.trim()) {
-      const newReview = {
-        id: reviews.length + 1,
-        text: newReviewText,
-        likeCount: 0,
-        dislikeCount: 0,
-        activeRating: null
-      };
-      setReviews([...reviews, newReview]);
-      setNewReviewText('');
+  const handleSubmitReview = async() => {
+    if(!logged || !logged_as==='student'){
+       return setLoginModelOpen(true)  
     }
+    if(ReviewExists){
+      return alert('Review alredy exists!!')
+    }
+    let rating;
+    if(childRef.current){
+      rating = childRef.current.returnRating()
+    }
+    let req_body = {
+          createdBy:asStudent._id,
+          review:newReviewText,
+          createdFor:props._id,
+          rating:rating
+    }
+    console.log(req_body);
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/review/',req_body)
+      console.log(response);
+      alert('Review posted successfully')
+      await fetchReviews();
+    } catch (error) {
+      console.log(error.message);
+    }
+
   };
+    
+   const handleFocus =()=>{
+      setShowRating(true);
+   }
+
+   const handleBlur =()=>{
+      setShowRating(false);
+      if(childRef.current){
+        childRef.current.callRatingInitializer()
+      }
+   }
+
+   //handle clicking Like
+   const handleLikeReview = async(reviewid ,option) =>{
+       const req_body = {
+         reviewid,
+         option
+       }
+       try {
+         const response = await axios.post(`http://localhost:3001/api/v1/student/likereviews/${asStudent._id}`,req_body)
+         console.log(response);
+       } catch (error) {
+        
+       }
+   }
 
   return (
     <>
      <div className='top-wst'></div>
     <div className="profile-page" style={{ backgroundImage: `url(${props.backgroundImage || 'https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg?ga=GA1.1.711888986.1720101620&semt=ais_user'})` }}>
+      <Modal isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
+        <LoginModal/>
+      </Modal>
       <div className="profile-container">
         <div className="profile-header">
           <div className="profile-picture" style={backgroundStyle}>
@@ -129,30 +165,56 @@ const TeacherProfile = () => {
         </div>
         <hr className='hr-tag'></hr>
         <div className="reviews-container">
-          <h3 className="reviews-heading">Student Reviews ({props.numOfReviews})</h3>
+          <h3 className="reviews-heading">Student Reviews ({reviews.length})</h3>
           <div className="reviews-section">
-            {reviews.map(review => (
+            {reviews.length === 0 ? (
+              <p className='no-review-text'>No reviews for this teacher..</p>
+            )
+            :(
+              reviews.map(review => (
                 <ReviewCard 
-                key={review._id} // Unique key for each review
+                id={review._id} // Unique key for each review
                 name={review.createdBy.name} 
                 profilepic={review.createdBy.profilepic} 
                 rating={review.rating} 
                 review={review.review}
                 like={review.like} 
-                dislike={review.dislike} 
-              />
-            ))}
-          </div>
-          <div className="write-review">
-            <textarea 
-              value={newReviewText}
-              onChange={(e) => setNewReviewText(e.target.value)}
-              placeholder="Write review..."
-              className='profile-page-textarea'
-              ></textarea>
-            <button className="submit-button" onClick={handleSubmitReview}>Submit</button>
+                dislike={review.dislike}
+                isClickable={true}
+                handleLike = {handleLikeReview} 
+                />
+              ))
+            )
+          }
           </div>
         </div>
+        <hr className='hr-tag'></hr>
+          <div className="write-review">
+            <p>Already studied in his tution? Leave a review to help others student 
+            </p>
+              <div onClick={handleFocus} className='rating-div'>
+                <Rating ref={childRef}/>
+              </div>
+            { showRating && 
+              <div className='user-review-space'>
+                <div className='review-textarea'>
+                  <textarea 
+                    value={newReviewText}
+                    ref={textareaRef}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    onChange={(e) => setNewReviewText(e.target.value)}
+                    placeholder="Write review..."
+                    className='profile-page-textarea'
+                    ></textarea>
+                  </div>
+                  <div className='review-box-btns'>
+                      <button className="submit-button" onClick={handleSubmitReview}>Submit</button>
+                      <button className='cancel' onClick={handleBlur}>Cancel</button>
+                  </div>
+                </div>
+            }
+          </div>
       </div>
     </div>
   </>

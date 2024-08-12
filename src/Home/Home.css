@@ -1,87 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-body {
-  font-family: 'PT Serif', serif;
-}
-
-.pt-serif-regular {
-  font-family: 'PT Serif', serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.pt-serif-bold {
-  font-family: 'PT Serif', serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.pt-serif-regular-italic {
-  font-family: 'PT Serif', serif;
-  font-weight: 400;
-  font-style: italic;
-}
-
-.pt-serif-bold-italic {
-  font-family: 'PT Serif', serif;
-  font-weight: 700;
-  font-style: italic;
-}
-
-
 .home-wrap{
     display: flex;
-    height: 500px;
+    height:calc(100vh - var(--header-height));
     align-items: center;
+    justify-content: space-around;
 }
 .home-h1{
-    color: #fff; /* Text color */
-    font-size: 4rem; /* Adjust size as needed */
-    font-weight: bold; /* Optional: for a bolder effect */
-    background: linear-gradient(90deg, #ff7e5f, #feb47b); /* Gradient colors */
-    -webkit-background-clip: text; /* Clip the background to the text */
-    -webkit-text-fill-color: transparent; /* Make the text color transparent */
-    background-clip: text; /* Standard property for background clipping */
-    /* text-shadow: 1px 1px 0px black; */
+    color:#291720;
     font-size:60px;
     margin-left: 1rem;
 }
 .home-content{
     /* margin-left: 10px; */
     text-shadow:outset 1px 1px 10px black;
-    flex: 0.55;
+    /* flex: 0.55; */
 }
 .home-img-div{
-    flex: 0.45;
+    /* flex: 0.45; */
 }
 .home-img{
    width: 100%;
    height: 100%;
 }
 .home-srch-btn{
+  color: white;
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2rem;
     width: 150px;
     height: 50px;
-    border-radius: 20px;
-}
-.home-srch-btn{
-    border-radius: 20px;
-    background-color: aqua;
     font-size: 20px;
-    outline: none;
+    background-color: #011638;
     border: none;
-}
-.about-para{
+    font-weight: bolder;
+  }
+  .about-para{
     font-size: 30px;
 }
 .about-h1{
-    text-align: center;
+  text-align: center;
 }
 .home-srch-btn:hover{
-    box-shadow: 1px 1px 15px aqua;
-   
+  background-color: #022F78;
 }
 
