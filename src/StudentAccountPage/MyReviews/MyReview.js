@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import  ReviewCard from '../../components/ReviewCard/ReviewCard'
 import axios from 'axios'
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
+import './MyReview.css'
+
 
 const MyReview = () => {
   const [reviews,setReviews] = useState([])
@@ -35,10 +37,13 @@ const MyReview = () => {
      fetchMyReviews()
   },[])
   return (
-    <div>
-       <div className="reviews-section">
+    <div className='my-reviews-wrap'>
+      <div>
+         <h1>My Reviews:</h1>
+      </div>
+       <div className="reviews-section my-reviews">
             {reviews.length === 0 ? (
-              <p className='no-review-text'>No reviews for this teacher..</p>
+              <p className='no-review-text'>You haven't written any reviews</p>
             )
             :(
               reviews.map(review => (

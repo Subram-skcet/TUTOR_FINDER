@@ -23,20 +23,30 @@ const MyReview = () => {
 
   return (
     <div className="account-page-reviews-container">
-      <h3 className="reviews-heading">Student Reviews</h3>
+      <div>
+          <h1>Student Reviews</h1>
+      </div>
       <div className="reviews-section rev-sec">
-        {reviews.map(review => (
-            <ReviewCard 
-            id={review._id} // Unique key for each review
-            name={review.createdBy.name} 
-            profilepic={review.createdBy.profilepic} 
-            rating={review.rating} 
-            review={review.review}
-            like={review.like} 
-            dislike={review.dislike}
-            isClickable={false}
-            />
-        ))}
+          {
+      reviews.length > 0 ? 
+      reviews.map(review => (
+        <ReviewCard 
+          key={review._id} // Unique key for each review
+          id={review._id} 
+          name={review.createdBy.name} 
+          profilepic={review.createdBy.profilepic} 
+          rating={review.rating} 
+          review={review.review}
+          like={review.like} 
+          dislike={review.dislike}
+          isClickable={false}
+        />
+      )) :
+      <div>
+        <p>No students reviewed your tuitions.</p>
+      </div>
+    }
+
       </div>
     </div>
   );

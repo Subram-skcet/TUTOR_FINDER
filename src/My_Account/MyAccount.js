@@ -32,9 +32,6 @@ const MyAccount = () => {
         <div className='acc-wrap' onClick={handleProfileNavigate}>
             <div>
                 <img src={img} className='acc-img' alt='Profile' />
-                <div>
-                    <p className='acc-p'><strong>{name}</strong></p>
-                </div>
             </div>
         </div>
     );

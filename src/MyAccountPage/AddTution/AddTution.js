@@ -6,6 +6,7 @@ import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Import the StateProvider hook
 import axios from 'axios';
+import PostAddIcon from '@mui/icons-material/PostAdd';
 
 const AddTution = () => {
   const navigate = useNavigate();
@@ -209,13 +210,15 @@ const AddTution = () => {
             </div>
           </div>
         </div>
-
-        <div className="form-group">
-          <button className="submit-button" onClick={handleSubmit}>
-            Post
-          </button>
-        </div>
       </form>
+        <div className='add-tution-div'>
+          {/* <button className='post-tution-btn' onClick={handleSubmit}> */}
+            <div className='itms-cntr style-links-updated add-tut-bck' onClick={handleSubmit}>
+              <PostAddIcon/>
+              <p>Post Tution</p>
+            </div>
+          {/* </button> */}
+        </div>
     </div>
   );
 };

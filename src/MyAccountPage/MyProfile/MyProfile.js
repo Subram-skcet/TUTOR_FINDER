@@ -168,9 +168,9 @@ const MyProfile = () => {
           )}
         </div>
         <button className="edit-prof-btn spz" onClick={isEditing ? handleSaveClick : handleEditClick}>
-          <div className={`itms-cntr style-links ${isEditing ? 'edit-styl' : 'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
+          <div className={`itms-cntr style-links-updated ${isEditing ? 'edit-styl' : 'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
             {isEditing ? <SaveIcon /> : <EditIcon />}
-            <p className='icon-para'>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
+            <p>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
           </div>
         </button>
       </div>

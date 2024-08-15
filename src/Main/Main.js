@@ -3,6 +3,8 @@ import './Main.css';
 import Search from '../Search/Search';
 import { useNavigate,useLocation } from 'react-router-dom';
 import axios from 'axios';
+import TutionCard from '../components/TutionCard/TutionCard'
+
 
 const Main = () => {
   const location = useLocation();
@@ -10,6 +12,7 @@ const Main = () => {
   const navigate = useNavigate();
 
   const handleProfileNavigate = (idx) =>{
+    console.log(results[idx]);
      const profileDetails = results[idx].createdBy;
      navigate('/teacherProfile', {state:{profileDetails}})
   }
@@ -25,7 +28,10 @@ const Main = () => {
   };
 
   useEffect(() => {
-    setResults(location.state.resultset || [])
+    if(location.state && location.state.resultset)
+      setResults(location.state.resultset)
+    else
+      fetchData({});
   }, []);
 
   return (
@@ -37,28 +43,17 @@ const Main = () => {
           <Search onSearch={fetchData} />
         </div>
         <div className='results-prt'>
-          <h1>Your Search Results</h1>
+          <div>
+             <h1>Your Search Results</h1>
+          </div>
           <div className="search-results">
-            {results.map((result,index) => (
-              <div className="tutor-card" key={index} onClick={()=>handleProfileNavigate(index)}>
-                <div className="profile-pic">
-                  <img src={result.createdBy.profilepic} alt="Profile" />
-                </div>
-                <div className="card-details">
-                  <h2>{result.createdBy.name}</h2>
-                  <div className="rating">
-                    <span>⭐⭐⭐⭐⭐</span> <span className="reviews">({result.reviews || 0})</span>
-                  </div>
-                  <p><strong>Subjects:</strong> {result.subjects.join(', ')}</p>
-                  <p><strong>Time:</strong> {result.duration.join(' - ')}</p>
-                  <p><strong>Day:</strong> {result.days.join(' - ')}</p>
-                  <p><strong>Standard:</strong> {result.standard.join(' - ')}</p>
-                  <p><strong>Board:</strong> {result.boards.join(', ')}</p>
-                  <p><strong>Fees:</strong> ₹{result.fees}</p>
-                  <p><strong>Location:</strong> {result.createdBy.district} , {result.createdBy.state}</p>
-                </div>
-              </div>
-            ))}
+          {results.length === 0 ? (
+            <p>No Teachers available for the specified conditions..</p>
+             ) : (
+            results.map((result,index) => (
+                <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
+              ))
+             )}
           </div>
         </div>
       </div>

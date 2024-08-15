@@ -1,11 +1,14 @@
 import React,{ useEffect, useState } from 'react'
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
-
+import TutionCard from '../../components/TutionCard/TutionCard'
+import { useNavigate } from 'react-router-dom'
+import './Bookmark.css'
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
   const [{asStudent},dispatch] = useDataLayerValue()
+  const navigate = useNavigate()
 
   const fetchTutions = async()=>{
     let tutions=[];
@@ -13,41 +16,39 @@ const Bookmark = () => {
       for(let i=0;i<asStudent.favouriteTutions.length;i++){
         console.log('Executing');
          const response = await axios.get(`http://localhost:3001/api/v1/tution/gettutions/${asStudent.favouriteTutions[i]}`)
+         console.log(response);
          tutions.push(response.data.tution)
       }
       setfavouritetutions(tutions)
+      console.log(favouritetutions);
       
     } catch (error) {
          console.log(error.message);
     }
   }
+  const handleProfileNavigate = (idx) =>{
+    console.log(favouritetutions[idx]);
+     const profileDetails = favouritetutions[idx].createdBy;
+     navigate('/teacherProfile', {state:{profileDetails}})
+  }
+
   useEffect(()=>{
       fetchTutions();
   },[])
 
   return (
-    <div>
-      <div className="search-results">
-            {favouritetutions.map((result,index) => (
-              <div className="tutor-card" key={index}>
-                <div className="profile-pic">
-                  <img src={result.createdBy.profilepic} alt="Profile" />
-                </div>
-                <div className="card-details">
-                  <h2>{result.createdBy.name}</h2>
-                  <div className="rating">
-                    <span>⭐⭐⭐⭐⭐</span> <span className="reviews">({result.reviews || 0})</span>
-                  </div>
-                  <p><strong>Subjects:</strong> {result.subjects.join(', ')}</p>
-                  <p><strong>Time:</strong> {result.duration.join(' - ')}</p>
-                  <p><strong>Day:</strong> {result.days.join(' - ')}</p>
-                  <p><strong>Standard:</strong> {result.standard.join(' - ')}</p>
-                  <p><strong>Board:</strong> {result.boards.join(', ')}</p>
-                  <p><strong>Fees:</strong> ₹{result.fees}</p>
-                  <p><strong>Location:</strong> {result.createdBy.district} , {result.createdBy.state}</p>
-                </div>
-              </div>
-            ))}
+    <div className='bookmarks-wrap'>
+      <div>
+         <h1>Your favourite tutions</h1>
+      </div>
+      <div className="search-results fav-tutions">
+          {favouritetutions.length === 0 ? (
+            <p>You have no favourite tutions..</p>
+             ) : (
+            favouritetutions.map((result,index) => (
+                <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
+              ))
+             )}
           </div>
 
     </div>

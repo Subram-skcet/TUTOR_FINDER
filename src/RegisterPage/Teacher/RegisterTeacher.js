@@ -90,6 +90,11 @@ const RegisterTeacher = () => {
   const districts = stateDistricts[teacherDetails.state] || [];
 
   return (
+    <div className='teacher-signup-wrap'>
+      <div>
+        <h1>Create your Teacher account in EduQuest</h1>
+      </div>
+
     <div className='teacher-reg-wrap'>
       <form>
         <div className='space-div'>
@@ -101,7 +106,7 @@ const RegisterTeacher = () => {
             value={teacherDetails.name}
             onChange={handleChange}
             required
-          />
+            />
         </div>
         <div className='space-div'>
           <label htmlFor='email'>Email:</label>
@@ -134,7 +139,7 @@ const RegisterTeacher = () => {
             value={teacherDetails.mobileno}
             onChange={handleChange}
             required
-          />
+            />
         </div>
         <div className='space-div'>
           <label htmlFor='qualification'>Highest Qualification:</label>
@@ -212,7 +217,7 @@ const RegisterTeacher = () => {
             value={teacherDetails.district}
             onChange={handleChange}
             disabled={!teacherDetails.state}
-          >
+            >
             <option value=''>-- select one --</option>
             {districts.map((district) => (
               <option key={district} value={district}>
@@ -232,6 +237,7 @@ const RegisterTeacher = () => {
         </div>
       </form>
     </div>
+  </div>
   );
 };
 

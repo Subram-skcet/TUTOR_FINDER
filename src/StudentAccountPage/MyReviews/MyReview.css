@@ -1,19 +1,12 @@
-.bookmarks-wrap{
+.my-reviews-wrap{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 1rem;
     margin-left: 1rem;
-    background-color: #81b9f5;
-    height: 500px;
 }
 
-.fav-tutions{
-    width: 700px;
+.my-reviews{
     align-self: center;
-}
-
-.search-results{
-    margin-top: 1rem;
 }

@@ -13,7 +13,7 @@ const Home = (props) => {
         <div className="home-content">
           {srch?
           <>
-              <h1 className='search-h1'>Filter</h1>
+              <h1 className='search-h1'>Put your requirements</h1>
           <Search /> 
           </>
           :

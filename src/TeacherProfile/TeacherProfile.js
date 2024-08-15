@@ -56,9 +56,13 @@ const TeacherProfile = () => {
 
   const childRef = useRef();
 
+  const openLoginModel = () =>{
+      setLoginModelOpen(true)  
+  }
+
   const handleSubmitReview = async() => {
     if(!logged || !logged_as==='student'){
-       return setLoginModelOpen(true)  
+       return openLoginModel()
     }
     if(ReviewExists){
       return alert('Review alredy exists!!')
@@ -113,7 +117,7 @@ const TeacherProfile = () => {
   return (
     <>
      <div className='top-wst'></div>
-    <div className="profile-page" style={{ backgroundImage: `url(${props.backgroundImage || 'https://img.freepik.com/free-vector/circles-background-dark-tones_60389-166.jpg?ga=GA1.1.711888986.1720101620&semt=ais_user'})` }}>
+    <div className="profile-page">
       <Modal isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
         <LoginModal/>
       </Modal>
@@ -181,7 +185,8 @@ const TeacherProfile = () => {
                 like={review.like} 
                 dislike={review.dislike}
                 isClickable={true}
-                handleLike = {handleLikeReview} 
+                handleLike = {handleLikeReview}
+                loginpop = {openLoginModel} 
                 />
               ))
             )
@@ -209,8 +214,8 @@ const TeacherProfile = () => {
                     ></textarea>
                   </div>
                   <div className='review-box-btns'>
-                      <button className="submit-button" onClick={handleSubmitReview}>Submit</button>
-                      <button className='cancel' onClick={handleBlur}>Cancel</button>
+                      <button className="post-submit" onClick={handleSubmitReview}>Submit</button>
+                      <button className='post-cancel' onClick={handleBlur}>Cancel</button>
                   </div>
                 </div>
             }

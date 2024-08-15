@@ -1,6 +1,8 @@
 .search-container {
-    width: 550px;
-    /* margin: 50px auto; */
+    width: 600px;
+    margin-top: 1rem;
+    height: 450px;
+    background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -36,7 +38,7 @@
   input, select {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-radius: 10px;
     font-size: 16px;
   }
@@ -46,7 +48,7 @@
     margin-inline: auto ;
     width: 100px;
     padding: 15px;
-    background-color: #007bff;
+    background-color: #fa4d05;
     color: #fff;
     border: none;
     border-radius: 5px;

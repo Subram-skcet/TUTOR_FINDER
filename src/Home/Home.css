@@ -30,7 +30,8 @@
     width: 150px;
     height: 50px;
     font-size: 20px;
-    background-color: #011638;
+    background-color: #FC4B03;
+    border-radius: 10px;
     border: none;
     font-weight: bolder;
   }
@@ -41,6 +42,6 @@
   text-align: center;
 }
 .home-srch-btn:hover{
-  background-color: #022F78;
+  background-color:#de7321;
 }
 

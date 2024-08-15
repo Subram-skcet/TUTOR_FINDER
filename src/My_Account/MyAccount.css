@@ -10,10 +10,9 @@
     transition: transform 0.3s, box-shadow 0.3s;
 }
 .acc-img{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border: 5px solid green;
     display: block;
     margin-left: auto;
     margin-right: auto;

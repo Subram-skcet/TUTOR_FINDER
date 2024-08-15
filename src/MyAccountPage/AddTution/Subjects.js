@@ -2,12 +2,16 @@
 
 import React from 'react';
 import './SelectedSubject.css'; // Import the CSS file for styling
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const SelectedSubject = ({ Subject, delFunction }) => {
   return (
     <div className="selected-subject">
       <span>{Subject}</span>
-      <button onClick={() => delFunction(Subject)}>Remove</button>
+        <div onClick={() => delFunction(Subject)}>
+           <CloseIcon className='close-icon' fontSize='small'/>
+        </div>
     </div>
   );
 };

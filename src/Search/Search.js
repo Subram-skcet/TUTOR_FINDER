@@ -125,7 +125,7 @@ const Search = ({ onSearch }) => {
         </div>
       </div>
       </div>
-      <button onClick={handleSubmit} className="searchpg-search-btn">Search</button>
+      <button onClick={handleSubmit} className="home-srch-btn">Search</button>
     </div>
   );
 };

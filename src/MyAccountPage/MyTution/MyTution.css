@@ -1,6 +1,6 @@
 .my-tutions{
     width: 700px;
-    height: calc(100vh - var(--header-height) - 50px);
+    height: calc(100vh - var(--header-height) - 150px);
     overflow-y: overlay;
 }
 .my-tution-container{
@@ -8,6 +8,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    background-color: #81b9f5;
 }
 .green-button {
     background-color: #4CAF50; /* Green background */
@@ -42,4 +45,12 @@
 .add-tut-bck{
     background: green;
     color: white;
+    margin-bottom: 1rem;
+}
+
+.my-tutions{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
 }

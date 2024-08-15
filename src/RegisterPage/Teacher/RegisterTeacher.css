@@ -1,5 +1,5 @@
 .teacher-reg-wrap {
-    max-width: 600px;
+    width: 500px;
     margin: 0 auto;
     padding: 20px;
     border-radius: 8px;
@@ -61,6 +61,20 @@
   
   .submit-btn:hover {
     background-color: #0056b3;
-
   }
+
+  .teacher-signup-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+ .selected-items{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+   max-height: 100px;
+   overflow-y: overlay;
+ }
   

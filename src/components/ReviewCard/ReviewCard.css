@@ -4,6 +4,7 @@
     padding: 16px;
     width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     background-color: #81b9f5;
   }
   
   .header {
@@ -66,5 +67,12 @@
   }
   .dislike{
     color: red;
+  }
+
+  .icon-cntr{
+    gap: 0.2rem;
+    display: flex;
+    height: max-content;
+    align-items: center;
   }
   

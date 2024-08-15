@@ -107,21 +107,21 @@ const MyTution = () => {
               <div className='tution-options'>
                 {editIndex === index ? (
                   <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
-                    <div className='itms-cntr style-links sv-bck'>
+                    <div className='itms-cntr style-links-updated sv-bck'>
                       <SaveIcon />
                       <p>Save</p>
                     </div>
                   </button>
                 ) : (
                   <button className='edit-prof-btn spz' onClick={() => handleEditClick(index)}>
-                    <div className='itms-cntr style-links ed-bck'>
+                    <div className='itms-cntr style-links-updated ed-bck'>
                       <EditIcon />
                       <p>Edit</p>
                     </div>
                   </button>
                 )}
                 <button className='edit-prof-btn spz' onClick={() => handleDeleteClick(index)}>
-                  <div className='itms-cntr style-links del-bck'>
+                  <div className='itms-cntr style-links-updated del-bck'>
                     <DeleteIcon />
                     <p>Delete</p>
                   </div>
@@ -135,7 +135,7 @@ const MyTution = () => {
       </div>
       <div>
         <button className='edit-prof-btn spz' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
-          <div className='itms-cntr style-links add-tut-bck'>
+          <div className='itms-cntr style-links-updated add-tut-bck'>
             <AddIcon />
             <p>Add Tution</p>
           </div>
