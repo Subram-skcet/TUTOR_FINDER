@@ -5,6 +5,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios';
+import DisplayRating from '../../components/DisplayRating'
+
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -138,14 +140,8 @@ const MyProfile = () => {
               <div className="value">
                 {label === 'Average Rating' ? (
                   <div className="rating">
-                    {Array.from({ length: 5 }, (_, index) => (
-                      <span
-                        key={index}
-                        className={`star ${index < profile.averageRating ? 'filled' : 'notfilled'}`}
-                      >
-                        &#9733;
-                      </span>
-                    ))} ({profile.numOfReviews})
+                    <DisplayRating rating={profile.averageRating}/>
+                    <p>({profile.numOfReviews})</p>
                   </div>
                 ) : (
                   <>{profile[key]}</>

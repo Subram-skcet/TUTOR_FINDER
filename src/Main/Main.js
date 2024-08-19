@@ -48,7 +48,9 @@ const Main = () => {
           </div>
           <div className="search-results">
           {results.length === 0 ? (
-            <p>No Teachers available for the specified conditions..</p>
+            <div className='teachers-not-found-para'>
+              <p>No Teachers available for the specified conditions..</p>
+            </div>
              ) : (
             results.map((result,index) => (
                 <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            

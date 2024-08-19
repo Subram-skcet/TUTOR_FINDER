@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Search.css';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { stateDistricts } from '../components/stateExporter';
+import { stateDistricts,subjects } from '../components/stateExporter';
 import axios from 'axios';
 
 const Search = ({ onSearch }) => {
@@ -39,7 +39,7 @@ const Search = ({ onSearch }) => {
     e.preventDefault();
     const params = {};
     if (searchDetails.name) params.name = searchDetails.name;
-    if (searchDetails.subject) params.subject = searchDetails.subject;
+    if (searchDetails.subject) params.subjects = searchDetails.subject;
     if (searchDetails.boards) params.boards = searchDetails.boards;
     if (searchDetails.state) params.state = searchDetails.state;
     if (searchDetails.district) params.district = searchDetails.district;
@@ -72,7 +72,12 @@ const Search = ({ onSearch }) => {
         </div>
         <div>
           <label>Search By Subject:</label>
-          <input type="text" name="subject" value={searchDetails.subject} onChange={handleChange} />
+          <select name='subject' value={searchDetails.subject} onChange={handleChange}>
+             <option value=''>All subjects</option>
+             {subjects.map((subject)=>(
+                <option value={subject.value}>{subject.label}</option>
+             ))}
+          </select>
         </div>
         <div>
           <label>Search By Board:</label>

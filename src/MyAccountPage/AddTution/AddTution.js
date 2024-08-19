@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Import the StateProvider hook
 import axios from 'axios';
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import { subjects } from '../../components/stateExporter';
 
 const AddTution = () => {
   const navigate = useNavigate();
@@ -69,20 +70,20 @@ const AddTution = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formattedSubjects = TutionDetails.Subjects.map(subject => subject.toLowerCase());
-      const formattedBoards = TutionDetails.Boards.map(board => board.toLowerCase());
+      // const formattedSubjects = TutionDetails.Subjects.map(subject => subject.toLowerCase());
+      // const formattedBoards = TutionDetails.Boards.map(board => board.toLowerCase());
   
       const response = await axios.post('http://localhost:3001/api/v1/tution/', {
         createdBy: asTeacher._id,
-        subjects: formattedSubjects,
+        subjects: TutionDetails.Subjects,
         duration: [TutionDetails.startTime, TutionDetails.endTime],
         days: [TutionDetails.startDay, TutionDetails.endDay],
         standard: [TutionDetails.startStd, TutionDetails.endStd],
         fees: TutionDetails.Fees,
-        boards: formattedBoards,
+        boards: TutionDetails.Boards,
       });
       console.log(response.data);
-      navigate('/myaccount/mytutions');
+      navigate('/myaccount/teacherprofile/mytutions');
     } catch (error) {
       console.error('Error posting tuition details:', error);
     }
@@ -96,9 +97,9 @@ const AddTution = () => {
           <label>Select Subject</label>
           <select onChange={HandleSubjectSelect}>
             <option value="">Select a subject</option>
-            <option value="Subject 1">Subject 1</option>
-            <option value="Subject 2">Subject 2</option>
-            <option value="Subject 3">Subject 3</option>
+            {subjects.map((subject)=>(
+              <option value={subject.value}>{subject.label}</option>
+            ))}
           </select>
           <div className="selected-items">
             {TutionDetails.Subjects.map((subject) => (

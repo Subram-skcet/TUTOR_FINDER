@@ -10,7 +10,6 @@
     align-items: center;
     margin-top: 1rem;
     margin-left: 1rem;
-    background-color: #81b9f5;
 }
 .green-button {
     background-color: #4CAF50; /* Green background */
@@ -40,6 +39,10 @@
 }
 .sv-bck{
     background: green;
+    color: white;
+}
+.cncl-bck{
+    background:#808080;
     color: white;
 }
 .add-tut-bck{

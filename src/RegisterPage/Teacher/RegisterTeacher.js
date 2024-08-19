@@ -4,8 +4,7 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { useNavigate } from 'react-router-dom';
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
-import {stateDistricts} from '../../components/stateExporter'
-
+import { stateDistricts,subjects } from '../../components/stateExporter'
 
 const RegisterTeacher = () => {
   const navigate = useNavigate();
@@ -171,21 +170,9 @@ const RegisterTeacher = () => {
           <label>Select Subjects you teach</label>
           <select onChange={HandleSubjectSelect}>
             <option value="">Select a subject</option>
-            <option value="tamil">Tamil</option>
-            <option value="english">English</option>
-            <option value="maths">Maths</option>
-            <option value="physics">Physics</option>
-            <option value="biology">Biology</option>
-            <option value="botany">Botany</option>
-            <option value="spoken-english">Spoken English</option>
-            <option value="spoken-hindi">Spoken Hindi</option>
-            <option value="chemistry">Chemistry</option>
-            <option value="computer-science">Computer Science</option>
-            <option value="accountancy">Accountancy</option>
-            <option value="commerce">Commerce</option>
-            <option value="computer-application">Computer Application</option>
-            <option value="evs">EVS</option>
-            <option value="economics">Economics</option>
+            {subjects.map((subject)=>
+            <option value={subject.value}>{subject.label}</option>
+            )}
           </select>
           <div className="selected-items">
             {teacherDetails.subjects.map((subject) => (

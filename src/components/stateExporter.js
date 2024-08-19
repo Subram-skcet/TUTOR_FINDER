@@ -36,3 +36,48 @@ export const stateDistricts = {
    "Lakshadweep" : ["Lakshadweep"],
    "Puducherry" : ["Karaikal","Mahe","Puducherry","Yanam"]
   };
+
+  export const subjects = [
+    { value: "Tamil", label: "Tamil" },
+    { value: "English", label: "English" },
+    { value: "Maths", label: "Maths" },
+    { value: "Physics", label: "Physics" },
+    { value: "Biology", label: "Biology" },
+    { value: "Botany", label: "Botany" },
+    { value: "Spoken English", label: "Spoken English" },
+    { value: "Spoken Hindi", label: "Spoken Hindi" },
+    { value: "Chemistry", label: "Chemistry" },
+    { value: "Computer Science", label: "Computer Science" },
+    { value: "Accountancy", label: "Accountancy" },
+    { value: "Commerce", label: "Commerce" },
+    { value: "Computer Application", label: "Computer Application" },
+    { value: "EVS", label: "EVS" },
+    { value: "Economics", label: "Economics" }
+  ];
+
+
+export const standards = [
+    { value: "I" },
+    { value: "II" },
+    { value: "III" },
+    { value: "IV" },
+    { value: "V" },
+    { value: "VI" },
+    { value: "VII" },
+    { value: "VIII" },
+    { value: "IX" },
+    { value: "X" },
+    { value: "XI" },
+    { value: "XII" }
+];
+
+export const daysOfWeek = [
+  { value: "Sunday" },
+  { value: "Monday" },
+  { value: "Tuesday" },
+  { value: "Wednesday" },
+  { value: "Thursday" },
+  { value: "Friday" },
+  { value: "Saturday" }
+];
+

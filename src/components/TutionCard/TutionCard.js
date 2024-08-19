@@ -21,15 +21,33 @@ function TutionCard({tution,index,profilenavigate}) {
                     </div>
                     <div className='tution-info'>
                         <div className='tution-sub-info-1'>
-                            <p className='tution-card-para'><strong>Subjects:</strong> {tution.subjects.join(', ')}</p>
-                            <p className='tution-card-para'><strong>Time:</strong>{tution.duration.join(' - ')}</p>
-                            <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
+                            <div className='subject-container'>
+                                <p className='tution-card-para'><strong>Subjects:</strong>
+                                    <div className='subjects-div'>
+                                    {tution.subjects.join(', ')}
+                                    </div>
+                                </p>
+                            </div>
+                            <div> 
+                              <p className='tution-card-para'><strong>Time:</strong>{tution.duration.join(' - ')}</p>
+                            </div>
+                            <div>
+                               <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
+                            </div>
+                            <div>
                             <p className='tution-card-para'><strong>Fees:</strong> ₹{tution.fees}</p>
+                            </div>
                         </div>
                         <div className="tution-sub-info-2">
-                            <p className='tution-card-para'><strong>Standard:</strong> {tution.standard.join(' - ')}</p>
-                            <p className='tution-card-para'><strong>Board:</strong> {tution.boards.join(', ')}</p>
-                            <p className='tution-card-para'><strong>Location:</strong>{tution.createdBy.district} , {tution.createdBy.state}</p>
+                            <div>
+                              <p className='tution-card-para'><strong>Standard:</strong> {tution.standard.join(' - ')}</p>
+                            </div>
+                            <div>
+                               <p className='tution-card-para'><strong>Board:</strong> {tution.boards.join(', ')}</p>
+                            </div>
+                            <div>
+                               <p className='tution-card-para'><strong>Location:</strong>{tution.createdBy.district} , {tution.createdBy.state}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
