@@ -23,7 +23,7 @@ const MyProfile = () => {
     year_of_exp: asTeacher.year_of_exp || 0,
     district: asTeacher.district || '',
     state: asTeacher.state || '',
-    averageRating: 4,
+    averageRating: asTeacher.averageRating,
     email: asTeacher.email || ''
   });
   const [selectedImage, setSelectedImage] = useState({

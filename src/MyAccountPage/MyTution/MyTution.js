@@ -13,7 +13,7 @@ import { subjects,standards } from '../../components/stateExporter';
 
 const MyTution = () => {
   const navigate = useNavigate();
-  const [{ asTeacher }] = useDataLayerValue(); // Get teacher ID from state provider
+  const [{ asTeacher },dispatch] = useDataLayerValue(); // Get teacher ID from state provider
   const [tutions, setTutions] = useState([]); // Initialize as an empty array
   const [editIndex, setEditIndex] = useState(null);
 
@@ -67,7 +67,7 @@ const MyTution = () => {
   };
 
   const handleEditClick = (index) => {
-    let editTution = tutions[index]
+    let editTution = { ...tutions[index]}
     delete editTution._id
     delete editTution.createdBy
     delete editTution.__v
@@ -111,6 +111,13 @@ const MyTution = () => {
       const response = await axios.delete(`http://localhost:3001/api/v1/tution/${tutionToDelete._id}`, {
         data: { createdBy: tutionToDelete.createdBy } // Include createdBy in the request body
       });
+
+      const nresponse = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { numOfTutions:asTeacher.numOfTutions-1 });
+      let teacher_det = { ...asTeacher, numOfTutions: asTeacher.numOfTutions - 1 };
+      dispatch({
+        type:"SET_TEACHER",
+        payload:teacher_det
+      })
       console.log(response);
       
       // Optionally check the response data
@@ -214,7 +221,7 @@ const MyTution = () => {
                     <div className="day-select">
                         <div>
                           <p>From:</p>
-                          <select value={TutionDetails.startDay} name="days" onChange={(e)=>handleArrayChange(e,0)}>
+                          <select value={TutionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)}>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>
@@ -226,7 +233,7 @@ const MyTution = () => {
                         </div>
                         <div>
                           <p>To:</p>
-                          <select value={TutionDetails.endDay} name="days" onChange={(e)=>handleArrayChange(e,0)}>
+                          <select value={TutionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)}>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>

@@ -49,7 +49,7 @@ const RegisterTeacher = () => {
       }
     )
     
-    navigate("/myaccount/myprofile");
+    navigate("/myaccount/teacherprofile/myprofile");
   };
 
   const handleChange = (e) => {

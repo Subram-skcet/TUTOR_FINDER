@@ -11,7 +11,7 @@ import { subjects } from '../../components/stateExporter';
 
 const AddTution = () => {
   const navigate = useNavigate();
-  const [{ asTeacher }] = useDataLayerValue(); // Get createdBy id from StateProvider
+  const [{ asTeacher },dispatch] = useDataLayerValue(); // Get createdBy id from StateProvider
 
   const [TutionDetails, setDetails] = useState({
     Subjects: [],
@@ -82,7 +82,14 @@ const AddTution = () => {
         fees: TutionDetails.Fees,
         boards: TutionDetails.Boards,
       });
-      console.log(response.data);
+      
+      const nresponse = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { numOfTutions:asTeacher.numOfTutions+1 });
+      let teacher_det = { ...asTeacher, numOfTutions: asTeacher.numOfTutions + 1 };
+      dispatch({
+        type:"SET_TEACHER",
+        payload:teacher_det
+      })
+
       navigate('/myaccount/teacherprofile/mytutions');
     } catch (error) {
       console.error('Error posting tuition details:', error);
