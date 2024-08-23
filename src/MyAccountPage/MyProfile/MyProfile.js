@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect, Profiler } from 'react';
 import './MyProfile.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import EditIcon from '@mui/icons-material/Edit';
@@ -6,11 +6,15 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios';
 import DisplayRating from '../../components/DisplayRating'
-
+import CloseIcon from '@mui/icons-material/Close';
+import { subjects,qualifications,stateDistricts } from '../../components/stateExporter';
+import SelectedSubject from '../AddTution/Subjects';
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [{ asTeacher }, dispatch] = useDataLayerValue();
+  const [saveBtnLoading,setSaveBtn] = useState(false)
+
   const [profile, setProfile] = useState({
     profilepic: asTeacher.profilepic || 'https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png',
     name: asTeacher.name || '',
@@ -19,21 +23,78 @@ const MyProfile = () => {
     numOfReviews: asTeacher.numOfReviews || 0,
     numOfTutions: asTeacher.numOfTutions || 0,
     qualification: asTeacher.qualification || '',
-    subjects: asTeacher.subjects.join(', ') || 'Not specified',
+    subjects: asTeacher.subjects || 'Not specified',
     year_of_exp: asTeacher.year_of_exp || 0,
     district: asTeacher.district || '',
     state: asTeacher.state || '',
     averageRating: asTeacher.averageRating,
-    email: asTeacher.email || ''
   });
+
+  const [editDetails,setEditDetails] = useState({})
+
+  
   const [selectedImage, setSelectedImage] = useState({
     url: profile.profilepic,
     file: null
   });
+  
+  const [permImage, setPermImage] = useState(selectedImage)
+
   const fileInputRef = useRef(null);
 
+  const districts = stateDistricts[editDetails.state] || [];
+
+  const fetchTutionCountAndRating = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`);
+      const updatedDetails = {
+        ...asTeacher,
+        numOfTutions: response.data.teacher.numOfTutions,
+        numOfReviews: response.data.teacher.numOfReviews
+      };
+  
+      // Update global state
+      dispatch({
+        type: "SET_TEACHER",
+        payload: updatedDetails
+      });
+  
+      // Update local profile state
+      setProfile(prevProfile => ({
+        ...prevProfile,
+        numOfTutions: response.data.teacher.numOfTutions,
+        numOfReviews: response.data.teacher.numOfReviews
+      }))
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+      fetchTutionCountAndRating()
+  },[])
+
+  const HandleSubjectSelect = (e) => {
+    const selectedSubject = e.target.value;
+    if (!editDetails.subjects.includes(selectedSubject)) {
+      setEditDetails((prevDetails) => ({
+        ...prevDetails,
+        subjects: [...prevDetails.subjects, selectedSubject],
+      }));
+    }
+  };
+
+  const HandleSubjectRemove = (subjectToRemove) => {
+    setEditDetails((prevDetails) => ({
+      ...prevDetails,
+      subjects: prevDetails.subjects.filter((subject) => subject !== subjectToRemove),
+    }));
+  }; 
+
+   
+
   const backgroundStyle = {
-    backgroundImage: `url(${selectedImage.url})`,
+    backgroundImage: isEditing? `url(${selectedImage.url})`: `url(${permImage.url})`,
     backgroundSize: 'cover',
     border: '4px solid #0abb77',
     position: 'relative'
@@ -41,7 +102,7 @@ const MyProfile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfile(prevProfile => ({ ...prevProfile, [name]: value }));
+    setEditDetails(prevProfile => ({ ...prevProfile, [name]: value }));
   };
 
   const handleFileChange = (e) => {
@@ -54,12 +115,26 @@ const MyProfile = () => {
     }
   };
 
-  const handleEditClick = () => setIsEditing(!isEditing);
+  const handleStateChange = (e) => {
+    const selectedState = e.target.value;
+    setEditDetails((prevDetails) => ({
+      ...prevDetails,
+      state: selectedState,
+      district: '',
+    }));
+  };
+
+  const handleEditClick = () =>{
+    setSelectedImage(permImage)
+    setEditDetails(profile)
+    setIsEditing(!isEditing);
+  } 
 
   const handleSaveClick = async () => {
+    setSaveBtn(true)
     let updatedProfilePic = profile.profilepic;
 
-    if (selectedImage.file) {
+    if (selectedImage.file && selectedImage.file!==permImage.file) {
       const formData = new FormData();
       formData.append('image', selectedImage.file);
       try {
@@ -72,19 +147,24 @@ const MyProfile = () => {
       }
     }
 
-    const subjectsArray = Array.isArray(profile.subjects) ? profile.subjects : profile.subjects.split(',').map(subject => subject.trim());
 
     try {
-      const response = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { ...profile, profilepic: updatedProfilePic });
+      const response = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { ...editDetails, profilepic: updatedProfilePic });
       const updatedProfile = response.data.teacher;
       setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
+      setPermImage(selectedImage)
       dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+      setSaveBtn(false)
     } catch (error) {
       console.log(error.message);
     }
 
     setIsEditing(false);
   };
+
+  const handleCancelClick = () =>{
+    setIsEditing(false);
+  }
 
   const handleIconClick = () => fileInputRef.current.click();
 
@@ -110,20 +190,15 @@ const MyProfile = () => {
           {Object.entries({
             Name: 'name',
             'Mobile Number': 'mobileno',
-            Qualification: 'qualification',
-            'Subjects': 'subjects',
             'Years of Experience': 'year_of_exp',
-            District: 'district',
-            State: 'state',
-            Email: 'email'
           }).map(([label, key]) => (
             <React.Fragment key={key}>
               <div className="label">{label}</div>
-              {isEditing ? (
+              {isEditing?(
                 <input
                   className="value"
                   name={key}
-                  value={profile[key]}
+                  value={editDetails[key]}
                   onChange={handleChange}
                 />
               ) : (
@@ -131,8 +206,76 @@ const MyProfile = () => {
               )}
             </React.Fragment>
           ))}
+          <div className='label'>State</div>
+          {
+            isEditing?
+            <div>
+                <select className='profile-select'  name='state' value={editDetails.state} onChange={handleStateChange}>
+                {Object.keys(stateDistricts).map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+                </select>
+            </div>
+            :
+            <div className='value'>{profile.state}</div>
+          }
+          <div className='label'>District</div>
+          {
+            isEditing?
+            <div>
+                <select className='profile-select' name='district' value={editDetails.district} onChange={handleChange}>
+                {districts.map((district) => (
+                  <option key={district} value={district}>
+                    {district}
+                  </option>
+                 ))}
+                </select>
+            </div>
+            :
+            <div className='value'>{profile.district}</div>
+          }
+          <div className='label'>Qualification</div>
+          {
+            isEditing ?
+            <div>
+              <select className='profile-select' name='qualification' value={editDetails.qualification} onChange={handleChange}>
+                {
+                  qualifications.map((qualification)=>(
+                    <option value={qualification.value}>{qualification.value}</option>
+                  ))
+                }
+              </select>
+            </div>
+            :
+             <div className='value'>{profile.qualification}</div>
+          }
+
+
+          <div className='subj-label'>My Subjects</div>
+          {
+            isEditing?
+              <div>
+                <select className='profile-select' onChange={HandleSubjectSelect}>
+                    <option value="">Add Subjects</option>
+                    {subjects.map((subject)=>(
+                      <option value={subject.value}>{subject.label}</option>
+                    ))}
+                 </select>
+                  <div className="selected-items">
+                    {editDetails.subjects.map((subject) => (
+                      <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
+                    ))}
+                  </div>
+              </div>
+            :
+              <div className='value'>
+                 {profile.subjects.join(', ')}
+              </div>
+          }
           {Object.entries({
-            'Number of Tuitions': 'numOfTutions',
+            'Number of Tutions': 'numOfTutions',
             'Average Rating': 'averageRating',
           }).map(([label, key]) => (
             <React.Fragment key={key}>
@@ -156,19 +299,39 @@ const MyProfile = () => {
             <textarea
               className="about-content"
               name="about"
-              value={profile.about}
+              value={editDetails.about}
               onChange={handleChange}
             />
           ) : (
             <p className="about-content">{profile.about}</p>
           )}
         </div>
-        <button className="edit-prof-btn spz" onClick={isEditing ? handleSaveClick : handleEditClick}>
-          <div className={`itms-cntr style-links-updated ${isEditing ? 'edit-styl' : 'norm-style'}`} onClick={isEditing ? handleSaveClick : handleEditClick}>
-            {isEditing ? <SaveIcon /> : <EditIcon />}
-            <p>{isEditing ? 'Save Profile' : 'Edit Profile'}</p>
-          </div>
-        </button>
+        {
+          isEditing?
+        <div className='isedit-btns-div'>
+          <button className="edit-prof-btn spz" disabled={saveBtnLoading}>
+            <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`} onClick={handleSaveClick}>
+              <SaveIcon /> 
+              <p>Save Profile</p>
+            </div>
+          </button>
+          <button className="edit-prof-btn spz">
+            <div className='itms-cntr style-links-updated cncl-bck' onClick={handleCancelClick}>
+              <CloseIcon /> 
+              <p>Cancel</p>
+            </div>
+          </button>
+        </div>
+          :
+          <button className="edit-prof-btn spz">
+            <div className='itms-cntr style-links-updated norm-style' onClick={handleEditClick}>
+              <EditIcon />
+              <p>Edit Profile</p>
+            </div>
+          </button>
+        }
+
+
       </div>
     </div>
   );

@@ -42,11 +42,13 @@
     color: #333;
     text-align: left;
     padding-right: 15px;
+    align-self: center;
 }
 
 .profile-details .value {
     color: #302f2f;
     background-color: transparent;
+    width: max-content;
 }
 
 
@@ -69,6 +71,13 @@
     background: green;
     color: white;
 }
+
+.save-load-btn-style{
+  opacity: 0.5;
+  color: white;
+  cursor: not-allowed;
+}
+
 .norm-style{
     background: blue;
     color: white;
@@ -101,4 +110,20 @@
   }
   .profile-img-edit:hover{
     transform: scale(1.2);
+  }
+  .isedit-btns-div{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .subj-label{
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+    padding-right: 15px;
+  }
+
+  .profile-select{
+      width: 230px;
   }

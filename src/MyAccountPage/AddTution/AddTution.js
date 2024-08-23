@@ -83,13 +83,6 @@ const AddTution = () => {
         boards: TutionDetails.Boards,
       });
       
-      const nresponse = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { numOfTutions:asTeacher.numOfTutions+1 });
-      let teacher_det = { ...asTeacher, numOfTutions: asTeacher.numOfTutions + 1 };
-      dispatch({
-        type:"SET_TEACHER",
-        payload:teacher_det
-      })
-
       navigate('/myaccount/teacherprofile/mytutions');
     } catch (error) {
       console.error('Error posting tuition details:', error);

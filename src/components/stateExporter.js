@@ -81,3 +81,10 @@ export const daysOfWeek = [
   { value: "Saturday" }
 ];
 
+export const qualifications = [
+  { value: 'M.E'},
+  { value: 'B.E'},
+  { value: 'B.Sc'},
+  { value: 'M.Sc'}
+]
+

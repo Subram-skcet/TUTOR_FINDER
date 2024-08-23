@@ -214,7 +214,7 @@ const MyTution = () => {
                     <div className="day-select">
                         <div>
                           <p>From:</p>
-                          <select value={TutionDetails.startDay} name="days" onChange={(e)=>handleArrayChange(e,0)}>
+                          <select value={TutionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)}>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>
@@ -226,7 +226,7 @@ const MyTution = () => {
                         </div>
                         <div>
                           <p>To:</p>
-                          <select value={TutionDetails.endDay} name="days" onChange={(e)=>handleArrayChange(e,0)}>
+                          <select value={TutionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)}>
                             <option value="Monday">Monday</option>
                             <option value="Tuesday">Tuesday</option>
                             <option value="Wednesday">Wednesday</option>

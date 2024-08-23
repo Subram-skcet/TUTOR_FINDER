@@ -26,6 +26,7 @@ const RegisterTeacher = () => {
   }, [logged]);
 
   const handleSubmit = async (e) => {
+    console.log("Teacher Details = ", teacherDetails);
     e.preventDefault();
     let setTeacher;
     try {
