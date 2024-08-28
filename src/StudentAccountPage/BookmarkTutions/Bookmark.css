@@ -1,11 +1,9 @@
 .bookmarks-wrap{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     margin-top: 1rem;
     margin-left: 1rem;
-    background-color: #81b9f5;
     height: 500px;
 }
 

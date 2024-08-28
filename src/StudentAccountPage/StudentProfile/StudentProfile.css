@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height:calc(100vh - var(--header-height));
   background-color: #f0f2f5; /* Light background color */
   padding: 20px;
 }
@@ -14,9 +14,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
+.student-profile-picture{
+  position: relative;
+}
 /* Profile picture styling */
 .student-profile-picture img {
   border-radius: 50%;
@@ -42,4 +46,11 @@
 
 .student-profile-para{
   font-size: 20px;
+}
+
+.profile-edit-icon {
+  /* background: red; */
+  position: absolute;
+  right: 7%;
+  bottom: 10%;
 }

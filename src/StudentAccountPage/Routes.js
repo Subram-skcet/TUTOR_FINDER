@@ -4,6 +4,7 @@ import App from './App'
 import StudentProfile from './StudentProfile/StudentProfile'
 import Bookmark from './BookmarkTutions/Bookmark'
 import MyReviews from './MyReviews/MyReview'
+import TeacherProfile from '../TeacherProfile/TeacherProfile'
 
 const StudentProfileRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const StudentProfileRoutes = () => {
             <Route index path="myprofile" element={<StudentProfile/>}/>
             <Route path="mybookmarks" element={<Bookmark/>}/>
             <Route path="myreviews" element={<MyReviews/>}/>
+            <Route path="teacherProfile" element={<TeacherProfile/>}/>
         </Routes>
     </App>
   )

@@ -6,6 +6,7 @@
     display: flex;
     justify-content: space-between;
     background-color: white;
+    position: relative;
 }
 
 .tutor-card__profile-container {
@@ -106,4 +107,17 @@
 
 .subject-container{
     margin-bottom: 0.5rem;
+}
+
+.bookmark-icon-div{
+    position: absolute;
+    right: 1rem;
+    top: 0;
+}
+
+.date-div{
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    font-size: 15px;
 }

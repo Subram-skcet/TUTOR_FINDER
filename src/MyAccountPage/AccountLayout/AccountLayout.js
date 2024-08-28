@@ -13,9 +13,16 @@ const AccountLayout = () => {
                     <HomeIcon/>
                     <p>Home</p>
               </div>
-             <div className='itms-cntr style-links' onClick={()=>navigate('/')}>
+            <div className='setting-div'>
+             <div className='itms-cntr style-links'>
                     <SettingsIcon/>
-                    <p>Settings</p>
+                        <p>Settings</p>
+            </div>
+                  <div className='settings-options'>
+                      <p className='stg-options'>Log out</p>
+                      <p className='stg-options'>Change Password</p>
+                      <p className='stg-options'>Delete Account</p>
+                  </div>
             </div>
         </div>
     </div>

@@ -309,14 +309,14 @@ const MyProfile = () => {
         {
           isEditing?
         <div className='isedit-btns-div'>
-          <button className="edit-prof-btn spz" disabled={saveBtnLoading}>
-            <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`} onClick={handleSaveClick}>
+          <button className="edit-prof-btn spz" disabled={saveBtnLoading} onClick={handleSaveClick}>
+            <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
               <SaveIcon /> 
               <p>Save Profile</p>
             </div>
           </button>
-          <button className="edit-prof-btn spz">
-            <div className='itms-cntr style-links-updated cncl-bck' onClick={handleCancelClick}>
+          <button className="edit-prof-btn spz" onClick={handleCancelClick}>
+            <div className='itms-cntr style-links-updated cncl-bck'>
               <CloseIcon /> 
               <p>Cancel</p>
             </div>

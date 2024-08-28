@@ -15,7 +15,7 @@ const Bookmark = () => {
     try {
       for(let i=0;i<asStudent.favouriteTutions.length;i++){
         console.log('Executing');
-         const response = await axios.get(`http://localhost:3001/api/v1/tution/gettutions/${asStudent.favouriteTutions[i]}`)
+         const response = await axios.get(`http://localhost:3001/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`)
          console.log(response);
          tutions.push(response.data.tution)
       }
@@ -29,12 +29,12 @@ const Bookmark = () => {
   const handleProfileNavigate = (idx) =>{
     console.log(favouritetutions[idx]);
      const profileDetails = favouritetutions[idx].createdBy;
-     navigate('/teacherProfile', {state:{profileDetails}})
+     navigate('/myaccount/studentprofile/teacherProfile', {state:{profileDetails}})
   }
 
   useEffect(()=>{
       fetchTutions();
-  },[])
+  },[asStudent])
 
   return (
     <div className='bookmarks-wrap'>

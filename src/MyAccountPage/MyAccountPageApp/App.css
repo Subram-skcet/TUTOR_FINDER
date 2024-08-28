@@ -3,7 +3,7 @@
 }
 .other-pgs{
     width: 100%;
-    height: 100vh;
+    height:calc(100vh - var(--header-height));
     overflow-y: overlay;
 }
 .acc-layout{
@@ -13,4 +13,11 @@
 }
 .wst{
     height: 70px;
+}
+.app-pg-wrap::-webkit-scrollbar{
+    display: none;
+}
+
+.other-pgs::-webkit-scrollbar{
+    display: none;
 }
