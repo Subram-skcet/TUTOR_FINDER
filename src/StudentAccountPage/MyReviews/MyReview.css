@@ -1,12 +1,34 @@
 .my-reviews-wrap{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-top: 1rem;
-    margin-left: 1rem;
+    background: red;
+    padding: 1rem;
+    height:calc(100vh - var(--header-height));
 }
 
-.my-reviews{
+
+.student-pg-review-div{
+   align-self: flex-start;
+}
+
+.student-pg-review-div > p{
+    margin-left: 5vw;
+    font-size: 20px;
+}
+
+.student-pg-reviews-container{
     align-self: center;
+}
+.my-reviews-pg-reviews-container{
+    height:calc(100vh - var(--header-height));
+    overflow-y: overlay;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.my-reviews-pg-reviews-container::-webkit-scrollbar{
+    display: none;
 }

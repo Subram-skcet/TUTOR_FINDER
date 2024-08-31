@@ -4,6 +4,7 @@ import axios from 'axios'
 import TutionCard from '../../components/TutionCard/TutionCard'
 import { useNavigate } from 'react-router-dom'
 import './Bookmark.css'
+import SearchIcon from '@mui/icons-material/Search';
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
@@ -41,15 +42,25 @@ const Bookmark = () => {
       <div>
          <h1>Your favourite tutions</h1>
       </div>
-      <div className="search-results fav-tutions">
           {favouritetutions.length === 0 ? (
-            <p>You have no favourite tutions..</p>
+            <div className='bookmark-empty-content'>
+              <p>Tutions you have added into your favourite list will apper here. Currently you have no favourite tutions</p>
+              <div className='bookmark-pg-explr-div' onClick={()=>navigate('/searchtutor')}>
+                <SearchIcon/>
+                <p>Explore tutions</p>
+              </div>
+            </div>
              ) : (
-            favouritetutions.map((result,index) => (
-                <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
-              ))
+              <>
+                <div className="search-results fav-tutions">{
+                  favouritetutions.map((result,index) => (
+                    <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
+                  ))
+                }
+                </div> 
+                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn'>Find more tutions</button>
+                </>
              )}
-          </div>
 
     </div>
   )

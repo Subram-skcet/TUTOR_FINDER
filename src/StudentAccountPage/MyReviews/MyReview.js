@@ -13,6 +13,7 @@ const MyReview = () => {
   const fetchMyReviews = async()=>{
        try {
           const response = await axios(`http://localhost:3001/api/v1/review/${asStudent._id}?mode=student`)
+          console.log(response);
           setReviews(response.data.reviews)
        } catch (error) {
          console.log(error.message);
@@ -33,35 +34,54 @@ const MyReview = () => {
     }
 }
 
+const deleteReview = async(id) =>{
+  try {
+      const response = await axios.delete(`http://localhost:3001/api/v1/review/${id}`)
+      console.log(response);
+      fetchMyReviews()
+  } catch (error) {
+      console.log(error);
+  }
+}
+
   useEffect(()=>{
      fetchMyReviews()
   },[])
   return (
     <div className='my-reviews-wrap'>
       <div>
-         <h1>My Reviews:</h1>
+         <h1>My Reviews</h1>
       </div>
-       <div className="reviews-section my-reviews">
             {reviews.length === 0 ? (
-              <p className='no-review-text'>You haven't written any reviews</p>
+              <div className='student-pg-review-div'>
+                <p>
+                  Reviews you have written about teachers will appear here so far you haven't written any reviews
+                </p>
+              </div>
             )
             :(
-              reviews.map(review => (
-                <ReviewCard 
-                id={review._id} // Unique key for each review
-                name={review.createdBy.name} 
-                profilepic={review.createdBy.profilepic} 
-                rating={review.rating} 
-                review={review.review}
-                like={review.like} 
-                dislike={review.dislike}
-                isClickable={true}
-                handleLike = {handleLikeReview} 
+              <div className="my-reviews-pg-reviews-container">
+                {
+                  reviews.map(review => (
+                    <ReviewCard 
+                      id={review._id} // Unique key for each review
+                      name={review.createdBy.name} 
+                      profilepic={review.createdBy.profilepic} 
+                      rating={review.rating} 
+                      review={review.review}
+                      like={review.like} 
+                      dislike={review.dislike}
+                      isClickable={true}
+                      createdFor = {review.createdFor}
+                      handleLike = {handleLikeReview}
+                      deleteReview = {deleteReview}
+                       
                 />
               ))
+            }
+            </div>
             )
           }
-          </div>
     </div>
   )
 }

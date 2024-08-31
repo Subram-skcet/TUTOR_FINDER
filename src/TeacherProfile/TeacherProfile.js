@@ -51,7 +51,8 @@ const TeacherProfile = () => {
   // Example: props.reviewData could be used to prepopulate reviews if needed
 
   const ReviewExists = () =>{
-     reviews.filter()
+    console.log(reviews);
+     return reviews.some(review => review.createdBy._id === asStudent._id)
   }
 
   const childRef = useRef();
@@ -64,7 +65,7 @@ const TeacherProfile = () => {
     if(!logged || !logged_as==='student'){
        return openLoginModel()
     }
-    if(ReviewExists){
+    if(ReviewExists()){
       return alert('Review alredy exists!!')
     }
     let rating;

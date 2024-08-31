@@ -75,4 +75,31 @@
     height: max-content;
     align-items: center;
   }
-  
+
+  .my-reviews-page-flex-div{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+  }
+.review-card{
+  position: relative;
+}
+.reviews-page-options-icons{
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    gap: 1rem;
+    display: flex;
+}
+.blue{
+  color: blue;
+}
+.red{
+  color: red;
+}
+.save{
+  color: green;
+}
+.cancel{
+  color:gray
+}

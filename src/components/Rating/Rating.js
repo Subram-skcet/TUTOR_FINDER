@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 
 const RatingComponent = forwardRef((props, ref) => {
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(props.rating || 0);
 
   const handleClick = (value) => {
     setRating(value);
