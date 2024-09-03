@@ -33,24 +33,22 @@ const RegisterTeacher = () => {
       const response = await axios.post('http://localhost:3001/api/v1/auth/registerteacher',teacherDetails );
        setTeacher = response.data.teacher
       console.log("Here the response = " , setTeacher);
+      dispatch({ type: 'LOG_USER', payload: true });
+      dispatch(
+        {
+          type:"SET_TEACHER",
+          payload:setTeacher
+        }
+      )
+      dispatch(
+        {
+          type:"LOGGED_USER",
+          payload:'teacher'
+        }
+      )
     } catch (error) {
       console.error('Error sending data:', error);
     }
-    dispatch({ type: 'LOG_USER', logged: true });
-    dispatch(
-      {
-        type:"SET_TEACHER",
-        payload:setTeacher
-      }
-    )
-    dispatch(
-      {
-        type:"LOGGED_USER",
-        payload:'teacher'
-      }
-    )
-    
-    navigate("/myaccount/teacherprofile/myprofile");
   };
 
   const handleChange = (e) => {
