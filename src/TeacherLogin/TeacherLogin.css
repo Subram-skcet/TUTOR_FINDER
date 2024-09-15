@@ -1,0 +1,23 @@
+.log-in-content-div{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+
+.teacher-login-wrap{
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    width: 30vw;
+}
+
+.teacher-login-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-teacher-label{
+    font-size: 16px;
+}

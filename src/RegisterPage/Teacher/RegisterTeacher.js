@@ -6,8 +6,7 @@ import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
 import { stateDistricts,subjects } from '../../components/stateExporter'
 
-const RegisterTeacher = () => {
-  const navigate = useNavigate();
+const RegisterTeacher = ({openLogin}) => {
   const [{ logged }, dispatch] = useDataLayerValue();
   const [teacherDetails, setDetails] = useState({
     name: '',
@@ -90,13 +89,15 @@ const RegisterTeacher = () => {
   return (
     <div className='teacher-signup-wrap'>
       <div>
-        <h1>Create your Teacher account in EduQuest</h1>
+        <h4>Create your Teacher account in EduQuest</h4>
       </div>
 
     <div className='teacher-reg-wrap'>
-      <form>
+      <form className='teacher-reg-form'>
+       <div className='teacher-det-wrap'>
+
         <div className='space-div'>
-          <label htmlFor='name'>Name:</label>
+          <label htmlFor='name'  className='register-label'>Name:</label>
           <input
             type='text'
             name='name'
@@ -107,7 +108,7 @@ const RegisterTeacher = () => {
             />
         </div>
         <div className='space-div'>
-          <label htmlFor='email'>Email:</label>
+          <label htmlFor='email' className='register-label'>Email:</label>
           <input
             type='email'
             name='email'
@@ -118,7 +119,7 @@ const RegisterTeacher = () => {
           />
         </div>
         <div className='space-div'>
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'  className='register-label'>Password:</label>
           <input
             type='password'
             name='password'
@@ -129,7 +130,7 @@ const RegisterTeacher = () => {
           />
         </div>
         <div className='space-div'>
-          <label htmlFor='mobileno'>Mobile No:</label>
+          <label htmlFor='mobileno'  className='register-label'>Mobile No:</label>
           <input
             type='tel'
             name='mobileno'
@@ -140,7 +141,7 @@ const RegisterTeacher = () => {
             />
         </div>
         <div className='space-div'>
-          <label htmlFor='qualification'>Highest Qualification:</label>
+          <label htmlFor='qualification'  className='register-label'>Highest Qualification:</label>
           <select
             name='qualification'
             id='qualification'
@@ -155,7 +156,7 @@ const RegisterTeacher = () => {
           </select>
         </div>
         <div className='space-div'>
-          <label htmlFor='yoexp'>Year Of Experience:</label>
+          <label htmlFor='yoexp'   className='register-label'>Year Of Experience:</label>
           <input
             type='number'
             name='year_of_exp'
@@ -166,21 +167,21 @@ const RegisterTeacher = () => {
           />
         </div>
         <div className="space-div">
-          <label>Select Subjects you teach</label>
+          <label  className='register-label'>Select Subjects you teach</label>
           <select onChange={HandleSubjectSelect}>
             <option value="">Select a subject</option>
             {subjects.map((subject)=>
             <option value={subject.value}>{subject.label}</option>
             )}
           </select>
+        </div>
           <div className="selected-items">
             {teacherDetails.subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
             ))}
           </div>
-        </div>
         <div className='space-div'>
-          <label htmlFor='inputState'>Select State:</label>
+          <label htmlFor='inputState'  className='register-label'>Select State:</label>
           <select
             name='state'
             id='inputState'
@@ -196,7 +197,7 @@ const RegisterTeacher = () => {
           </select>
         </div>
         <div className='space-div'>
-          <label htmlFor='inputDistrict'>Select District:</label>
+          <label htmlFor='inputDistrict'  className='register-label'>Select District:</label>
           <select
             name='district'
             id='inputDistrict'
@@ -212,14 +213,18 @@ const RegisterTeacher = () => {
             ))}
           </select>
         </div>
+      </div>
         <div className='submit-btn-div'>
           <button
             type='submit'
             className='submit-btn'
             onClick={handleSubmit}
-          >
+            >
             Register
           </button>
+        </div>
+        <div className='log-in-div'>
+          <p>Already have an account? <span className='anchor-link' onClick={()=>openLogin(true)}>Log in</span></p>
         </div>
       </form>
     </div>

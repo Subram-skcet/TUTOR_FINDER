@@ -16,7 +16,8 @@ const pathname = location.pathname
 
 
   const RegisterNavigateTeacher = () => {
-    navigate('/register', { state: { name: 'Teacher' } });
+    navigate('/welcometeacher')
+    // navigate('/register', { state: { name: 'Teacher' } });
   };
 
   const RegisterNavigateStudent = () => {
@@ -34,13 +35,13 @@ const pathname = location.pathname
         </div>
            <div className='links-wrapper'>
                   <div className="nav-links ">
-                    <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
-                          <SearchIcon/>
-                          <p>Search</p>
-                    </div>
                     <div className={`itms-cntr style-links ${pathname === '/' ? 'invis':''}`} onClick={()=>navigate('/')}>
                           <HomeIcon/>
                           <p>Home</p>
+                    </div>
+                    <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
+                          <SearchIcon/>
+                          <p>Search</p>
                     </div>
                     <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
                       <img
@@ -48,7 +49,7 @@ const pathname = location.pathname
                         className="img-sz"
                         alt="Teacher Icon"
                       />
-                      <span onClick={RegisterNavigateTeacher}>Register as Teacher</span>
+                      <span onClick={RegisterNavigateTeacher}>Teach on EduQuest</span>
                     </div>
                     <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
                       <img

@@ -8,13 +8,18 @@ import MyProfileRoute from '../MyAccountPage/MyProfileRoute';
 import App from '../App';
 import TeacherProfile from '../TeacherProfile/TeacherProfile';
 import StudentProfileRoutes from '../StudentAccountPage/Routes'
-
+import WelcomePage from '../WelcomeInstructor/WelcomePage';
+import RegisterTeacher from '../RegisterPage/Teacher/RegisterTeacher';
 
 const Router = () => {
   const routes = useRoutes([
     {
       path: '/',
       element: <LayoutWrapper><App /></LayoutWrapper>,
+    },
+    {
+      path: '/welcometeacher',
+      element: <LayoutWrapper><WelcomePage/></LayoutWrapper>,
     },
     {
       path: '/register',

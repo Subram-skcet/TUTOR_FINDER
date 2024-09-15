@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import CloseIcon from '@mui/icons-material/Close';
+import ReactDom from 'react-dom'
 
 const MODAL_STYLES = {
     position:'fixed',
@@ -7,7 +8,7 @@ const MODAL_STYLES = {
     left:'50%',
     transform:'translate(-50%,-50%)',
     backgroundColor:'#fff',
-    padding:'50px',
+    padding:'20px',
     zIndex:1000
 }
 
@@ -22,26 +23,28 @@ const OVERLAY_STYLES = {
 }
 
 const CLOSE_STYLES = {
-    position:'absolute',
-    right:'5%',
-    top:'7%'
+    position: 'absolute',
+    right: '10px', // Closer to the edge
+    top: '10px',
+    cursor: 'pointer',
+    color: '#333', // Darker color for better visibility
+    fontSize: '24px', // Increase icon size
 }
 
-
-
-const Modal = ({children,isopen,onClose}) => {
-    if(!isopen)
-        return
-  return (
-    <div style={OVERLAY_STYLES}>
-        <div style={MODAL_STYLES}>
-            <div style={CLOSE_STYLES} onClick={onClose} >
-                <CloseIcon/>
+const Modal = ({ children, isopen, onClose }) => {
+    if (!isopen)
+        return null;
+    return ReactDom.createPortal(
+        <div style={OVERLAY_STYLES}>
+            <div style={MODAL_STYLES}>
+                <div style={CLOSE_STYLES} onClick={onClose}>
+                    <CloseIcon />
+                </div>
+                {children}
             </div>
-        {children}
-        </div>
-    </div>
-  )
+        </div>,
+        document.getElementById('portal')
+    )
 }
 
-export default Modal
+export default Modal;

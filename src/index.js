@@ -7,17 +7,18 @@ import reducer,{initialState} from './StateProviders/reducer';
 import TutionCard from './components/TutionCard/TutionCard';
 import { BrowserRouter } from 'react-router-dom';
 import Route from './Routes/Route'
-
+import WelcomePage from './WelcomeInstructor/WelcomePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <DataLayer initialState={initialState} reducer={reducer}>
      <BrowserRouter>
-         <Route/>
+      <Route/>
     </BrowserRouter>
     </DataLayer>
   </React.StrictMode>
+      //  <WelcomePage/>
       //  <Search/>
     // <TutionCard/>
         // <LoginModal/>

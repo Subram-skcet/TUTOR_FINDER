@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    background-image: linear-gradient(to bottom right, #a07969, #f7efe6);
+    background-image: linear-gradient(to right, #5ec22f, #d47c17);
     z-index: 1;
 }
 .acc-wrap{
