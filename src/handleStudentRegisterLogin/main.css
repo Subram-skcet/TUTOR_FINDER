@@ -1,0 +1,11 @@
+.student-parent-wrap{
+    display: flex;
+    background: white;
+    align-items: center;
+    justify-content: center
+}
+
+.cover-img > img{
+    width: 50vw;
+}
+

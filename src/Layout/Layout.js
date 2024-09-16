@@ -21,7 +21,7 @@ const pathname = location.pathname
   };
 
   const RegisterNavigateStudent = () => {
-    navigate('/register', { state: { name: 'Student' } });
+    navigate('/register');
   };
   const LoginNavigate = () => {
     console.log("Here you go ",logged);

@@ -44,7 +44,7 @@ const TeacherLogin = ({openLogin}) => {
          </div>
          <div className='log-in-content-div'>
             <div>
-                <span className='anchor-link'>Forgot Password</span>
+                <span className='anchor-link'>Forgot Password?</span>
             </div>
             <div>
                <p>Don't have an account? <span className='anchor-link' onClick={()=>openLogin(false)}>Register</span></p>

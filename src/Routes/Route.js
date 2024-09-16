@@ -3,13 +3,14 @@ import { useRoutes } from 'react-router-dom';
 import Register from '../Register/Register';
 import Layout from '../Layout/Layout';
 import Main from '../Main/Main';
-import LoginPage from '../Login/LoginPage';
 import MyProfileRoute from '../MyAccountPage/MyProfileRoute';
 import App from '../App';
 import TeacherProfile from '../TeacherProfile/TeacherProfile';
 import StudentProfileRoutes from '../StudentAccountPage/Routes'
 import WelcomePage from '../WelcomeInstructor/WelcomePage';
 import RegisterTeacher from '../RegisterPage/Teacher/RegisterTeacher';
+import StudentMain from '../handleStudentRegisterLogin/StudentMain'
+import StudentLogin from '../handleStudentRegisterLogin/StudentLogin/StudentLogin'
 
 const Router = () => {
   const routes = useRoutes([
@@ -23,7 +24,7 @@ const Router = () => {
     },
     {
       path: '/register',
-      element: <LayoutWrapper><Register /></LayoutWrapper>,
+      element:<LayoutWrapper><StudentMain /></LayoutWrapper>,
     },
     {
       path: '/searchtutor',
@@ -31,7 +32,7 @@ const Router = () => {
     },
     {
       path: '/login',
-      element: <LayoutWrapper><LoginPage /></LayoutWrapper>,
+      element:<LayoutWrapper><StudentMain /></LayoutWrapper>,
     },
     {
       path:'/teacherprofile',

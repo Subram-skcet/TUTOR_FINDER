@@ -64,7 +64,7 @@ const RegisterStudent = () => {
     <div>
         <h1>Sign up to your EduQuest account</h1>
     </div>
-    <div className='teacher-reg-wrap'>
+    <div>
       <form onSubmit={handleSubmit}>
         <div className='space-div'>
           <label>Name:</label>

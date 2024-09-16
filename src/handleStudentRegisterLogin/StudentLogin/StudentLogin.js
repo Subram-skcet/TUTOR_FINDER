@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Login.css'; // Assuming you save the CSS file as Login.css
+import './StudentLogin.css'; // Assuming you save the CSS file as Login.css
 import { useNavigate } from 'react-router-dom';
-import { useDataLayerValue } from '../StateProviders/StateProvider';
+import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
 
 const Login = () => {
@@ -22,14 +22,6 @@ const Login = () => {
         }));
     };
 
-    const handleCheckboxChange = (e) => {
-        const { name, checked } = e.target;
-        setDetails((prevDetails) => ({
-            ...prevDetails,
-            asteacher: name === 'asteacher' ? checked : !checked,
-            asstud: name === 'asstud' ? checked : !checked,
-        }));
-    };
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -81,29 +73,9 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <div className="checkbox-container">
-                <div>
-                <input
-                    type="checkbox"
-                    id="asteacher"
-                    name="asteacher"
-                    checked={userDetails.asteacher}
-                    onChange={handleCheckboxChange}
-                />
-                <label htmlFor="asteacher">LogIn as Teacher</label>
-                </div>
-                <div>
-
-                <input
-                    type="checkbox"
-                    id="asstud"
-                    name="asstud"
-                    checked={userDetails.asstud}
-                    onChange={handleCheckboxChange}
-                />
-                <label htmlFor="asstud">LogIn as Student</label>
-                 </div>
+        <div className="student-login-container">
+            <div className='student-login-header'>
+                <h1>Log in to your EduQuest account</h1>
             </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -118,6 +90,14 @@ const Login = () => {
                     <button type="submit">Log In</button>
                 </div>
             </form>
+            <div className='log-in-content-div'>
+            <div>
+                <span className='anchor-link'>Forgot Password?</span>
+            </div>
+            <div>
+               <p>Don't have an account? <span className='anchor-link' onClick={()=>navigate('/register')}>Sign up</span></p>
+            </div>
+           </div>
         </div>
     );
 };
