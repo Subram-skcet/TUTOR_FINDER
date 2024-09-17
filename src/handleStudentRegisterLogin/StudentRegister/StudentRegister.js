@@ -3,11 +3,20 @@ import axios from 'axios'; // Make sure to install axios using npm or yarn
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import './StudentRegister.css'
 import { useNavigate } from 'react-router-dom';
+import doneimg from '../../assets/done.png'
 
 const RegisterStudent = () => {
   const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
   const navigate = useNavigate()
-  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [ isVerifyClickable, setVerifyClickable ] =useState(true)
+  const [otpDetails,setOtpDetails] = useState(
+    {
+      otp:new Array(6).fill(""),
+      isVisible:false,
+      isVerified:false,
+    }
+  )
+
   const [userDetails, setDetails] = useState({
     name: '',
     email: '',
@@ -24,13 +33,42 @@ const RegisterStudent = () => {
     marginInline: 'auto'
   };
 
+  const handleOtpSend = async()=>{
+      try {
+        const response = await axios.post('http://localhost:3001/api/v1/auth/generateotp',
+          {
+            email:userDetails.email,
+            role:'student'
+          }
+        )
+        if(response.data.message === 'Verification email generated'){
+          setOtpDetails((prevDetails)=>({
+            ...prevDetails,
+            isVisible:true
+          }))
+        }
+
+        console.log(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+  }
+
   const handleOtpSubmit = async() => {
-    console.log(otp);
      try {
       const response = await axios.post('http://localhost:3001/api/v1/auth/verifyemail',{
         email:userDetails.email,
-        otp:otp.join('')
+        otp:otpDetails.otp.join('')
       })
+      if(response.data.message === "Verified successfully"){
+        setOtpDetails((prevDetails)=>(
+          {
+            ...prevDetails,
+            isVerified:true,
+            isVisible:false
+          }
+        ))
+      }
       console.log(response);
      } catch (error) {
        console.log(error.message);
@@ -48,9 +86,13 @@ const RegisterStudent = () => {
   const handleOtpChange = (element, index) => {
     const value = element.value;
     if (/^[0-9]$/.test(value) || value === "") {
-      const newOtp = [...otp];
+      const newOtp = [...otpDetails.otp];
       newOtp[index] = value;
-      setOtp(newOtp);
+
+      setOtpDetails({
+        ...otpDetails,
+        otp: newOtp, // Update only otp key inside otpDetails
+      });
 
       // Move to the next input field
       if (value && index < 5) {
@@ -60,7 +102,7 @@ const RegisterStudent = () => {
   };
 
   const handleBackspace = (e, index) => {
-    if (e.key === "Backspace" && otp[index] === "") {
+    if (e.key === "Backspace" && otpDetails.otp[index] === "") {
       if (index > 0) {
         document.getElementById(`otp-input-${index - 1}`).focus();
       }
@@ -112,22 +154,31 @@ const RegisterStudent = () => {
         <div className='form-group'>
           <div className='email-label-flex'>
             <label>Email:</label>
-             <p>Verify</p>
+            {otpDetails.isVerified ?
+            <div className='verified-div'>
+              <img src={doneimg} className='done-img'/>
+              <p className='verified-div-para'>Verified</p>
+            </div>
+            :
+             <p className='link-colour' onClick={()=>handleOtpSend()}>Verify</p>
+            }
           </div>
           <input type='email' name='email' id='email' value={userDetails.email} onChange={handleChange} required />
         </div>
+        {
+          otpDetails.isVisible ?
         <div className="otp-input form-group">
           <label>Enter otp:</label>
           <div className='otp-verify-flex'>
             <div>
-            {otp.map((value, index) => (
+            {otpDetails.otp.map((value, index) => (
               <input
                 key={index}
                 id={`otp-input-${index}`}
                 type="text"
                 name="otp"
                 maxLength="1"
-                value={otp[index]}
+                value={otpDetails.otp[index]}
                 onChange={(e) => handleOtpChange(e.target, index)}
                 onKeyDown={(e) => handleBackspace(e, index)}
                 style={{
@@ -142,9 +193,12 @@ const RegisterStudent = () => {
                 />
               ))}
             </div>
-            <div><p onClick={()=>handleOtpSubmit()}>Submit</p></div>
+            <div><p className='link-colour'  onClick={()=>handleOtpSubmit()}>Submit</p></div>
           </div>
-    </div>
+       </div>
+          :
+          <></>
+        }
         <div className='form-group'>
           <label>Password:</label>
           <input type='password' name='password' id='password' value={userDetails.password} onChange={handleChange} required />

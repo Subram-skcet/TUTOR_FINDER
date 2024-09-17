@@ -23,3 +23,23 @@
     display: flex;
     justify-content: space-between;
 }
+
+.link-colour{
+    color: blue;
+    cursor: pointer;
+}
+
+.verified-div-para{
+    color: green;
+    padding: 2px;
+}
+
+.verified-div{
+    display: flex;
+}
+
+.done-img{
+    width:  20px;
+    height: 20px;
+    color: green;
+}
