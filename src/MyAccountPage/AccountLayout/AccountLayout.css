@@ -43,6 +43,7 @@
 .stg-options{
     margin-top: .5rem;
     padding: 5px;
+    cursor: pointer;
 }
 
 .stg-options:hover{

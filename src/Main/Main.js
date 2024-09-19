@@ -19,7 +19,7 @@ const Main = () => {
 
   const fetchData = async (searchParams) => {
     try {
-      const response = await axios.get('http://localhost:3001/api/v1/tution/', { params: searchParams });
+      const response = await axios.get('/api/v1/tution/', { params: searchParams });
       console.log(response);
       setResults(response.data.ResultSet);
     } catch (error) {

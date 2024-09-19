@@ -85,7 +85,7 @@ const handleSaveClick = async() =>{
         rating = childRef.current.returnRating() //get rating from the ReviewCard component method 
 
     try {
-        const response = await axios.patch(`http://localhost:3001/api/v1/review/${id}`,{
+        const response = await axios.patch(`/api/v1/review/${id}`,{
             rating,
             review:editDetails.editreview
         })

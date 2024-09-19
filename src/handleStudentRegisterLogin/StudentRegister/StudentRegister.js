@@ -35,7 +35,7 @@ const RegisterStudent = () => {
 
   const handleOtpSend = async()=>{
       try {
-        const response = await axios.post('http://localhost:3001/api/v1/auth/generateotp',
+        const response = await axios.post('/api/v1/auth/generateotp',
           {
             email:userDetails.email,
             role:'student'
@@ -56,7 +56,7 @@ const RegisterStudent = () => {
 
   const handleOtpSubmit = async() => {
      try {
-      const response = await axios.post('http://localhost:3001/api/v1/auth/verifyemail',{
+      const response = await axios.post('/api/v1/auth/verifyemail',{
         email:userDetails.email,
         otp:otpDetails.otp.join('')
       })
@@ -113,7 +113,7 @@ const RegisterStudent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/api/v1/auth/registerstudent', userDetails);
+      const response = await axios.post('/api/v1/auth/registerstudent', userDetails);
       console.log('User registered successfully:', response.data);
 
       const studentDetails = response.data.student;

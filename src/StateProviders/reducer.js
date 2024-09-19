@@ -55,6 +55,8 @@ export const initialState = {
             ...state,
             asStudent:action.payload
           };
+        case "LOG_OUT":
+          return initialState
   
       default:
         return state;

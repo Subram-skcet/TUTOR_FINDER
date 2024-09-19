@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import  ReviewCard from '../../components/ReviewCard/ReviewCard'
 import axios from 'axios'
-import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import './MyReview.css'
 
 
 const MyReview = () => {
   const [reviews,setReviews] = useState([])
-  const [{asStudent},dispatch] = useDataLayerValue()
   
 
   const fetchMyReviews = async()=>{
        try {
-          const response = await axios(`http://localhost:3001/api/v1/review/${asStudent._id}?mode=student`)
+          const response = await axios.get(`/api/v1/review/`)
           console.log(response);
           setReviews(response.data.reviews)
        } catch (error) {
@@ -27,7 +25,7 @@ const MyReview = () => {
       option
     }
     try {
-      const response = await axios.post(`http://localhost:3001/api/v1/student/likereviews/${asStudent._id}`,req_body)
+      const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
       console.log(response);
     } catch (error) {
      
@@ -36,7 +34,7 @@ const MyReview = () => {
 
 const deleteReview = async(id) =>{
   try {
-      const response = await axios.delete(`http://localhost:3001/api/v1/review/${id}`)
+      const response = await axios.delete(`/api/v1/review/${id}`)
       console.log(response);
       fetchMyReviews()
   } catch (error) {

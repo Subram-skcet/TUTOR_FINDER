@@ -43,7 +43,7 @@ const pathname = location.pathname
                           <SearchIcon/>
                           <p>Search</p>
                     </div>
-                    <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
+                    <div className='itms-cntr style-links'>
                       <img
                         src="https://img.icons8.com/?size=50&id=38HJBFwphJ3I&format=png"
                         className="img-sz"

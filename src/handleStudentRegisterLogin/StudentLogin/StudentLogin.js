@@ -10,8 +10,6 @@ const Login = () => {
     const [userDetails, setDetails] = useState({
         email: '',
         password: '',
-        asteacher: true,
-        asstud: false
     });
 
     const handleChange = (e) => {
@@ -27,12 +25,10 @@ const Login = () => {
         e.preventDefault();
         console.log(userDetails);
         try {
-            const response = await axios.get(`http://localhost:3001/api/v1/auth/login${userDetails.asteacher?'teacher':'student'}`,
+            const response = await axios.post('/api/v1/auth/loginstudent',
                 {
-                    params:{
-                        email:userDetails.email,
-                        password:userDetails.password
-                    }
+                    email:userDetails.email,
+                    password:userDetails.password
                 }
             )
             dispatch({
@@ -40,7 +36,7 @@ const Login = () => {
                 payload: true
               });
             let loggedUserDetails
-            if(!userDetails.asteacher){
+            // if(!userDetails.asteacher){
                  loggedUserDetails =response.data.student
                   dispatch({
                     type: "SET_STUDENT",
@@ -52,20 +48,20 @@ const Login = () => {
                       payload:'student'
                     }
                   )
-            }
-            else{
-                loggedUserDetails =response.data.teacher
-                  dispatch({
-                    type: "SET_TEACHER",
-                    payload: loggedUserDetails
-                  });
-                  dispatch(
-                    {
-                      type:"LOGGED_USER",
-                      payload:'teacher'
-                    }
-                  )
-            }
+            // }
+            // else{
+            //     loggedUserDetails =response.data.teacher
+            //       dispatch({
+            //         type: "SET_TEACHER",
+            //         payload: loggedUserDetails
+            //       });
+            //       dispatch(
+            //         {
+            //           type:"LOGGED_USER",
+            //           payload:'teacher'
+            //         }
+            //       )
+            // }
             console.log(loggedUserDetails);
         } catch (error) {
             console.log(error.message);

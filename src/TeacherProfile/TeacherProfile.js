@@ -29,11 +29,7 @@ const TeacherProfile = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/review/${props._id}`,{
-        params:{
-          mode:"teacher"
-        }
-      });
+      const response = await axios.get(`/api/v1/review/teacher-reviews/${props._id}`);
       console.log(response);
       setReviews(response.data.reviews)
       // Handle response and set reviews if needed
@@ -80,7 +76,7 @@ const TeacherProfile = () => {
     }
     console.log(req_body);
     try {
-      const response = await axios.post('http://localhost:3001/api/v1/review/',req_body)
+      const response = await axios.post('/api/v1/review/',req_body)
       console.log(response);
       alert('Review posted successfully')
       await fetchReviews();
