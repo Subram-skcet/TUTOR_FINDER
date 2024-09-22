@@ -8,6 +8,8 @@ import Rating from '../components/Rating/Rating'
 import { useDataLayerValue } from '../StateProviders/StateProvider';
 import Modal from '../components/Modal/Modal';
 import LoginModal from '../components/LoginModal/LoginModal';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -40,7 +42,6 @@ const TeacherProfile = () => {
   
   useEffect(() => {
     fetchReviews();
-    
   }, []);
 
 
@@ -62,7 +63,9 @@ const TeacherProfile = () => {
        return openLoginModel()
     }
     if(ReviewExists()){
-      return alert('Review alredy exists!!')
+      console.log('Executing');
+      toast.error('Review alredy exists!!')
+      return
     }
     let rating;
     if(childRef.current){
@@ -78,7 +81,7 @@ const TeacherProfile = () => {
     try {
       const response = await axios.post('/api/v1/review/',req_body)
       console.log(response);
-      alert('Review posted successfully')
+      toast.success('Review posted successfully')
       await fetchReviews();
     } catch (error) {
       console.log(error.message);

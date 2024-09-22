@@ -29,7 +29,11 @@ const StudentProfile = () => {
 
   useEffect(()=>{
       console.log(asStudent);
-  },[])
+      setProfile({
+        profilepic: asStudent.profilepic,
+        name: asStudent.name,
+      })
+  },[asStudent])
 
   const handleEditClick = () =>{
     setEditDetails(profile);
@@ -46,7 +50,7 @@ const StudentProfile = () => {
       const formData = new FormData();
       formData.append('image', selectedImage.file);
       try {
-        const response = await axios.post('http://localhost:3001/api/v1/student/upload?for=student', formData, {
+        const response = await axios.post('/api/v1/student/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         updatedProfilePic = response.data.image;
@@ -58,7 +62,7 @@ const StudentProfile = () => {
     }
     
     try {
-      const response = await axios.patch(`http://localhost:3001/api/v1/student/${asStudent._id}`,{ ...editDetails, profilepic: updatedProfilePic })
+      const response = await axios.patch(`/api/v1/student/`,{ ...editDetails, profilepic: updatedProfilePic })
       let updatedDetails = response.data.user
       setProfile(updatedDetails)
       let newStudentDetails = { ...asStudent, ...updatedDetails };

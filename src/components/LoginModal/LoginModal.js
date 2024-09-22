@@ -25,12 +25,10 @@ const LoginModal = () => {
         e.preventDefault();
         console.log(userDetails);
         try {
-            const response = await axios.get('http://localhost:3001/api/v1/auth/loginstudent',
+            const response = await axios.post('/api/v1/auth/loginstudent',
                 {
-                    params:{
                         email:userDetails.email,
                         password:userDetails.password
-                    }
                 }
             )
             dispatch({

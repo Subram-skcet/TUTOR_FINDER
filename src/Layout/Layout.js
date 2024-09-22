@@ -57,7 +57,7 @@ const pathname = location.pathname
                         className="img-sz"
                         alt="Student Icon"
                       />
-                      <span onClick={RegisterNavigateStudent}>Register as Student</span>
+                      <span onClick={RegisterNavigateStudent}>Register</span>
                     </div>
                     <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
                       <img

@@ -49,3 +49,7 @@
 .stg-options:hover{
    background: gray;
 }
+.stg-options.delete:hover{
+    background: red;
+    color: white;
+}

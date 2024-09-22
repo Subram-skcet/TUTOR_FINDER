@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import  ReviewCard from '../../components/ReviewCard/ReviewCard'
 import axios from 'axios'
 import './MyReview.css'
-
+import { useDataLayerValue } from '../../StateProviders/StateProvider'
 
 const MyReview = () => {
   const [reviews,setReviews] = useState([])
-  
+  const [{ asStudent }, dispatch] = useDataLayerValue();
 
   const fetchMyReviews = async()=>{
        try {
@@ -44,7 +44,7 @@ const deleteReview = async(id) =>{
 
   useEffect(()=>{
      fetchMyReviews()
-  },[])
+  },[asStudent])
   return (
     <div className='my-reviews-wrap'>
       <div>

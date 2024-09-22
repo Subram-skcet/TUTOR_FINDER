@@ -15,7 +15,9 @@ import { useDataLayerValue } from '../StateProviders/StateProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import ChangePassword from '../components/ChangePassword/ChangePassword';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Router = () => {
   const [{logged},dispatch] = useDataLayerValue()
@@ -83,6 +85,10 @@ const Router = () => {
       element: <LayoutWrapper><TeacherProfile/></LayoutWrapper>,
     },
     {
+      path:'/reset-password',
+      element: <LayoutWrapper><ChangePassword/></LayoutWrapper>
+    },
+    {
       path:'/myaccount/studentprofile/*',
       element:<StudentProfileRoutes/>,
     },
@@ -97,9 +103,14 @@ const Router = () => {
 
 const LayoutWrapper = ({ children }) => {
   return (
+    <>
     <Layout>
       {children}
     </Layout>
+    <ToastContainer
+    position="top-center"
+    />
+    </>
   );
 };
 

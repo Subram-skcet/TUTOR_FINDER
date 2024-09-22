@@ -52,7 +52,7 @@ function TutionCard({tution,index,profilenavigate}) {
         }
         try {
             setBookMark(prevState => !prevState)
-            const response = await axios.post(`http://localhost:3001/api/v1/student/favouritetutions/${asStudent._id}`,{
+            const response = await axios.post(`/api/v1/student/favouritetutions/`,{
                 tutionId:tution._id,
                 favourite:!isBookMark
             })
