@@ -88,4 +88,13 @@
     text-decoration-color: blue;
     cursor: pointer;
  }
-  
+
+.otp-input-fd{
+ width: 10px;
+ padding: 10px;
+ margin: 5px;
+ text-align: center;
+ font-size: 18px;
+ border: 2px solid #ccc;
+ border-radius: 4px;
+}

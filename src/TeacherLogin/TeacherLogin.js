@@ -1,11 +1,15 @@
 import React,{ useState } from 'react'
 import './TeacherLogin.css'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { useDataLayerValue } from '../StateProviders/StateProvider'
 
 const TeacherLogin = ({openLogin}) => {
     const [loginDetails,setDetails] = useState({
         email:'',
         password:''
     })
+    const [{logged},dispatch] = useDataLayerValue()
 
     const handleChange = (e) =>{
         const { name,value } = e.target
@@ -14,9 +18,33 @@ const TeacherLogin = ({openLogin}) => {
             [name]:value
         }))
     }
-    const handleSubmit = (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
         console.log(loginDetails);
+        try {
+            const response = await axios.post('/api/v1/auth/loginteacher',loginDetails)
+            if(response.status === 200){
+                dispatch({
+                    type: "LOG_USER",
+                    payload: true
+                });
+
+            let loggedUserDetails =response.data.teacher
+                  dispatch({
+                    type: "SET_TEACHER",
+                    payload: loggedUserDetails
+                  });
+                  dispatch(
+                    {
+                      type:"LOGGED_USER",
+                      payload:'teacher'
+                    }
+                  )
+                toast.success('Logged in successfully')
+            }
+        } catch (error) {
+            toast.error('Something went wrong, Try agin later')
+        }
     }
 
   return (

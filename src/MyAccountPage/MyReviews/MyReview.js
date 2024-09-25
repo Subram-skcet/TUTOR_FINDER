@@ -11,7 +11,7 @@ const MyReview = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/v1/review/${asTeacher._id}?mode=teacher`);
+        const response = await axios.get(`/api/v1/review/`);
         setReviews(response.data.reviews);
       } catch (error) {
         console.error('Error fetching reviews:', error);

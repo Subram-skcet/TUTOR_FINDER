@@ -46,7 +46,7 @@ const MyProfile = () => {
 
   const fetchTutionCountAndRating = async () => {
     try {
-      const response = await axios.get(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`);
+      const response = await axios.get(`/api/v1/teacher/`);
       const updatedDetails = {
         ...asTeacher,
         numOfTutions: response.data.teacher.numOfTutions,
@@ -138,7 +138,7 @@ const MyProfile = () => {
       const formData = new FormData();
       formData.append('image', selectedImage.file);
       try {
-        const response = await axios.post('http://localhost:3001/api/v1/student/upload?for=teacher', formData, {
+        const response = await axios.post('/api/v1/student/upload?for=teacher', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         updatedProfilePic = response.data.image;
@@ -149,7 +149,7 @@ const MyProfile = () => {
 
 
     try {
-      const response = await axios.patch(`http://localhost:3001/api/v1/teacher/${asTeacher._id}`, { ...editDetails, profilepic: updatedProfilePic });
+      const response = await axios.patch(`/api/v1/teacher/${asTeacher._id}`, { ...editDetails, profilepic: updatedProfilePic });
       const updatedProfile = response.data.teacher;
       setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
       setPermImage(selectedImage)

@@ -8,10 +8,11 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Impor
 import axios from 'axios';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import { subjects } from '../../components/stateExporter';
+import { toast } from 'react-toastify';
 
 const AddTution = () => {
   const navigate = useNavigate();
-  const [{ asTeacher },dispatch] = useDataLayerValue(); // Get createdBy id from StateProvider
+  const [{ asTeacher }, dispatch] = useDataLayerValue(); // Get createdBy id from StateProvider
 
   const [TutionDetails, setDetails] = useState({
     Subjects: [],
@@ -70,10 +71,7 @@ const AddTution = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const formattedSubjects = TutionDetails.Subjects.map(subject => subject.toLowerCase());
-      // const formattedBoards = TutionDetails.Boards.map(board => board.toLowerCase());
-  
-      const response = await axios.post('http://localhost:3001/api/v1/tution/', {
+      const response = await axios.post('/api/v1/tution/', {
         createdBy: asTeacher._id,
         subjects: TutionDetails.Subjects,
         duration: [TutionDetails.startTime, TutionDetails.endTime],
@@ -82,25 +80,33 @@ const AddTution = () => {
         fees: TutionDetails.Fees,
         boards: TutionDetails.Boards,
       });
+
+      if(response.status === 201){
+         toast.success('Tuition created successfully')
+         navigate('/myaccount/teacherprofile/mytutions');
+      }
       
-      navigate('/myaccount/teacherprofile/mytutions');
     } catch (error) {
-      console.error('Error posting tuition details:', error);
+      toast.error('ERror creating tuition ,try again later')
+
     }
   };
 
   return (
-    <div className="form-container">
-      <h1>Add Tution</h1>
-      <form className="add-tution-form">
-        <div className="form-group">
-          <label>Select Subject</label>
-          <select onChange={HandleSubjectSelect}>
-            <option value="">Select a subject</option>
-            {subjects.map((subject)=>(
-              <option value={subject.value}>{subject.label}</option>
-            ))}
-          </select>
+    <div className="create-tuition-container">
+      <h1>Create Tuition</h1>
+      <form className="create-tuition-form">
+        
+        <div className="list-container">
+          <div className='header-flx'>
+            <label>Select Subject</label>
+            <select onChange={HandleSubjectSelect} className='create-tuition-select'>
+              <option value="">Select a subject</option>
+              {subjects.map((subject) => (
+                <option value={subject.value}>{subject.label}</option>
+              ))}
+            </select>
+          </div>
           <div className="selected-items">
             {TutionDetails.Subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
@@ -108,44 +114,45 @@ const AddTution = () => {
           </div>
         </div>
 
-        <div className="form-group">
-          <label>Board</label>
-          <select name="boards" onChange={HandleBoardSelect}>
-            <option value="">Select a board</option>
-            <option value="CBSE">CBSE</option>
-            <option value="State Board">State Board</option>
-            <option value="ICSE">ICSE</option>
-          </select>
+        <div className="list-container">
+          <div className='header-flx'>
+            <label>Select Boards</label>
+            <select onChange={HandleBoardSelect} className='create-tuition-select'>
+              <option value="">Select a board</option>
+              <option value="CBSE">CBSE</option>
+              <option value="State Board">State Board</option>
+              <option value="ICSE">ICSE</option>
+            </select>
+          </div>
           <div className="selected-items">
             {TutionDetails.Boards.map((board) => (
               <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
             ))}
           </div>
         </div>
+        <div className='grid-columns'>
 
-        <div className="form-group">
-          <label>Duration</label>
-          <div className="time-inputs">
             <div>
-              <label>Start Time:</label>
-              <input type="time" name="startTime" value={TutionDetails.startTime} onChange={handleChange} />
+              <p>Duration:</p>
             </div>
-            <div>
+            <div className='header-flx'>
+              <label>Start Time:</label>
+              <input 
+                 type="time"
+                 name="startTime"
+                 value={TutionDetails.startTime}
+                 onChange={handleChange}
+              />
+            </div>
+            <div className='header-flx'>
               <label>End Time:</label>
               <input type="time" name="endTime" value={TutionDetails.endTime} onChange={handleChange} />
             </div>
-          </div>
-        </div>
 
-        <div className="form-group">
-          <label>Fees:</label>
-          <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} />
-        </div>
-
-        <div className="form-group">
-          <label>Days:</label>
-          <div className="day-select">
             <div>
+              <p>Days:</p>
+            </div>
+            <div className='header-flx'>
               <label>From:</label>
               <select value={TutionDetails.startDay} name="startDay" onChange={handleChange}>
                 <option value="Monday">Monday</option>
@@ -157,7 +164,7 @@ const AddTution = () => {
                 <option value="Sunday">Sunday</option>
               </select>
             </div>
-            <div>
+            <div className='header-flx'>
               <label>To:</label>
               <select value={TutionDetails.endDay} name="endDay" onChange={handleChange}>
                 <option value="Monday">Monday</option>
@@ -169,57 +176,64 @@ const AddTution = () => {
                 <option value="Sunday">Sunday</option>
               </select>
             </div>
+
+            <div>
+              <p>Standard:</p>
+            </div>
+          <div className='header-flx'>
+            <label>Start Class:</label>
+            <select 
+            value={TutionDetails.startStd}
+             name="startStd" 
+             onChange={handleChange}
+             className='create-tuition-select'
+             >
+              <option value="I">I</option>
+              <option value="II">II</option>
+              <option value="III">III</option>
+              <option value="IV">IV</option>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+              <option value="XII">XII</option>
+            </select>
           </div>
+          <div className='header-flx'>
+            <label>End Class:</label>
+            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select'>
+              <option value="I">I</option>
+              <option value="II">II</option>
+              <option value="III">III</option>
+              <option value="IV">IV</option>
+              <option value="V">V</option>
+              <option value="VI">VI</option>
+              <option value="VII">VII</option>
+              <option value="VIII">VIII</option>
+              <option value="IX">IX</option>
+              <option value="X">X</option>
+              <option value="XI">XI</option>
+              <option value="XII">XII</option>
+            </select>
+          </div>
+
+        </div>
+        <div className='header-flx'>
+           <label>Fees:</label>
+
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='create-tuition-select'/>
         </div>
 
-        <div className="form-group">
-          <label>Standard:</label>
-          <div className="std-select">
-            <div>
-              <label>Class From:</label>
-              <select value={TutionDetails.startStd} name="startStd" onChange={handleChange}>
-                <option value="I">I</option>
-                <option value="II">II</option>
-                <option value="III">III</option>
-                <option value="IV">IV</option>
-                <option value="V">V</option>
-                <option value="VI">VI</option>
-                <option value="VII">VII</option>
-                <option value="VIII">VIII</option>
-                <option value="IX">IX</option>
-                <option value="X">X</option>
-                <option value="XI">XI</option>
-                <option value="XII">XII</option>
-              </select>
-            </div>
-            <div>
-              <label>Class To:</label>
-              <select value={TutionDetails.endStd} name="endStd" onChange={handleChange}>
-                <option value="I">I</option>
-                <option value="II">II</option>
-                <option value="III">III</option>
-                <option value="IV">IV</option>
-                <option value="V">V</option>
-                <option value="VI">VI</option>
-                <option value="VII">VII</option>
-                <option value="VIII">VIII</option>
-                <option value="IX">IX</option>
-                <option value="X">X</option>
-                <option value="XI">XI</option>
-                <option value="XII">XII</option>
-              </select>
-            </div>
-          </div>
-        </div>
       </form>
-        <div className='add-tution-div'>
-          {/* <button className='post-tution-btn' onClick={handleSubmit}> */}
-            <div className='itms-cntr style-links-updated add-tut-bck' onClick={handleSubmit}>
-              <PostAddIcon/>
-              <p>Post Tution</p>
-            </div>
-          {/* </button> */}
+      <div className="create-button">
+        <div className="submit-tuition" onClick={handleSubmit}>
+          <PostAddIcon />
+          <p>Create Tuition</p>
         </div>
+      </div>
     </div>
   );
 };

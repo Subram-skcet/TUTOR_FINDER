@@ -10,6 +10,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import SelectedSubject from '../AddTution/Subjects';
 import { subjects,standards } from '../../components/stateExporter';
+import { toast } from 'react-toastify';
 
 const MyTution = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const MyTution = () => {
   
   const fetchTutions = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/v1/tution/gettutions', {
+      const response = await axios.get('/api/v1/tution/gettutions', {
         params: { createdBy: asTeacher._id },
       });
       console.log(response)
@@ -87,13 +88,14 @@ const MyTution = () => {
     try {
       const updatedTution = TutionDetails;
       // Include createdBy in the updated tution data
-      const response = await axios.patch(`http://localhost:3001/api/v1/tution/${tutions[index]._id}`, {
+      const response = await axios.patch(`/api/v1/tution/${tutions[index]._id}`, {
         ...updatedTution,
         createdBy: asTeacher._id // Ensure createdBy is included in the request body
       });
+      console.log(response);
   
       if (response.status === 200) {
-        // Optionally, refetch tutions or update state directly if needed
+        toast.success('Tuition saved successfully')
         const updatedTution = response.data.tution;
         setTutions((prevTutions) => prevTutions.map((tution, i) =>
           i === index ? updatedTution : tution
@@ -108,16 +110,18 @@ const MyTution = () => {
   const handleDeleteClick = async (index) => {
     try {
       const tutionToDelete = tutions[index];
-      const response = await axios.delete(`http://localhost:3001/api/v1/tution/${tutionToDelete._id}`, {
+      const response = await axios.delete(`/api/v1/tution/${tutionToDelete._id}`, {
         data: { createdBy: tutionToDelete.createdBy } // Include createdBy in the request body
       });
       console.log(response);
       
       // Optionally check the response data
       if (response.status === 200) {
+        toast.success('Tuition deleted successfully')
         setTutions((prevTutions) => prevTutions.filter((_, i) => i !== index));
       }
     } catch (error) {
+      toast.error('Error deleting tuition')
       console.error('Error deleting tution:', error);
     }
   };
@@ -347,7 +351,7 @@ const MyTution = () => {
         <button className='edit-prof-btn spz' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
           <div className='itms-cntr style-links-updated add-tut-bck'>
             <AddIcon />
-            <p>Add Tution</p>
+            <p>Create Tuition</p>
           </div>
         </button>
       </div>

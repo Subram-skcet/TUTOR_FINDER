@@ -9,7 +9,8 @@ import { useDataLayerValue } from '../StateProviders/StateProvider';
 import Modal from '../components/Modal/Modal';
 import LoginModal from '../components/LoginModal/LoginModal';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css'; 
+import { ThreeCircles } from 'react-loader-spinner'
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -19,6 +20,7 @@ const TeacherProfile = () => {
   const textareaRef = useRef(null)
   const [{asStudent,logged,logged_as},dispatch] =  useDataLayerValue()
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
+  const [isLoading,setIsLoading] = useState(false)
 
   let props = location.state.profileDetails;
   // console.log(props);
@@ -30,6 +32,7 @@ const TeacherProfile = () => {
   };
 
   const fetchReviews = async () => {
+    setIsLoading(true)
     try {
       const response = await axios.get(`/api/v1/review/teacher-reviews/${props._id}`);
       console.log(response);
@@ -37,6 +40,9 @@ const TeacherProfile = () => {
       // Handle response and set reviews if needed
     } catch (error) {
       console.error('Error fetching reviews:', error);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
   
@@ -170,8 +176,22 @@ const TeacherProfile = () => {
         <hr className='hr-tag'></hr>
         <div className="reviews-container">
           <h3 className="reviews-heading">Student Reviews ({reviews.length})</h3>
+          {isLoading ?
+              <ThreeCircles
+              visible={true}
+              height="100"
+              width="100"
+              color="#4fa94d"
+              ariaLabel="three-circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              />
+          :
+          <></>
+          }
           <div className="reviews-section">
-            {reviews.length === 0 ? (
+          
+            {!isLoading && reviews.length === 0 ? (
               <p className='no-review-text'>No reviews for this teacher..</p>
             )
             :(
