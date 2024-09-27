@@ -138,7 +138,7 @@ const MyProfile = () => {
       const formData = new FormData();
       formData.append('image', selectedImage.file);
       try {
-        const response = await axios.post('/api/v1/student/upload?for=teacher', formData, {
+        const response = await axios.post('/api/v1/student/upload', formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
         updatedProfilePic = response.data.image;
@@ -149,7 +149,7 @@ const MyProfile = () => {
 
 
     try {
-      const response = await axios.patch(`/api/v1/teacher/${asTeacher._id}`, { ...editDetails, profilepic: updatedProfilePic });
+      const response = await axios.patch(`/api/v1/teacher/`, { ...editDetails, profilepic: updatedProfilePic });
       const updatedProfile = response.data.teacher;
       setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
       setPermImage(selectedImage)

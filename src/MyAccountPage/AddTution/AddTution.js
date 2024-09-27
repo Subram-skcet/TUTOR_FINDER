@@ -87,7 +87,7 @@ const AddTution = () => {
       }
       
     } catch (error) {
-      toast.error('ERror creating tuition ,try again later')
+      toast.error('Error creating tuition ,try again later')
 
     }
   };

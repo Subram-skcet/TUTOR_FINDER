@@ -14,13 +14,13 @@ import CloseIcon from '@mui/icons-material/Close';
 import Rating from '../Rating/Rating'
 
 const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, review, like, dislike, handleLike,createdFor , deleteReview}) => {
+        const [{logged,logged_as,asStudent},dispatch] = useDataLayerValue();
         const [userReaction, setUserReaction] = useState({
-            liked: false,
-            disliked: false
+            liked: asStudent.likedReviews.includes(id),
+            disliked: asStudent.dislikedReviews.includes(id)
         });
         const [likeCount, setLikeCount] = useState(like.length);
         const [dislikeCount, setDislikeCount] = useState(dislike.length);
-        const [{logged,logged_as},dispatch] = useDataLayerValue();
         const location = useLocation();
         const [isEditing,setIsEditing] = useState(false)
         const [permDetails,setPermDetails] = useState({
@@ -33,7 +33,7 @@ const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, revi
         });
         const childRef = useRef(); //Access child class Rating function from parent 
 
-const updateReaction = (reactionType) => {
+    const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
 
     if (reactionType === 'like') {
@@ -51,7 +51,7 @@ const updateReaction = (reactionType) => {
       setDislikeCount(disliked ? dislikeCount - 1 : dislikeCount + 1);
         setUserReaction({ liked: false, disliked: !disliked });
     }
-};
+  };
 
 const handleLikeClicks = (reactionType) => {
     updateReaction(reactionType);

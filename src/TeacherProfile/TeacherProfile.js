@@ -23,7 +23,7 @@ const TeacherProfile = () => {
   const [isLoading,setIsLoading] = useState(false)
 
   let props = location.state.profileDetails;
-  // console.log(props);
+  console.log(props);
 
   const backgroundStyle = {
     backgroundImage: `url(${props.profilepic})`,
@@ -65,8 +65,12 @@ const TeacherProfile = () => {
   }
 
   const handleSubmitReview = async() => {
-    if(!logged || !logged_as==='student'){
+    if(!logged){
        return openLoginModel()
+    }
+    if(!(logged_as === 'student')){
+      toast.info('Only students can review about a teacher')
+      return
     }
     if(ReviewExists()){
       console.log('Executing');
@@ -90,7 +94,7 @@ const TeacherProfile = () => {
       toast.success('Review posted successfully')
       await fetchReviews();
     } catch (error) {
-      console.log(error.message);
+      toast.error("Couldn't post a review try again later")
     }
 
   };
@@ -113,7 +117,7 @@ const TeacherProfile = () => {
          option
        }
        try {
-         const response = await axios.post(`http://localhost:3001/api/v1/student/likereviews/${asStudent._id}`,req_body)
+         const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
          console.log(response);
        } catch (error) {
         

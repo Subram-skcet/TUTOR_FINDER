@@ -70,6 +70,7 @@
    gap: 1rem;
    max-height: 100px;
    overflow-y: overlay;
+   margin-top: 1rem;
  }
 
  .register-label{

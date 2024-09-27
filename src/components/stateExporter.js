@@ -88,3 +88,9 @@ export const qualifications = [
   { value: 'M.Sc'}
 ]
 
+export const boards = [
+  {value: 'State Board'},
+  {value : 'CBSE'},
+  {value : 'ICSC'}
+]
+

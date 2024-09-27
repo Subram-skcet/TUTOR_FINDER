@@ -6,7 +6,7 @@ import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
 import { stateDistricts,subjects } from '../../components/stateExporter'
 import doneimg from '../../assets/done.png'
-
+import { toast } from 'react-toastify';
 
 const RegisterTeacher = ({openLogin}) => {
   const [{ logged }, dispatch] = useDataLayerValue();
@@ -28,6 +28,7 @@ const RegisterTeacher = ({openLogin}) => {
       isVerified:false,
     }
   )
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("Here you gooooo", logged);
@@ -107,21 +108,27 @@ const handleBackspace = (e, index) => {
     let setTeacher;
     try {
       const response = await axios.post('/api/v1/auth/registerteacher',teacherDetails );
-       setTeacher = response.data.teacher
-      console.log("Here the response = " , setTeacher);
-      dispatch({ type: 'LOG_USER', payload: true });
-      dispatch(
-        {
-          type:"SET_TEACHER",
-          payload:setTeacher
-        }
-      )
-      dispatch(
-        {
-          type:"LOGGED_USER",
-          payload:'teacher'
-        }
-      )
+      
+      console.log(response);
+      if(response.status === 201){
+        toast.success('User registered succcessfully')
+        setTeacher = response.data.teacherData
+       console.log("Here the response = " , setTeacher);
+       dispatch({ type: 'LOG_USER', payload: true });
+       dispatch(
+         {
+           type:"SET_TEACHER",
+           payload:setTeacher
+         }
+       )
+       dispatch(
+         {
+           type:"LOGGED_USER",
+           payload:'teacher'
+         }
+       )
+       navigate('/myaccount/teacherprofile/myprofile')
+      }
     } catch (error) {
       console.error('Error sending data:', error);
     }

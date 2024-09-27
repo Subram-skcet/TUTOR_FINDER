@@ -1,0 +1,53 @@
+.del-bck{
+    background: red;
+    color: white;
+}
+.ed-bck{
+    background: blue;
+    color: white;
+}
+.sv-bck{
+    background: green;
+    color: white;
+}
+.cncl-bck{
+    background:#808080;
+    color: white;
+}
+
+.tuition-wrapper{
+   width: 700px;
+   display: flex;
+   justify-content: space-between;
+   gap: 1rem;
+   background: wheat;
+   padding: 1rem;
+}
+
+.tuition-grid{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.time-inputs{
+    display: flex;
+    gap: 1rem;
+}
+
+.days-inputs{
+    display: flex;
+    gap: 1rem;
+}
+
+.std-select{
+    display: flex;
+    gap: 1rem;
+}
+
+.inputs-flex{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}

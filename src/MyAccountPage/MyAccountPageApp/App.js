@@ -2,8 +2,6 @@ import React from 'react'
 import Sidebar from '../Sidebar/Sidebar'
 import './App.css'
 import AccountLayout from '../AccountLayout/AccountLayout'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const App = (props) => {
   return (
@@ -22,9 +20,6 @@ const App = (props) => {
         </div>
       </div>
     </div>
-    <ToastContainer
-        position="top-center"
-    />
     </>
   )
 }

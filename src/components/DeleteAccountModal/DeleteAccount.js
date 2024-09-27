@@ -4,15 +4,18 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
-const DeleteAccount = () => {
+
+const DeleteAccount = ({onClose}) => {
     const [{logged,logged_as},dispatch] = useDataLayerValue()
     const navigate = useNavigate()
 
     const handleDeleteAccount = async() =>{
         try {
           const response = await axios.delete(`/api/v1/${logged_as}/`)
-          if(response.data.msg === 'User Deleted successfully'){
+          console.log(response);
+          if(response.status === 200){
            dispatch({
             type:'LOG_OUT'
            })
@@ -25,13 +28,15 @@ const DeleteAccount = () => {
     }
 
   return (
+    <>
     <div className='delete-modal-container'>
       <h2>You can't recover your account at later point of time once you deleted</h2>
       <div className='delete-modal-buttons'>
-        <button>Cancel</button>
+        <button onClick={onClose}>Cancel</button>
         <button onClick={()=>handleDeleteAccount()}>Delete</button>
       </div>
     </div>
+    </>
   )
 }
 

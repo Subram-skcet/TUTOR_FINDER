@@ -29,22 +29,6 @@
 .green-button:hover {
     background-color: #45a049; /* Darker green on hover */
 }
-.del-bck{
-    background: red;
-    color: white;
-}
-.ed-bck{
-    background: blue;
-    color: white;
-}
-.sv-bck{
-    background: green;
-    color: white;
-}
-.cncl-bck{
-    background:#808080;
-    color: white;
-}
 .add-tut-bck{
     background: green;
     color: white;

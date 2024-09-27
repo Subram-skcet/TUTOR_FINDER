@@ -62,39 +62,39 @@ const Router = () => {
   const routes = useRoutes([
     {
       path: '/',
-      element: <LayoutWrapper><App /></LayoutWrapper>,
+      element:<ToastLayer> <LayoutWrapper><App /></LayoutWrapper> </ToastLayer> ,
     },
     {
       path: '/welcometeacher',
-      element: <LayoutWrapper><WelcomePage/></LayoutWrapper>,
+      element:<ToastLayer><LayoutWrapper><WelcomePage/></LayoutWrapper></ToastLayer>,
     },
     {
       path: '/register',
-      element:<LayoutWrapper><StudentMain /></LayoutWrapper>,
+      element:<ToastLayer><LayoutWrapper><StudentMain /></LayoutWrapper></ToastLayer>,
     },
     {
       path: '/searchtutor',
-      element: <LayoutWrapper><Main /></LayoutWrapper>,
+      element:<ToastLayer> <LayoutWrapper><Main /></LayoutWrapper></ToastLayer>,
     },
     {
       path: '/login',
-      element:<LayoutWrapper><StudentMain /></LayoutWrapper>,
+      element:<ToastLayer> <LayoutWrapper><StudentMain /></LayoutWrapper> </ToastLayer>,
     },
     {
       path:'/teacherprofile',
-      element: <LayoutWrapper><TeacherProfile/></LayoutWrapper>,
+      element:<ToastLayer> <LayoutWrapper><TeacherProfile/></LayoutWrapper></ToastLayer> ,
     },
     {
       path:'/reset-password',
-      element: <LayoutWrapper><ChangePassword/></LayoutWrapper>
+      element:<ToastLayer> <LayoutWrapper><ChangePassword/></LayoutWrapper> </ToastLayer> 
     },
     {
       path:'/myaccount/studentprofile/*',
-      element:<StudentProfileRoutes/>,
+      element: <ToastLayer> <StudentProfileRoutes/> </ToastLayer>,
     },
     {
       path: '/myaccount/teacherprofile/*',
-      element: <MyProfileRoute />,
+      element:<ToastLayer> <MyProfileRoute /> </ToastLayer> ,
     },
   ]);
 
@@ -103,15 +103,21 @@ const Router = () => {
 
 const LayoutWrapper = ({ children }) => {
   return (
-    <>
     <Layout>
       {children}
     </Layout>
-    <ToastContainer
-    position="top-center"
-    />
-    </>
   );
 };
+
+const ToastLayer = ({children}) =>{
+  return(
+    <>
+    {children}
+    <ToastContainer
+     position="top-center"
+     />
+  </>
+    );
+}
 
 export default Router;
