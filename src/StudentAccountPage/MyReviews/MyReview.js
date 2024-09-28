@@ -3,10 +3,12 @@ import  ReviewCard from '../../components/ReviewCard/ReviewCard'
 import axios from 'axios'
 import './MyReview.css'
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
+import { toast } from 'react-toastify'
 
 const MyReview = () => {
   const [reviews,setReviews] = useState([])
   const [{ asStudent }, dispatch] = useDataLayerValue();
+  const [isDoable,setDoable] = useState(true)
 
   const fetchMyReviews = async()=>{
        try {
@@ -20,24 +22,30 @@ const MyReview = () => {
 
   //handle clicking Like
   const handleLikeReview = async(reviewid ,option) =>{
-    const req_body = {
-      reviewid,
-      option
-    }
-    try {
-      const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
-      console.log(response);
-    } catch (error) {
-     
-    }
-}
+    setDoable(false)
+     const req_body = {
+       reviewid,
+       option
+     }
+     try {
+       await axios.post(`/api/v1/student/likereviews/`,req_body)
+     } catch (error) {
+        toast.error('Something went wrong please try agin later')
+     }
+     finally{
+      setDoable(true)
+     }
+ }
 
 const deleteReview = async(id) =>{
   try {
       const response = await axios.delete(`/api/v1/review/${id}`)
-      console.log(response);
-      fetchMyReviews()
+      if(response.status === 200){
+        toast.success('Review deleted successfully')
+        fetchMyReviews()
+      }
   } catch (error) {
+     toast.succes('Something went wrong try again later')
       console.log(error);
   }
 }
@@ -73,7 +81,7 @@ const deleteReview = async(id) =>{
                       createdFor = {review.createdFor}
                       handleLike = {handleLikeReview}
                       deleteReview = {deleteReview}
-                       
+                      isLikeable = {isDoable} 
                 />
               ))
             }

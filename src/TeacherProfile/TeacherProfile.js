@@ -21,9 +21,9 @@ const TeacherProfile = () => {
   const [{asStudent,logged,logged_as},dispatch] =  useDataLayerValue()
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
+  const [isDoable,setDoable] = useState(true)
 
-  let props = location.state.profileDetails;
-  console.log(props);
+  let props = location.state.profileDetails
 
   const backgroundStyle = {
     backgroundImage: `url(${props.profilepic})`,
@@ -112,6 +112,7 @@ const TeacherProfile = () => {
 
    //handle clicking Like
    const handleLikeReview = async(reviewid ,option) =>{
+      setDoable(false)
        const req_body = {
          reviewid,
          option
@@ -119,8 +120,20 @@ const TeacherProfile = () => {
        try {
          const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
          console.log(response);
+         if(response.status === 200){
+          const StudentDetails = {...asStudent}
+          StudentDetails.likedReviews = response.data.likedReviews
+          StudentDetails.dislikedReviews = response.data.dislikedReviews
+          dispatch({
+            type:'SET_STUDENT',
+            payload:StudentDetails
+          })
+         }
        } catch (error) {
-        
+          toast.error('Something went wrong please try agin later')
+       }
+       finally{
+        setDoable(true)
        }
    }
 
@@ -191,11 +204,8 @@ const TeacherProfile = () => {
               wrapperClass=""
               />
           :
-          <></>
-          }
           <div className="reviews-section">
-          
-            {!isLoading && reviews.length === 0 ? (
+            {reviews.length === 0 ? (
               <p className='no-review-text'>No reviews for this teacher..</p>
             )
             :(
@@ -210,12 +220,14 @@ const TeacherProfile = () => {
                 dislike={review.dislike}
                 isClickable={true}
                 handleLike = {handleLikeReview}
-                loginpop = {openLoginModel} 
+                loginpop = {openLoginModel}
+                isLikeable = {isDoable} 
                 />
               ))
             )
           }
           </div>
+          }
         </div>
         <hr className='hr-tag'></hr>
           <div className="write-review">

@@ -52,6 +52,7 @@
   .dislikeSection {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   
   .icon {
@@ -93,13 +94,23 @@
 }
 .blue{
   color: blue;
+  cursor:pointer
 }
 .red{
   color: red;
+  cursor:pointer
 }
 .save{
   color: green;
+  cursor:pointer
 }
 .cancel{
-  color:gray
+  color:gray;
+  cursor:pointer
+}
+
+.disabled-like {
+  pointer-events: none;  /* Prevents clicks */
+  opacity: 0.6;          /* Optional: Make it visually appear disabled */
+  cursor: not-allowed;   /* Optional: Change the cursor to indicate it's disabled */
 }

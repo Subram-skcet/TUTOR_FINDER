@@ -12,8 +12,9 @@ import axios from "axios";
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import Rating from '../Rating/Rating'
+import { toast } from "react-toastify";
 
-const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, review, like, dislike, handleLike,createdFor , deleteReview}) => {
+const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, review, like, dislike, handleLike,createdFor , deleteReview, isLikeable}) => {
         const [{logged,logged_as,asStudent},dispatch] = useDataLayerValue();
         const [userReaction, setUserReaction] = useState({
             liked: asStudent.likedReviews.includes(id),
@@ -33,7 +34,7 @@ const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, revi
         });
         const childRef = useRef(); //Access child class Rating function from parent 
 
-    const updateReaction = (reactionType) => {
+const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
 
     if (reactionType === 'like') {
@@ -68,8 +69,8 @@ const handleChange = (e) =>{
 }
 
 useEffect(()=>{
-  console.log(id);
-},[])
+  console.log(asStudent);
+},[asStudent])
 
 const HandleEditClick = () =>{
     seteditDetails({
@@ -90,14 +91,19 @@ const handleSaveClick = async() =>{
             review:editDetails.editreview
         })
         console.log(response);
-        setPermDetails({
-            permrating:rating,
-            permreview:editDetails.editreview
-        })
-        setIsEditing(false)
-    } catch (error) {
-        
-    }
+        if(response.status === 200){
+            toast.success('Review saved successfully')
+            setPermDetails({
+                permrating:rating,
+                permreview:editDetails.editreview
+            })
+        }
+        } catch (error) {
+            toast.error("Couldn't save the review try again later")
+        }
+        finally{
+            setIsEditing(false)
+        }
 }
 
     return (
@@ -164,11 +170,11 @@ const handleSaveClick = async() =>{
                 </>
              }
             <div className="footer">
-                <div className="likeSection icon-cntr" onClick={isClickable ? () => handleLikeClicks('like'): undefined}>
+                <div className={`likeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable ? () => handleLikeClicks('like'): undefined}>
                     <ThumbUpOutlinedIcon color={userReaction.liked ? 'primary' : 'action'} />
                     <p>{likeCount}</p>
                 </div>
-                <div className="dislikeSection icon-cntr" onClick={isClickable? () => handleLikeClicks('dislike') : undefined}>
+                <div className={`dislikeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable? () => handleLikeClicks('dislike') : undefined}>
                     <ThumbDownOutlinedIcon color={userReaction.disliked ? 'error' : 'action'} />
                     <p>{dislikeCount}</p>
                 </div>
