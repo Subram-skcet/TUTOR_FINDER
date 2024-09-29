@@ -27,9 +27,21 @@ const MyReview = () => {
        reviewid,
        option
      }
+     console.log(req_body);
      try {
-       await axios.post(`/api/v1/student/likereviews/`,req_body)
+       const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
+       console.log(response);
+       if(response.status === 200){
+        const StudentDetails = {...asStudent}
+        StudentDetails.likedReviews = response.data.likedReviews
+        StudentDetails.dislikedReviews = response.data.dislikedReviews
+        dispatch({
+          type:'SET_STUDENT',
+          payload:StudentDetails
+        })
+       }
      } catch (error) {
+      console.log(error.message);
         toast.error('Something went wrong please try agin later')
      }
      finally{
@@ -70,18 +82,11 @@ const deleteReview = async(id) =>{
                 {
                   reviews.map(review => (
                     <ReviewCard 
-                      id={review._id} // Unique key for each review
-                      name={review.createdBy.name} 
-                      profilepic={review.createdBy.profilepic} 
-                      rating={review.rating} 
-                      review={review.review}
-                      like={review.like} 
-                      dislike={review.dislike}
+                      review={review}
                       isClickable={true}
-                      createdFor = {review.createdFor}
                       handleLike = {handleLikeReview}
                       deleteReview = {deleteReview}
-                      isLikeable = {isDoable} 
+                      isLikeable = {isDoable}
                 />
               ))
             }

@@ -42,7 +42,7 @@
     font-size: 16px;
   }
   
-  .footer {
+  .user-actions{
     display: flex;
     justify-content: flex-start;
     gap: 1rem;
@@ -92,21 +92,25 @@
     gap: 1rem;
     display: flex;
 }
-.blue{
+.review-edit{
   color: blue;
-  cursor:pointer
+  cursor:pointer;
+  position: relative;
 }
-.red{
+.review-delete{
   color: red;
-  cursor:pointer
+  cursor:pointer;
+  position: relative;
 }
-.save{
+.review-save{
   color: green;
-  cursor:pointer
+  cursor:pointer;
+  position: relative;
 }
-.cancel{
+.review-cancel{
   color:gray;
-  cursor:pointer
+  cursor:pointer;
+  position: relative;
 }
 
 .disabled-like {
@@ -114,3 +118,53 @@
   opacity: 0.6;          /* Optional: Make it visually appear disabled */
   cursor: not-allowed;   /* Optional: Change the cursor to indicate it's disabled */
 }
+
+.review-card-footer{
+  display: flex;
+  justify-content: space-between;
+}
+
+.like-dislike-icon{
+  position: relative;
+}
+
+.tooltip::before,
+.tooltip::after{
+  --scale:0;
+  --tooltip-color:#333;
+  --arrow-size:7px;
+
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(var(--translate-y,0)) scale(var(--scale));
+  transition: 50ms transform;
+  transform-origin: bottom center;
+  
+}
+
+.tooltip::before{
+  --translate-y:calc(-100% - var(--arrow-size));
+
+  content: attr(data-tooltip);
+  color: white;
+  padding: .5rem;
+  width: max-content;
+  text-align: center;
+  border-radius: .3rem;
+  background:var(--tooltip-color);
+}
+
+.tooltip:hover::after,
+.tooltip:hover::before{
+  --scale:1;
+}
+
+.tooltip::after{
+  --translate-y:calc(-1 * var(--arrow-size));
+  content: '';
+  border:var(--arrow-size) solid transparent;
+  border-top-color: var(--tooltip-color);
+  transform-origin: top center;
+}
+

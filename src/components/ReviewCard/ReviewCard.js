@@ -13,20 +13,21 @@ import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import Rating from '../Rating/Rating'
 import { toast } from "react-toastify";
+import { extractDateFields } from "../../utils/getCreatedAt";
 
-const ReviewCard = ({ loginpop, isClickable , id, name, profilepic, rating, review, like, dislike, handleLike,createdFor , deleteReview, isLikeable}) => {
+const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable , handleLike}) => {
         const [{logged,logged_as,asStudent},dispatch] = useDataLayerValue();
         const [userReaction, setUserReaction] = useState({
-            liked: asStudent.likedReviews.includes(id),
-            disliked: asStudent.dislikedReviews.includes(id)
+            liked: asStudent.likedReviews.includes(review._id),
+            disliked: asStudent.dislikedReviews.includes(review._id)
         });
-        const [likeCount, setLikeCount] = useState(like.length);
-        const [dislikeCount, setDislikeCount] = useState(dislike.length);
+        const [likeCount, setLikeCount] = useState(review.like.length);
+        const [dislikeCount, setDislikeCount] = useState(review.dislike.length);
         const location = useLocation();
         const [isEditing,setIsEditing] = useState(false)
         const [permDetails,setPermDetails] = useState({
-            permreview:review,
-            permrating:rating,
+            permreview:review.review,
+            permrating:review.rating,
         })
         const [editDetails,seteditDetails] = useState({
             editreview:'',
@@ -56,7 +57,7 @@ const updateReaction = (reactionType) => {
 
 const handleLikeClicks = (reactionType) => {
     updateReaction(reactionType);
-    handleLike(id, reactionType);
+    handleLike(review._id, reactionType);
 };
 
 const handleChange = (e) =>{
@@ -86,7 +87,7 @@ const handleSaveClick = async() =>{
         rating = childRef.current.returnRating() //get rating from the ReviewCard component method 
 
     try {
-        const response = await axios.patch(`/api/v1/review/${id}`,{
+        const response = await axios.patch(`/api/v1/review/${review._id}`,{
             rating,
             review:editDetails.editreview
         })
@@ -110,27 +111,27 @@ const handleSaveClick = async() =>{
         <div className="review-card">
            <div className="my-reviews-page-flex-div">
                 <div className="header">
-                    <img src={profilepic} alt="Profile" className="profilePic" />
-                    <div className="name">{name}</div>
+                    <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
+                    <div className="name">{review.createdBy.name}</div>
                 </div>
                 {location.pathname === '/myaccount/studentprofile/myreviews' ? 
                 <>
                     <div className="reviews-page-options-icons">
                              {isEditing ?
                                 <>
-                                <div className="save" onClick={handleSaveClick}>
+                                <div className="review-save tooltip" onClick={handleSaveClick} data-tooltip="Save">
                                     <SaveIcon/>
                                 </div>
-                                <div className="cancel" onClick={()=>setIsEditing(false)}>
+                                <div className="review-cancel tooltip" onClick={()=>setIsEditing(false)} data-tooltip="Cancel">
                                     <CloseIcon/>
                                 </div>
                                 </>
                             :
                             <>
-                                <div className="blue" onClick={HandleEditClick}>
+                                <div className="review-edit tooltip" onClick={HandleEditClick} data-tooltip="Edit">
                                     <EditIcon/>
                                 </div>
-                                <div className="red" onClick={()=>deleteReview(id)}>
+                                <div className="review-delete tooltip" onClick={()=>deleteReview(review._id)} data-tooltip="Delete">
                                     <DeleteIcon/>
                                 </div>
                             </>
@@ -140,17 +141,14 @@ const handleSaveClick = async() =>{
                         <ArrowRightAltIcon fontSize="large"/>
                     </div>
                     <div className="header">
-                        <img src={createdFor.profilepic} alt="Profile" className="profilePic" />
-                        <div className="name">{createdFor.name}</div>
+                        <img src={review.createdFor.profilepic} alt="Profile" className="profilePic" />
+                        <div className="name">{review.createdFor.name}</div>
                     </div>
                 </>
                 :
                  <></>
                  }
            </div>
-            {/* <div className="rating">
-               <DisplayRating rating={rating}/>
-            </div> */}
              {
                 isEditing ?
                 <>
@@ -169,16 +167,23 @@ const handleSaveClick = async() =>{
                 <div className="review">{permDetails.permreview}</div>
                 </>
              }
-            <div className="footer">
-                <div className={`likeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable ? () => handleLikeClicks('like'): undefined}>
-                    <ThumbUpOutlinedIcon color={userReaction.liked ? 'primary' : 'action'} />
-                    <p>{likeCount}</p>
+             <div className="review-card-footer">
+                <div className="user-actions">
+                    <div className={`likeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable ? () => handleLikeClicks('like'): undefined}>
+                        <div className="like-dislike-icon tooltip" data-tooltip="Like">
+                           <ThumbUpOutlinedIcon color={userReaction.liked ? 'primary' : 'action'} />
+                        </div>
+                        <p>{likeCount}</p>
+                    </div>
+                    <div className={`dislikeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable? () => handleLikeClicks('dislike') : undefined}>
+                    <div className="like-dislike-icon tooltip" data-tooltip="Dislike">
+                        <ThumbDownOutlinedIcon color={userReaction.disliked ? 'error' : 'action'} />
+                    </div>
+                        <p>{dislikeCount}</p>
+                    </div>
                 </div>
-                <div className={`dislikeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable? () => handleLikeClicks('dislike') : undefined}>
-                    <ThumbDownOutlinedIcon color={userReaction.disliked ? 'error' : 'action'} />
-                    <p>{dislikeCount}</p>
-                </div>
-            </div>
+                <div><p>{extractDateFields(review.createdAt)}</p></div>
+             </div>
         </div>
     );
 };

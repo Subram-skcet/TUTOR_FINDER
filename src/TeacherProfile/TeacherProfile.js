@@ -211,17 +211,11 @@ const TeacherProfile = () => {
             :(
               reviews.map(review => (
                 <ReviewCard 
-                id={review._id} // Unique key for each review
-                name={review.createdBy.name} 
-                profilepic={review.createdBy.profilepic} 
-                rating={review.rating} 
-                review={review.review}
-                like={review.like} 
-                dislike={review.dislike}
+                review={review} 
                 isClickable={true}
                 handleLike = {handleLikeReview}
                 loginpop = {openLoginModel}
-                isLikeable = {isDoable} 
+                isLikeable = {isDoable}
                 />
               ))
             )

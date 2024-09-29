@@ -7,7 +7,8 @@ import axios from 'axios';
 import {useDataLayerValue} from '../../StateProviders/StateProvider'
 import Modal from '../Modal/Modal';
 import LoginModal from '../LoginModal/LoginModal';
-import { formatDistanceToNow } from "date-fns";
+import { extractDateFields } from '../../utils/getCreatedAt'
+import { toast } from 'react-toastify';
 
 function TutionCard({tution,index,profilenavigate}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -20,30 +21,7 @@ function TutionCard({tution,index,profilenavigate}) {
     const [isLoginModalOpen,setLoginModelOpen] = useState(false)
 
 
-    const extractDateFields = () => {
-        // Create a Date object from the ISO string
-        const date = new Date(tution.createdAt);
     
-        // GMT+5:30 time zone offset in milliseconds
-        // const offsetInMinutes = 330; // 5 hours 30 minutes
-        // const offsetInMilliseconds = offsetInMinutes * 60 * 1000;
-    
-        // Apply the offset to the date to convert it to GMT+5:30
-        const localDate = new Date(date.getTime());
-    
-        // Extract the year, month, day, hours, minutes, and seconds
-        const year = localDate.getFullYear();
-        const month = localDate.getMonth();
-        const day = localDate.getDate();
-        const hours = localDate.getHours();
-        const minutes = localDate.getMinutes();
-        const seconds = localDate.getSeconds();
-    
-        console.log(year, month, day, hours, minutes, seconds);
-    
-        // Calculate the distance from now
-        return formatDistanceToNow(localDate, { includeSeconds: true });
-    };
 
 
     const BookMarkTution = async() =>{
@@ -56,17 +34,24 @@ function TutionCard({tution,index,profilenavigate}) {
                 tutionId:tution._id,
                 favourite:!isBookMark
             })
-            let updatedStudentDetails = {
-                ...asStudent,
-                favouriteTutions: !isBookMark 
-                    ? [...asStudent.favouriteTutions, tution._id]  // Add the tuition ID
-                    : asStudent.favouriteTutions.filter(id => id !== tution._id)  // Remove the tuition ID
-            };
-            dispatch({
-                type:"SET_STUDENT",
-                payload:updatedStudentDetails
-            })
+            if(response.status === 201){
+                let updatedStudentDetails = {
+                    ...asStudent,
+                    favouriteTutions: !isBookMark 
+                        ? [...asStudent.favouriteTutions, tution._id]  // Add the tuition ID
+                        : asStudent.favouriteTutions.filter(id => id !== tution._id)  // Remove the tuition ID
+                };
+                dispatch({
+                    type:"SET_STUDENT",
+                    payload:updatedStudentDetails
+                })
+                if(!isBookMark)
+                 toast.success('Added into your Bookmark list')
+                else
+                 toast.success('Removed from Bookmark list')
+            }
         } catch (error) {
+            toast.error('Something went wrong try again later')
             console.log(error.message);
         }
     }
@@ -78,14 +63,18 @@ function TutionCard({tution,index,profilenavigate}) {
         </Modal>
         <div className="tutor-card" key={index}>
         <div className='date-div'>
-              <p>{extractDateFields()} ago</p>
+              <p>{extractDateFields(tution.createdAt)}</p>
         </div>
             <div className='bookmark-icon-div' onClick={BookMarkTution}>
                 {
                     isBookMark?
-                    <BookmarkAddedIcon fontSize='large'/>
+                    <div className='bookmark-icon tooltip' data-tooltip="Remove Bookmark">
+                       <BookmarkAddedIcon fontSize='large'/>
+                    </div>
                     :
-                    <BookmarkAddIcon fontSize='large'/>
+                    <div className='bookmark-icon tooltip' data-tooltip="Bookmark Tuition">
+                       <BookmarkAddIcon fontSize='large'/>
+                    </div>
                 }
             </div>
             <div className="tutor-card__profile-container">
