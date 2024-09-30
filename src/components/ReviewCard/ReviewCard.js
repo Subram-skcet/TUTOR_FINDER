@@ -34,6 +34,8 @@ const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable ,
             editrating:'',
         });
         const childRef = useRef(); //Access child class Rating function from parent 
+        const [position, setPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
+        const targetRef = useRef(null);
 
 const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
@@ -69,9 +71,6 @@ const handleChange = (e) =>{
   ))
 }
 
-useEffect(()=>{
-  console.log(asStudent);
-},[asStudent])
 
 const HandleEditClick = () =>{
     seteditDetails({
@@ -119,19 +118,19 @@ const handleSaveClick = async() =>{
                     <div className="reviews-page-options-icons">
                              {isEditing ?
                                 <>
-                                <div className="review-save tooltip" onClick={handleSaveClick} data-tooltip="Save">
+                                <div className="review-save" onClick={handleSaveClick} title="Save">
                                     <SaveIcon/>
                                 </div>
-                                <div className="review-cancel tooltip" onClick={()=>setIsEditing(false)} data-tooltip="Cancel">
+                                <div className="review-cancel" onClick={()=>setIsEditing(false)} title="Cancel">
                                     <CloseIcon/>
                                 </div>
                                 </>
                             :
                             <>
-                                <div className="review-edit tooltip" onClick={HandleEditClick} data-tooltip="Edit">
+                                <div className="review-edit" onClick={HandleEditClick} title="Edit">
                                     <EditIcon/>
                                 </div>
-                                <div className="review-delete tooltip" onClick={()=>deleteReview(review._id)} data-tooltip="Delete">
+                                <div  className="review-delete" onClick={()=>deleteReview(review._id)} title="Delete">
                                     <DeleteIcon/>
                                 </div>
                             </>

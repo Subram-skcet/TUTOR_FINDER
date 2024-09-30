@@ -31,7 +31,7 @@ const MyAccount = () => {
     return (
         <div className='acc-wrap' onClick={handleProfileNavigate}>
             <div>
-                <img src={img} className='acc-img' alt='Profile' />
+                <img src={img} className='acc-img' alt='Profile' title='Visit Profile'/>
             </div>
         </div>
     );

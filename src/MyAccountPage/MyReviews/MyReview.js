@@ -31,14 +31,7 @@ const MyReview = () => {
       reviews.length > 0 ? 
       reviews.map(review => (
         <ReviewCard 
-          key={review._id} // Unique key for each review
-          id={review._id} 
-          name={review.createdBy.name} 
-          profilepic={review.createdBy.profilepic} 
-          rating={review.rating} 
-          review={review.review}
-          like={review.like} 
-          dislike={review.dislike}
+          review={review}
           isClickable={false}
         />
       )) :

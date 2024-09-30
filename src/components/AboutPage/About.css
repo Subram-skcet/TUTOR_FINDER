@@ -1,0 +1,65 @@
+.about-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .about-title {
+    font-size: 36px;
+    color: #2d3e50;
+    margin-bottom: 10px;
+  }
+  
+  .about-subtitle {
+    font-size: 20px;
+    color: #556c80;
+  }
+  
+  .about-overview,
+  .about-features,
+  .about-community,
+  .about-goal {
+    margin: 40px 0;
+  }
+  
+  .overview-title,
+  .features-title,
+  .community-title,
+  .goal-title {
+    font-size: 28px;
+    color: #2d3e50;
+    margin-bottom: 20px;
+  }
+  
+  .overview-description,
+  .feature-description,
+  .community-description,
+  .goal-description {
+    font-size: 18px;
+    color: #4b6279;
+    line-height: 1.6;
+  }
+  
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .feature-item {
+    margin-bottom: 20px;
+  }
+  
+  .feature-heading {
+    font-size: 22px;
+    color: #2d3e50;
+  }
+  
+  .feature-description {
+    font-size: 18px;
+    color: #4b6279;
+  }
+  

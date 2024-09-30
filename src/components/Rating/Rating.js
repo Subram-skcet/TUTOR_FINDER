@@ -29,6 +29,7 @@ const RatingComponent = forwardRef((props, ref) => {
               cursor: 'pointer',
               color: value <= rating ? 'gold' : 'gray'
             }}
+            title={`Rate ${value} star`}
           >
             ★
           </span>

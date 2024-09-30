@@ -25,8 +25,12 @@ function TutionCard({tution,index,profilenavigate}) {
 
 
     const BookMarkTution = async() =>{
-        if(!logged || logged_as !== 'student'){
+        if(!logged){
             return setLoginModelOpen(true)
+        }
+        if(logged_as !== 'student'){
+            toast.warn("This feature is supposed for students. Teacher's can't use this")
+            return
         }
         try {
             setBookMark(prevState => !prevState)
@@ -68,18 +72,18 @@ function TutionCard({tution,index,profilenavigate}) {
             <div className='bookmark-icon-div' onClick={BookMarkTution}>
                 {
                     isBookMark?
-                    <div className='bookmark-icon tooltip' data-tooltip="Remove Bookmark">
-                       <BookmarkAddedIcon fontSize='large'/>
-                    </div>
+                        <div className='bookmark-icon' title="Remove from Bookmark">
+                        <BookmarkAddedIcon fontSize='large'/>
+                        </div>
                     :
-                    <div className='bookmark-icon tooltip' data-tooltip="Bookmark Tuition">
+                    <div className='bookmark-icon' title="Add to Bookmark">
                        <BookmarkAddIcon fontSize='large'/>
                     </div>
                 }
             </div>
             <div className="tutor-card__profile-container">
                 <div className='tutor-img-div' onClick={()=>profilenavigate(index)}>
-                    <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img'/>
+                    <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                 </div>
                 <div className="tutor-card__info">
                     <div className='tutor-info'>

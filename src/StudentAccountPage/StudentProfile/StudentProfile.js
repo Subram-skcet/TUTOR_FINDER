@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
-
+import { toast } from 'react-toastify';
 
 const StudentProfile = () => {
   const [{ asStudent }, dispatch] = useDataLayerValue();
@@ -72,10 +72,14 @@ const StudentProfile = () => {
         payload:newStudentDetails
       })
       setSaveBtn(false)
+      toast.success('Profile saved successfully!!')
     } catch (error) {
+      toast.error("Couldn't save profile. Try gain later")
       console.log(error.message);
     }
-       setIsEditing(false)
+    finally{
+      setIsEditing(false)
+    }
   };
 
   const handleChange = (e) => {

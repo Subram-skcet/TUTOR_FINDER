@@ -27,6 +27,7 @@
     gap: 1rem;
     margin-top: 1rem;
     background: red;
+    overflow: overlay;
 }
 
 .my-reviews-pg-reviews-container::-webkit-scrollbar{

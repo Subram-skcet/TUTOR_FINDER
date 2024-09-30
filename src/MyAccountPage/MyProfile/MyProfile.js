@@ -9,6 +9,7 @@ import DisplayRating from '../../components/DisplayRating'
 import CloseIcon from '@mui/icons-material/Close';
 import { subjects,qualifications,stateDistricts } from '../../components/stateExporter';
 import SelectedSubject from '../AddTution/Subjects';
+import { toast } from 'react-toastify';
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -150,16 +151,22 @@ const MyProfile = () => {
 
     try {
       const response = await axios.patch(`/api/v1/teacher/`, { ...editDetails, profilepic: updatedProfilePic });
-      const updatedProfile = response.data.teacher;
-      setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
-      setPermImage(selectedImage)
-      dispatch({ type: "SET_TEACHER", payload: updatedProfile });
-      setSaveBtn(false)
+      if(response.status === 200){
+        const updatedProfile = response.data.teacher;
+        setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
+        setPermImage(selectedImage)
+        dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+        setSaveBtn(false)
+        toast.success('Profile saved successfully!!')
+      }
     } catch (error) {
+      toast.error("Couldn't save profile. Try gain later")
       console.log(error.message);
     }
+    finally{
+      setIsEditing(false);
+    }
 
-    setIsEditing(false);
   };
 
   const handleCancelClick = () =>{
