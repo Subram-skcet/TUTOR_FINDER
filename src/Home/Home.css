@@ -34,6 +34,7 @@
     border-radius: 10px;
     border: none;
     font-weight: bolder;
+    cursor: pointer;
   }
   .about-para{
     font-size: 30px;

@@ -1,65 +1,156 @@
-.about-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .about-header {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .about-title {
-    font-size: 36px;
-    color: #2d3e50;
-    margin-bottom: 10px;
-  }
-  
-  .about-subtitle {
-    font-size: 20px;
-    color: #556c80;
-  }
-  
-  .about-overview,
-  .about-features,
-  .about-community,
-  .about-goal {
-    margin: 40px 0;
-  }
-  
-  .overview-title,
-  .features-title,
-  .community-title,
-  .goal-title {
-    font-size: 28px;
-    color: #2d3e50;
-    margin-bottom: 20px;
-  }
+*{
+  box-sizing: border-box;
+  margin: 0;
+}
+.poppins-font {
+  font-family: "Poppins", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-serif-regular {
+  font-family: "PT Serif", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-serif-bold {
+  font-family: "PT Serif", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.lato-bold {
+  font-family: "Lato", system-ui;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 40px;
+
+}
   
   .overview-description,
-  .feature-description,
-  .community-description,
   .goal-description {
-    font-size: 18px;
-    color: #4b6279;
-    line-height: 1.6;
+    font-size: 20px;
+    /* word-spacing: 5px; */
+    margin-top: 2rem;
+    color: black;
   }
   
-  .feature-list {
+  
+  
+  .about-img{
+    width: 100%;
+    height: 100%;
+  }
+
+  .image-section{
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    height: 400px;
+    justify-content: space-between;
+    padding: 1rem;
+    /* background: yellowgreen; */
   }
-  
-  .feature-item {
-    margin-bottom: 20px;
+
+  .about-overview{
+    box-sizing: border-box;
+    align-self: center;
+    flex: 0.5;
+    /* background: linear-gradient(to right,black,rgb(207, 183, 209)); */
+    padding: 1rem;
   }
-  
-  .feature-heading {
-    font-size: 22px;
-    color: #2d3e50;
+
+  .about-image-div{
+    flex: 0.5;
   }
-  
-  .feature-description {
-    font-size: 18px;
-    color: #4b6279;
-  }
-  
+
+.feature-item{
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: max-content;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* background: green; */
+}
+
+.features-img{
+  width: 100px;
+  height: 100px;
+}
+
+/* .features-img-div{
+  background: yellow;
+}
+
+.feature-content{
+  background: yellowgreen;
+} */
+
+.feature-list{
+  display: flex;
+  /* background: yellow; */
+  justify-content: space-around;
+}
+
+.about-features{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  /* background: red; */
+     padding-top: 3rem;
+  padding-bottom: 3rem;
+  /* background: yellow; */
+}
+
+.about-feature-heading{
+  align-self: center;
+}
+.feature-description{
+  margin-top: 1rem;
+  font-size: 18px;
+}
+.about-header {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 100%;
+  /* background: yellow; */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.about-subtitle{
+  margin-top: 1rem;
+}
+
+.about-community{
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+.community-description{
+  margin-top: 1rem;
+  font-size: 20px;
+  line-height: 2rem;
+}
+
+.features-title{
+  font-size: 35px;
+}
+
+.about-subtitle{
+  font-size: 22px;
+}

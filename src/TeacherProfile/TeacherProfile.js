@@ -66,9 +66,10 @@ const TeacherProfile = () => {
 
   const handleSubmitReview = async() => {
     if(!logged){
-       return openLoginModel()
+        openLoginModel()
+        return
     }
-    if(!(logged_as === 'student')){
+    if(logged_as === 'teacher'){
       toast.info('Only students can review about a teacher')
       return
     }

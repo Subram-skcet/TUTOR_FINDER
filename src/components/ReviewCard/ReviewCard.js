@@ -41,16 +41,10 @@ const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
 
     if (reactionType === 'like') {
-        if(!logged || !logged_as==='student'){
-            return loginpop()
-         }
         setDislikeCount(disliked? dislikeCount -1 : dislikeCount+0)
         setLikeCount(liked ? likeCount - 1 : likeCount + 1);
         setUserReaction({ liked: !liked, disliked: false });
     } else if (reactionType === 'dislike') {
-        if(!logged || !logged_as==='student'){
-            return loginpop()
-         }
        setLikeCount(liked? likeCount-1 : likeCount+0)
       setDislikeCount(disliked ? dislikeCount - 1 : dislikeCount + 1);
         setUserReaction({ liked: false, disliked: !disliked });
@@ -58,6 +52,13 @@ const updateReaction = (reactionType) => {
   };
 
 const handleLikeClicks = (reactionType) => {
+    if(!logged){
+         return loginpop()
+    }
+    if(logged_as === 'teacher'){
+       toast.warn("Only students can like or dislike a review")
+       return
+    }
     updateReaction(reactionType);
     handleLike(review._id, reactionType);
 };

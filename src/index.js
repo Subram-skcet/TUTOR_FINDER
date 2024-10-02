@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-// import './index.css'
+import './index.css'
 import { DataLayer } from './StateProviders/StateProvider';
 import reducer,{initialState} from './StateProviders/reducer';
 import TutionCard from './components/TutionCard/TutionCard';
@@ -14,14 +14,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
   <React.StrictMode>
-    <AboutPage/>
+    <DataLayer initialState={initialState} reducer={reducer}>
+      <BrowserRouter>
+      <Route/>
+    </BrowserRouter>
+    </DataLayer>
   </React.StrictMode>
   </>
-    // <DataLayer initialState={initialState} reducer={reducer}>
-    //  <BrowserRouter>
-    //   <Route/>
-    // </BrowserRouter>
-    // </DataLayer>
+  //  <AboutPage/>
       //  <WelcomePage/>
       //  <Search/>
     // <TutionCard/>

@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './WelcomePage.css'
 import coverImg from '../assets/Welcome-teacher.jpg'
-import tution from '../assets/creating-tution.jpg'
-import growth from '../assets/increasing-tution.jpg'
-import reviews from '../assets/review-seeing.jpg'
+import tution from '../assets/creating-tution.webp'
+import growth from '../assets/development.png'
+import reviews from '../assets/increasing-tution.webp'
 import RegisterTeacher from '../RegisterPage/Teacher/RegisterTeacher'
 import Modal from '../components/Modal/Modal'
 import TeacherLogin from '../TeacherLogin/TeacherLogin'
@@ -60,7 +60,7 @@ const WelcomePage = () => {
                  <img src={tution} className='doable-image'/>
             </div>
             <div>
-               <h2 className='welcome-p'>Create Tutions</h2>
+               <h2 className='welcome-p'>Customize Your Tuitions</h2>
                <p className='welcome-p doable-para'>Create tuitions based on your actual classes, tailored to different subjects, standards, and boards in your area.</p>
             </div>
          </div>
@@ -68,14 +68,14 @@ const WelcomePage = () => {
              <div>
                  <img src={reviews} className='doable-image'/>
             </div>
-            <h2 className='welcome-p'>Know about you</h2>
+            <h2 className='welcome-p'>Improve with Feedback</h2>
             <p className='welcome-p  doable-para'>Get insights into what students think of your tuitions, helping you improve in areas where you're lacking</p>
          </div>
          <div className='doable-divs'>
             <div>
                  <img src={growth} className='doable-image'/>
             </div>
-            <h2 className='welcome-p'>Know about you</h2>
+            <h2 className='welcome-p'>Expand Your Reach</h2>
             <p className='welcome-p doable-para'>Grow your offline tuition by posting here and reach more students to expand your impact</p>
          </div>
         </div>
