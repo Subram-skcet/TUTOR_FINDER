@@ -24,7 +24,7 @@ const Home = (props) => {
           }
         </div>
         <div className="home-img-div">
-            <ImageSlider/>
+            {/* <ImageSlider/> */}
         </div>
       </div>
     </>

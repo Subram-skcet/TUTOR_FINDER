@@ -3,6 +3,7 @@
     height:calc(100vh - var(--header-height));
     align-items: center;
     justify-content: space-around;
+    background: yellow;
 }
 .home-h1{
     color:#291720;
@@ -12,10 +13,11 @@
 .home-content{
     /* margin-left: 10px; */
     text-shadow:outset 1px 1px 10px black;
-    /* flex: 0.55; */
+    width: 50vw;
+    background: #de7321;
 }
 .home-img-div{
-    /* flex: 0.45; */
+    background: green;
 }
 .home-img{
    width: 100%;
