@@ -36,8 +36,6 @@
   font-family: "Lato", system-ui;
   font-weight: 700;
   font-style: normal;
-  font-size: 40px;
-
 }
   
   .overview-description,
@@ -77,6 +75,7 @@
   }
 
 .feature-item{
+  /* background: pink; */
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -102,7 +101,7 @@
 
 .feature-list{
   display: flex;
-  /* background: yellow; */
+  /* background: green; */
   justify-content: space-around;
 }
 
@@ -153,4 +152,38 @@
 
 .about-subtitle{
   font-size: 22px;
+}
+
+.about-title,
+.overview-title
+{
+  font-size: 40px;
+}
+
+.about-features{
+  /* background: yellow; */
+}
+
+@media (max-width:1287px) {
+  .feature-item{
+    width: 30vw;
+  }
+}
+
+@media (max-width:900px) {
+  .feature-list{
+     flex-direction: column;
+     align-items: center;
+     gap: 3rem;
+  }
+
+  .feature-item{
+    width: 400px;
+  }
+}
+
+@media (max-width:400px) {
+     .feature-item{
+      width: 100vw;
+    }
 }
