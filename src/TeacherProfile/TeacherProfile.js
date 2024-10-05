@@ -11,6 +11,7 @@ import LoginModal from '../components/LoginModal/LoginModal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { ThreeCircles } from 'react-loader-spinner'
+import DisplayRating from '../components/DisplayRating';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -152,21 +153,12 @@ const TeacherProfile = () => {
           </div>
           <h1>{props.name}</h1>
         </div>
-        <div className="profile-details">
+        <div className="teacher-profile-details">
           <div className="label">Name</div>
           <div className="value">{props.name}</div>
           
           <div className="label">Subject Handling</div>
           <div className="value">{props.subjects.join(', ')}</div>
-          
-          <div className="label">Board</div>
-          <div className="value">{props.board || 'Not Specified'}</div>
-          
-          <div className="label">Teaching Language</div>
-          <div className="value">{props.teachingLanguage || 'Not Specified'}</div>
-          
-          <div className="label">Standard Handling</div>
-          <div className="value">{props.standardHandling || 'Not Specified'}</div>
           
           <div className="label">Years of Experience</div>
           <div className="value">{props.year_of_exp}</div>
@@ -185,6 +177,15 @@ const TeacherProfile = () => {
 
           <div className="label">Mobile Number</div>
           <div className="value">{props.mobileno}</div>
+
+          <div className="label">Number of Tuitions created:</div>
+          <div className="value">{props.numOfTutions}</div>
+
+          <div className='label'>Average Rating:</div>
+          <div className="rating">
+                    <DisplayRating rating={props.averageRating}/>
+                    <p>({props.numOfReviews})</p>
+          </div>
         </div>
         <hr className='hr-tag'></hr>
         <div className="about-section">

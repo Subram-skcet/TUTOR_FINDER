@@ -37,7 +37,6 @@ const Layout = (props) => {
         <div className='logo-img'>
           <img src={logo} alt="Logo" className='layout-img'/>
         </div>
-           <div className='links-wrapper'>
                   <div className="nav-links ">
                     <div className={`itms-cntr style-links ${pathname === '/' ? 'invis':''}`} onClick={()=>navigate('/')}>
                           <HomeIcon/>
@@ -75,7 +74,6 @@ const Layout = (props) => {
                       <MyAccount/>
                     </div>
                 </div>
-        </div>
             <div className='hamburger-div' onClick={()=>setHamburgerOpen(true)}>
               <div className='menu-open'>
                 <MenuIcon fontSize='large'/>
@@ -84,6 +82,10 @@ const Layout = (props) => {
             <div className={`${isHamburgerOpen ? 'open-close':''} hamburger-menu`}>
                     <div className='menu-close' onClick={()=>setHamburgerOpen(false)}>
                       <CloseIcon fontSize='large'/>
+                    </div>
+                    <div className={`${!logged?'invis':''} menu-my-profile`}>
+                      <MyAccount/>
+                      <p className='my-profile-para'>My Profile</p>
                     </div>
                     <div className={`menu-icon ${pathname === '/' ? 'invis':''}`} onClick={()=>navigate('/')}>
                           <HomeIcon/>

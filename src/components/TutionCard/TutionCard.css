@@ -12,6 +12,8 @@
 .tutor-card__profile-container {
     display: flex;
     gap: 1rem;
+    width: 100%;
+    /* background: rebeccapurple; */
 }
 
 .tutor-card__profile-picture {
@@ -24,6 +26,8 @@
 .tutor-card__info {
     display: flex;
     flex-direction: column;
+    /* background: #555; */
+    width: 100%;
     gap: 0.3rem;
 }
 
@@ -53,9 +57,11 @@
 
 .tution-info{
     display: flex;
-    min-width: 500px;
+    /* min-width: 500px; */
     align-items: flex-start;
     justify-content: space-between;
+    /* background: pink; */
+    padding: 10px;
     /* gap: 5rem; */
     /* background: yellow; */
 }
@@ -69,12 +75,15 @@
 
 .tutor-img-div{
     align-self: center;
+    /* background: gold; */
 }
 
 .tution-sub-info-1{
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    /* background: #555; */
+    padding-right: 10px;
     max-width: 300px;
 }
 
@@ -85,8 +94,9 @@
 }
 
 .subjects-div{
-     max-height: 50px;
-     overflow-y: hidden;
+    /* height: max-content; */
+      max-height: 50px;
+     overflow-y: overlay; 
 }
     
 .subjects-div:hover{
@@ -99,7 +109,7 @@
 }
 
 .subjects-div::-webkit-scrollbar-thumb{
-    background-color: #777;
+    /* background-color: #777; */
     border-radius: 10px;
 }
 
@@ -125,4 +135,24 @@
 }
 .bookmark-icon{
     position: relative;
+}
+
+@media (max-width:600px) {
+    .tutor-card__profile-container{
+        flex-direction: column;
+    }
+    .tutor-img{
+        width: 50px;
+        height: 50px;
+    }
+    .tutor-img-div{
+        align-self: flex-start;
+    }
+}
+
+@media (max-width:440px) {
+    .tution-info{
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

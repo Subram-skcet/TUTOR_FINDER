@@ -10,19 +10,17 @@ const Home = (props) => {
     <>
     <div className='top-wst'></div>
       <div className="home-wrap">
-        <div className="home-content">
           {srch?
-          <>
+          <div className='search-home-div'>
               <h1 className='search-h1'>Put your requirements</h1>
-          <Search /> 
-          </>
+              <Search /> 
+          </div>
           :
-          <>
+          <div className="home-content">
             <h1 className='home-h1 lato-bold'>Find the Teacher best suits your needs</h1>
             <button className="home-srch-btn" onClick={()=>setSrch(true)}>Start Search</button>
-          </>
+          </div>
           }
-        </div>
         <div className="home-img-div">
             <ImageSlider/>
         </div>

@@ -1,28 +1,29 @@
 .acc-wrap{
-    display: flex;
     width: max-content;
-    height: 130px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5rem;
+    height: 100%;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+    /* background: red; */
 }
 .acc-img{
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-.acc-p{
-    margin-top: 0.5rem;
-    text-align: center;
 }
 /* .acc-wrap:hover{
     background-color: rgba(121, 103, 103, 0.5);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
     transform: scale(1.02);
 } */
+
+@media (max-width:800px) {
+    .acc-img{
+        width: 40px;
+        height: 40px;
+    }
+
+    .acc-wrap{
+        width: max-content;
+        height: max-content;
+        /* background: red; */
+    }
+}
