@@ -9,3 +9,36 @@
     width: 50vw;
 }
 
+.mobile-img{
+    display: none;
+}
+
+@media (max-width:800px) {
+    .cover-img{
+        display: none;
+    }
+    .mobile-img{
+        display: block;
+    }
+
+    .mobile-img > img{
+        width: 320.39px;
+        height: 200px;
+    }
+    .student-parent-wrap{
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media (max-width:320.39px) {
+    .mobile-img > img{
+        width: 100%;
+    }
+}
+
+@media (min-width:500px) and (max-width:800px) {
+    .component-wrapper{
+      width:70vw;
+    }
+}

@@ -190,7 +190,7 @@ const TeacherProfile = () => {
         <hr className='hr-tag'></hr>
         <div className="about-section">
           <p className="about-heading">About</p>
-          <p className="about-content">{props.about}</p>
+          <p className="about-content-div">{props.about}</p>
         </div>
         <hr className='hr-tag'></hr>
         <div className="reviews-container">

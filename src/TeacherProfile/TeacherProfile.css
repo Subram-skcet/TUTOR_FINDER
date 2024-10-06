@@ -88,7 +88,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    background: green;
+    padding:10px 0px 10px 0px;
+    /* background: green; */
 }
 
 /* Hide scrollbars but keep scrolling functionality */
@@ -215,7 +216,7 @@
     justify-content: center;
     align-items: center;
     background: transparent;
-    background: red;
+    /* background: red; */
     padding-bottom: 2rem;
 }
 .profile-page-textarea{
@@ -270,6 +271,10 @@
     cursor: pointer;
 }
 
+.about-content-div{
+  padding-top: 10px;
+}
+
 @media (max-width:840px) {
     .profile-page{
         padding: 0;
@@ -294,6 +299,10 @@
     .write-review textarea{
         width: 95vw;
     }
+
+    .about-content-div{
+        font-size: 15px;
+    }
 }
 
 @media (max-width:355px) {
@@ -311,6 +320,7 @@
 @media (max-width:400px) {
     .reviews-section{
         width:100%;
+        gap: 0rem;
     }
 
     .review-box-btns{

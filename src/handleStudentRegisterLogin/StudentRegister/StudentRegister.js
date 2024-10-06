@@ -4,6 +4,7 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import './StudentRegister.css'
 import { useNavigate } from 'react-router-dom';
 import doneimg from '../../assets/done.png'
+import { toast } from 'react-toastify';
 
 const RegisterStudent = () => {
   const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
@@ -114,35 +115,39 @@ const RegisterStudent = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/v1/auth/registerstudent', userDetails);
-      console.log('User registered successfully:', response.data);
-
-      const studentDetails = response.data.student;
-      // Optionally, clear form or redirect after successful registration
-      dispatch({
-        type: "LOG_USER",
-        payload: true
-      });
-
-      dispatch({
-        type: "SET_STUDENT",
-        payload: studentDetails
-      });
-
-      dispatch(
-        {
-          type:"LOGGED_USER",
-          payload:'student'
-        }
-      )
+      if(response.status === 200){
+        toast.success('User Registered successfully')
+          console.log('User registered successfully:', response.data);
+    
+          const studentDetails = response.data.student;
+          // Optionally, clear form or redirect after successful registration
+          dispatch({
+            type: "LOG_USER",
+            payload: true
+          });
+    
+          dispatch({
+            type: "SET_STUDENT",
+            payload: studentDetails
+          });
+    
+          dispatch(
+            {
+              type:"LOGGED_USER",
+              payload:'student'
+            }
+          )
+      }
       
     } catch (error) {
+      toast.error("Error creating user, Try again later")
       console.error('Error registering user:', error);
     }
   };
 
   return (
     <div className='student-signp-wrap'>
-    <div>
+    <div className='student-register-h1'>
         <h1>Sign up to your EduQuest account</h1>
     </div>
     <div className='student-signup-form'>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './WelcomePage.css'
-import coverImg from '../assets/Welcome-teacher.jpg'
+import coverImg from '../assets/4adcf3b1-e1d7-4182-8eab-9060423d03e7.jpeg'
+import coverImg2 from '../assets/4692b327-dda6-47af-9da7-3aac5f67f089.jpeg'
 import tution from '../assets/creating-tution.webp'
 import growth from '../assets/development.png'
 import reviews from '../assets/increasing-tution.webp'
@@ -46,6 +47,9 @@ const WelcomePage = () => {
                </div>
             </div>
           </div>
+            <div className='welcome-image-div-small'>
+               <img src={coverImg2} alt='Teacher Image' className='welcome-img'/>
+            </div>
             <div className='welcome-image-div'>
                <img src={coverImg} alt='Teacher Image' className='welcome-img'/>
             </div>

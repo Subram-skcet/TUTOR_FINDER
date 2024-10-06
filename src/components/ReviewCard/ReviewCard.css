@@ -1,4 +1,5 @@
 .review-card {
+  position: relative;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 16px;
@@ -119,10 +120,6 @@
   cursor: not-allowed;   /* Optional: Change the cursor to indicate it's disabled */
 }
 
-.review-card-footer{
-  display: flex;
-  justify-content: space-between;
-}
 
 .like-dislike-icon{
   position: relative;
@@ -166,5 +163,18 @@
   border:var(--arrow-size) solid transparent;
   border-top-color: var(--tooltip-color);
   transform-origin: top center;
+}
+
+.review-createdat{
+  position: absolute;
+  right: 1rem;
+  bottom: 0.5rem;
+}
+
+@media (max-width: 400px) {
+  .review-card {
+      transform: scale(0.9); /* Scales down to 80% of the original size */
+      transition: transform 0.3s ease; /* Smooth transition */
+  }
 }
 
