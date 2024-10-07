@@ -1,10 +1,15 @@
+.app-wrap{
+    --sidebar-width:350px;
+}
+
 .app-pg-wrap{
     display: flex;
 }
 .other-pgs{
     width: 100%;
-    height:calc(100vh - var(--header-height));
+    height:100vh;
     overflow-y: overlay;
+    margin-left: var(--sidebar-width);
 }
 .acc-layout{
     width: 100%;
@@ -21,3 +26,32 @@
 .other-pgs::-webkit-scrollbar{
     display: none;
 }
+
+.sidebar{
+    position: fixed;
+    z-index: 2;
+}
+
+.close-sidebar{
+    transform: translateX(-100%);
+}
+
+.sidebar-menu{
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+@media (max-width:1000px) {
+    .app-wrap{
+        --sidebar-width:257.48px;
+    }
+
+    .other-pgs{
+        margin-left: 0;
+    }
+}
+
+
+

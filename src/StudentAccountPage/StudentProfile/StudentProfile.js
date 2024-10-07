@@ -107,7 +107,7 @@ const StudentProfile = () => {
   return (
     <div className="student-profile-container">
       <div className="student-profile-footer">
-        <p className='student-profile-para'>Welcome to your profile page!</p>
+        <p className='student-profile-para poppins-font'>Welcome to your profile page!</p>
       </div>
       <div className="student-profile-header">
         <div className="student-profile-picture">
@@ -139,13 +139,13 @@ const StudentProfile = () => {
       {
         isEditing?
         <div className='isedit-btns-div'>
-          <button className="edit-prof-btn spz" onClick={handleSaveClick} disabled={saveBtnLoading}>
+          <button className="edit-prof-btn" onClick={handleSaveClick} disabled={saveBtnLoading}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
               <SaveIcon/>
               <p>Save Profile</p>
             </div>
           </button>
-          <button className="edit-prof-btn spz" onClick={handleCancelClick}>
+          <button className="edit-prof-btn" onClick={handleCancelClick}>
             <div className='itms-cntr style-links-updated cncl-bck' >
               <CloseIcon /> 
               <p>Cancel</p>
@@ -153,7 +153,7 @@ const StudentProfile = () => {
           </button> 
         </div>
         :
-        <button className="edit-prof-btn spz" onClick={handleEditClick}>
+        <button className="edit-prof-btn" onClick={handleEditClick}>
           <div className='itms-cntr style-links-updated norm-style' >
               <EditIcon />
             <p>Edit Profile</p>

@@ -30,6 +30,7 @@
 .itms-cntr{
     display: flex;
    align-items: center;
+   gap:5px;
    /* background: red; */
 }
 .img-sz{

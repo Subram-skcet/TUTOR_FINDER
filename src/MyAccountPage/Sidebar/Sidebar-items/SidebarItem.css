@@ -4,7 +4,8 @@
     align-items: center;
     width: 100%;
     color: white;
-    padding-left: 1rem;
+    padding: 1rem;
+    /* background: green; */
 }
 .sb-para{
     font-size: 20px;

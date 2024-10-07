@@ -124,6 +124,10 @@
     .notes-heading{
         font-size: 30px;
     }
+
+    .actual-content{
+        width: 100%;
+    }
 }
 
 @media (max-width:600px) {
@@ -159,5 +163,21 @@
     .doables{
         flex-direction: column;
         gap: 2rem;
+    }
+}
+
+@media (max-width:280px) {
+    .doable-divs{
+        width: 100%;
+    }
+}
+
+@media (max-width:400px){
+    .count-size{
+        font-size: 35px;
+    }
+
+    .lists p{
+        font-size: 15px;
     }
 }

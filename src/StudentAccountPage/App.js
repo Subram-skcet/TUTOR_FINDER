@@ -8,12 +8,12 @@ const App = (props) => {
       <div className='acc-layout'>
           <AccountLayout/>
       </div>
-      <div className='wst'></div>
-      <div className='app-pg-wrap'>
         <div className='sidebar'>
           <Sidebar/>
         </div>
+      <div className='app-pg-wrap'>
         <div className='other-pgs'>
+          <div className='wst'></div>
           {props.children}
         </div>
       </div>

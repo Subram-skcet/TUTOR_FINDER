@@ -40,11 +40,11 @@ const Bookmark = () => {
   return (
     <div className='bookmarks-wrap'>
       <div>
-         <h1>Your favourite tutions</h1>
+         <h1 className='lato-bold'>Your favourite tuitions</h1>
       </div>
           {favouritetutions.length === 0 ? (
             <div className='bookmark-empty-content'>
-              <p>Tutions you have added into your favourite list will apper here. Currently you have no favourite tutions</p>
+              <p className='pt-serif-regular bookmark-p'>Tutions you have added into your favourite list will appear here. Currently you have no favourite tutions</p>
               <div className='bookmark-pg-explr-div' onClick={()=>navigate('/searchtutor')}>
                 <SearchIcon/>
                 <p>Explore tutions</p>

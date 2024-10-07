@@ -6,7 +6,8 @@
   justify-content: center;
   height:calc(100vh - var(--header-height));
   background-color: #f0f2f5; /* Light background color */
-  padding: 20px;
+  background: pink;
+  /* padding: 20px; */
 }
 
 /* Header styling to center content and add space */
@@ -53,4 +54,10 @@
   position: absolute;
   right: 7%;
   bottom: 10%;
+}
+
+.isedit-btns-div{
+  width: 400px;
+  display: flex;
+  background: red;
 }
