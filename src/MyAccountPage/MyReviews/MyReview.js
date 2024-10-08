@@ -24,23 +24,28 @@ const MyReview = () => {
   return (
     <div className="account-page-reviews-container">
       <div>
-          <h1>Student Reviews</h1>
+          <h1 className='lato-bold'>Student Reviews</h1>
       </div>
-      <div className="reviews-section rev-sec">
-          {
-      reviews.length > 0 ? 
-      reviews.map(review => (
-        <ReviewCard 
-          review={review}
-          isClickable={false}
-        />
-      )) :
-      <div>
-        <p>No students reviewed your tuitions.</p>
-      </div>
-    }
-
-      </div>
+      {reviews.length === 0 ? (
+              <div className='student-pg-review-div'>
+                <p className='pt-serif-regular'>
+                  Reviews written by students about you will have appear here.
+                </p>
+              </div>
+            )
+            :(
+              <div className="my-reviews-pg-reviews-container">
+                {
+                 reviews.map(review => (
+                  <ReviewCard 
+                    review={review}
+                    isClickable={false}
+                  />
+                ))
+            }
+            </div>
+            )
+          }
     </div>
   );
 };

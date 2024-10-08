@@ -86,11 +86,13 @@ const MyTution = () => {
 
   return (
     <div className='my-tution-container'>
-      <h1>Your Tutions</h1>
+      <h1 className='lato-bold'>Your Tuitions</h1>
       <div className='my-tutions'>
         {!isLoading && tutions.length === 0 ? 
         (
-           <p>No tutions available</p>
+          <div className='mytuition-notuition-div'>
+           <p className='empty-tuition-p pt-serif-regular'>Currently you haven't created any tuitions, Create one by clicking the below button</p>
+          </div>
         )
          :
          (

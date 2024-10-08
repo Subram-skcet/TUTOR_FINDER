@@ -66,6 +66,10 @@ input[type='time']{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #45a049;
+  min-height:calc(100vh - var(--header-height));
+  gap: 1rem;
+  padding: 1rem 0px 1rem 0px;
 }
 
 .create-tuition-form{
@@ -81,4 +85,19 @@ input[type='time']{
 .list-container{
   display: flex;
   flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.fees-input{
+  width: 100px;
+  height: 30px;
+}
+
+@media (max-width:650px) {
+    .grid-columns{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
 }

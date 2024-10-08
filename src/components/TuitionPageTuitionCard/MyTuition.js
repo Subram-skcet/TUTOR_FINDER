@@ -108,7 +108,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
 
       <div className='tuition-grid'>
         <div>
-            <label>Subjects:</label>
+            <label className="poppins-font">Subjects:</label>
         </div>
 
         {
@@ -127,13 +127,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 </div>
             </div>
             :
-            <div>
+            <div className="tuition-value-div">
                 <p>{tuition.subjects.join(', ')}</p>
             </div>
         }
 
         <div>
-            <label>Time:</label>
+            <label className="poppins-font">Time:</label>
         </div>
 
         {
@@ -149,13 +149,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
            </div>
             :
-            <div>
+            <div className="tuition-value-div">
                 <p>{tuition.duration.join(' - ')}</p>
             </div>
         }
 
         <div>
-            <label>Days:</label>
+            <label className="poppins-font">Days:</label>
         </div>
 
         {
@@ -191,13 +191,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 }
             </div>
                :
-                    <div>
+                    <div className="tuition-value-div">
                         <p>{tuition.days.join(' - ')}</p>
                     </div>
         }
 
         <div>
-            <label>Boards:</label>
+            <label className="poppins-font">Boards:</label>
         </div>
 
         {
@@ -218,10 +218,10 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
               </div>
             </div>
             :
-            <div><p>{tuition.boards.join(', ')}</p></div>
+            <div className="tuition-value-div"><p>{tuition.boards.join(', ')}</p></div>
         }
         <div>
-            <p>Standard:</p>
+            <label className="poppins-font">Standard:</label>
         </div>
         {isEditing?
           <div className="std-select">
@@ -247,12 +247,12 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
           </div>
         </div>
          :
-         <div>
+         <div className="tuition-value-div">
             <p>{tuition.standard.join(' - ')}</p>
          </div>
          }
          <div>
-            <p>Fees:</p> 
+            <label className="poppins-font">Fees:</label> 
          </div>
          {
             isEditing?
@@ -260,7 +260,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
               <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} /> 
             </div>
             :
-            <div>
+            <div className="tuition-value-div">
                 <p>{tuition.fees}</p>
             </div>
          }

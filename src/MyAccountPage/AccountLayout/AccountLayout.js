@@ -63,7 +63,7 @@ const AccountLayout = () => {
     <div>
         <div className='account-layout'>
 
-            <div className='itms-cntr style-links' onClick={()=>navigate('/')}>
+            <div className='itms-cntr style-links home-icon-div' onClick={()=>navigate('/')}>
                     <HomeIcon/>
                     <p>Home</p>
               </div>

@@ -30,27 +30,20 @@
     color: white;
 }
 
-@media (min-width:1000px) and (max-width:1200px) {
-    .app-wrap{
-        --sidebar-width:257.48px;
-    }
-}
-
 @media (max-width:1000px) {
     .sbar-lrg{
         display: none;
     }
 
     .sidebar-img{
-       width: 200px;
-       display: inline;
-       background: yellow; 
+       width: 150px;
+       display: inline; 
     }
 
     .small-sidebar{
         display: flex;
         width: 100%;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         gap: 0.5rem;
     }

@@ -31,7 +31,7 @@ const Sidebar = ({closesidebar}) => {
                 <SidebarItem field='Profile' Icon={AccountCircleIcon}/>
                </div>
                <div onClick={()=>navigate('/myaccount/teacherprofile/mytutions')}>
-                <SidebarItem field='My Tutions' Icon={SchoolIcon}/>
+                <SidebarItem field='My Tuitions' Icon={SchoolIcon}/>
                </div>
                <div onClick={()=>navigate('/myaccount/teacherprofile/myreviews')}>
                 <SidebarItem field='Reviews' Icon={ReviewsIcon}/>

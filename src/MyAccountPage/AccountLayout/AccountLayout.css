@@ -1,13 +1,16 @@
+:root {
+    --header-height: 70px;
+}
+
 .account-layout{
     display: flex;
     background-image: linear-gradient(to bottom right, #a07969, #f7efe6);
     width: 100%;
-    height: 70px;
+    height: var(--header-height);
     align-items: center;
     justify-content: end;
     padding-right: 3rem;
     gap: 3rem;
-    /* background-color: aqua; */
 }
 .layout-icons{
     width: max-content;
@@ -52,4 +55,15 @@
 .stg-options.delete:hover{
     background: red;
     color: white;
+}
+
+@media (max-width:500px) {
+    .account-layout{
+        gap: 0;
+        padding-right: 0
+    }
+
+    .settings-options{
+        right: 0;
+    }
 }

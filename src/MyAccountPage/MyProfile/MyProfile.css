@@ -42,13 +42,12 @@
     color: #333;
     text-align: left;
     padding-right: 15px;
-    align-self: center;
 }
 
 .profile-details .value {
     color: #302f2f;
     background-color: transparent;
-    width: max-content;
+    width: fit-content;
 }
 
 
@@ -65,7 +64,8 @@
 }
 .about-content{
     width: 100%;
-    height: 100%;
+    min-height: 200px;
+    max-height: max-content;
 }
 .edit-styl{
     background: green;
@@ -109,10 +109,11 @@
   .profile-img-edit:hover{
     transform: scale(1.2);
   }
-  .isedit-btns-div{
+  .my-prof-isedit-btns-div{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    background: yellow;
   }
 
   .subj-label{
@@ -125,3 +126,35 @@
   .profile-select{
       width: 230px;
   }
+
+  .about-content-p{
+    margin-top: 1rem;
+    font-size: 18px;
+  }
+
+  .subjects-list{
+    margin-bottom: 10px;
+  }
+
+  @media (max-width:400px) {
+    .about-section  .about-content-p{
+      margin-top: 1rem;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width:355px) {
+    .profile-details{
+        display: flex;
+        flex-direction: column;
+        gap:0;
+    }
+
+     .value{
+        margin-bottom: 10px;
+    }
+
+    .profile-container input,select{
+         margin-bottom: 1rem;
+    }
+}

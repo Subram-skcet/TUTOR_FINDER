@@ -160,10 +160,11 @@ const MyProfile = () => {
         toast.success('Profile saved successfully!!')
       }
     } catch (error) {
-      toast.error("Couldn't save profile. Try gain later")
+      toast.error("Couldn't save profile. Try again later")
       console.log(error.message);
     }
     finally{
+      setSaveBtn(false)
       setIsEditing(false);
     }
 
@@ -263,7 +264,7 @@ const MyProfile = () => {
           <div className='subj-label'>My Subjects</div>
           {
             isEditing?
-              <div>
+              <div className='subjects-list'>
                 <select className='profile-select' onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
                     {subjects.map((subject)=>(
@@ -310,12 +311,12 @@ const MyProfile = () => {
               onChange={handleChange}
             />
           ) : (
-            <p className="about-content">{profile.about}</p>
+            <p className="about-content-p">{profile.about}</p>
           )}
         </div>
         {
           isEditing?
-        <div className='isedit-btns-div'>
+        <div className='my-prof-isedit-btns-div'>
           <button className="edit-prof-btn spz" disabled={saveBtnLoading} onClick={handleSaveClick}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
               <SaveIcon /> 

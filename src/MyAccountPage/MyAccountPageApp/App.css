@@ -43,6 +43,12 @@
     transform: translateY(-50%);
 }
 
+@media (min-width:1000px) and (max-width:1200px) {
+    .app-wrap{
+       --sidebar-width:300px;
+   }
+}
+
 @media (max-width:1000px) {
     .app-wrap{
         --sidebar-width:257.48px;

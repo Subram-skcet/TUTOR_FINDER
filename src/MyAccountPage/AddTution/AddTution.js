@@ -94,12 +94,14 @@ const AddTution = () => {
 
   return (
     <div className="create-tuition-container">
-      <h1>Create Tuition</h1>
+      <div>
+         <h1 className='lato-bold'>Create Tuition</h1>
+      </div>
       <form className="create-tuition-form">
         
         <div className="list-container">
           <div className='header-flx'>
-            <label>Select Subject</label>
+            <label className="poppins-font">Select Subject</label>
             <select onChange={HandleSubjectSelect} className='create-tuition-select'>
               <option value="">Select a subject</option>
               {subjects.map((subject) => (
@@ -116,7 +118,7 @@ const AddTution = () => {
 
         <div className="list-container">
           <div className='header-flx'>
-            <label>Select Boards</label>
+            <label className="poppins-font">Select Boards</label>
             <select onChange={HandleBoardSelect} className='create-tuition-select'>
               <option value="">Select a board</option>
               <option value="CBSE">CBSE</option>
@@ -133,7 +135,7 @@ const AddTution = () => {
         <div className='grid-columns'>
 
             <div>
-              <p>Duration:</p>
+              <label className="poppins-font">Duration:</label>
             </div>
             <div className='header-flx'>
               <label>Start Time:</label>
@@ -150,7 +152,7 @@ const AddTution = () => {
             </div>
 
             <div>
-              <p>Days:</p>
+              <label className="poppins-font">Days:</label>
             </div>
             <div className='header-flx'>
               <label>From:</label>
@@ -178,7 +180,7 @@ const AddTution = () => {
             </div>
 
             <div>
-              <p>Standard:</p>
+              <label className="poppins-font">Standard:</label>
             </div>
           <div className='header-flx'>
             <label>Start Class:</label>
@@ -222,9 +224,9 @@ const AddTution = () => {
 
         </div>
         <div className='header-flx'>
-           <label>Fees:</label>
+           <label className="poppins-font">Fees:</label>
 
-                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='create-tuition-select'/>
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input'/>
         </div>
 
       </form>
