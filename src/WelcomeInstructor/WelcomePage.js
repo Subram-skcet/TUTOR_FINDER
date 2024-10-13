@@ -8,14 +8,17 @@ import reviews from '../assets/increasing-tution.webp'
 import RegisterTeacher from '../RegisterPage/Teacher/RegisterTeacher'
 import Modal from '../components/Modal/Modal'
 import TeacherLogin from '../TeacherLogin/TeacherLogin'
+import { handleModalSize } from '../utils/modalSize'
 
 const WelcomePage = () => {
    const [isRegisterModalOpen,setRegisterModelOpen] = useState(false)
    const [isLoginModalOpen,setLoginModalOpen] = useState(false)
-
+   if(isRegisterModalOpen || isLoginModalOpen){
+      handleModalSize()
+   }
   return (
    <>
-   <Modal isopen={isRegisterModalOpen} onClose={()=>{
+   <Modal childrenWidth = {810} isopen={isRegisterModalOpen} onClose={()=>{
       setRegisterModelOpen(false)
       setLoginModalOpen(false)
    }

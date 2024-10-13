@@ -1,5 +1,6 @@
 .teacher-reg-wrap {
-  width:60vw
+  width:810px;
+  
 }
 
 .teacher-det-wrap{
@@ -11,10 +12,16 @@
     gap:1.5rem;
   }
   
+  .teacher-det-wrap > div{
+      background: green;
+  }
+
+
   .teacher-reg-form{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    background: gray;
   }
   
   .space-div {
@@ -90,12 +97,28 @@
     cursor: pointer;
  }
 
-.otp-input-fd{
- width: 10px;
- padding: 10px;
- margin: 5px;
- text-align: center;
- font-size: 18px;
- border: 2px solid #ccc;
- border-radius: 4px;
+.teacher-reg-wrap{
+  background: yellow;
+}
+
+@media (max-width:839px) {
+  .teacher-reg-wrap{
+    width: 100%;
+  }
+}
+
+@media (max-width:516px) {
+   .teacher-det-wrap{
+    grid-template-columns: repeat(2,2fr);
+   }
+   .hide{
+    display: none;
+   }
+}
+
+@media (max-width:400px) {
+  .teacher-det-wrap{
+     display: flex;
+     flex-direction: column;
+   }
 }

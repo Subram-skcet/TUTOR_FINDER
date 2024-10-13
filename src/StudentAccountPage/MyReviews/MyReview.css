@@ -38,3 +38,9 @@
 .my-reviews-pg-reviews-container::-webkit-scrollbar{
     display: none;
 }
+
+@media (max-width:500px) {
+    .my-reviews-pg-reviews-container{
+        width: 100vw;
+    }
+}

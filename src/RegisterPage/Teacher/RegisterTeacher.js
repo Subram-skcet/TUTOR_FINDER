@@ -30,10 +30,6 @@ const RegisterTeacher = ({openLogin}) => {
   )
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("Here you gooooo", logged);
-  }, [logged]);
-
   const handleOtpSend = async()=>{
     try {
       const response = await axios.post('/api/v1/auth/generateotp',
@@ -191,6 +187,7 @@ const handleBackspace = (e, index) => {
             required
             />
         </div>
+
         <div className='space-div'>
           <div className='email-label-flex'>
           <label htmlFor='email' className='register-label'>Email:</label>
@@ -246,7 +243,7 @@ const handleBackspace = (e, index) => {
           </div>
        </div>
           :
-          <div></div>
+          <div className='hide'></div>
         }
         <div className='space-div'>
           <label htmlFor='password'  className='register-label'>Password:</label>

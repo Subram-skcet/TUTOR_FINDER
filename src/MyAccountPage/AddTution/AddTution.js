@@ -100,7 +100,7 @@ const AddTution = () => {
       <form className="create-tuition-form">
         
         <div className="list-container">
-          <div className='header-flx'>
+          <div className='list-header-flx'>
             <label className="poppins-font">Select Subject</label>
             <select onChange={HandleSubjectSelect} className='create-tuition-select'>
               <option value="">Select a subject</option>
@@ -117,7 +117,7 @@ const AddTution = () => {
         </div>
 
         <div className="list-container">
-          <div className='header-flx'>
+          <div className='list-header-flx'>
             <label className="poppins-font">Select Boards</label>
             <select onChange={HandleBoardSelect} className='create-tuition-select'>
               <option value="">Select a board</option>

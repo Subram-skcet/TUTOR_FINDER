@@ -37,6 +37,12 @@
   gap: 1rem;
 }
 
+.list-header-flx{
+  display:flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .grid-columns{
    display: grid;
    grid-template-columns: 0.5fr 1fr 1fr;
@@ -99,5 +105,12 @@ input[type='time']{
       flex-direction: column;
       align-items: flex-start;
       gap: 0.5rem;
+    }
+}
+
+@media (max-width:371px) {
+    .list-header-flx{
+      flex-direction: column;
+      align-items: flex-start;
     }
 }

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Sidebar from './Sidebar/Sidebar'
 // import './App.css'
 import AccountLayout from '../MyAccountPage/AccountLayout/AccountLayout'
@@ -6,6 +6,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 const App = (props) => {
   const [isSidebarOpen,setSidebarOpen]=useState(true)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setSidebarOpen(window.innerWidth > 1000);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className='app-wrap'>
