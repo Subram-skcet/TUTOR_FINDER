@@ -1,8 +1,3 @@
-.teacher-reg-wrap {
-  width:810px;
-  
-}
-
 .teacher-det-wrap{
     display: grid;
     grid-template-columns: repeat(3,2fr);
@@ -64,9 +59,8 @@
   .teacher-signup-wrap{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 2rem;
+    width:810px;
   }
 
  .selected-items{
@@ -97,12 +91,8 @@
     cursor: pointer;
  }
 
-.teacher-reg-wrap{
-  background: yellow;
-}
-
 @media (max-width:839px) {
-  .teacher-reg-wrap{
+  .teacher-signup-wrap{
     width: 100%;
   }
 }

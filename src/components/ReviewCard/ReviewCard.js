@@ -152,10 +152,10 @@ const handleSaveClick = async() =>{
              {
                 isEditing ?
                 <>
-                <div>
-                    <Rating rating={editDetails.editrating} ref={childRef}/>
+                <div className="rating">
+                    <Rating rating={0} ref={childRef}/>
                 </div>
-                <div>
+                <div className="review">
                     <input type="text" name="editreview" value={editDetails.editreview} onChange={handleChange}/>
                 </div>
                 </>

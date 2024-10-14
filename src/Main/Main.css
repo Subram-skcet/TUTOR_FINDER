@@ -72,8 +72,9 @@
   gap: 1rem;
   height: calc(95vh - var(--header-height));
   width: 750px;
-  /* background: green; */
+  background: green;
   padding-bottom: 1rem;
+  position: relative;
 }
 .search-results{
   display: flex;
@@ -96,8 +97,21 @@
   margin-bottom: 0;
 }
 .teachers-not-found-para{
-  width: 645px;
+  background: gray;
+  padding: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
+
+.circle-animation{
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  align-self: center;
+}
+
 
 @media (max-width:1142px) {
    .container{

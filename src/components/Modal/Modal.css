@@ -1,0 +1,66 @@
+/* Overlay Styles */
+.overlay-styles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.new-overlay-styles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Modal Styles */
+.modal-styles {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: yellow;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.new-modal-styles {
+    width: 100vw;
+    height: max-content;
+    padding: 20px;
+    background-color: pink;
+    z-index: 1001;
+    position: absolute;
+}
+
+.new-centered-modal-styles{
+    width: 100vw;
+    height: auto;
+    padding: 20px;
+    background-color: green;
+    z-index: 1001;
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+
+
+/* Close Button Styles */
+.close-styles {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    color: #333;
+    font-size: 24px;
+}

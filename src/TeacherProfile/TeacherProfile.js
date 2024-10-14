@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { ThreeCircles } from 'react-loader-spinner'
 import DisplayRating from '../components/DisplayRating';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -23,6 +24,7 @@ const TeacherProfile = () => {
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
   const [isDoable,setDoable] = useState(true)
+  const [errorText,setErrorText] = useState('')
 
   let props = location.state.profileDetails
 
@@ -65,10 +67,34 @@ const TeacherProfile = () => {
       setLoginModelOpen(true)  
   }
 
-  const handleSubmitReview = async() => {
+  const validateReview = (rating)=>{
+      if(rating === 0){
+        toast.error('Please rate a teacher from 1 to 5 by clicking the star')
+        return false
+      }
+      if(newReviewText.trim().length === 0){
+        toast.error("Review cannot be empty")
+        return false
+      }
+
+      if(newReviewText.length<10){
+        setErrorText("Review cannot be less than 10 characters")
+        return false
+      }
+
+      if(newReviewText.length>50){
+        setErrorText("Review cannot be greater than 50 characters")
+        return false
+      }
+
+      return true
+  }
+
+  const handleSubmitReview = async(e) => {
+    e.preventDefault();
     if(!logged){
         openLoginModel()
-        return
+        return false
     }
     if(logged_as === 'teacher'){
       toast.info('Only students can review about a teacher')
@@ -83,25 +109,34 @@ const TeacherProfile = () => {
     if(childRef.current){
       rating = childRef.current.returnRating()
     }
-    let req_body = {
-          createdBy:asStudent._id,
-          review:newReviewText,
-          createdFor:props._id,
-          rating:rating
+
+    const validated = validateReview(rating)
+
+    if(validated){
+      let req_body = {
+            createdBy:asStudent._id,
+            review:newReviewText,
+            createdFor:props._id,
+            rating:rating
+      }
+      console.log(req_body);
+      try {
+        const response = await axios.post('/api/v1/review/',req_body)
+        console.log(response);
+        toast.success('Review posted successfully')
+        setErrorText('')
+        await fetchReviews();
+      } catch (error) {
+        toast.error("Couldn't post a review try again later")
+      }
+
     }
-    console.log(req_body);
-    try {
-      const response = await axios.post('/api/v1/review/',req_body)
-      console.log(response);
-      toast.success('Review posted successfully')
-      await fetchReviews();
-    } catch (error) {
-      toast.error("Couldn't post a review try again later")
-    }
+
 
   };
     
    const handleFocus =()=>{
+      setErrorText('')
       setShowRating(true);
    }
 
@@ -233,7 +268,8 @@ const TeacherProfile = () => {
                 <Rating ref={childRef}/>
               </div>
             { showRating && 
-              <div className='user-review-space'>
+                <form onSubmit={handleSubmitReview}>
+                  <div className='user-review-space'>
                 <div className='review-textarea'>
                   <textarea 
                     value={newReviewText}
@@ -243,13 +279,24 @@ const TeacherProfile = () => {
                     onChange={(e) => setNewReviewText(e.target.value)}
                     placeholder="Write review..."
                     className='profile-page-textarea'
+                    minLength={50}
+                    required
                     ></textarea>
                   </div>
+                  {errorText && 
+                   
+                   <div className='error-para-div'>
+                      <div className='amber-icon'>
+                         <WarningAmberIcon/>
+                      </div>
+                      <p className='errorText'>{errorText}</p>
+                    </div>}
                   <div className='review-box-btns'>
-                      <button className="post-submit" onClick={handleSubmitReview}>Submit</button>
+                      <button type="submit" className="post-submit">Submit</button>
                       <button className='post-cancel' onClick={handleBlur}>Cancel</button>
                   </div>
                 </div>
+                  </form>
             }
           </div>
       </div>

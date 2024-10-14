@@ -18,7 +18,9 @@ const WelcomePage = () => {
    }
   return (
    <>
-   <Modal childrenWidth = {810} isopen={isRegisterModalOpen} onClose={()=>{
+   <Modal
+   childrenWidth={isLoginModalOpen ? 439 : 810} // Simplified conditional
+   isopen={isRegisterModalOpen} onClose={()=>{
       setRegisterModelOpen(false)
       setLoginModalOpen(false)
    }
