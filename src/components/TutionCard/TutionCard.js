@@ -9,6 +9,7 @@ import Modal from '../Modal/Modal';
 import LoginModal from '../LoginModal/LoginModal';
 import { extractDateFields } from '../../utils/getCreatedAt'
 import { toast } from 'react-toastify';
+import profileimg from '../../assets/17330480.png'
 
 function TutionCard({tution,index,profilenavigate}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -19,10 +20,6 @@ function TutionCard({tution,index,profilenavigate}) {
         return false
     })
     const [isLoginModalOpen,setLoginModelOpen] = useState(false)
-
-
-    
-
 
     const BookMarkTution = async() =>{
         if(!logged){
@@ -67,7 +64,7 @@ function TutionCard({tution,index,profilenavigate}) {
         </Modal>
         <div className="tutor-card" key={index}>
         <div className='date-div'>
-              <p>{extractDateFields(tution.createdAt)}</p>
+              <p className='createdAt-p'>{extractDateFields(tution.createdAt)}</p>
         </div>
             <div className='bookmark-icon-div' onClick={BookMarkTution}>
                 {
@@ -82,8 +79,17 @@ function TutionCard({tution,index,profilenavigate}) {
                 }
             </div>
             <div className="tutor-card__profile-container">
-                <div className='tutor-img-div' onClick={()=>profilenavigate(index)}>
+                <div className='tutor-img-div bg-scr-div' onClick={()=>profilenavigate(index)}>
                     <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
+                </div>
+                <div className='mobile-visit-prof-div'>
+                    <div className='tutor-img-div'>
+                        <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
+                    </div>
+                    <div onClick={()=>profilenavigate(index)} className='visit-prof-div'>
+                        <img src={profileimg} className='visit-profile-img'/>
+                        <p>Visit profile</p>
+                    </div>
                 </div>
                 <div className="tutor-card__info">
                     <div className='tutor-info'>

@@ -3,8 +3,9 @@
     display: flex;
     flex-direction: column;
     background: #f0f2f5;
-    background: red;
+    background: rgb(235, 162, 162);
     padding: 2rem;
+    gap: 1rem;
 }
 
 .student-signup-form{
@@ -43,6 +44,31 @@
     width:  20px;
     height: 20px;
     color: green;
+}
+
+.er-streg{
+    /* display: block; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
+}
+
+.verify-load-gif{
+     width: 20px;
+    height: 20px;
+}
+
+.submit-mob{
+    display: none;
+}
+
+@media (max-width:426px) {
+    .submit-mob{
+        display: block;
+    }
+    .submit-lg{
+        display: none;
+    }
 }
 
 @media (max-width:800px) {

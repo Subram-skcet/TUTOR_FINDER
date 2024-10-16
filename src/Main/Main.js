@@ -49,7 +49,7 @@ const Main = () => {
         </div>
         <div className='results-prt'>
           <div>
-             <h1>Your Search Results</h1>
+             <h1 className='search-rst-hd'>Your Search Results</h1>
           </div>
           {isLoading ?
             <div className='circle-animation'>

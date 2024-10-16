@@ -124,7 +124,7 @@
    }
    .results-prt{
     align-items: center;
-    height: 400px;
+    height: 500px;
     overflow: overlay;
    }
 }
@@ -132,7 +132,10 @@
 @media (max-width:749px) {
   .results-prt{
     width: 100%;
-    background: green;
+    background: #3dc53d;
+  }
+  .search-rst-hd{
+    font-size:30px
   }
 }
 

@@ -12,7 +12,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useState } from 'react';
 
 const Layout = (props) => {
-  const [{logged},dispatch] = useDataLayerValue();
+  const [{logged,logged_as},dispatch] = useDataLayerValue();
   const navigate = useNavigate()
   const location = useLocation()
   const pathname = location.pathname
@@ -27,10 +27,18 @@ const Layout = (props) => {
   const RegisterNavigateStudent = () => {
     navigate('/register');
   };
+
   const LoginNavigate = () => {
     console.log("Here you go ",logged);
     navigate('/login');
   };
+
+  const handleProfileNavigate = () =>{
+    if(logged_as === 'teacher')
+        navigate('/myaccount/teacherprofile/myprofile')
+    else if(logged_as === 'student')
+        navigate('/myaccount/studentprofile/myprofile')
+}
   return (
     <>
       <div className="out-wrap">
@@ -83,7 +91,7 @@ const Layout = (props) => {
                     <div className='menu-close' onClick={()=>setHamburgerOpen(false)}>
                       <CloseIcon fontSize='large'/>
                     </div>
-                    <div className={`${!logged?'invis':''} menu-my-profile`}>
+                    <div className={`${!logged?'invis':''} menu-my-profile`} onClick={handleProfileNavigate}>
                       <MyAccount/>
                       <p className='my-profile-para'>My Profile</p>
                     </div>

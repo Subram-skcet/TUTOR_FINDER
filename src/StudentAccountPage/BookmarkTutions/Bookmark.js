@@ -5,18 +5,21 @@ import TutionCard from '../../components/TutionCard/TutionCard'
 import { useNavigate } from 'react-router-dom'
 import './Bookmark.css'
 import SearchIcon from '@mui/icons-material/Search';
+import { ThreeCircles } from 'react-loader-spinner'
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
   const [{asStudent},dispatch] = useDataLayerValue()
   const navigate = useNavigate()
+  const [isLoading,setIsLoading] = useState(true)
 
   const fetchTutions = async()=>{
+    setIsLoading(true)
     let tutions=[];
     try {
       for(let i=0;i<asStudent.favouriteTutions.length;i++){
         console.log('Executing');
-         const response = await axios.get(`http://localhost:3001/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`)
+         const response = await axios.get(`/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`)
          console.log(response);
          tutions.push(response.data.tution)
       }
@@ -25,6 +28,9 @@ const Bookmark = () => {
       
     } catch (error) {
          console.log(error.message);
+    }
+    finally{
+      setIsLoading(false)
     }
   }
   const handleProfileNavigate = (idx) =>{
@@ -42,6 +48,21 @@ const Bookmark = () => {
       <div>
          <h1 className='lato-bold'>Your favourite tuitions</h1>
       </div>
+      {
+        isLoading ? 
+        <div className='circle-animation'>
+          <ThreeCircles
+          visible={true}
+          height="100"
+          width="100"
+          color="#4fa94d"
+          ariaLabel="three-circles-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          />
+       </div>
+        :
+        <>
           {favouritetutions.length === 0 ? (
             <div className='bookmark-empty-content'>
               <p className='pt-serif-regular bookmark-p'>Tutions you have added into your favourite list will appear here. Currently you have no favourite tutions</p>
@@ -61,6 +82,8 @@ const Bookmark = () => {
                 <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn'>Find more tutions</button>
                 </>
              )}
+        </>
+      }
 
     </div>
   )

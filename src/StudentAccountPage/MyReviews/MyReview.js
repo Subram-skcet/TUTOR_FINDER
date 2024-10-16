@@ -4,13 +4,16 @@ import axios from 'axios'
 import './MyReview.css'
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import { toast } from 'react-toastify'
+import { ThreeCircles } from 'react-loader-spinner'
 
 const MyReview = () => {
   const [reviews,setReviews] = useState([])
   const [{ asStudent }, dispatch] = useDataLayerValue();
   const [isDoable,setDoable] = useState(true)
+  const [isLoading,setIsLoading] = useState(false)
 
   const fetchMyReviews = async()=>{
+    setIsLoading(true)
        try {
           const response = await axios.get(`/api/v1/review/`)
           console.log(response);
@@ -18,6 +21,10 @@ const MyReview = () => {
        } catch (error) {
          console.log(error.message);
        }
+       finally{
+         setIsLoading(false)
+       }
+    
   }
 
   //handle clicking Like
@@ -70,6 +77,21 @@ const deleteReview = async(id) =>{
       <div>
          <h1 className='lato-bold'>My Reviews</h1>
       </div>
+      {isLoading?
+       <div className='circle-animation'>
+        <ThreeCircles
+        visible={true}
+        height="100"
+        width="100"
+        color="#4fa94d"
+        ariaLabel="three-circles-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
+       </div>
+        
+      :
+      <>
             {reviews.length === 0 ? (
               <div className='student-pg-review-div'>
                 <p className='pt-serif-regular'>
@@ -93,6 +115,8 @@ const deleteReview = async(id) =>{
             </div>
             )
           }
+          </>
+        }
     </div>
   )
 }

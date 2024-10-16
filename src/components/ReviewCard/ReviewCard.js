@@ -183,7 +183,7 @@ const handleSaveClick = async() =>{
                     </div>
                 </div>
              </div>
-                <div className="review-createdat"><p>{extractDateFields(review.createdAt)}</p></div>
+                <div className="review-createdat"><p className='createdAt-p'>{extractDateFields(review.createdAt)}</p></div>
         </div>
     );
 };
