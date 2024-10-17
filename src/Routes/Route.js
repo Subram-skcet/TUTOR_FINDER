@@ -49,7 +49,7 @@ const Router = () => {
         });
       }
     } catch (error) {
-      navigate('/'); 
+      // navigate('/'); 
     }
   };
 

@@ -56,7 +56,7 @@ const RegisterStudent = () => {
           }
         )
         if(response.status === 201){
-          toast.warn("OTP sent to your mail. Enter it below. Valid for only 15 minutes.");
+          toast.info("OTP sent to your mail. Enter it below. Valid for only 15 minutes.");
           setOtpDetails((prevDetails)=>({
             ...prevDetails,
             isVisible:true

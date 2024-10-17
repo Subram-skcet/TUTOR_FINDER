@@ -6,11 +6,13 @@ import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const StudentProfile = () => {
   const [{ asStudent }, dispatch] = useDataLayerValue();
   const [isEditing, setIsEditing] = useState(false);
   const [saveBtnLoading,setSaveBtn] = useState(false)
+  const [errorText,setErrorText] = useState('')
   const [profile, setProfile] = useState({
     profilepic: asStudent.profilepic,
     name: asStudent.name,
@@ -41,48 +43,73 @@ const StudentProfile = () => {
     setIsEditing(true);
   } 
 
+  const ValidateUser = ()=>{
+    console.log(editDetails.name);
+    if(!editDetails || !editDetails.name || !editDetails.name.trim()){
+      setErrorText("Enter all details")
+      return false;
+    }
 
-  const handleSaveClick = async() => {
-    setSaveBtn(true)
-    let updatedProfilePic = profile.profilepic
+    return true;
+      
+  }
 
-    if (selectedImage.file && selectedImage.file!==permImage.file) {
-      const formData = new FormData();
-      formData.append('image', selectedImage.file);
+
+  const handleSaveClick = async(e) => {
+    e.preventDefault()
+    const userValidated = ValidateUser()
+
+    console.log("Validate" , userValidated);
+
+    if(userValidated){
+      setSaveBtn(true)
+      let updatedProfilePic = profile.profilepic
+  
+      if (selectedImage.file && selectedImage.file!==permImage.file) {
+        const formData = new FormData();
+        formData.append('image', selectedImage.file);
+        try {
+          const response = await axios.post('/api/v1/student/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+          updatedProfilePic = response.data.image;
+          console.log(updatedProfilePic);
+          setPermImage(selectedImage)
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+      
       try {
-        const response = await axios.post('/api/v1/student/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
+        const response = await axios.patch(`/api/v1/student/`, { 
+          ...editDetails,
+          ...(updatedProfilePic !== profile.profilepic && { profilepic: updatedProfilePic })
         });
-        updatedProfilePic = response.data.image;
-        console.log(updatedProfilePic);
-        setPermImage(selectedImage)
+        let updatedDetails = response.data.user
+        setProfile(updatedDetails)
+        let newStudentDetails = { ...asStudent, ...updatedDetails };
+        console.log(newStudentDetails);
+        dispatch({
+          type:"SET_STUDENT",
+          payload:newStudentDetails
+        })
+        toast.success('Profile saved successfully!!')
       } catch (error) {
+        toast.error("Couldn't save profile. Try again later")
         console.log(error.message);
       }
-    }
-    
-    try {
-      const response = await axios.patch(`/api/v1/student/`,{ ...editDetails, profilepic: updatedProfilePic })
-      let updatedDetails = response.data.user
-      setProfile(updatedDetails)
-      let newStudentDetails = { ...asStudent, ...updatedDetails };
-      console.log(newStudentDetails);
-      dispatch({
-        type:"SET_STUDENT",
-        payload:newStudentDetails
-      })
-      setSaveBtn(false)
-      toast.success('Profile saved successfully!!')
-    } catch (error) {
-      toast.error("Couldn't save profile. Try gain later")
-      console.log(error.message);
-    }
-    finally{
-      setIsEditing(false)
+      finally{
+        setIsEditing(false)
+        setSaveBtn(false)
+      }
+
     }
   };
 
   const handleChange = (e) => {
+    if(errorText){
+      setErrorText('');
+   }
     const { name, value } = e.target;
     setEditDetails((prevProfile) => ({ ...prevProfile, [name]: value }));
   };
@@ -109,6 +136,8 @@ const StudentProfile = () => {
       <div className="student-profile-footer">
         <p className='student-profile-para poppins-font'>Welcome to your profile page!</p>
       </div>
+      <form onSubmit={handleSaveClick}>
+
       <div className="student-profile-header">
         <div className="student-profile-picture">
           <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
@@ -130,6 +159,7 @@ const StudentProfile = () => {
               name="name"
               value={editDetails.name}
               onChange={handleChange}
+              minLength={5}
             />
           ) : (
             <h1>{profile.name}</h1>
@@ -138,8 +168,17 @@ const StudentProfile = () => {
       </div>
       {
         isEditing?
+        <>
+         {errorText && 
+                    <div className='error-para-div er-streg'>
+                         <div className='amber-icon'>
+                             <WarningAmberIcon/>
+                         </div>
+                        <p className='errorText'>{errorText}</p>
+                    </div>
+          }
         <div className='isedit-btns-div'>
-          <button className="edit-prof-btn" onClick={handleSaveClick} disabled={saveBtnLoading}>
+          <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
               <SaveIcon/>
               <p>Save Profile</p>
@@ -152,6 +191,7 @@ const StudentProfile = () => {
             </div>
           </button> 
         </div>
+        </>
         :
         <button className="edit-prof-btn" onClick={handleEditClick}>
           <div className='itms-cntr style-links-updated norm-style' >
@@ -160,6 +200,7 @@ const StudentProfile = () => {
           </div>
         </button> 
       }
+      </form>
     </div>
   );
 };

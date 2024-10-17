@@ -3,12 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify'
+import './ChangePassword.css'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const ChangePassword = () => {
     const [Details, setDetails] = useState({
         pwd: '',
         cnfrm_pwd: ''
     });
+    const [errorText,setErrorText] = useState('')
     const location = useLocation()
     const queryParams = new URLSearchParams(location.search);
     const token = queryParams.get('token')
@@ -18,6 +21,9 @@ const ChangePassword = () => {
     const navigate = useNavigate();
 
     const handleChange = (e) => {
+        if(errorText){
+            setErrorText('')
+        }
         const { name, value } = e.target;
         setDetails((prevDetails) => ({
             ...prevDetails,
@@ -27,8 +33,12 @@ const ChangePassword = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission
+        if(!Details.pwd.trim() || !Details.cnfrm_pwd.trim()){
+            setErrorText("Enter all the fields")
+            return;
+        }
         if (Details.pwd !== Details.cnfrm_pwd) {
-            console.log("Passwords do not match");
+            setErrorText("Password doesn't match")
             return;
         }
         try {
@@ -39,38 +49,66 @@ const ChangePassword = () => {
                 password: Details.pwd,
             });
             console.log(response);
-            if (response.data.message === 'Password resetted successfully') {
+            if(response.status === 201){
                 toast.success('Password changed successfully!')
                 navigate('/');
             }
         } catch (error) {
-            console.log(error.message);
+            if(error.response && error.response.data.message){
+                if(error.response.data.message.includes('expired')){
+                    toast.info("10 minute time limit for password reset is elapsed try to resend the password reset mail")
+                    navigate('/')
+                }
+                else{
+                    toast.error(error.response.data.message)
+                }
+            }
+            else{
+                toast.error("Something went wrong please try again later")
+            }
         }
     };
 
     return (
-        <div>
+        <>
             <div className="top-wst"></div>
-            <form onSubmit={handleSubmit}>
-                <label>New Password:</label>
-                <input
-                    type="password"
-                    name="pwd"
-                    value={Details.pwd}
-                    onChange={handleChange}
-                    required
-                />
-                <label>Confirm Password:</label>
-                <input
-                    type="password"
-                    name="cnfrm_pwd"
-                    value={Details.cnfrm_pwd}
-                    onChange={handleChange}
-                    required
-                />
-                <button type="submit">Submit</button>
+        <div className="pwd-wrapper">
+            <form onSubmit={handleSubmit} className='password-reset-div'>
+               <div className='pwd-div'>  
+                    <label className='pwd-label pt-serif-regular'>New Password:</label>
+                    <input
+                        type="password"
+                        name="pwd"
+                        value={Details.pwd}
+                        onChange={handleChange}
+                        minLength={5}
+                        required
+                        />
+                </div>
+
+                <div className='pwd-div'>
+                    <label className='pwd-label pt-serif-regular'>Confirm Password:</label>
+                    <input
+                        type="password"
+                        name="cnfrm_pwd"
+                        value={Details.cnfrm_pwd}
+                        onChange={handleChange}
+                        minLength={5}
+                        required
+                    />
+                </div>
+                {errorText && 
+               <div className='error-para-div er-streg'>
+                        <div className='amber-icon'>
+                          <WarningAmberIcon/>
+                        </div>
+                        <p className='errorText'>{errorText}</p>
+              </div>
+                 }
+                <button type="submit" className='pwd-submit-btn'>Submit</button>
             </form>
         </div>
+        </>
     );
 };
 
