@@ -1,3 +1,9 @@
+
+.stator{
+    height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
 .welcome-part-one{
     width: 100%;
     display: flex;

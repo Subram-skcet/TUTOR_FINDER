@@ -33,7 +33,7 @@ const WelcomePage = () => {
       }
    </Modal>
    <div className='top-wst'></div>
-    <div className='welcome-pg-wrap'>
+    <div className={`welcome-pg-wrap ${isRegisterModalOpen ? 'stator':''}`}>
       <div className='welcome-part-one'>
          <div className='welcome-notes'>
             <div className='actual-content'>

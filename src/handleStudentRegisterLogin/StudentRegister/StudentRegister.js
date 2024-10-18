@@ -56,7 +56,7 @@ const RegisterStudent = () => {
           }
         )
         if(response.status === 201){
-          toast.info("OTP sent to your mail. Enter it below. Valid for only 15 minutes.");
+          toast.info("OTP has sent to your mail. Enter it below. Valid for only 15 minutes.");
           setOtpDetails((prevDetails)=>({
             ...prevDetails,
             isVisible:true
@@ -122,7 +122,7 @@ const RegisterStudent = () => {
           toast.error(error.response.data.message)
       }
       else{
-          toast.error("Something went wrong pleae try again later")
+          toast.error("Something went wrong please try again later")
       }
      }
   }
@@ -169,10 +169,6 @@ const RegisterStudent = () => {
        if(!userDetails.name.trim() || !userDetails.email.trim() || !userDetails.password.trim()){
           setErrorText("Please enter all the fields")
           return false;
-       }
-       if(userDetails.name.length < 5){
-         setErrorText("Name should be atleast 5 characters")
-         return false;
        }
        if(userDetails.password.length < 5){
          setErrorText("Password should be atleast 5 characters")
@@ -233,7 +229,7 @@ const RegisterStudent = () => {
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>Name:</label>
-          <input type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} minLength={5} required />
+          <input type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
         </div>
         <div className='form-group'>
           <div className='email-label-flex'>

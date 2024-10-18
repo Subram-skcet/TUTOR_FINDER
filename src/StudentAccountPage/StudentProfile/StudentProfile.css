@@ -17,10 +17,16 @@
   align-items: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .student-profile-picture{
   position: relative;
+  background-color: yellow;
+  width: 117px; /* Adjust size as needed */
+  height: 117px; /* Adjust size as needed */
+  border-radius: 50%;
+  overflow: hidden;
 }
 /* Profile picture styling */
 .student-profile-picture img {
@@ -49,13 +55,28 @@
   font-size: 20px;
 }
 
-.profile-edit-icon {
-  /* background: red; */
+
+.hf-crc{
+  width: 50px;
+  height: 30px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  transform: rotate(-45deg);
   position: absolute;
-  right: 7%;
-  bottom: 10%;
+  background: rgb(67, 67, 206);
+  border-top: 3px solid white;
+  border-left: 3px solid white;
+  border-right: 3px solid white;
+  bottom: 6%;
+  right: 0%;
 }
 
+.profile-edit-icon {
+  position: absolute;
+   right: 10%;
+  bottom: 5%;
+  cursor: pointer;
+}
 .isedit-btns-div{
   width: 400px;
   display: flex;

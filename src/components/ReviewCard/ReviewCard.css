@@ -1,7 +1,7 @@
 .review-card {
   position: relative;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 16px;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -38,9 +38,14 @@
     margin-right: 4px;
   }
   
-  .review {
+  .review-div {
     margin-bottom: 12px;
     font-size: 16px;
+    width: 100%;background: rgb(161, 201, 204);
+    height: max-content;
+    word-break: break-word;
+    padding: 10px;
+    border-radius: 10px;
   }
   
   .user-actions{
@@ -123,6 +128,27 @@
 
 .like-dislike-icon{
   position: relative;
+}
+
+.review-pg-txtarea{
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  outline: none;
+  margin-bottom: 12px;
+}
+
+.review-pg-txtarea:focus{
+  border: 2px solid blue;
+  outline: none;
+}
+
+.error-p{
+  color: red;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
 }
 
 .tooltip::before,

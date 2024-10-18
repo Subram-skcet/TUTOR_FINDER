@@ -38,15 +38,24 @@ const StudentProfile = () => {
   },[asStudent])
 
   const handleEditClick = () =>{
-    setEditDetails(profile);
+    const { name } = profile
+    setEditDetails({name});
     setSelectedImage(permImage)
+    if(errorText){
+      setErrorText('')
+    }
     setIsEditing(true);
   } 
 
   const ValidateUser = ()=>{
     console.log(editDetails.name);
     if(!editDetails || !editDetails.name || !editDetails.name.trim()){
-      setErrorText("Enter all details")
+      setErrorText("Name cannot be empty!")
+      return false;
+    }
+
+    if(editDetails.name.length < 20){
+      setErrorText("Name cannot be more than 20 charaters")
       return false;
     }
 
@@ -61,7 +70,10 @@ const StudentProfile = () => {
 
     console.log("Validate" , userValidated);
 
+    console.log(editDetails);
+
     if(userValidated){
+    console.log("means Validated");
       setSaveBtn(true)
       let updatedProfilePic = profile.profilepic
   
@@ -141,8 +153,9 @@ const StudentProfile = () => {
       <div className="student-profile-header">
         <div className="student-profile-picture">
           <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
+            <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
           <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
-              <EditIcon fontSize='large' />
+              <EditIcon fontSize='medium' />
               <input
                 type="file"
                 accept="image/*"
@@ -160,6 +173,7 @@ const StudentProfile = () => {
               value={editDetails.name}
               onChange={handleChange}
               minLength={5}
+              maxLength={20}
             />
           ) : (
             <h1>{profile.name}</h1>

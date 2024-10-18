@@ -36,6 +36,7 @@ const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable ,
         const childRef = useRef(); //Access child class Rating function from parent 
         const [position, setPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
         const targetRef = useRef(null);
+        const [errorText,setErrorText] = useState('');
 
 const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
@@ -64,6 +65,9 @@ const handleLikeClicks = (reactionType) => {
 };
 
 const handleChange = (e) =>{
+    if(errorText){
+        setErrorText('')
+    }
   const {name,value} = e.target
   seteditDetails((prevDetails)=>({
     ...prevDetails,
@@ -74,6 +78,9 @@ const handleChange = (e) =>{
 
 
 const HandleEditClick = () =>{
+    if(errorText){
+        setErrorText('')
+    }
     seteditDetails({
         editreview:permDetails.permreview,
         editrating:permDetails.permrating
@@ -85,6 +92,16 @@ const handleSaveClick = async() =>{
     let rating;
     if(childRef.current)
         rating = childRef.current.returnRating() //get rating from the ReviewCard component method 
+
+    if(rating === 0){
+        setErrorText('Rating cannot be zero')
+        return;
+    }
+
+    if(!editDetails.editreview.trim()){
+        setErrorText('Review cannot be empty!')
+        return;
+    }
 
     try {
         const response = await axios.patch(`/api/v1/review/${review._id}`,{
@@ -155,16 +172,25 @@ const handleSaveClick = async() =>{
                 <div className="rating">
                     <Rating rating={0} ref={childRef}/>
                 </div>
-                <div className="review">
-                    <input type="text" name="editreview" value={editDetails.editreview} onChange={handleChange}/>
+                <div>
+                    <textarea 
+                      name="editreview" 
+                      value={editDetails.editreview} 
+                      onChange={handleChange}
+                      className="review-pg-txtarea"
+                      >
+                    </textarea>
                 </div>
+                {errorText && 
+                <p className="error-p">{errorText}</p>
+                }
                 </>
                 :
                 <>
                  <div className="rating">
                    <DisplayRating rating={permDetails.permrating}/>
                  </div>
-                <div className="review">{permDetails.permreview}</div>
+                <div className="review-div">{permDetails.permreview}</div>
                 </>
              }
              <div className="review-card-footer">

@@ -20,7 +20,7 @@ const Modal = ({ children, isopen, onClose, childrenWidth }) => {
             if (childrenRef.current)
             childHeight = childrenRef.current.offsetHeight;
             
-            setModelClass(childHeight < screenHeight ? 'new-centered-modal-styles' : 'new-modal-styles');
+            setModelClass(childHeight+50 < screenHeight ? 'new-centered-modal-styles' : 'new-modal-styles');
         } else {
             setOverlayClass('overlay-styles');
             setModelClass('modal-styles');
@@ -43,6 +43,7 @@ const Modal = ({ children, isopen, onClose, childrenWidth }) => {
     );
 
     return ReactDom.createPortal(
+        <div className='modal-helper'>
         <div className={overlayClass} aria-modal="true" role="dialog" onClick={onClose}>
             <div className={modelClass} onClick={(e) => e.stopPropagation()}>
                 <div className="close-styles" onClick={onClose}>
@@ -50,6 +51,7 @@ const Modal = ({ children, isopen, onClose, childrenWidth }) => {
                 </div>
                 <div ref={childrenRef}>{childrenWithProps}</div>
             </div>
+        </div>
         </div>,
         document.getElementById('portal')
     );

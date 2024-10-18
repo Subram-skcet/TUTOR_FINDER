@@ -77,16 +77,6 @@ const TeacherProfile = () => {
         return false
       }
 
-      if(newReviewText.length<10){
-        setErrorText("Review cannot be less than 10 characters")
-        return false
-      }
-
-      if(newReviewText.length>50){
-        setErrorText("Review cannot be greater than 50 characters")
-        return false
-      }
-
       return true
   }
 
@@ -279,7 +269,7 @@ const TeacherProfile = () => {
                     onChange={(e) => setNewReviewText(e.target.value)}
                     placeholder="Write review..."
                     className='profile-page-textarea'
-                    minLength={50}
+                    minLength={1}
                     required
                     ></textarea>
                   </div>

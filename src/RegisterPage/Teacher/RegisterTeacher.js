@@ -6,7 +6,9 @@ import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
 import { stateDistricts,subjects } from '../../components/stateExporter'
 import doneimg from '../../assets/done.png'
+import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const RegisterTeacher = ({openLogin}) => {
   const [{ logged }, dispatch] = useDataLayerValue();
@@ -28,9 +30,22 @@ const RegisterTeacher = ({openLogin}) => {
       isVerified:false,
     }
   )
+  const [ isVerifyClickable, setVerifyClickable ] =useState(true)
+  const [errorText,setErrorText] = useState('')
+
   const navigate = useNavigate();
 
   const handleOtpSend = async()=>{
+    if(!teacherDetails.email.trim()){
+      setErrorText("Enter email to verify it")
+      return
+    }
+    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if(!emailRegex.test(teacherDetails.email)){
+      setErrorText("Enter valid email to verify it")
+      return
+    }
+    setVerifyClickable(false)
     try {
       const response = await axios.post('/api/v1/auth/generateotp',
         {
@@ -38,7 +53,8 @@ const RegisterTeacher = ({openLogin}) => {
           role:'teacher'
         }
       )
-      if(response.data.message === 'Verification email generated'){
+      if(response.status === 201){
+        toast.info("OTP has sent to your mail. Enter it below. Valid for only 15 minutes.");
         setOtpDetails((prevDetails)=>({
           ...prevDetails,
           isVisible:true
@@ -47,32 +63,72 @@ const RegisterTeacher = ({openLogin}) => {
 
       console.log(response);
     } catch (error) {
-      console.log(error.message);
+      if(error.response && error.response.data){
+        toast.error(error.response.data.message)
+      }
+      else{
+          toast.error("Something went wrong please try again later")
+      }
+  }
+    finally{
+      setVerifyClickable(true)
     }
 }
 
 const handleOtpSubmit = async() => {
+  if(!teacherDetails.email.trim()){
+    setErrorText("Enter email first")
+    return;
+  }
+  const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  if(!emailRegex.test(teacherDetails.email)){
+    setErrorText("Enter valid email to verify it")
+    return
+  }
+  if(otpDetails.otp.join('').length !== 6){
+    setErrorText("Enter all digits to verify the otp")
+    return;
+  }
+
   try {
    const response = await axios.post('/api/v1/auth/verifyemail',{
      email:teacherDetails.email,
      otp:otpDetails.otp.join('')
    })
-   if(response.data.message === "Verified successfully"){
-     setOtpDetails((prevDetails)=>(
-       {
-         ...prevDetails,
-         isVerified:true,
-         isVisible:false
-       }
-     ))
-   }
+   if(response.status === 200){
+    toast.success(response.data.message)
+    setOtpDetails((prevDetails)=>(
+      {
+        ...prevDetails,
+        isVerified:true,
+        isVisible:false
+      }
+    ))
+  }
    console.log(response);
   } catch (error) {
-    console.log(error.message);
-  }
+    if(error.response && error.response.data){
+      if(error.response.data.message.includes("expired")){
+        toast.warn(error.response.data.message)
+        setOtpDetails({
+          otp:new Array(6).fill(""),
+          isVisible:false,
+          isVerified:false,
+        })
+      }
+      else
+        toast.error(error.response.data.message)
+    }
+    else{
+        toast.error("Something went wrong please try again later")
+    }
+   }
 }
 
 const handleOtpChange = (element, index) => {
+  if(errorText){
+    setErrorText('')
+  }
   const value = element.value;
   if (/^[0-9]$/.test(value) || value === "") {
     const newOtp = [...otpDetails.otp];
@@ -91,46 +147,91 @@ const handleOtpChange = (element, index) => {
 };
 
 const handleBackspace = (e, index) => {
+  if(errorText){
+    setErrorText('')
+  }
   if (e.key === "Backspace" && otpDetails.otp[index] === "") {
     if (index > 0) {
       document.getElementById(`otp-input-${index - 1}`).focus();
     }
   }
 };
+   
+const validateUser = () =>{
+       if(!teacherDetails.name.trim() || !teacherDetails.email.trim() || !teacherDetails.password.trim() || !teacherDetails.mobileno.trim() || !teacherDetails.qualification.trim() || !teacherDetails.state.trim() || teacherDetails.subjects.length === 0){
+           setErrorText("Enter all details")
+           return false
+       }
+
+       if(!teacherDetails.name.length > 20){
+        setErrorText("Name should be less than 20 characters")
+         return false;
+       }
+
+       const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+       if(!emailRegex.test(teacherDetails.email)){
+         setErrorText("Enter valid email to verify it")
+         return false
+       }
+
+       if(!teacherDetails.password.length > 5){
+        setErrorText("Password should be atleast 5 characters")
+         return false;
+       }
+
+       if(teacherDetails.mobileno.length !== 10){
+          setErrorText("Mobile number should have 10 digits")
+          return false;
+       }
+
+       if(!otpDetails.isVerified){
+        setErrorText("Verify email to register")
+        return false;
+       }
+
+       return true;
+   }
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     console.log("Teacher Details = ", teacherDetails);
-    e.preventDefault();
-    let setTeacher;
-    try {
-      const response = await axios.post('/api/v1/auth/registerteacher',teacherDetails );
-      
-      console.log(response);
-      if(response.status === 201){
-        toast.success('User registered succcessfully')
-        setTeacher = response.data.teacherData
-       console.log("Here the response = " , setTeacher);
-       dispatch({ type: 'LOG_USER', payload: true });
-       dispatch(
-         {
-           type:"SET_TEACHER",
-           payload:setTeacher
-         }
-       )
-       dispatch(
-         {
-           type:"LOGGED_USER",
-           payload:'teacher'
-         }
-       )
-       navigate('/myaccount/teacherprofile/myprofile')
+    const userValidated = validateUser()
+
+    if(userValidated){
+        let setTeacher;
+        try {
+        const response = await axios.post('/api/v1/auth/registerteacher',teacherDetails );
+        
+        console.log(response);
+        if(response.status === 201){
+          toast.success('User registered succcessfully')
+          setTeacher = response.data.teacherData
+        console.log("Here the response = " , setTeacher);
+        dispatch({ type: 'LOG_USER', payload: true });
+        dispatch(
+          {
+            type:"SET_TEACHER",
+            payload:setTeacher
+          }
+        )
+        dispatch(
+          {
+            type:"LOGGED_USER",
+            payload:'teacher'
+          }
+        )
+        navigate('/myaccount/teacherprofile/myprofile')
+        }
+      } catch (error) {
+        console.error('Error sending data:', error);
       }
-    } catch (error) {
-      console.error('Error sending data:', error);
     }
   };
 
   const handleChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const { name, value } = e.target;
     setDetails((prevDetails) => ({
       ...prevDetails,
@@ -139,6 +240,9 @@ const handleBackspace = (e, index) => {
   };
 
   const handleStateChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedState = e.target.value;
     setDetails((prevDetails) => ({
       ...prevDetails,
@@ -148,6 +252,9 @@ const handleBackspace = (e, index) => {
   };
 
   const HandleSubjectSelect = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedSubject = e.target.value;
     if (!teacherDetails.subjects.includes(selectedSubject)) {
       setDetails((prevDetails) => ({
@@ -158,6 +265,9 @@ const handleBackspace = (e, index) => {
   };
 
   const HandleSubjectRemove = (subjectToRemove) => {
+    if(errorText){
+      setErrorText('')
+    }
     setDetails((prevDetails) => ({
       ...prevDetails,
       subjects: prevDetails.subjects.filter((subject) => subject !== subjectToRemove),
@@ -173,7 +283,7 @@ const handleBackspace = (e, index) => {
       </div>
 
     <div className='teacher-reg-wrap'>
-      <form className='teacher-reg-form'>
+      <form className='teacher-reg-form' onSubmit={handleSubmit}>
        <div className='teacher-det-wrap'>
 
         <div className='space-div'>
@@ -184,6 +294,7 @@ const handleBackspace = (e, index) => {
             id='name'
             value={teacherDetails.name}
             onChange={handleChange}
+            maxLength={20}
             required
             />
         </div>
@@ -197,7 +308,12 @@ const handleBackspace = (e, index) => {
               <p className='verified-div-para'>Verified</p>
             </div>
             :
-             <p className='link-colour' onClick={()=>handleOtpSend()}>Verify</p>
+            isVerifyClickable?
+            <p className='link-colour' onClick={()=>handleOtpSend()}>
+             Verify
+            </p>
+           :
+           <img src={loadgif} className='verify-load-gif' alt='Load'/>
             }
           </div>
           <input
@@ -206,6 +322,7 @@ const handleBackspace = (e, index) => {
             id='email'
             value={teacherDetails.email}
             onChange={handleChange}
+            pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
             required
           />
         </div>
@@ -253,6 +370,7 @@ const handleBackspace = (e, index) => {
             id='password'
             value={teacherDetails.password}
             onChange={handleChange}
+            minLength={5}
             required
           />
         </div>
@@ -263,7 +381,10 @@ const handleBackspace = (e, index) => {
             name='mobileno'
             id='mobileno'
             value={teacherDetails.mobileno}
+            pattern='[0-9]{10}'
             onChange={handleChange}
+            minLength={10}
+            maxLength={10}
             required
             />
         </div>
@@ -274,6 +395,7 @@ const handleBackspace = (e, index) => {
             id='qualification'
             value={teacherDetails.qualification}
             onChange={handleChange}
+            required
           >
             <option value=''>Select</option>
             <option value='B.E'>B.E</option>
@@ -300,6 +422,7 @@ const handleBackspace = (e, index) => {
             id='inputState'
             value={teacherDetails.state}
             onChange={handleStateChange}
+            required
           >
             <option value=''>Select State</option>
             {Object.keys(stateDistricts).map((state) => (
@@ -317,6 +440,7 @@ const handleBackspace = (e, index) => {
             value={teacherDetails.district}
             onChange={handleChange}
             disabled={!teacherDetails.state}
+            required
             >
             <option value=''>-- select one --</option>
             {districts.map((district) => (
@@ -328,7 +452,7 @@ const handleBackspace = (e, index) => {
         </div>
         <div className="space-div">
           <label  className='register-label'>Select Subjects you teach</label>
-          <select onChange={HandleSubjectSelect}>
+          <select onChange={HandleSubjectSelect} required>
             <option value="">Select a subject</option>
             {subjects.map((subject)=>
             <option value={subject.value}>{subject.label}</option>
@@ -341,11 +465,18 @@ const handleBackspace = (e, index) => {
             ))}
           </div>
       </div>
+       {errorText && 
+          <div className='error-para-div er-streg'>
+                        <div className='amber-icon'>
+                          <WarningAmberIcon/>
+                        </div>
+                        <p className='errorText'>{errorText}</p>
+          </div>
+        }
         <div className='submit-btn-div'>
           <button
             type='submit'
             className='submit-btn'
-            onClick={handleSubmit}
             >
             Register
           </button>

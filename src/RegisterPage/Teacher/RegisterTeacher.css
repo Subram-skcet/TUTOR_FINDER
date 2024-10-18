@@ -59,19 +59,18 @@
   .teacher-signup-wrap{
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     width:810px;
   }
 
  .selected-items{
-  justify-items: start;
   grid-column: span 2;
    display: flex;
    flex-wrap: wrap;
    gap: 1rem;
    max-height: 100px;
    overflow-y: overlay;
-   margin-top: 1rem;
+   /* margin-top: 1rem; */
  }
 
  .register-label{
