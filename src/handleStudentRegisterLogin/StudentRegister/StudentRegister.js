@@ -7,6 +7,7 @@ import doneimg from '../../assets/done.png'
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import loadgif from '../../assets/89.gif'
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 const RegisterStudent = () => {
   const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
@@ -236,7 +237,9 @@ const RegisterStudent = () => {
             <label>Email:</label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
-              <img src={doneimg} className='done-img' alt='Verified'/>
+              <div className='verified-icon'>
+               <TaskAltIcon fontSize='small'/>
+              </div>
               <p className='verified-div-para'>Verified</p>
             </div>
             :

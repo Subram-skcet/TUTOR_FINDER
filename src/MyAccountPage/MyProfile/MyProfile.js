@@ -10,6 +10,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { subjects,qualifications,stateDistricts } from '../../components/stateExporter';
 import SelectedSubject from '../AddTution/Subjects';
 import { toast } from 'react-toastify';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -32,6 +34,7 @@ const MyProfile = () => {
   });
 
   const [editDetails,setEditDetails] = useState({})
+  const [errorText,setErrorText] = useState('Error Text')
 
   
   const [selectedImage, setSelectedImage] = useState({
@@ -126,48 +129,98 @@ const MyProfile = () => {
   };
 
   const handleEditClick = () =>{
+    const {profilepic,numOfReviews,numOfTutions,averageRating,...rest} = profile 
+    setEditDetails({...rest})
     setSelectedImage(permImage)
-    setEditDetails(profile)
     setIsEditing(!isEditing);
-  } 
+  }
+  
+  const ValidateUser = ()=>{
 
-  const handleSaveClick = async () => {
-    setSaveBtn(true)
-    let updatedProfilePic = profile.profilepic;
+    if(!editDetails.name.trim() || !editDetails.mobileno.trim() || !editDetails.state.trim() || !editDetails.district.trim() || !editDetails.qualification.trim() || editDetails.subject.length === 0){
+       setErrorText("Enter all details")
+       return false
+    }
 
-    if (selectedImage.file && selectedImage.file!==permImage.file) {
-      const formData = new FormData();
-      formData.append('image', selectedImage.file);
+    if(editDetails.name.length < 5){
+      setErrorText("Name should be atleast 5 characters")
+      return false
+    }
+
+    if(editDetails.name.length > 20){
+      setErrorText("Name cannot be greater than 20 characters")
+      return false
+    }
+
+    if(editDetails.mobileno.length !== 10){
+      setErrorText("Mobile number must be of length 10")
+    }
+
+    const mbnoRegex = /^[0-9]{10}$/;
+    if (!mbnoRegex.test(editDetails.mobileno)) {
+      setErrorText("Enter a valid 10-digit Mobile Number");
+      return false;
+    }
+
+    if(editDetails.subject.length === 0){
+      setErrorText("Choose atleast one subject that you could teach")
+      return false
+    }
+    return true;
+      
+  }
+
+  const handleSaveClick = async (e) => {
+    e.preventDefault()
+    console.log("Came in");
+
+
+    const userValidated = ValidateUser()
+
+    console.log("Validated Status = ", userValidated);
+
+    if(userValidated){
+      setSaveBtn(true)
+      let updatedProfilePic = profile.profilepic;
+  
+      if (selectedImage.file && selectedImage.file!==permImage.file) {
+        const formData = new FormData();
+        formData.append('image', selectedImage.file);
+        try {
+          const response = await axios.post('/api/v1/student/upload', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+          });
+          updatedProfilePic = response.data.image;
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+  
+  
       try {
-        const response = await axios.post('/api/v1/student/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        updatedProfilePic = response.data.image;
+        const response = await axios.patch(`/api/v1/teacher/`, { 
+          ...editDetails,
+          ...(updatedProfilePic !== profile.profilepic && { profilepic: updatedProfilePic })
+        }
+        );
+        if(response.status === 200){
+          const updatedProfile = response.data.teacher;
+          setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
+          setPermImage(selectedImage)
+          dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+          setSaveBtn(false)
+          toast.success('Profile saved successfully!!')
+        }
       } catch (error) {
+        toast.error("Couldn't save profile. Try again later")
         console.log(error.message);
       }
-    }
-
-
-    try {
-      const response = await axios.patch(`/api/v1/teacher/`, { ...editDetails, profilepic: updatedProfilePic });
-      if(response.status === 200){
-        const updatedProfile = response.data.teacher;
-        setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
-        setPermImage(selectedImage)
-        dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+      finally{
         setSaveBtn(false)
-        toast.success('Profile saved successfully!!')
+        setIsEditing(false);
       }
-    } catch (error) {
-      toast.error("Couldn't save profile. Try again later")
-      console.log(error.message);
-    }
-    finally{
-      setSaveBtn(false)
-      setIsEditing(false);
-    }
 
+    }
   };
 
   const handleCancelClick = () =>{
@@ -180,9 +233,11 @@ const MyProfile = () => {
     <div className="profile-page">
       <div className="profile-container">
         <div className="profile-header">
-          <div className="account-picture" style={backgroundStyle}>
-            <div className={`profile-img-edit ${!isEditing ? 'invis' : ''}`} onClick={handleIconClick}>
-              <EditIcon fontSize='large' />
+        <div className="teacher-profile-picture">
+          <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
+            <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
+          <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
+              <EditIcon fontSize='medium' />
               <input
                 type="file"
                 accept="image/*"
@@ -191,34 +246,67 @@ const MyProfile = () => {
                 onChange={handleFileChange}
               />
             </div>
-          </div>
+        </div>
           <h1>{profile.name}</h1>
         </div>
+        <form onSubmit={handleSaveClick}>
+
         <div className="profile-details">
-          {Object.entries({
-            Name: 'name',
-            'Mobile Number': 'mobileno',
-            'Years of Experience': 'year_of_exp',
-          }).map(([label, key]) => (
-            <React.Fragment key={key}>
-              <div className="label">{label}</div>
-              {isEditing?(
-                <input
-                  className="value"
-                  name={key}
-                  value={editDetails[key]}
-                  onChange={handleChange}
-                />
-              ) : (
-                <div className="value">{profile[key]}</div>
-              )}
-            </React.Fragment>
-          ))}
+
+             <div className="label">Name:</div>
+             {
+              isEditing ?
+              <input
+                  type='text'
+                   className="value"
+                   name="name"
+                   value={editDetails.name}
+                   onChange={handleChange}
+                   minLength={5}
+                   maxLength={20}
+                   required
+               />
+               :
+               <div className="value">{profile.name}</div>
+             }
+
+             <div className="label">Mobile Number:</div>
+             {
+              isEditing ?
+              <input
+                   type='tel'
+                   className="value"
+                   name="mobileno"
+                   value={editDetails.mobileno}
+                   onChange={handleChange}
+                   pattern='^[0-9]{10}$'
+                   minLength={10}
+                   maxLength={10}
+                   required
+               />
+               :
+               <div className="value">{profile.mobileno}</div>
+             }
+
+             <div className="label">Years of Experience:</div>
+             {
+              isEditing?
+              <input
+                   type='number'
+                   className="value"
+                   name="year_of_exp"
+                   value={editDetails.year_of_exp}
+                   onChange={handleChange}
+                   required
+               />
+               :
+               <div className="value">{profile.year_of_exp}</div>
+             }
           <div className='label'>State</div>
           {
             isEditing?
             <div>
-                <select className='profile-select'  name='state' value={editDetails.state} onChange={handleStateChange}>
+                <select className='profile-select'  name='state' value={editDetails.state} onChange={handleStateChange} required>
                 {Object.keys(stateDistricts).map((state) => (
                   <option key={state} value={state}>
                     {state}
@@ -233,7 +321,7 @@ const MyProfile = () => {
           {
             isEditing?
             <div>
-                <select className='profile-select' name='district' value={editDetails.district} onChange={handleChange}>
+                <select className='profile-select' name='district' value={editDetails.district} onChange={handleChange} required>
                 {districts.map((district) => (
                   <option key={district} value={district}>
                     {district}
@@ -248,7 +336,7 @@ const MyProfile = () => {
           {
             isEditing ?
             <div>
-              <select className='profile-select' name='qualification' value={editDetails.qualification} onChange={handleChange}>
+              <select className='profile-select' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
                 {
                   qualifications.map((qualification)=>(
                     <option value={qualification.value}>{qualification.value}</option>
@@ -257,15 +345,15 @@ const MyProfile = () => {
               </select>
             </div>
             :
-             <div className='value'>{profile.qualification}</div>
+            <div className='value'>{profile.qualification}</div>
           }
 
 
           <div className='subj-label'>My Subjects</div>
           {
             isEditing?
-              <div className='subjects-list'>
-                <select className='profile-select' onChange={HandleSubjectSelect}>
+            <div className='subjects-list'>
+                <select className='profile-select add-subj' onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
                     {subjects.map((subject)=>(
                       <option value={subject.value}>{subject.label}</option>
@@ -278,7 +366,7 @@ const MyProfile = () => {
                   </div>
               </div>
             :
-              <div className='value'>
+            <div className='value'>
                  {profile.subjects.join(', ')}
               </div>
           }
@@ -309,37 +397,49 @@ const MyProfile = () => {
               name="about"
               value={editDetails.about}
               onChange={handleChange}
-            />
-          ) : (
+              required
+              />
+            ) : (
             <p className="about-content-p">{profile.about}</p>
           )}
         </div>
+      <div className='edit-btns-pfp-pg'>
         {
           isEditing?
+          <>
+          {errorText && 
+                    <div className='error-para-div er-streg'>
+                         <div className='amber-icon'>
+                             <WarningAmberIcon/>
+                         </div>
+                        <p className='errorText'>{errorText}</p>
+                    </div>
+          }
         <div className='my-prof-isedit-btns-div'>
-          <button className="edit-prof-btn spz" disabled={saveBtnLoading} onClick={handleSaveClick}>
+          <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
               <SaveIcon /> 
               <p>Save Profile</p>
             </div>
           </button>
-          <button className="edit-prof-btn spz" onClick={handleCancelClick}>
+          <button className="edit-prof-btn" onClick={handleCancelClick}>
             <div className='itms-cntr style-links-updated cncl-bck'>
               <CloseIcon /> 
               <p>Cancel</p>
             </div>
           </button>
         </div>
+        </>
           :
-          <button className="edit-prof-btn spz">
+          <button className="edit-prof-btn">
             <div className='itms-cntr style-links-updated norm-style' onClick={handleEditClick}>
               <EditIcon />
               <p>Edit Profile</p>
             </div>
           </button>
         }
-
-
+        </div>
+        </form>
       </div>
     </div>
   );

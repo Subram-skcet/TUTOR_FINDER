@@ -86,7 +86,6 @@ const StudentProfile = () => {
           });
           updatedProfilePic = response.data.image;
           console.log(updatedProfilePic);
-          setPermImage(selectedImage)
         } catch (error) {
           console.log(error.message);
         }
@@ -99,6 +98,7 @@ const StudentProfile = () => {
         });
         let updatedDetails = response.data.user
         setProfile(updatedDetails)
+        setPermImage(selectedImage)
         let newStudentDetails = { ...asStudent, ...updatedDetails };
         console.log(newStudentDetails);
         dispatch({

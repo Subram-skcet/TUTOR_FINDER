@@ -9,6 +9,7 @@ import doneimg from '../../assets/done.png'
 import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 const RegisterTeacher = ({openLogin}) => {
   const [{ logged }, dispatch] = useDataLayerValue();
@@ -30,6 +31,8 @@ const RegisterTeacher = ({openLogin}) => {
       isVerified:false,
     }
   )
+  const [verifiedEmail,setVerifiedEmail] = useState('')
+
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [errorText,setErrorText] = useState('')
 
@@ -57,7 +60,8 @@ const RegisterTeacher = ({openLogin}) => {
         toast.info("OTP has sent to your mail. Enter it below. Valid for only 15 minutes.");
         setOtpDetails((prevDetails)=>({
           ...prevDetails,
-          isVisible:true
+          isVisible:true,
+          otp:new Array(6).fill("")
         }))
       }
 
@@ -101,9 +105,10 @@ const handleOtpSubmit = async() => {
       {
         ...prevDetails,
         isVerified:true,
-        isVisible:false
+        isVisible:false,
       }
     ))
+    setVerifiedEmail(teacherDetails.email)
   }
    console.log(response);
   } catch (error) {
@@ -179,6 +184,12 @@ const validateUser = () =>{
          return false;
        }
 
+       const mbnoRegex = /^[0-9]{10}$/;
+      if (!mbnoRegex.test(teacherDetails.mobileno)) {
+        setErrorText("Enter a valid 10-digit Mobile Number");
+        return false;
+      }
+
        if(teacherDetails.mobileno.length !== 10){
           setErrorText("Mobile number should have 10 digits")
           return false;
@@ -237,6 +248,20 @@ const validateUser = () =>{
       ...prevDetails,
       [name]: value,
     }));
+
+    if (name === 'email') {
+      if (value !== verifiedEmail) { 
+        setOtpDetails((prevDetails) => ({
+          ...prevDetails,
+          isVerified: false,
+        }));
+      } else {
+        setOtpDetails((prevDetails) => ({
+          ...prevDetails,
+          isVerified: true,
+        }));
+      }
+    }
   };
 
   const handleStateChange = (e) => {
@@ -304,7 +329,9 @@ const validateUser = () =>{
           <label htmlFor='email' className='register-label'>Email:</label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
-              <img src={doneimg} className='done-img'/>
+              <div className='verified-icon'>
+               <TaskAltIcon fontSize='small'/>
+              </div>
               <p className='verified-div-para'>Verified</p>
             </div>
             :
@@ -381,7 +408,7 @@ const validateUser = () =>{
             name='mobileno'
             id='mobileno'
             value={teacherDetails.mobileno}
-            pattern='[0-9]{10}'
+            pattern='^[0-9]{10}$'
             onChange={handleChange}
             minLength={10}
             maxLength={10}

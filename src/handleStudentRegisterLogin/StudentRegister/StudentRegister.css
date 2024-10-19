@@ -38,6 +38,8 @@
 
 .verified-div{
     display: flex;
+    background: yellow;
+    height: max-content;
 }
 
 .done-img{
