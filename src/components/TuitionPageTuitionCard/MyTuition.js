@@ -9,6 +9,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
+import { useMediaQuery } from 'react-responsive'; 
 
 const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     const [TuitionDetails, setDetails] = useState({
@@ -21,6 +22,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
       });
     const [isEditing,setIsEditing] = useState(false)
     const [{asTeacher},dispatch] = useDataLayerValue()
+    const isBelow626px = useMediaQuery({ query: '(max-width: 626px)' })
+    const isBelow400px = useMediaQuery({ query: '(max-width: 400px)' })
 
     const HandleSubjectSelect = (e) => {
         const selectedSubject = e.target.value;
@@ -102,25 +105,53 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
       
     };
 
-
   return (
     <div className='tuition-wrapper'>
+      <div className='mobile-icons'>
+                {isEditing?(
+                  <>
+                  <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
+                    <div className='itms-cntr style-links-updated sv-bck'>
+                      <SaveIcon fontSize="small"/>
+                    </div>
+                  </button>
+                  <button className='edit-prof-btn spz' onClick={() => handleCancelClick()}>
+                    <div className='itms-cntr style-links-updated cncl-bck'>
+                      <CloseIcon fontSize="small"/>
+                    </div>
+                  </button>
+                  </>
+                ) : (
+                  <>
+                    <button className='edit-prof-btn spz' onClick={() => handleEditClick()}>
+                      <div className='itms-cntr style-links-updated ed-bck'>
+                        <EditIcon fontSize="small"/>                     
+                      </div>
+                    </button>
+                    <button className='edit-prof-btn spz' onClick={() => DeleteTuition(index)}>
+                      <div className='itms-cntr style-links-updated del-bck'>
+                        <DeleteIcon fontSize="small"/>
+                      </div>
+                    </button>
+                  </>
+                )}
+        </div>
 
-      <div className='tuition-grid'>
-        <div>
+      <div className={`${(isBelow626px && isEditing)? 'tuition-grid-edited':'tuition-grid'}`}>
+        <div className='subject-label-div'>
             <label className="poppins-font">Subjects:</label>
         </div>
 
         {
             isEditing ?
-            <div>
+            <div className="isEditing-div">
                 <select onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
                     {subjects.map((subject)=>(
                       <option value={subject.value}>{subject.label}</option>
                     ))}
                  </select>
-                 <div className="selected-items">
+                 <div className="selected-items gp">
                     {TuitionDetails.subjects.map((subject) => (
                       <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
                     ))}
@@ -132,7 +163,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
         }
 
-        <div>
+        <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Time:</label>
         </div>
 
@@ -154,7 +185,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
         }
 
-        <div>
+        <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Days:</label>
         </div>
 
@@ -196,13 +227,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                     </div>
         }
 
-        <div>
+       <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Boards:</label>
         </div>
 
         {
             isEditing?
-            <div>
+            <div className="isEditing-div">
                 <select name="boards" onChange={HandleBoardSelect}>
                 <option value="">Select a board</option>
                 {
@@ -211,7 +242,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                     ))
                 }
               </select>
-              <div className="selected-items">
+              <div className="selected-items gp">
                 {TuitionDetails.boards.map((board) => (
                   <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
                 ))}
@@ -220,7 +251,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             :
             <div className="tuition-value-div"><p>{tuition.boards.join(', ')}</p></div>
         }
-        <div>
+        <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Standard:</label>
         </div>
         {isEditing?
@@ -251,13 +282,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <p>{tuition.standard.join(' - ')}</p>
          </div>
          }
-         <div>
+         <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Fees:</label> 
          </div>
          {
             isEditing?
-            <div>
-              <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} /> 
+            <div className="isEditing-div">
+              <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className="fee-input"/> 
             </div>
             :
             <div className="tuition-value-div">
@@ -265,7 +296,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
          }
     </div>
-    <div className='tution-options'>
+        <div className='tution-options'>
                 {isEditing?(
                   <>
                   <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>

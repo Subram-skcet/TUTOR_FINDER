@@ -79,6 +79,9 @@ const MyProfile = () => {
   },[])
 
   const HandleSubjectSelect = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedSubject = e.target.value;
     if (!editDetails.subjects.includes(selectedSubject)) {
       setEditDetails((prevDetails) => ({
@@ -89,6 +92,9 @@ const MyProfile = () => {
   };
 
   const HandleSubjectRemove = (subjectToRemove) => {
+    if(errorText){
+      setErrorText('')
+    }
     setEditDetails((prevDetails) => ({
       ...prevDetails,
       subjects: prevDetails.subjects.filter((subject) => subject !== subjectToRemove),
@@ -96,20 +102,18 @@ const MyProfile = () => {
   }; 
 
    
-
-  const backgroundStyle = {
-    backgroundImage: isEditing? `url(${selectedImage.url})`: `url(${permImage.url})`,
-    backgroundSize: 'cover',
-    border: '4px solid #0abb77',
-    position: 'relative'
-  };
-
   const handleChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const { name, value } = e.target;
     setEditDetails(prevProfile => ({ ...prevProfile, [name]: value }));
   };
 
   const handleFileChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const file = e.target.files[0];
     if (file) {
       setSelectedImage({
@@ -120,6 +124,9 @@ const MyProfile = () => {
   };
 
   const handleStateChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedState = e.target.value;
     setEditDetails((prevDetails) => ({
       ...prevDetails,
@@ -129,6 +136,9 @@ const MyProfile = () => {
   };
 
   const handleEditClick = () =>{
+    if(errorText){
+      setErrorText('')
+    }
     const {profilepic,numOfReviews,numOfTutions,averageRating,...rest} = profile 
     setEditDetails({...rest})
     setSelectedImage(permImage)
@@ -137,7 +147,7 @@ const MyProfile = () => {
   
   const ValidateUser = ()=>{
 
-    if(!editDetails.name.trim() || !editDetails.mobileno.trim() || !editDetails.state.trim() || !editDetails.district.trim() || !editDetails.qualification.trim() || editDetails.subject.length === 0){
+    if(!editDetails.name.trim() || !editDetails.mobileno.trim() || !editDetails.state.trim() || !editDetails.district.trim() || !editDetails.qualification.trim() || !editDetails.about.trim()){
        setErrorText("Enter all details")
        return false
     }
@@ -162,13 +172,36 @@ const MyProfile = () => {
       return false;
     }
 
-    if(editDetails.subject.length === 0){
-      setErrorText("Choose atleast one subject that you could teach")
-      return false
+    if(editDetails.year_of_exp < 0){
+      setErrorText("Experience cannot be less than 0 years");
+      return false;
     }
+
+    if(editDetails.year_of_exp > 100){
+      setErrorText("Experience cannot be greater than 100 years");
+      return false;
+    }
+
+    if(editDetails.subjects.length === 0){
+      setErrorText("Please choose atleast one subject that you could teach");
+      return false;
+    }
+
     return true;
       
   }
+
+  function getDifferentKeyValues(obj1, obj2) {
+    const diff = {};
+    // Iterate through the keys of the second object
+    for (const key in obj2) {
+        // Check if the key exists in the first object and if the values are different
+        if (obj1[key] !== undefined && obj1[key] !== obj2[key]) {
+            diff[key] = obj2[key];
+        }
+    }
+    return diff;
+}
 
   const handleSaveClick = async (e) => {
     e.preventDefault()
@@ -181,9 +214,17 @@ const MyProfile = () => {
 
     if(userValidated){
       setSaveBtn(true)
+
       let updatedProfilePic = profile.profilepic;
   
       if (selectedImage.file && selectedImage.file!==permImage.file) {
+        console.log("Image changed");
+        if(profile.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
+          const response = await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
+           if(response.status === 200)
+              console.log("Image deleted");
+        }
+
         const formData = new FormData();
         formData.append('image', selectedImage.file);
         try {
@@ -198,19 +239,26 @@ const MyProfile = () => {
   
   
       try {
-        const response = await axios.patch(`/api/v1/teacher/`, { 
-          ...editDetails,
-          ...(updatedProfilePic !== profile.profilepic && { profilepic: updatedProfilePic })
+        const req_body = getDifferentKeyValues(profile,editDetails)
+        const isProfilePicUpdated = updatedProfilePic !== profile.profilepic;
+        const hasChanges = Object.keys(req_body).length > 0;
+
+        if (hasChanges || isProfilePicUpdated) {
+           const response = await axios.patch(`/api/v1/teacher/`, { 
+            ...(hasChanges && req_body),
+            ...(isProfilePicUpdated && { profilepic: updatedProfilePic })
+           });
+          if(response.status === 200){
+            const updatedProfile = response.data.teacher;
+            setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
+            setPermImage(selectedImage)
+            dispatch({ type: "SET_TEACHER", payload: updatedProfile });
+            setSaveBtn(false)
+            toast.success('Profile saved successfully!!')
+          }
         }
-        );
-        if(response.status === 200){
-          const updatedProfile = response.data.teacher;
-          setProfile(prevProfile => ({ ...prevProfile, ...updatedProfile }));
-          setPermImage(selectedImage)
-          dispatch({ type: "SET_TEACHER", payload: updatedProfile });
-          setSaveBtn(false)
-          toast.success('Profile saved successfully!!')
-        }
+        else
+         toast.success('Profile saved successfully!!')
       } catch (error) {
         toast.error("Couldn't save profile. Try again later")
         console.log(error.message);
@@ -322,6 +370,7 @@ const MyProfile = () => {
             isEditing?
             <div>
                 <select className='profile-select' name='district' value={editDetails.district} onChange={handleChange} required>
+                <option value="">-- select district --</option>
                 {districts.map((district) => (
                   <option key={district} value={district}>
                     {district}

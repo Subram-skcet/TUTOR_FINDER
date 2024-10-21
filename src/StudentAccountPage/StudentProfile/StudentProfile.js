@@ -78,6 +78,13 @@ const StudentProfile = () => {
       let updatedProfilePic = profile.profilepic
   
       if (selectedImage.file && selectedImage.file!==permImage.file) {
+
+        if(profile.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
+          const response = await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
+           if(response.status === 200)
+              console.log("Image deleted");
+        }
+
         const formData = new FormData();
         formData.append('image', selectedImage.file);
         try {

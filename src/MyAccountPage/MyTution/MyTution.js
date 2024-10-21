@@ -10,6 +10,7 @@ import SelectedSubject from '../AddTution/Subjects';
 import { subjects,standards } from '../../components/stateExporter';
 import { toast } from 'react-toastify';
 import MyTuition from '../../components/TuitionPageTuitionCard/MyTuition';
+import { ThreeCircles } from 'react-loader-spinner'
 
 const MyTution = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const MyTution = () => {
   });
   
   const fetchTutions = async () => {
+    setIsLoading(true)
     try {
       const response = await axios.get('/api/v1/tution/gettutions', {
         params: { createdBy: asTeacher._id },
@@ -35,6 +37,9 @@ const MyTution = () => {
       setTutions(response.data.tutions || []); // Ensure response matches the format and defaults to empty array
     } catch (error) {
       console.error('Error fetching tutions:', error);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 
@@ -88,27 +93,43 @@ const MyTution = () => {
     <div className='my-tution-container'>
       <h1 className='lato-bold'>Your Tuitions</h1>
       <div className='my-tutions'>
-        {!isLoading && tutions.length === 0 ? 
-        (
-          <div className='mytuition-notuition-div'>
-           <p className='empty-tuition-p pt-serif-regular'>Currently you haven't created any tuitions, Create one by clicking the below button</p>
-          </div>
-        )
-         :
-         (
-          tutions.map((tuition, index) => (
-            <MyTuition 
-              tuition={tuition}
-              index={index}
-              DeleteTuition={handleDeleteClick}
-              SaveTuition={handleSaveClick}
-            />
-          ))
-        )
-        }
-      </div>
+      {isLoading?
+       <div className='circle-animation'>
+        <ThreeCircles
+        visible={true}
+        height="100"
+        width="100"
+        color="#4fa94d"
+        ariaLabel="three-circles-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
+       </div>    
+      :
+      <>
+          {tutions.length === 0 ? 
+          (
+            <div className='mytuition-notuition-div'>
+            <p className='empty-tuition-p pt-serif-regular'>Currently you haven't created any tuitions, Create one by clicking the below button</p>
+            </div>
+          )
+          :
+          (
+            tutions.map((tuition, index) => (
+              <MyTuition 
+                tuition={tuition}
+                index={index}
+                DeleteTuition={handleDeleteClick}
+                SaveTuition={handleSaveClick}
+              />
+            ))
+          )
+          }
+      </>
+      }
+        </div>
       <div>
-        <button className='edit-prof-btn spz' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
+        <button className='edit-prof-btn' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
           <div className='itms-cntr style-links-updated add-tut-bck'>
             <AddIcon />
             <p>Create Tuition</p>

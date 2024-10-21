@@ -102,7 +102,7 @@ const Search = ({ onSearch }) => {
         <div>
           <label>Search By District:</label>
           <select name="district" id="inputDistrict" value={searchDetails.district} onChange={handleChange} disabled={!searchDetails.state}>
-            <option value="">-- select one --</option>
+            <option value="">-- select district --</option>
             {districts.map((district) => (
               <option key={district} value={district}>
                 {district}

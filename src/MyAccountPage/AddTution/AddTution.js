@@ -7,8 +7,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Import the StateProvider hook
 import axios from 'axios';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import { subjects } from '../../components/stateExporter';
+import { subjects,daysOfWeek,boards,standards } from '../../components/stateExporter';
 import { toast } from 'react-toastify';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 
 const AddTution = () => {
   const navigate = useNavigate();
@@ -25,6 +27,8 @@ const AddTution = () => {
     Fees: '',
     Boards: [],
   });
+
+  const [errorText,setErrorText] = useState('Error Text')
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,27 +72,72 @@ const AddTution = () => {
     }));
   };
 
+
+const convertTo12Hour = (time24) => {
+  let [hours, minutes] = time24.split(':'); 
+
+  hours = parseInt(hours);
+
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+
+  hours = hours % 12 || 12; 
+
+  const time12 = `${hours}:${minutes} ${ampm}`;
+  return time12;
+}
+
+  const ValidateTuition = () =>{
+      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim()){
+        setErrorText("Please fill all fields")
+        return false;
+      }
+
+       if(TutionDetails.Subjects.length === 0){
+         setErrorText("Please choose atleast one subjects")
+         return false
+       }
+
+       if(TutionDetails.Boards.length === 0){
+         setErrorText("PLease choose atleast one board")
+         return false
+       }
+
+       const srt12 = convertTo12Hour(TutionDetails.startTime)
+       const end12 = convertTo12Hour(TutionDetails.endTime)
+
+       console.log(srt12, end12);
+       console.log("Fucking HYpocrite");
+
+       return false;
+       
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/v1/tution/', {
-        createdBy: asTeacher._id,
-        subjects: TutionDetails.Subjects,
-        duration: [TutionDetails.startTime, TutionDetails.endTime],
-        days: [TutionDetails.startDay, TutionDetails.endDay],
-        standard: [TutionDetails.startStd, TutionDetails.endStd],
-        fees: TutionDetails.Fees,
-        boards: TutionDetails.Boards,
-      });
 
-      if(response.status === 201){
-         toast.success('Tuition created successfully')
-         navigate('/myaccount/teacherprofile/mytutions');
+    console.log("Entered");
+    const tuitionValidated = ValidateTuition();
+
+    if(tuitionValidated){
+      try {
+        const response = await axios.post('/api/v1/tution/', {
+          createdBy: asTeacher._id,
+          subjects: TutionDetails.Subjects,
+          duration: [TutionDetails.startTime, TutionDetails.endTime],
+          days: [TutionDetails.startDay, TutionDetails.endDay],
+          standard: [TutionDetails.startStd, TutionDetails.endStd],
+          fees: TutionDetails.Fees,
+          boards: TutionDetails.Boards,
+        });
+  
+        if(response.status === 201){
+           toast.success('Tuition created successfully')
+           navigate('/myaccount/teacherprofile/mytutions');
+        }
+        
+      } catch (error) {
+        toast.error('Error creating tuition ,try again later')
       }
-      
-    } catch (error) {
-      toast.error('Error creating tuition ,try again later')
-
     }
   };
 
@@ -97,7 +146,7 @@ const AddTution = () => {
       <div>
          <h1 className='lato-bold'>Create Tuition</h1>
       </div>
-      <form className="create-tuition-form">
+      <form className="create-tuition-form" onSubmit={handleSubmit}>
         
         <div className="list-container">
           <div className='list-header-flx'>
@@ -109,28 +158,38 @@ const AddTution = () => {
               ))}
             </select>
           </div>
-          <div className="selected-items">
+          {
+            TutionDetails.Subjects.length !== 0 ? 
+          <div className="selected-items at-gp">
             {TutionDetails.Subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
             ))}
           </div>
+            :
+            <></>
+          }
         </div>
 
         <div className="list-container">
           <div className='list-header-flx'>
             <label className="poppins-font">Select Boards</label>
-            <select onChange={HandleBoardSelect} className='create-tuition-select'>
-              <option value="">Select a board</option>
-              <option value="CBSE">CBSE</option>
-              <option value="State Board">State Board</option>
-              <option value="ICSE">ICSE</option>
+            <select onChange={HandleBoardSelect} className='create-tuition-select' aria-placeholder='Select boards '>
+              <option value=''>Select boards</option>
+               {boards.map((board) => (
+                <option value={board.value}>{board.value}</option>
+              ))}
             </select>
           </div>
-          <div className="selected-items">
-            {TutionDetails.Boards.map((board) => (
-              <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
-            ))}
-          </div>
+          {
+            TutionDetails.Boards.length !== 0 ?
+            <div className="selected-items at-gp">
+              {TutionDetails.Boards.map((board) => (
+                <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
+              ))}
+            </div>
+            :
+            <></>
+          }
         </div>
         <div className='grid-columns'>
 
@@ -144,11 +203,12 @@ const AddTution = () => {
                  name="startTime"
                  value={TutionDetails.startTime}
                  onChange={handleChange}
+                 required
               />
             </div>
             <div className='header-flx'>
               <label>End Time:</label>
-              <input type="time" name="endTime" value={TutionDetails.endTime} onChange={handleChange} />
+              <input type="time" name="endTime" value={TutionDetails.endTime} onChange={handleChange} required />
             </div>
 
             <div>
@@ -157,25 +217,17 @@ const AddTution = () => {
             <div className='header-flx'>
               <label>From:</label>
               <select value={TutionDetails.startDay} name="startDay" onChange={handleChange}>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+              {daysOfWeek.map((day) => (
+                <option value={day.value}>{day.value}</option>
+              ))}
               </select>
             </div>
             <div className='header-flx'>
               <label>To:</label>
               <select value={TutionDetails.endDay} name="endDay" onChange={handleChange}>
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
+                {daysOfWeek.map((day) => (
+                  <option value={day.value}>{day.value}</option>
+                ))}
               </select>
             </div>
 
@@ -189,53 +241,44 @@ const AddTution = () => {
              name="startStd" 
              onChange={handleChange}
              className='create-tuition-select'
+             required
              >
-              <option value="I">I</option>
-              <option value="II">II</option>
-              <option value="III">III</option>
-              <option value="IV">IV</option>
-              <option value="V">V</option>
-              <option value="VI">VI</option>
-              <option value="VII">VII</option>
-              <option value="VIII">VIII</option>
-              <option value="IX">IX</option>
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
+              {standards.map((std) => (
+                <option value={std.value}>{std.value}</option>
+              ))}
             </select>
           </div>
           <div className='header-flx'>
             <label>End Class:</label>
             <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select'>
-              <option value="I">I</option>
-              <option value="II">II</option>
-              <option value="III">III</option>
-              <option value="IV">IV</option>
-              <option value="V">V</option>
-              <option value="VI">VI</option>
-              <option value="VII">VII</option>
-              <option value="VIII">VIII</option>
-              <option value="IX">IX</option>
-              <option value="X">X</option>
-              <option value="XI">XI</option>
-              <option value="XII">XII</option>
+              {standards.map((std) => (
+                <option value={std.value}>{std.value}</option>
+              ))}
             </select>
           </div>
 
         </div>
         <div className='header-flx'>
            <label className="poppins-font">Fees:</label>
-
-                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input'/>
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input' required/>
         </div>
 
+        {errorText && 
+                    <div className='error-para-div er-streg'>
+                         <div className='amber-icon'>
+                             <WarningAmberIcon/>
+                         </div>
+                        <p className='errorText'>{errorText}</p>
+                    </div>
+        }
+
+        <div className="create-button">
+          <div className="submit-tuition" type="submit">
+            <PostAddIcon />
+            <p>Create Tuition</p>
+          </div>
+        </div>
       </form>
-      <div className="create-button">
-        <div className="submit-tuition" onClick={handleSubmit}>
-          <PostAddIcon />
-          <p>Create Tuition</p>
-        </div>
-      </div>
     </div>
   );
 };
