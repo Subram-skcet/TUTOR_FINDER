@@ -78,7 +78,7 @@ function TutionCard({tution,index,profilenavigate}) {
                     </div>
                 }
             </div>
-            <div className="tutor-card__profile-container">
+            <div className="tutor-card__profile-container pt-serif-regular">
                 <div className='tutor-img-div bg-scr-div' onClick={()=>profilenavigate(index)}>
                     <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                 </div>
@@ -117,7 +117,9 @@ function TutionCard({tution,index,profilenavigate}) {
                                <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
                             </div>
                             <div>
-                            <p className='tution-card-para'><strong>Fees:</strong> ₹{tution.fees}</p>
+                            <p className='tution-card-para'><strong>Fees:</strong> 
+                            <p className='rp'>₹</p>
+                            {tution.fees}</p>
                             </div>
                         </div>
                         <div className="tution-sub-info-2">

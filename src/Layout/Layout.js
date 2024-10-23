@@ -10,6 +10,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import LoginIcon from '@mui/icons-material/Login';
 import { useState } from 'react';
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { PiStudent } from "react-icons/pi";
+import { RiLoginCircleLine } from "react-icons/ri"
+import { IoSearch } from "react-icons/io5";
+import { MdHome } from "react-icons/md";
 
 const Layout = (props) => {
   const [{logged,logged_as},dispatch] = useDataLayerValue();
@@ -47,35 +52,23 @@ const Layout = (props) => {
         </div>
                   <div className="nav-links ">
                     <div className={`itms-cntr style-links ${pathname === '/' ? 'invis':''}`} onClick={()=>navigate('/')}>
-                          <HomeIcon/>
+                          <MdHome size="1.3em"/>
                           <p>Home</p>
                     </div>
                     <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
-                          <SearchIcon/>
+                          <IoSearch size="1.3em"/>
                           <p>Search</p>
                     </div>
                     <div className='itms-cntr style-links'>
-                      <img
-                        src="https://img.icons8.com/?size=50&id=38HJBFwphJ3I&format=png"
-                        className="img-sz"
-                        alt="Teacher Icon"
-                      />
-                      <span onClick={RegisterNavigateTeacher}>Teach on EduQuest</span>
+                    <FaChalkboardTeacher size="1.3em"/>
+                      <span onClick={RegisterNavigateTeacher}>Teach with EduQuest</span>
                     </div>
                     <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
-                      <img
-                        src="https://img.icons8.com/?size=64&id=48800&format=png"
-                        className="img-sz"
-                        alt="Student Icon"
-                      />
+                    <PiStudent size="1.3em"/>
                       <span onClick={RegisterNavigateStudent}>Register</span>
                     </div>
                     <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
-                      <img
-                        src="https://img.icons8.com/?size=50&id=26211&format=png"
-                        className="img-sz"
-                        alt="Login Icon"
-                      />
+                      <RiLoginCircleLine size="1.3em"/>
                       <span onClick={LoginNavigate}>Login</span>
                     </div>
                     <div className={`${!logged?'invis':''}`}>
@@ -100,27 +93,19 @@ const Layout = (props) => {
                           <p>Home</p>
                     </div>
                     <div className='menu-icon' onClick={()=>navigate('/searchtutor')}>
-                          <SearchIcon/>
+                    <IoSearch size="1.1em"/>
                           <p>Search</p>
                     </div>
                     <div className='menu-icon'>
-                      <img
-                        src="https://img.icons8.com/?size=50&id=38HJBFwphJ3I&format=png"
-                        className="img-sz"
-                        alt="Teacher Icon"
-                      />
+                      <FaChalkboardTeacher size="1.1em"/>
                       <span onClick={RegisterNavigateTeacher}>Teach on EduQuest</span>
                     </div>
                     <div className={`menu-icon ${logged? 'invis' : ''}`}>
-                      <img
-                        src="https://img.icons8.com/?size=64&id=48800&format=png"
-                        className="img-sz"
-                        alt="Student Icon"
-                      />
+                    <PiStudent size="1.1em"/>
                       <span onClick={RegisterNavigateStudent}>Register</span>
                     </div>
                     <div className={`menu-icon ${logged? 'invis' : ''}`}>
-                       <LoginIcon/>
+                    <RiLoginCircleLine size="1.1em"/>
                       <span onClick={LoginNavigate}>Login</span>
                     </div>
                 </div>

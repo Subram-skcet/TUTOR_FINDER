@@ -15,14 +15,6 @@ const AboutPage = () => {
         <p className="about-subtitle pt-serif-regular">"Connecting students with the best teachers for home tuitions"</p>
       </section>
 
-        {/* <section className="about-community">
-          <h2 className="community-title poppins-font">EduQuest as a Community of Learning:</h2>
-          <p className="community-description">
-            EduQuest is more than just a platform. It’s a community-driven space where students and teachers collaborate to enhance the quality of education. Our review and rating system helps maintain transparency and trust, ensuring a valuable experience for everyone involved.
-          </p>
-        </section> */}
-
-
       <div className='image-section'>
       <section className="about-overview">
         <h2 className="overview-title lato-bold">Our Mission</h2>

@@ -295,7 +295,7 @@ const MyProfile = () => {
               />
             </div>
         </div>
-          <h1>{profile.name}</h1>
+          <h1 className='profile-h1'>{profile.name}</h1>
         </div>
         <form onSubmit={handleSaveClick}>
 

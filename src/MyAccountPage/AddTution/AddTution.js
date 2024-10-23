@@ -28,9 +28,12 @@ const AddTution = () => {
     Boards: [],
   });
 
-  const [errorText,setErrorText] = useState('Error Text')
+  const [errorText,setErrorText] = useState('')
 
   const handleChange = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const { name, value } = e.target;
     setDetails((prevDetails) => ({
       ...prevDetails,
@@ -39,6 +42,9 @@ const AddTution = () => {
   };
 
   const HandleSubjectSelect = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedSubject = e.target.value;
     if (!TutionDetails.Subjects.includes(selectedSubject)) {
       setDetails((prevDetails) => ({
@@ -49,6 +55,9 @@ const AddTution = () => {
   };
 
   const HandleSubjectRemove = (subjectToRemove) => {
+    if(errorText){
+      setErrorText('')
+    }
     setDetails((prevDetails) => ({
       ...prevDetails,
       Subjects: prevDetails.Subjects.filter((subject) => subject !== subjectToRemove),
@@ -56,6 +65,9 @@ const AddTution = () => {
   };
 
   const HandleBoardSelect = (e) => {
+    if(errorText){
+      setErrorText('')
+    }
     const selectedBoard = e.target.value;
     if (!TutionDetails.Boards.includes(selectedBoard)) {
       setDetails((prevDetails) => ({
@@ -66,6 +78,9 @@ const AddTution = () => {
   };
 
   const HandleBoardRemove = (boardToRemove) => {
+    if(errorText){
+      setErrorText('')
+    }
     setDetails((prevDetails) => ({
       ...prevDetails,
       Boards: prevDetails.Boards.filter((board) => board !== boardToRemove),
@@ -86,6 +101,33 @@ const convertTo12Hour = (time24) => {
   return time12;
 }
 
+function isTimeAfter(time1, time2) {
+  const today = new Date().toISOString().slice(0, 10);
+  const date1 = new Date(`${today}T${time1}`);
+  const date2 = new Date(`${today}T${time2}`);
+
+  return date1 > date2; // Compare if time1 is after time2
+}
+
+function isRomanAfter(roman1, roman2) {
+  const romanToInt = {
+    I: 1,
+    II: 2,
+    III: 3,
+    IV: 4,
+    V: 5,
+    VI: 6,
+    VII: 7,
+    VIII: 8,
+    IX: 9,
+    X: 10,
+    XI: 11,
+    XII: 12
+  };
+
+  return romanToInt[roman1] <= romanToInt[roman2]; // Compare if roman1 is after roman2
+}
+
   const ValidateTuition = () =>{
       if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim()){
         setErrorText("Please fill all fields")
@@ -98,18 +140,20 @@ const convertTo12Hour = (time24) => {
        }
 
        if(TutionDetails.Boards.length === 0){
-         setErrorText("PLease choose atleast one board")
+         setErrorText("Please choose atleast one board")
          return false
        }
 
-       const srt12 = convertTo12Hour(TutionDetails.startTime)
-       const end12 = convertTo12Hour(TutionDetails.endTime)
+       if(!isTimeAfter(TutionDetails.endTime,TutionDetails.startTime)){
+         setErrorText("End Time cannot be less than or equal to start Time")
+         return false
+       }
 
-       console.log(srt12, end12);
-       console.log("Fucking HYpocrite");
-
-       return false;
-       
+       if(!isRomanAfter(TutionDetails.startStd,TutionDetails.endStd)){
+         setErrorText("End Standard cannnot come between Start Standard")
+         return false
+       }
+       return true;   
   }
 
   const handleSubmit = async (e) => {
@@ -119,11 +163,17 @@ const convertTo12Hour = (time24) => {
     const tuitionValidated = ValidateTuition();
 
     if(tuitionValidated){
+      const startTime12Hour = convertTo12Hour(TutionDetails.startTime);
+      const endTime12Hour = convertTo12Hour(TutionDetails.endTime);
+
+      console.log(startTime12Hour,endTime12Hour);
+
+      console.log(TutionDetails);
       try {
         const response = await axios.post('/api/v1/tution/', {
           createdBy: asTeacher._id,
           subjects: TutionDetails.Subjects,
-          duration: [TutionDetails.startTime, TutionDetails.endTime],
+          duration: [startTime12Hour, endTime12Hour],
           days: [TutionDetails.startDay, TutionDetails.endDay],
           standard: [TutionDetails.startStd, TutionDetails.endStd],
           fees: TutionDetails.Fees,
@@ -136,7 +186,10 @@ const convertTo12Hour = (time24) => {
         }
         
       } catch (error) {
-        toast.error('Error creating tuition ,try again later')
+        if(error.response && error.response.data.message)
+            toast.error(error.response.data.message)
+        else
+          toast.error('Error creating tuition ,try again later')
       }
     }
   };
@@ -153,8 +206,8 @@ const convertTo12Hour = (time24) => {
             <label className="poppins-font">Select Subject</label>
             <select onChange={HandleSubjectSelect} className='create-tuition-select'>
               <option value="">Select a subject</option>
-              {subjects.map((subject) => (
-                <option value={subject.value}>{subject.label}</option>
+              {asTeacher.subjects.map((subject,index) => (
+                <option key={index} value={subject}>{subject}</option>
               ))}
             </select>
           </div>
@@ -175,8 +228,8 @@ const convertTo12Hour = (time24) => {
             <label className="poppins-font">Select Boards</label>
             <select onChange={HandleBoardSelect} className='create-tuition-select' aria-placeholder='Select boards '>
               <option value=''>Select boards</option>
-               {boards.map((board) => (
-                <option value={board.value}>{board.value}</option>
+               {boards.map((board,index) => (
+                <option key={index} value={board.value}>{board.value}</option>
               ))}
             </select>
           </div>
@@ -272,12 +325,12 @@ const convertTo12Hour = (time24) => {
                     </div>
         }
 
-        <div className="create-button">
-          <div className="submit-tuition" type="submit">
+        <button className="create-button" type="submit">
+          <div className="submit-tuition">
             <PostAddIcon />
             <p>Create Tuition</p>
           </div>
-        </div>
+        </button>
       </form>
     </div>
   );

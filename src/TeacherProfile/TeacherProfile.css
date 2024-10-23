@@ -296,12 +296,19 @@
 }
 
 @media (max-width:840px) {
+
+    .profile-container{
+        margin: 0;
+    }
+}
+
+@media (max-width:500px) {
+
     .profile-page{
         padding: 0;
     }
 
     .profile-container{
-        margin: 0;
         border-radius: 0;
     }
 }

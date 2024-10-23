@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Route from './Routes/Route'
 import WelcomePage from './WelcomeInstructor/WelcomePage';
 import AboutPage from './components/AboutPage/About';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,11 +17,12 @@ root.render(
   <React.StrictMode>
     <DataLayer initialState={initialState} reducer={reducer}>
       <BrowserRouter>
-      <Route/>
+        <Route/>
     </BrowserRouter>
     </DataLayer>
   </React.StrictMode>
   </>
+        // <App/>
   //  <AboutPage/>
       //  <WelcomePage/>
       //  <Search/>

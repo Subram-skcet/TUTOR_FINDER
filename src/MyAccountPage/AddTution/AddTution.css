@@ -115,7 +115,7 @@ input[type='time']{
 
 @media (max-width:722px) {
   .create-tuition-form{
-    width: 95%;
+    width: 90%;
   }
 }
 

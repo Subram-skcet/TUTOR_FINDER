@@ -44,12 +44,12 @@ const Main = () => {
       <div className='top-wst'></div>
       <div className="container">
         <div className='search-prt'>
-          <h1 className='main-pg-h1'>Filter Your Search</h1>
+          <h1 className='main-pg-h1 lato-bold'>Filter Your Search</h1>
           <Search onSearch={fetchData} />
         </div>
         <div className='results-prt'>
           <div>
-             <h1 className='search-rst-hd'>Your Search Results</h1>
+             <h1 className='search-rst-hd lato-bold'>Your Search Results</h1>
           </div>
           {isLoading ?
             <div className='circle-animation'>
@@ -67,7 +67,7 @@ const Main = () => {
             <div className="search-results">
             {results.length === 0 ? (
               <div className='teachers-not-found-para'>
-                <p>No Teachers available for the specified conditions..</p>
+                <p className='pt-serif-regular tchr-not-fnd-p'>No Teachers available for the specified conditions..</p>
               </div>
               ) : (
               results.map((result,index) => (

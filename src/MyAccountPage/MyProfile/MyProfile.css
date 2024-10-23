@@ -153,10 +153,25 @@
     margin-top: 1rem;
   }
 
+  @media (max-width:300px) {   
+      .profile-h1{
+        font-size: 10vw;
+      }
+  }
+
   @media (max-width:400px) {
     .about-section  .about-content-p{
       margin-top: 1rem;
       font-size: 16px;
+    }
+  }
+  
+  @media (max-width:382px) {
+    .profile-details .value{
+      width: 100%;
+    }
+    .profile-select{
+      width: 100%;
     }
   }
 

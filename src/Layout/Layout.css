@@ -5,7 +5,8 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    background-image: linear-gradient(to right, #5ec22f, #d47c17);
+    background-color: #3689d6 ;
+    color: white;
     z-index: 1;
 }
 .layout-img{

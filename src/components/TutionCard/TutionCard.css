@@ -1,7 +1,7 @@
 .tutor-card {
     border: 1px solid #000;
     padding: 15px;
-    border-radius: 10px;
+    border-radius: 20px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -138,7 +138,7 @@
 }
 
 .createdAt-p{
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .visit-profile-img{

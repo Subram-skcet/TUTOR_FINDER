@@ -38,59 +38,29 @@ export const stateDistricts = {
   };
 
   export const subjects = [
-    { value: "Tamil", label: "Tamil" },
-    { value: "English", label: "English" },
-    { value: "Maths", label: "Maths" },
-    { value: "Physics", label: "Physics" },
-    { value: "Biology", label: "Biology" },
-    { value: "Botany", label: "Botany" },
-    { value: "Spoken English", label: "Spoken English" },
-    { value: "Spoken Hindi", label: "Spoken Hindi" },
-    { value: "Chemistry", label: "Chemistry" },
-    { value: "Computer Science", label: "Computer Science" },
-    { value: "Accountancy", label: "Accountancy" },
-    { value: "Commerce", label: "Commerce" },
-    { value: "Computer Application", label: "Computer Application" },
-    { value: "EVS", label: "EVS" },
-    { value: "Economics", label: "Economics" }
+    "Tamil",
+    "English",
+    "Maths",
+    "Physics",
+    "Biology",
+    "Botany",
+    "Spoken English",
+    "Spoken Hindi",
+    "Chemistry",
+    "Computer Science",
+    "Accountancy",
+    "Commerce",
+    "Computer Application",
+    "EVS",
+    "Economics"
   ];
+  
 
 
-export const standards = [
-    { value: "I" },
-    { value: "II" },
-    { value: "III" },
-    { value: "IV" },
-    { value: "V" },
-    { value: "VI" },
-    { value: "VII" },
-    { value: "VIII" },
-    { value: "IX" },
-    { value: "X" },
-    { value: "XI" },
-    { value: "XII" }
-];
+export const standards = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII']
 
-export const daysOfWeek = [
-  { value: "Sunday" },
-  { value: "Monday" },
-  { value: "Tuesday" },
-  { value: "Wednesday" },
-  { value: "Thursday" },
-  { value: "Friday" },
-  { value: "Saturday" }
-];
+export const daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Staurday','Sunday']
 
-export const qualifications = [
-  { value: 'M.E'},
-  { value: 'B.E'},
-  { value: 'B.Sc'},
-  { value: 'M.Sc'}
-]
+export const qualifications = ['M.E','B.E','B.Sc','M.Sc']
 
-export const boards = [
-  {value: 'State Board'},
-  {value : 'CBSE'},
-  {value : 'ICSC'}
-]
-
+export const boards = ['State Board','CBSE','ICSC']
