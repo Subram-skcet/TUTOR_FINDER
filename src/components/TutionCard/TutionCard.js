@@ -88,7 +88,7 @@ function TutionCard({tution,index,profilenavigate}) {
                     </div>
                     <div onClick={()=>profilenavigate(index)} className='visit-prof-div'>
                         <img src={profileimg} className='visit-profile-img'/>
-                        <p>Visit profile</p>
+                        <p className='vsp-prof-p'>Visit profile</p>
                     </div>
                 </div>
                 <div className="tutor-card__info">
@@ -116,11 +116,6 @@ function TutionCard({tution,index,profilenavigate}) {
                             <div>
                                <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
                             </div>
-                            <div>
-                            <p className='tution-card-para'><strong>Fees:</strong> 
-                            <p className='rp'>₹</p>
-                            {tution.fees}</p>
-                            </div>
                         </div>
                         <div className="tution-sub-info-2">
                             <div>
@@ -131,6 +126,12 @@ function TutionCard({tution,index,profilenavigate}) {
                             </div>
                             <div>
                                <p className='tution-card-para'><strong>Location:</strong>{tution.createdBy.district} , {tution.createdBy.state}</p>
+                            </div>
+                            <div>
+                                <p className='tution-card-para '><strong>Fees:</strong> 
+                                <span className='rp'>₹{tution.fees}</span>
+                                
+                            </p>
                             </div>
                         </div>
                     </div>

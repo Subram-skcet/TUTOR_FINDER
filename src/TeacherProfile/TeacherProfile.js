@@ -167,7 +167,7 @@ const TeacherProfile = () => {
   return (
     <>
      <div className='top-wst'></div>
-    <div className="profile-page">
+    <div className="profile-page pt-serif-regular">
       <Modal isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
         <LoginModal/>
       </Modal>
@@ -176,7 +176,7 @@ const TeacherProfile = () => {
           <div className="profile-picture" style={backgroundStyle}>
         
           </div>
-          <h1>{props.name}</h1>
+          <h1 className="prf-name">{props.name}</h1>
         </div>
         <div className="teacher-profile-details">
           <div className="label">Name</div>
@@ -214,12 +214,12 @@ const TeacherProfile = () => {
         </div>
         <hr className='hr-tag'></hr>
         <div className="about-section">
-          <p className="about-heading">About</p>
+          <p className="about-heading lato-bold">About</p>
           <p className="about-content-div">{props.about}</p>
         </div>
         <hr className='hr-tag'></hr>
         <div className="reviews-container">
-          <h3 className="reviews-heading">Student Reviews ({reviews.length})</h3>
+          <h3 className="reviews-heading lato-bold">Student Reviews</h3>
           {isLoading ?
               <ThreeCircles
               visible={true}

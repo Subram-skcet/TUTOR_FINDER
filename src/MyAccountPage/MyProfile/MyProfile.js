@@ -387,8 +387,8 @@ const MyProfile = () => {
             <div>
               <select className='profile-select' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
                 {
-                  qualifications.map((qualification)=>(
-                    <option value={qualification.value}>{qualification.value}</option>
+                  qualifications.map((qualification,index)=>(
+                    <option key={index} value={qualification}>{qualification}</option>
                   ))
                 }
               </select>
@@ -404,8 +404,8 @@ const MyProfile = () => {
             <div className='subjects-list'>
                 <select className='profile-select add-subj' onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
-                    {subjects.map((subject)=>(
-                      <option value={subject.value}>{subject.label}</option>
+                    {subjects.map((subject,index)=>(
+                      <option key={index} value={subject}>{subject}</option>
                     ))}
                  </select>
                   <div className="selected-items">

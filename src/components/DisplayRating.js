@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DisplayRating = ({rating}) => {
+const DisplayRating = ({rating,noOfReviews}) => {
   return (
     <div>
       <div style={{ display: 'flex', gap: '5px' }}>

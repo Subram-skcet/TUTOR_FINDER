@@ -174,7 +174,7 @@ const Search = ({ onSearch }) => {
         </div>
       </div>
       </div>
-      <button onClick={handleSubmit} className="req-srch-btn btn-cntr">Search</button>
+      <button onClick={handleSubmit} className="req-srch-btn btn-cntr poppins-font">Search</button>
     </div>
   );
 };

@@ -81,7 +81,7 @@
       width: 80%;
     }
     .search-home-div{
-      margin-left: 0;
+      margin:auto;
     }
 }
 
@@ -95,6 +95,13 @@
       height: 18vw;
       font-size: 6vw;
    }
+}
+
+@media (max-width:389px){
+  .search-h1{
+    font-size: 25px;
+    text-align: left;
+  }
 }
 
 @media (min-width:1000px) and (max-width:1210px) {

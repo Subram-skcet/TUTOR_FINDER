@@ -199,7 +199,7 @@
 
 @media (max-width: 530px) {
   .review-card {
-      transform: scale(0.9); /* Scales down to 80% of the original size */
+      transform: scale(0.97); /* Scales down to 80% of the original size */
       transition: transform 0.3s ease; /* Smooth transition */
   }
 }
