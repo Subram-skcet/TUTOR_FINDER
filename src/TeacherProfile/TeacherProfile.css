@@ -1,10 +1,11 @@
 .profile-container {
-    background-color: #81b9f5;
+    /* background-color: #e2915b; */
     padding: 30px;
     border-radius: 12px;
     max-width: 800px;
     margin: 30px auto;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    box-shadow: 0 6px 15px 10px rgba(24, 23, 23, 0.1);
     overflow: hidden; /* Prevent content from expanding beyond container */
 }
 
@@ -36,7 +37,6 @@
 
 .teacher-profile-details .label {
     font-weight: bold;
-    color: #333;
     text-align: left;
     padding-right: 15px;
 }
@@ -61,7 +61,7 @@
         margin-bottom: 10px;
         border: 0; /* Remove default border */
         height: 2px; 
-        background-color: #05080a; /* Set the color of the line */
+        background-color: #535252 /* Set the color of the line */
 }
 
 .about-section .about-heading {
@@ -71,13 +71,6 @@
     margin: 0; /* Remove any default margin */
 }
 
-.about-section .about-content {
-    font-size: 18px;
-    color: #0c0c0c;
-    text-align: center;
-    line-height: 1.5;
-    margin: 10px 0 0; /* Adjust margin to reduce space between heading and content */
-}
 .reviews-heading {
     font-size: 24px; /* Adjust font size if needed */
     font-weight: bold;
@@ -134,7 +127,6 @@
 
 .review-text p {
     margin: 0;
-    color: #333;
 }
 
 .review-buttons {
@@ -191,12 +183,10 @@
 .write-review textarea {
     flex: 1;
     padding: 15px;
-    margin-bottom: 15px;
     width: 500px;
     height: 120px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     box-sizing: border-box; /* Ensure padding does not affect overall height */
 }
@@ -224,6 +214,10 @@
     /* background: red; */
     padding-bottom: 2rem;
 }
+.review-textarea{
+    /* background: green; */
+    height: fit-content;
+}
 .profile-page-textarea{
     width: 100%;
 }
@@ -240,8 +234,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
-    padding-bottom: 10px;
     justify-content: center;
     align-items: center;
     gap: 1rem;
@@ -255,26 +247,27 @@
     color: white;
     width: max-content;
     height: max-content;
-    padding: 15px;
+    padding: 13px;
     font-size: 15px;
     background-color: green;
-    border-radius: 20px;
     border: none;
     font-weight: bolder;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .post-cancel{
     color: white;
     width: max-content;
     height: max-content;
-    padding: 15px;
+    padding: 13px;
     font-size: 15px;
     background-color: red;
-    border-radius: 20px;
     border: none;
     font-weight: bolder;
     cursor: pointer;
+    border-radius: 10px;
+
 }
 
 .about-content-div{
@@ -300,9 +293,14 @@
 
 }
 
+@media (min-width:426px) {
+    .profile-container{
+        background: linear-gradient(to top left,rgb(216, 206, 206),#6aa0d3);
+    }
+}
+
 
 @media (max-width:840px) {
-
     .profile-container{
         margin: 0;
     }
@@ -329,8 +327,12 @@
         padding: 15px;
     }
 
+    .review-textarea{
+        width: 100%;
+    }
+
     .write-review textarea{
-        width: 95vw;
+        width: 100%;
     }
 
     .about-content-div{
@@ -358,7 +360,7 @@
 
     .review-box-btns{
         width: 100%;
-        background: gray;
+        /* background: gray; */
     }
 
     .teacher-profile-details{

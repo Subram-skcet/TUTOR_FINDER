@@ -268,7 +268,7 @@ const TeacherProfile = () => {
                     onBlur={handleBlur}
                     onChange={(e) => setNewReviewText(e.target.value)}
                     placeholder="Write review..."
-                    className='profile-page-textarea'
+                    className='profile-page-textarea pt-serif-regular'
                     minLength={1}
                     required
                     ></textarea>
