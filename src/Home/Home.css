@@ -1,9 +1,11 @@
 .home-wrap{
     display: flex;
     min-height:calc(100vh - var(--header-height));
+    /* min-height:calc(700px); */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding:0px 1rem 0px 1rem;
+    /* background: yellow; */
 }
 .home-h1{
   color: rgb(37, 35, 35);
@@ -54,11 +56,19 @@
 }
 
 .search-home-div{
-  margin-left: auto;
-  margin-right: auto;
+  /* margin-left: auto;
+  margin-right: auto; */
+  /* margin-right: 5rem; */
   width: 600px;
   padding: 1rem;
 }
+
+@media (min-width:1200px) {
+  .search-home-div{
+  margin-right: 3rem;
+  }
+}
+
 
 @media (max-width:1200px) {
     .home-img-div{
@@ -104,10 +114,11 @@
   }
 }
 
-@media (min-width:1000px) and (max-width:1210px) {
-    /* .search-home-div{
-      background: gray;
-      width:550px;
-    } */
+@media  (max-width:600px) {
+  .search-home-div{
+    width: 100%;
+    padding: 0;
+    background: red;
+  }
 }
 

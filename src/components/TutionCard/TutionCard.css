@@ -37,6 +37,13 @@
     font-size: 20px;
 }
 
+
+.tutor-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .tutor-card__rating {
     display: flex;
     align-items: center;
@@ -49,7 +56,7 @@
 
 .tutor-card__reviews {
     font-size: 14px;
-    color: #555;
+    color: rgb(32, 32, 32);
 }
 
 .tutor-card__details {
@@ -67,10 +74,9 @@
 }
 
 .tutor-img{
-    width: 125px;
-    height: 125px;
-   border-radius: 50%;
-   cursor: pointer;
+   width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }
 
 .tutor-img-div{
@@ -180,6 +186,24 @@
     font-size: 14px;
 }
 
+.bg-scr-div{
+    width: 150px;
+    height: 125px;
+   border-radius: 50%;
+   background: linear-gradient(45deg, rgb(255, 162, 96), rgb(255, 112, 188), rgb(125, 53, 129), rgb(94, 94, 255));
+   padding: 3px;
+   cursor: pointer;
+}
+
+.mb-scr-div{
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background: linear-gradient(45deg, rgb(255, 162, 96), rgb(255, 112, 188), rgb(125, 53, 129), rgb(94, 94, 255));
+   padding: 2px;
+   cursor: pointer;
+}
+
 @media (max-width:600px) {
     .bg-scr-div{
         display: none;
@@ -190,10 +214,6 @@
     }
     .tutor-card__profile-container{
         flex-direction: column;
-    }
-    .tutor-img{
-        width: 50px;
-        height: 50px;
     }
     .tutor-img-div{
         align-self: flex-start;

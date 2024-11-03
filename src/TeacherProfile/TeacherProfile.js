@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ThreeCircles } from 'react-loader-spinner'
 import DisplayRating from '../components/DisplayRating';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { handleModalSize } from '../utils/modalSize';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -24,15 +25,12 @@ const TeacherProfile = () => {
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
   const [isDoable,setDoable] = useState(true)
-  const [errorText,setErrorText] = useState('')
 
   let props = location.state.profileDetails
 
-  const backgroundStyle = {
-    backgroundImage: `url(${props.profilepic})`,
-    backgroundSize: 'cover',
-    border: '4px solid #0abb77',
-  };
+  if(isLoginModalOpen){
+       handleModalSize()
+  }
 
   const fetchReviews = async () => {
     setIsLoading(true)
@@ -114,7 +112,6 @@ const TeacherProfile = () => {
         const response = await axios.post('/api/v1/review/',req_body)
         console.log(response);
         toast.success('Review posted successfully')
-        setErrorText('')
         await fetchReviews();
       } catch (error) {
         toast.error("Couldn't post a review try again later")
@@ -126,7 +123,6 @@ const TeacherProfile = () => {
   };
     
    const handleFocus =()=>{
-      setErrorText('')
       setShowRating(true);
    }
 
@@ -167,17 +163,16 @@ const TeacherProfile = () => {
   return (
     <>
      <div className='top-wst'></div>
-    <div className="profile-page pt-serif-regular">
-      <Modal isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
-        <LoginModal/>
-      </Modal>
+    <div className={`profile-page pt-serif-regular ${isLoginModalOpen? 'stator':''}`}>
       <div className="profile-container">
         <div className="profile-header">
-          <div className="profile-picture" style={backgroundStyle}>
-        
+          <div className="profile-picture">
+             <img src={props.profilepic} className="pfp-img" alt={props.name}/>
           </div>
           <h1 className="prf-name">{props.name}</h1>
         </div>
+        <div className='sps-container'>
+
         <div className="teacher-profile-details">
           <div className="label">Name</div>
           <div className="value">{props.name}</div>
@@ -230,8 +225,8 @@ const TeacherProfile = () => {
               wrapperStyle={{}}
               wrapperClass=""
               />
-          :
-          <div className="reviews-section">
+              :
+              <div className="reviews-section">
             {reviews.length === 0 ? (
               <p className='no-review-text'>No reviews for this teacher..</p>
             )
@@ -273,14 +268,6 @@ const TeacherProfile = () => {
                     required
                     ></textarea>
                   </div>
-                  {errorText && 
-                   
-                   <div className='error-para-div'>
-                      <div className='amber-icon'>
-                         <WarningAmberIcon/>
-                      </div>
-                      <p className='errorText'>{errorText}</p>
-                    </div>}
                   <div className='review-box-btns'>
                       <button type="submit" className="post-submit">Submit</button>
                       <button className='post-cancel' onClick={handleBlur}>Cancel</button>
@@ -288,6 +275,10 @@ const TeacherProfile = () => {
                 </div>
                   </form>
             }
+      <Modal childrenWidth={400}  isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
+        <LoginModal/>
+      </Modal>
+            </div>
           </div>
       </div>
     </div>

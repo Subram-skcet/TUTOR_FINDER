@@ -83,7 +83,7 @@ function TutionCard({tution,index,profilenavigate}) {
                     <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                 </div>
                 <div className='mobile-visit-prof-div'>
-                    <div className='tutor-img-div'>
+                    <div className='tutor-img-div  mb-scr-div'>
                         <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                     </div>
                     <div onClick={()=>profilenavigate(index)} className='visit-prof-div'>

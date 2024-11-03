@@ -2,24 +2,51 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: #f0f2f5;
-    background: green;
+    background: #306eca;
+    background: rgb(151, 213, 244);
     padding: 2rem;
+    max-width: 525.25px;
 }
 
 .login-form {
     width: 100%;
 }
 
-.form-group {
-    margin-bottom: 15px;
+.lg-btn{
+    color: white;
+    /* width: 300px; */
+    /* height: 50px; */
+    font-size: 16px;
+    background-color: rgb(32, 29, 126);
+    border-radius: 50px;
+    padding: 13px 20px;
+    box-shadow: 1px 1px 5px 1px black;
+    border: none;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  
+  .visibility-icon{
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    
+    .eye-icon{
+        cursor: pointer;
+  }
+  
+  
+  .form-group {
+      margin-bottom: 15px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 5px;
     font-size: 16px;
-    color: #333;
 }
 
 .form-group input {
@@ -47,6 +74,15 @@
 
 .student-login-header{
     margin-bottom: 2rem;
+}
+
+.password-container{
+  position: relative;
+}
+
+.password-container input {
+width: 100%;
+padding-right: 3rem; 
 }
 
 @media (max-width:800px) {

@@ -8,13 +8,13 @@
     width: 100%;
     display: flex;
     background: white;
-    height: calc(100vh - 70px);
+    /* height: calc(100vh - 70px); */
 }
 .welcome-notes{
     width: max-content;
     flex: 0.4;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 .actual-content{
@@ -22,8 +22,14 @@
     display: flex;
     flex-direction: column;
     /* align-items: center; */
-    padding: 10px;
+    padding: 20px;
     gap: 1rem; 
+    /* max-width: 500px; */
+}
+@media (min-width:1200px) {
+    .actual-content{
+        width: 500px;
+    }
 }
 .welcome-image-div{
     flex: 0.6;
@@ -34,6 +40,7 @@
     height: 100%;
 }
 .welcome-part-two{
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,10 +54,12 @@
     text-align: center;
     justify-content: space-around;
     align-items: center;
+    /* background:red; */
 }
 .doable-heading{
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    /* padding-top: 1rem;
+    padding-bottom: 1rem; */
+    /* background: green; */
 }
 .welcome-p{
     margin-top: 0.5rem;
@@ -99,6 +108,7 @@
 .doable-divs{
     width: 280px;
     padding: 0.5rem;
+    /* background: yellow; */
 }
 .count-size{
     font-size: 50px;
@@ -124,7 +134,7 @@
 
 @media (max-width:800px) {
     .notes-heading{
-        font-size: 30px;
+        font-size: 35px;
     }
 
     .actual-content{
@@ -132,7 +142,7 @@
     }
 }
 
-@media (max-width:600px) {
+@media (max-width:700px) {
     .welcome-part-one{
         width: 100vw;
         flex-direction: column;

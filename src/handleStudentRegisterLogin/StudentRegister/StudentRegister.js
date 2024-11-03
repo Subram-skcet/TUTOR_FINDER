@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import loadgif from '../../assets/89.gif'
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 const RegisterStudent = () => {
   const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
@@ -26,7 +28,9 @@ const RegisterStudent = () => {
     email: '',
     password: ''
   });
-  const [errorText,setErrorText] = useState('')
+  const [errorText,setErrorText] = useState('This gotta fvff fvfdf fdvf sdvssvsv sdv sdv sddsv d dsvsdvds very very big error msg ')
+  const [isPasswordVisible,setPasswordVisible] = useState(false)
+
   
   useEffect(()=>{
       console.log("State updated successfully", logged_as);
@@ -224,13 +228,13 @@ const RegisterStudent = () => {
   return (
     <div className='student-signp-wrap'>
     <div className='student-register-h1'>
-        <h1>Sign up to your EduQuest account</h1>
+        <h1 className='lato-bold'>Sign up to your EduQuest account</h1>
     </div>
-    <div className='student-signup-form'>
+    <div className='student-signup-form pt-serif-regular'>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>
           <label>Name:</label>
-          <input type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
+          <input className='pt-serif-regular' type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
         </div>
         <div className='form-group'>
           <div className='email-label-flex'>
@@ -254,7 +258,8 @@ const RegisterStudent = () => {
           <input 
              type='email' 
              name='email' 
-             id='email' 
+             id='email'
+             className='pt-serif-regular' 
              value={userDetails.email} 
              onChange={handleChange} 
              pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -299,7 +304,23 @@ const RegisterStudent = () => {
         }
         <div className='form-group'>
           <label>Password:</label>
-          <input type='password' name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
+          <div className='password-container'>
+            <input className='pt-serif-regular' type='password' name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
+            { userDetails.password.length > 0 &&
+              <span className='visibility-icon'>
+                          {
+                              isPasswordVisible ? 
+                              <div onClick={()=>setPasswordVisible(false)} className='eye-icon'>
+                                <MdVisibility size="1.3em"/>
+                              </div>
+                              :
+                              <div onClick={()=>setPasswordVisible(true)} className='eye-icon'>
+                              <MdVisibilityOff size="1.3em"/>
+                              </div>
+                          }
+              </span>
+            }
+          </div>
         </div>
         {errorText && 
           <div className='error-para-div er-streg'>
@@ -309,8 +330,8 @@ const RegisterStudent = () => {
                         <p className='errorText'>{errorText}</p>
           </div>
         }
-        <div className='submit-btn-div'>
-          <button type='submit' className='submit-btn' style={regbtnstyle}>Register</button>
+        <div>
+          <button type='submit' className='poppins-font reg-btn' style={regbtnstyle}>Register</button>
         </div>
       </form>
       <div className='log-in-div'>

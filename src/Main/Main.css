@@ -92,9 +92,10 @@
   display: flex;
   width: 600px;
   flex-direction: column;
-  /* background: pink; */
+  align-self: center;
 }
 .main-pg-h1{
+  text-align: center;
   margin-bottom: 0;
 }
 .teachers-not-found-para{
@@ -152,7 +153,9 @@
 @media (max-width:600px) {
   .search-prt{
     width: 100%;
+    background: yellow;
   }
+
 }
 
 @media (max-width:375px) {

@@ -14,6 +14,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import Rating from '../Rating/Rating'
 import { toast } from "react-toastify";
 import { extractDateFields } from "../../utils/getCreatedAt";
+import { BiSolidLike } from "react-icons/bi";
+import { BiSolidDislike } from "react-icons/bi";
+
 
 const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable , handleLike}) => {
         const [{logged,logged_as,asStudent},dispatch] = useDataLayerValue();
@@ -128,7 +131,9 @@ const handleSaveClick = async() =>{
         <div className="review-card">
            <div className="my-reviews-page-flex-div">
                 <div className="header">
-                    <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
+                    <div className="pfp-pg-img-div">
+                      <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
+                    </div>
                     <div className="name">{review.createdBy.name}</div>
                 </div>
                 {location.pathname === '/myaccount/studentprofile/myreviews' ? 
@@ -197,13 +202,17 @@ const handleSaveClick = async() =>{
                 <div className="user-actions">
                     <div className={`likeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable ? () => handleLikeClicks('like'): undefined}>
                         <div className="like-dislike-icon tooltip" data-tooltip="Like">
-                           <ThumbUpOutlinedIcon color={userReaction.liked ? 'primary' : 'action'} />
+                            <div className={`${userReaction.liked? 'liked':''}`}>
+                              <BiSolidLike size="1.2em"/>
+                            </div>
                         </div>
                         <p>{likeCount}</p>
                     </div>
                     <div className={`dislikeSection icon-cntr ${isLikeable? '':'disabled-like'}`} onClick={isClickable? () => handleLikeClicks('dislike') : undefined}>
                     <div className="like-dislike-icon tooltip" data-tooltip="Dislike">
-                        <ThumbDownOutlinedIcon color={userReaction.disliked ? 'error' : 'action'} />
+                           <div className={`${userReaction.disliked? 'disliked':''}`}>
+                              <BiSolidDislike size="1.2em"/>
+                            </div>
                     </div>
                         <p>{dislikeCount}</p>
                     </div>

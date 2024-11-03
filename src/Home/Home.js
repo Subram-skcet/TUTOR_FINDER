@@ -13,7 +13,7 @@ const Home = (props) => {
           {srch?
           <div className='search-home-div'>
               <h1 className='search-h1 lato-bold'>Put your requirements</h1>
-              <Search /> 
+              <Search/> 
           </div>
           :
           <div className="home-content">

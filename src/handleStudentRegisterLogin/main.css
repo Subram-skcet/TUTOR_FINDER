@@ -2,7 +2,8 @@
     display: flex;
     background: white;
     align-items: center;
-    justify-content: center
+    justify-content: center;
+    height: calc(100vh - 70px);
 }
 
 .cover-img > img{

@@ -1,3 +1,16 @@
 .modal-login{
     width: 400px;
 }
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (max-width:440px) {
+    .login-container{
+        width: 100%;
+    }
+    
+}

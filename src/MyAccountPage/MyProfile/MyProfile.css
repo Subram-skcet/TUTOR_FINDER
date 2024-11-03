@@ -1,11 +1,11 @@
-.profile-page {
+.my-profile-page {
     background-size: cover;
     background-position: center;
     padding: 20px;
     box-sizing: border-box; /* Ensure padding does not affect overall width */
 }
 
-.profile-container {
+.my-profile-container {
     /* background-color: #00c7ebf3; */
     padding: 30px;
     border-radius: 12px;
@@ -186,7 +186,7 @@
         margin-bottom: 10px;
     }
 
-    .profile-container input,select{
+    .my-profile-container input,select{
          margin-bottom: 1rem;
     }
 }

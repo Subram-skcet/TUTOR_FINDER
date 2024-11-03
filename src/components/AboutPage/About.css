@@ -66,6 +66,7 @@
     box-sizing: border-box;
     align-self: center;
     flex: 0.5;
+    /* flex-grow: 1; */
     /* background: yellow; */
     /* background: linear-gradient(to right,black,rgb(207, 183, 209)); */
     padding: 1rem;
@@ -73,6 +74,15 @@
 
   .about-image-div{
     flex: 0.5;
+  }
+
+  @media (min-width:1200px) {
+    .about-overview{
+        flex: 0.6;
+    }
+    .about-image-div{
+      flex: 0.4;
+    }
   }
 
 .feature-item{

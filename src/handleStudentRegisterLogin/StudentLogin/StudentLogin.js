@@ -6,6 +6,8 @@ import axios from 'axios'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { toast } from 'react-toastify';
 import loadgif from '../../assets/89.gif'
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 const Login = () => {
     const [{logged,logged_as,asTeacher,asStudent},dispatch] = useDataLayerValue()
@@ -14,8 +16,9 @@ const Login = () => {
         email: '',
         password: '',
     });
-    const [errorText,setErrorText] = useState('')
+    const [errorText,setErrorText] = useState('This gotta fvff fvfdf fdvf sdvssvsv sdv sdv sddsv d dsvsdvds dsvd very very big error msg ')
     const [isForgetClickable,setForgetClickable] = useState(true)
+    const [isPasswordVisible,setPasswordVisible] = useState(false)
 
     const handleChange = (e) => {
         if(errorText){
@@ -108,16 +111,35 @@ const Login = () => {
     return (
         <div className="student-login-container">
             <div className='student-login-header'>
-                <h1>Log in to your EduQuest account</h1>
+                <h1 className='lato-bold'>Log in to your EduQuest account</h1>
             </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
+                    <input className="pt-serif-regular" type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
+                    <div className='password-container'>
+                    <input className="pt-serif-regular" type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
+                    {
+                        userDetails.password.length > 0 && 
+
+                    <span className='visibility-icon'>
+                        {
+                            isPasswordVisible ? 
+                            <div onClick={()=>setPasswordVisible(false)} className='eye-icon'>
+                               <MdVisibility size="1.3em"/>
+                            </div>
+                            :
+                            <div onClick={()=>setPasswordVisible(true)} className='eye-icon'>
+                            <MdVisibilityOff size="1.3em"/>
+                            </div>
+                        }
+                    </span>
+
+                    }
+                    </div>
                 </div>
                 {errorText && 
                     <div className='error-para-div er-streg'>
@@ -127,8 +149,8 @@ const Login = () => {
                         <p className='errorText'>{errorText}</p>
                     </div>
                  }
-                <div className="form-group">
-                    <button type="submit">Log In</button>
+                <div>
+                    <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
                 </div>
             </form>
             <div className='log-in-content-div'>

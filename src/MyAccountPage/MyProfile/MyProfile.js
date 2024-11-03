@@ -278,7 +278,7 @@ const MyProfile = () => {
   const handleIconClick = () => fileInputRef.current.click();
 
   return (
-    <div className="profile-page">
+    <div className="my-profile-page">
       <div className="profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
