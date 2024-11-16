@@ -311,9 +311,14 @@
     padding: 5px;
     border-radius: 5px;
     border: 2px solid rgb(255, 64, 0);
-    width: max-content;
-    max-width: auto;
+    width: auto;
 }
+
+/* @media (max-width:425px) {
+    .error-para-div{
+        width: auto;
+    }
+} */
 
 @media (min-width:426px) {
     /* .profile-container{

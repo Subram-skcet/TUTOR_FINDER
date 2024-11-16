@@ -304,7 +304,7 @@ const validateUser = () =>{
   return (
     <div className='teacher-signup-wrap'>
       <div>
-        <h4>Create your Teacher account in EduQuest</h4>
+        <h2>Create your Teacher account in EduQuest</h2>
       </div>
 
     <div className='teacher-reg-wrap'>
@@ -482,15 +482,18 @@ const validateUser = () =>{
           <select onChange={HandleSubjectSelect} required>
             <option value="">Select a subject</option>
             {subjects.map((subject)=>
-            <option value={subject.value}>{subject.label}</option>
+            <option value={subject}>{subject}</option>
             )}
           </select>
-        </div>
+        </div >
+        {
+          teacherDetails.subjects.length > 0 &&
           <div className="selected-items">
             {teacherDetails.subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
             ))}
           </div>
+        }
       </div>
        {errorText && 
           <div className='error-para-div er-streg'>

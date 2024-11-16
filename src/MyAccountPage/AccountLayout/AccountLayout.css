@@ -2,9 +2,13 @@
     --header-height: 70px;
 }
 
+.ac-layout{
+    color: white;
+}
+
 .account-layout{
     display: flex;
-    background-image: linear-gradient(to bottom right, #a07969, #f7efe6);
+    background-color: #3689d6 ;
     width: 100%;
     height: var(--header-height);
     align-items: center;

@@ -147,15 +147,18 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className="isEditing-div">
                 <select onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
-                    {subjects.map((subject)=>(
-                      <option value={subject.value}>{subject.label}</option>
+                    {asTeacher.subjects.map((subject,index)=>(
+                      <option key={index} value={subject}>{subject}</option>
                     ))}
                  </select>
+                 {
+                  TuitionDetails.subjects.length > 0 && 
                  <div className="selected-items gp">
                     {TuitionDetails.subjects.map((subject) => (
                       <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
                     ))}
                 </div>
+                 }
             </div>
             :
             <div className="tuition-value-div">
@@ -201,7 +204,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                         <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)}>
                             {
                                 daysOfWeek.map((days)=>(
-                                    <option value={days.value}>{days.value}</option>
+                                    <option value={days}>{days}</option>
                                 ))
                             }
                         </select>
@@ -213,7 +216,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                         <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)}>
                             {
                                 daysOfWeek.map((days)=>(
-                                    <option value={days.value}>{days.value}</option>
+                                    <option value={days}>{days}</option>
                                 ))
                             }
                         </select>
@@ -238,15 +241,18 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 <option value="">Select a board</option>
                 {
                     boards.map((board)=>(
-                        <option value={board.value}>{board.value}</option>
+                        <option value={board}>{board}</option>
                     ))
                 }
               </select>
+              {
+              TuitionDetails.boards.length > 0 && 
               <div className="selected-items gp">
                 {TuitionDetails.boards.map((board) => (
                   <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
                 ))}
               </div>
+              }
             </div>
             :
             <div className="tuition-value-div"><p>{tuition.boards.join(', ')}</p></div>
@@ -261,7 +267,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)}>
               {
                 standards.map((standard)=>(
-                   <option value={standard.value}>{standard.value}</option>
+                   <option value={standard}>{standard}</option>
                 ))
               }
             </select>
@@ -271,7 +277,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)}>
                {
                 standards.map((standard)=>(
-                   <option value={standard.value}>{standard.value}</option>
+                   <option value={standard}>{standard}</option>
                 ))
                 }
             </select>

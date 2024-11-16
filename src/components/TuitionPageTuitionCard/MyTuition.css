@@ -24,7 +24,8 @@
    display: flex;
    justify-content: space-between;
    gap: 1rem;
-   background: wheat;
+   background: white;
+   box-shadow: 1px 1px 5px blue;
    padding: 1rem;
    border-radius: 20px;
 }
@@ -59,7 +60,7 @@
 }
 
 .tution-options{
-    background: gray;
+    /* background: gray; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -28,7 +28,7 @@ const RegisterStudent = () => {
     email: '',
     password: ''
   });
-  const [errorText,setErrorText] = useState('This gotta fvff fvfdf fdvf sdvssvsv sdv sdv sddsv d dsvsdvds very very big error msg ')
+  const [errorText,setErrorText] = useState('')
   const [isPasswordVisible,setPasswordVisible] = useState(false)
 
   
@@ -231,7 +231,7 @@ const RegisterStudent = () => {
         <h1 className='lato-bold'>Sign up to your EduQuest account</h1>
     </div>
     <div className='student-signup-form pt-serif-regular'>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='reg-std-form'>
         <div className='form-group'>
           <label>Name:</label>
           <input className='pt-serif-regular' type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />

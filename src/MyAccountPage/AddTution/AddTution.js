@@ -179,6 +179,8 @@ function isRomanAfter(roman1, roman2) {
           fees: TutionDetails.Fees,
           boards: TutionDetails.Boards,
         });
+        console.log(response);
+        
   
         if(response.status === 201){
            toast.success('Tuition created successfully')
@@ -229,7 +231,7 @@ function isRomanAfter(roman1, roman2) {
             <select onChange={HandleBoardSelect} className='create-tuition-select' aria-placeholder='Select boards '>
               <option value=''>Select boards</option>
                {boards.map((board,index) => (
-                <option key={index} value={board.value}>{board.value}</option>
+                <option key={index} value={board}>{board}</option>
               ))}
             </select>
           </div>
@@ -271,7 +273,7 @@ function isRomanAfter(roman1, roman2) {
               <label>From:</label>
               <select value={TutionDetails.startDay} name="startDay" onChange={handleChange}>
               {daysOfWeek.map((day) => (
-                <option value={day.value}>{day.value}</option>
+                <option value={day}>{day}</option>
               ))}
               </select>
             </div>
@@ -279,7 +281,7 @@ function isRomanAfter(roman1, roman2) {
               <label>To:</label>
               <select value={TutionDetails.endDay} name="endDay" onChange={handleChange}>
                 {daysOfWeek.map((day) => (
-                  <option value={day.value}>{day.value}</option>
+                  <option value={day}>{day}</option>
                 ))}
               </select>
             </div>
@@ -297,7 +299,7 @@ function isRomanAfter(roman1, roman2) {
              required
              >
               {standards.map((std) => (
-                <option value={std.value}>{std.value}</option>
+                <option value={std}>{std}</option>
               ))}
             </select>
           </div>
@@ -305,7 +307,7 @@ function isRomanAfter(roman1, roman2) {
             <label>End Class:</label>
             <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select'>
               {standards.map((std) => (
-                <option value={std.value}>{std.value}</option>
+                <option value={std}>{std}</option>
               ))}
             </select>
           </div>
@@ -324,13 +326,15 @@ function isRomanAfter(roman1, roman2) {
                         <p className='errorText'>{errorText}</p>
                     </div>
         }
+      <button style={{all:"unset"}}>
 
-        <button className="create-button" type="submit">
+        <div className="create-button poppins-font" type="submit">
           <div className="submit-tuition">
             <PostAddIcon />
-            <p>Create Tuition</p>
+            <p>Create</p>
           </div>
-        </button>
+        </div>
+      </button>
       </form>
     </div>
   );

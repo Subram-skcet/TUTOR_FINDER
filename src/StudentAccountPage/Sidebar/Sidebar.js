@@ -30,7 +30,7 @@ const Sidebar = ({closesidebar}) => {
                 <SidebarItem field='Profile' Icon={AccountCircleIcon}/>
                </div>
                <div onClick={()=>navigate('/myaccount/studentprofile/mybookmarks')}>
-                <SidebarItem field='My Favourite Tutions' Icon={BookmarksIcon}/>
+                <SidebarItem field='My Favourite Tuitions' Icon={BookmarksIcon}/>
                </div>
                <div onClick={()=>navigate('/myaccount/studentprofile/myreviews')}>
                 <SidebarItem field='Reviews' Icon={ReviewsIcon}/>

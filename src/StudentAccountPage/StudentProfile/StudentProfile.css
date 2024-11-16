@@ -6,7 +6,6 @@
   justify-content: center;
   height:calc(100vh - var(--header-height));
   background-color: #f0f2f5; /* Light background color */
-  background: pink;
   /* padding: 20px; */
 }
 
@@ -80,7 +79,7 @@
 .isedit-btns-div{
   width: 400px;
   display: flex;
-  background: red;
+  /* background: red; */
 }
 
 @media (max-width:400px) {

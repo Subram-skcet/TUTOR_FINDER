@@ -163,7 +163,9 @@ const handleSaveClick = async() =>{
                         <ArrowRightAltIcon fontSize="large"/>
                     </div>
                     <div className="header">
+                    <div className="pfp-pg-img-div">
                         <img src={review.createdFor.profilepic} alt="Profile" className="profilePic" />
+                    </div>
                         <div className="name">{review.createdFor.name}</div>
                     </div>
                 </>

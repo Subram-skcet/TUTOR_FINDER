@@ -12,7 +12,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    background: gray;
+    /* background: gray; */
   }
   
   .space-div {

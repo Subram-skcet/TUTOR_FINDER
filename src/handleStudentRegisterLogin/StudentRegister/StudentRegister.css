@@ -9,6 +9,13 @@
     gap: 1rem;
 }
 
+.reg-std-form{
+    width: 100%;
+    height: max-content;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
 .form-group label{
     color: black;
 }

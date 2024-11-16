@@ -50,7 +50,7 @@ const TeacherLogin = ({openLogin}) => {
   return (
     <div className='teacher-login-wrap'>
         <div>
-            <h3>Login to your EduQuest Teacher account</h3>
+            <h2>Login to your EduQuest Teacher account</h2>
         </div>
       <form className='teacher-login-form'>
          <div>

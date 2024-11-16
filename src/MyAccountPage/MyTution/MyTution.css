@@ -8,7 +8,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: gray;
     height:calc(100vh - var(--header-height));
 }
 .green-button {
@@ -41,7 +40,7 @@
     flex-direction: column;
     gap: 2rem;
     margin-top: 1rem;
-    background: #45a049;
+    background: rgb(216, 211, 211);
     padding: 1rem;
     width:700px;
 }

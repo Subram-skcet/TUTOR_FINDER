@@ -55,7 +55,7 @@ const Bookmark = () => {
           visible={true}
           height="100"
           width="100"
-          color="#4fa94d"
+          color="#3689d6"
           ariaLabel="three-circles-loading"
           wrapperStyle={{}}
           wrapperClass=""
@@ -68,7 +68,7 @@ const Bookmark = () => {
               <p className='pt-serif-regular bookmark-p'>Tutions you have added into your favourite list will appear here. Currently you have no favourite tutions</p>
               <div className='bookmark-pg-explr-div' onClick={()=>navigate('/searchtutor')}>
                 <SearchIcon/>
-                <p>Explore tutions</p>
+                <p>Explore tuitions</p>
               </div>
             </div>
              ) : (
@@ -79,7 +79,7 @@ const Bookmark = () => {
                   ))
                 }
                 </div> 
-                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn'>Find more tutions</button>
+                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn'>Find more</button>
                 </>
              )}
         </>

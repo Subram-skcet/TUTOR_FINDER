@@ -16,7 +16,7 @@ const Login = () => {
         email: '',
         password: '',
     });
-    const [errorText,setErrorText] = useState('This gotta fvff fvfdf fdvf sdvssvsv sdv sdv sddsv d dsvsdvds dsvd very very big error msg ')
+    const [errorText,setErrorText] = useState('')
     const [isForgetClickable,setForgetClickable] = useState(true)
     const [isPasswordVisible,setPasswordVisible] = useState(false)
 

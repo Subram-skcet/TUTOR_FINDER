@@ -279,7 +279,7 @@ const MyProfile = () => {
 
   return (
     <div className="my-profile-page">
-      <div className="profile-container">
+      <div className="my-profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
           <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
@@ -297,7 +297,7 @@ const MyProfile = () => {
         </div>
           <h1 className='profile-h1'>{profile.name}</h1>
         </div>
-        <form onSubmit={handleSaveClick}>
+        <form onSubmit={handleSaveClick} className='sps-container'>
 
         <div className="profile-details">
 
@@ -408,11 +408,14 @@ const MyProfile = () => {
                       <option key={index} value={subject}>{subject}</option>
                     ))}
                  </select>
+                 {
+                  editDetails.subjects.length > 0 &&
                   <div className="selected-items">
                     {editDetails.subjects.map((subject) => (
                       <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
                     ))}
                   </div>
+                 }
               </div>
             :
             <div className='value'>

@@ -8,6 +8,8 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
 import Modal from '../../components/Modal/Modal';
 import DeleteAccount from '../../components/DeleteAccountModal/DeleteAccount';
+import { MdHome } from "react-icons/md";
+import { IoMdSettings } from "react-icons/io";
 
 const AccountLayout = () => {
   const navigate = useNavigate()
@@ -63,13 +65,13 @@ const AccountLayout = () => {
     <div>
         <div className='account-layout'>
 
-            <div className='itms-cntr style-links home-icon-div' onClick={()=>navigate('/')}>
-                    <HomeIcon/>
+            <div className='itms-cntr style-links home-icon-div ac-layout' onClick={()=>navigate('/')}>
+                    <MdHome size="1.3em"/>
                     <p>Home</p>
               </div>
             <div className='setting-div'>
-             <div className='itms-cntr style-links'>
-                    <SettingsIcon/>
+             <div className='itms-cntr style-links ac-layout'>
+                    <IoMdSettings size="1.3em"/>
                         <p>Settings</p>
             </div>
                   <div className='settings-options'>

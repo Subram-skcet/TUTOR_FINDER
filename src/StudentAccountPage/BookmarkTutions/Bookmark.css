@@ -12,7 +12,7 @@
 .fav-tutions{
     width: 700px;
     height:calc(100vh - var(--header-height));
-    background: yellow;
+    background: rgb(216, 211, 211);
 }
 
 .search-results{
@@ -28,15 +28,20 @@
     align-items: center;
     gap: 1rem;
     padding: 10px;
-    background: gray;
+    background: rgb(203, 202, 202);
 }
 
 .bookmark-pg-btn{
     margin-top: 1rem;
     margin-bottom: 1rem;
-    padding: 10px;
+    padding: 10px 20px;
     font-size: 17px;
     cursor: pointer;
+    border-radius: 10px;
+    background: rgb(255, 102, 0);
+    box-shadow: 1px 1px 0px black;
+    color: white;
+    border: none;
 }
 
 .bookmark-pg-explr-div{
@@ -48,7 +53,8 @@
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
-    background: pink;
+    background: rgb(234, 87, 18);
+    color: white;
 }
 
 .bookmark-p{

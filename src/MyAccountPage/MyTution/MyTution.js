@@ -99,7 +99,7 @@ const MyTution = () => {
         visible={true}
         height="100"
         width="100"
-        color="#4fa94d"
+        color="#3689d6"
         ariaLabel="three-circles-loading"
         wrapperStyle={{}}
         wrapperClass=""
