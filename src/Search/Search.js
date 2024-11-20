@@ -96,9 +96,7 @@ const Search = ({ onSearch }) => {
                 <option key={index} value={subject}>{subject}</option>
              ))}
           </select>
-            <div className='drp-icon'>
-              <IoMdArrowDropdown size="1.6em"/>
-            </div>
+          bookmark-pg-explr-div
              </div>
         </div>
         <div>

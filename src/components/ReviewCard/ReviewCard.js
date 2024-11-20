@@ -6,7 +6,7 @@ import './ReviewCard.css'; // Import the CSS file
 import DisplayRating from "../DisplayRating";
 import { useDataLayerValue } from "../../StateProviders/StateProvider";
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
-import EditIcon from '@mui/icons-material/Edit';
+import { MdEdit } from "react-icons/md";
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import SaveIcon from '@mui/icons-material/Save';
@@ -16,6 +16,9 @@ import { toast } from "react-toastify";
 import { extractDateFields } from "../../utils/getCreatedAt";
 import { BiSolidLike } from "react-icons/bi";
 import { BiSolidDislike } from "react-icons/bi";
+import { MdDelete } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { IoClose } from "react-icons/io5";
 
 
 const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable , handleLike}) => {
@@ -37,9 +40,15 @@ const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable ,
             editrating:'',
         });
         const childRef = useRef(); //Access child class Rating function from parent 
-        const [position, setPosition] = useState({ top: 0, left: 0, width: 0, height: 0 });
-        const targetRef = useRef(null);
+        const textareaRef = useRef(null)
         const [errorText,setErrorText] = useState('');
+
+    useEffect(() => {
+        if (isEditing && textareaRef.current) {
+                console.log("Focusing on textarea");
+                textareaRef.current.focus();
+        }
+    }, [isEditing]);
 
 const updateReaction = (reactionType) => {
     const { liked, disliked } = userReaction;
@@ -81,6 +90,7 @@ const handleChange = (e) =>{
 
 
 const HandleEditClick = () =>{
+    
     if(errorText){
         setErrorText('')
     }
@@ -142,19 +152,19 @@ const handleSaveClick = async() =>{
                              {isEditing ?
                                 <>
                                 <div className="review-save" onClick={handleSaveClick} title="Save">
-                                    <SaveIcon/>
+                                    <IoIosSave size="1.5em"/>
                                 </div>
                                 <div className="review-cancel" onClick={()=>setIsEditing(false)} title="Cancel">
-                                    <CloseIcon/>
+                                    <IoClose size="1.65em"/>
                                 </div>
                                 </>
                             :
                             <>
                                 <div className="review-edit" onClick={HandleEditClick} title="Edit">
-                                    <EditIcon/>
+                                    <MdEdit size="1.5em"/>
                                 </div>
                                 <div  className="review-delete" onClick={()=>deleteReview(review._id)} title="Delete">
-                                    <DeleteIcon/>
+                                    <MdDelete size="1.5em"/>
                                 </div>
                             </>
                             }
@@ -181,6 +191,7 @@ const handleSaveClick = async() =>{
                 </div>
                 <div>
                     <textarea 
+                      ref={textareaRef}
                       name="editreview" 
                       value={editDetails.editreview} 
                       onChange={handleChange}

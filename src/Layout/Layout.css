@@ -53,13 +53,17 @@
 .style-links-updated{
     width: max-content;
     height: max-content;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px;
-    background: linear-gradient(to bottom right, #266daf, #02dffc);
     box-shadow: 1px 1px 10px black;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }
+.style-links-updated p{
+    font-weight: 700;
+    font-size: 16px;
+}
+
 .itms-cntr.style-links:hover {
       border-radius: 10px;
       background: rgba(0,0,0,.1);

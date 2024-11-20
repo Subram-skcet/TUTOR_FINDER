@@ -13,7 +13,7 @@ import { useState } from 'react';
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudent } from "react-icons/pi";
 import { RiLoginCircleLine } from "react-icons/ri"
-import { IoSearch } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
 import { MdHome } from "react-icons/md";
 
 const Layout = (props) => {
@@ -56,7 +56,7 @@ const Layout = (props) => {
                           <p>Home</p>
                     </div>
                     <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
-                          <IoSearch size="1.3em"/>
+                          <FaSearch size="1em"/>
                           <p>Search</p>
                     </div>
                     <div className='itms-cntr style-links'>
@@ -93,7 +93,7 @@ const Layout = (props) => {
                           <p>Home</p>
                     </div>
                     <div className='menu-icon' onClick={()=>navigate('/searchtutor')}>
-                    <IoSearch size="1.1em"/>
+                    <FaSearch size="1.1em"/>
                           <p>Search</p>
                     </div>
                     <div className='menu-icon'>

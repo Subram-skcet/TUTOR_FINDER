@@ -66,7 +66,7 @@ const Bookmark = () => {
           {favouritetutions.length === 0 ? (
             <div className='bookmark-empty-content'>
               <p className='pt-serif-regular bookmark-p'>Tutions you have added into your favourite list will appear here. Currently you have no favourite tutions</p>
-              <div className='bookmark-pg-explr-div' onClick={()=>navigate('/searchtutor')}>
+              <div className='bookmark-pg-explr-div itms-cntr style-links-updated' onClick={()=>navigate('/searchtutor')}>
                 <SearchIcon/>
                 <p>Explore tuitions</p>
               </div>
@@ -79,7 +79,9 @@ const Bookmark = () => {
                   ))
                 }
                 </div> 
-                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn'>Find more</button>
+                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn style-links-updated'>
+                  <p>Find more</p>
+                  </button>
                 </>
              )}
         </>

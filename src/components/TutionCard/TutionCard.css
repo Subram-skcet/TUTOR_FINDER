@@ -130,13 +130,13 @@
 .bookmark-icon-div{
     position: absolute;
     right: 1rem;
-    top: 0;
+    top: 0.5rem;
     cursor: pointer;
 }
 
 .date-div{
     position: absolute;
-    bottom: 0;
+    bottom: 0.5rem;
     right: 1rem;
     font-size: 15px;
 }
@@ -148,7 +148,7 @@
 .createdAt-p{
     font-size: 14px;
     font-weight: 700;
-    color: #555;
+    color: black;
 }
 
 .visit-profile-img{

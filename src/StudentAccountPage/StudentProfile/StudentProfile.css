@@ -21,19 +21,8 @@
 
 .student-profile-picture{
   position: relative;
-  background-color: yellow;
-  width: 117px; /* Adjust size as needed */
-  height: 117px; /* Adjust size as needed */
   border-radius: 50%;
   overflow: hidden;
-}
-/* Profile picture styling */
-.student-profile-picture img {
-  border-radius: 50%;
-  width: 120px; /* Adjust size as needed */
-  height: 120px; /* Adjust size as needed */
-  object-fit: cover; /* Ensures the image covers the area without distortion */
-  border: 3px solid #ccc; /* Optional border around the profile picture */
 }
 
 /* Styling for the profile info section */

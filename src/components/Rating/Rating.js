@@ -1,4 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
+import { FaStar } from "react-icons/fa";
+import { MdOutlineStar } from "react-icons/md";
+
 
 const RatingComponent = forwardRef((props, ref) => {
   const [rating, setRating] = useState(props.rating || 0);
@@ -42,7 +45,7 @@ const RatingComponent = forwardRef((props, ref) => {
             }}
             title={`Rate ${value} star`}
           >
-            ★
+            <MdOutlineStar/>
           </span>
         ))}
       </div>

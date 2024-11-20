@@ -10,6 +10,8 @@ import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 const RegisterTeacher = ({openLogin}) => {
   const [{ logged }, dispatch] = useDataLayerValue();
@@ -415,22 +417,32 @@ const validateUser = () =>{
             required
             />
         </div>
+
         <div className='space-div'>
           <label htmlFor='qualification'  className='register-label'>Highest Qualification:</label>
+          <div className='select-container'>
+
           <select
             name='qualification'
             id='qualification'
             value={teacherDetails.qualification}
             onChange={handleChange}
+            className='select-box'
             required
-          >
+            >
             <option value=''>Select</option>
             <option value='B.E'>B.E</option>
             <option value='M.E'>M.E</option>
             <option value='B.Sc'>B.Sc</option>
             <option value='M.Sc'>M.Sc</option>
           </select>
+          <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+            </div>
         </div>
+
+
         <div className='space-div'>
           <label htmlFor='yoexp'   className='register-label'>Year Of Experience:</label>
           <input

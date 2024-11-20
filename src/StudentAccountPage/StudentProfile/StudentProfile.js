@@ -2,11 +2,12 @@ import React, { useState,useRef, useEffect } from 'react';
 import './StudentProfile.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
+import { IoIosSave } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { MdEdit } from "react-icons/md";
 
 const StudentProfile = () => {
   const [{ asStudent }, dispatch] = useDataLayerValue();
@@ -159,7 +160,9 @@ const StudentProfile = () => {
 
       <div className="student-profile-header">
         <div className="student-profile-picture">
-          <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
+          <div className='profile-picture'>
+            <img className='pfp-img' src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
+          </div>
             <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
           <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
               <EditIcon fontSize='medium' />
@@ -201,13 +204,13 @@ const StudentProfile = () => {
         <div className='isedit-btns-div'>
           <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
-              <SaveIcon/>
+            <IoIosSave size="1.45em"/>
               <p>Save Profile</p>
             </div>
           </button>
           <button className="edit-prof-btn" onClick={handleCancelClick}>
             <div className='itms-cntr style-links-updated cncl-bck' >
-              <CloseIcon /> 
+            <MdCancel  size="1.45em"/>
               <p>Cancel</p>
             </div>
           </button> 
@@ -216,7 +219,7 @@ const StudentProfile = () => {
         :
         <button className="edit-prof-btn" onClick={handleEditClick}>
           <div className='itms-cntr style-links-updated norm-style' >
-              <EditIcon />
+              <MdEdit size="1.45em"/>
             <p>Edit Profile</p>
           </div>
         </button> 
