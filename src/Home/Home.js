@@ -18,7 +18,7 @@ const Home = (props) => {
           :
           <div className="home-content">
             <h1 className='home-h1 lato-bold'>Find the Teacher best suits your needs</h1>
-            <button className="home-srch-btn" onClick={()=>setSrch(true)}>Start Search</button>
+            <button className="home-srch-btn" onClick={()=>setSrch(true)}>Search</button>
           </div>
           }
         <div className="home-img-div">

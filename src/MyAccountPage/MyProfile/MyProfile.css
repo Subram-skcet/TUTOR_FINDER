@@ -6,7 +6,6 @@
 }
 
 .my-profile-container {
-    /* background-color: #00c7ebf3; */
     /* padding: 30px; */
     border-radius: 12px;
     max-width: 800px;
@@ -37,17 +36,16 @@
     gap: 10px;
     font-size: 18px;
     margin-bottom: 20px;
+    align-items: center;
 }
 
 .profile-details .label {
     font-weight: bold;
-    color: #333;
     text-align: left;
     padding-right: 15px;
 }
 
 .profile-details .value {
-    color: #302f2f;
     background-color: transparent;
     width: fit-content;
 }
@@ -66,6 +64,8 @@
     min-height: 200px;
     max-height: max-content;
     word-break: break-word;
+    padding: 1rem;
+    font-size: 1rem;
 }
 .edit-styl{
     background: green;
@@ -108,13 +108,12 @@
 
   .subj-label{
     font-weight: bold;
-    color: #333;
     text-align: left;
     padding-right: 15px;
   }
 
-  .profile-select{
-      width: 230px;
+  .my-profile-page .select-container{
+    width: 230px;
   }
 
   .about-content-p{
@@ -165,11 +164,11 @@
     }
   }
   
-  @media (max-width:382px) {
+  @media (max-width:412px) {
     .profile-details .value{
       width: 100%;
     }
-    .profile-select{
+    .my-profile-page .select-container{
       width: 100%;
     }
   }
@@ -179,6 +178,7 @@
         display: flex;
         flex-direction: column;
         gap:0;
+        align-items: baseline;
     }
 
      .value{
@@ -187,5 +187,9 @@
 
     .my-profile-container input,select{
          margin-bottom: 1rem;
+    }
+
+    .my-profile-page .select-container,.subjects-list{
+      width: 100%;
     }
 }

@@ -10,6 +10,9 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 import { subjects,daysOfWeek,boards,standards } from '../../components/stateExporter';
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { FaArrowLeft } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 
 const AddTution = () => {
@@ -88,19 +91,6 @@ const AddTution = () => {
   };
 
 
-const convertTo12Hour = (time24) => {
-  let [hours, minutes] = time24.split(':'); 
-
-  hours = parseInt(hours);
-
-  const ampm = hours >= 12 ? 'PM' : 'AM';
-
-  hours = hours % 12 || 12; 
-
-  const time12 = `${hours}:${minutes} ${ampm}`;
-  return time12;
-}
-
 function isTimeAfter(time1, time2) {
   const today = new Date().toISOString().slice(0, 10);
   const date1 = new Date(`${today}T${time1}`);
@@ -126,6 +116,11 @@ function isRomanAfter(roman1, roman2) {
   };
 
   return romanToInt[roman1] <= romanToInt[roman2]; // Compare if roman1 is after roman2
+}
+
+
+const navigateBack = () =>{
+    navigate('/myaccount/teacherprofile/mytutions')
 }
 
   const ValidateTuition = () =>{
@@ -163,17 +158,13 @@ function isRomanAfter(roman1, roman2) {
     const tuitionValidated = ValidateTuition();
 
     if(tuitionValidated){
-      const startTime12Hour = convertTo12Hour(TutionDetails.startTime);
-      const endTime12Hour = convertTo12Hour(TutionDetails.endTime);
-
-      console.log(startTime12Hour,endTime12Hour);
 
       console.log(TutionDetails);
       try {
         const response = await axios.post('/api/v1/tution/', {
           createdBy: asTeacher._id,
           subjects: TutionDetails.Subjects,
-          duration: [startTime12Hour, endTime12Hour],
+          duration: [TutionDetails.startTime, TutionDetails.endTime],
           days: [TutionDetails.startDay, TutionDetails.endDay],
           standard: [TutionDetails.startStd, TutionDetails.endStd],
           fees: TutionDetails.Fees,
@@ -198,6 +189,9 @@ function isRomanAfter(roman1, roman2) {
 
   return (
     <div className="create-tuition-container">
+      <div className='arrow-nav' onClick={navigateBack}>
+        <FaArrowLeft size="1.8em"/>
+      </div>
       <div>
          <h1 className='lato-bold'>Create Tuition</h1>
       </div>
@@ -206,12 +200,17 @@ function isRomanAfter(roman1, roman2) {
         <div className="list-container">
           <div className='list-header-flx'>
             <label className="poppins-font">Select Subject</label>
-            <select onChange={HandleSubjectSelect} className='create-tuition-select'>
-              <option value="">Select a subject</option>
+            <div className='select-container crt-tut-sl-cntr'>
+            <select onChange={HandleSubjectSelect} className='create-tuition-select select-box'>
+              <option value="">Subjects</option>
               {asTeacher.subjects.map((subject,index) => (
                 <option key={index} value={subject}>{subject}</option>
               ))}
             </select>
+            <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+              </div>
           </div>
           {
             TutionDetails.Subjects.length !== 0 ? 
@@ -228,12 +227,17 @@ function isRomanAfter(roman1, roman2) {
         <div className="list-container">
           <div className='list-header-flx'>
             <label className="poppins-font">Select Boards</label>
-            <select onChange={HandleBoardSelect} className='create-tuition-select' aria-placeholder='Select boards '>
-              <option value=''>Select boards</option>
+            <div className='select-container'>
+            <select onChange={HandleBoardSelect} className='create-tuition-select select-box' aria-placeholder='Select boards '>
+              <option value=''>Boards</option>
                {boards.map((board,index) => (
-                <option key={index} value={board}>{board}</option>
-              ))}
+                 <option key={index} value={board}>{board}</option>
+                ))}
             </select>
+            <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+            </div>
           </div>
           {
             TutionDetails.Boards.length !== 0 ?
@@ -271,19 +275,31 @@ function isRomanAfter(roman1, roman2) {
             </div>
             <div className='header-flx'>
               <label>From:</label>
-              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange}>
+              <div className='select-container'>
+
+              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box'>
               {daysOfWeek.map((day) => (
                 <option value={day}>{day}</option>
               ))}
               </select>
+              <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+              </div>
+              </div>
             </div>
             <div className='header-flx'>
               <label>To:</label>
-              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange}>
+              <div className='select-container'>
+
+              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box'>
                 {daysOfWeek.map((day) => (
                   <option value={day}>{day}</option>
                 ))}
               </select>
+              <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+              </div>
+                </div>
             </div>
 
             <div>
@@ -291,25 +307,37 @@ function isRomanAfter(roman1, roman2) {
             </div>
           <div className='header-flx'>
             <label>Start Class:</label>
+            <div className='select-container'>
+
             <select 
             value={TutionDetails.startStd}
-             name="startStd" 
-             onChange={handleChange}
-             className='create-tuition-select'
-             required
-             >
+            name="startStd" 
+            onChange={handleChange}
+            className='create-tuition-select select-box'
+            required
+            >
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
+            <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+              </div>
+              </div>
           </div>
           <div className='header-flx'>
             <label>End Class:</label>
-            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select'>
+            <div className='select-container'>
+
+            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select select-box'>
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
+              <div className='drp-icon'>
+                <IoMdArrowDropdown size="1.6em"/>
+              </div>
+              </div>
           </div>
 
         </div>
@@ -328,7 +356,7 @@ function isRomanAfter(roman1, roman2) {
         }
       <button style={{all:"unset"}}>
 
-        <div className="create-button poppins-font" type="submit">
+        <div className="create-button" type="submit">
           <div className="submit-tuition">
             <PostAddIcon />
             <p>Create</p>

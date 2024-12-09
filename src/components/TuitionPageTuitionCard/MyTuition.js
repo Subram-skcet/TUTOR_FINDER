@@ -10,6 +10,14 @@ import axios from 'axios';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive'; 
+import { IoMdArrowDropdown } from "react-icons/io";
+import {convertTo12Hour} from '../../utils/TimeFormatConverter'
+import { FaRupeeSign } from "react-icons/fa";
+import { IoIosSave } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
 
 const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     const [TuitionDetails, setDetails] = useState({
@@ -145,12 +153,17 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         {
             isEditing ?
             <div className="isEditing-div">
-                <select onChange={HandleSubjectSelect}>
+              <div className='select-container'>
+                <select onChange={HandleSubjectSelect} className='select-box'>
                     <option value="">Add Subjects</option>
                     {asTeacher.subjects.map((subject,index)=>(
                       <option key={index} value={subject}>{subject}</option>
                     ))}
                  </select>
+                 <div className='drp-icon'>
+                  <IoMdArrowDropdown size="1.6em"/>
+                 </div>
+                </div>
                  {
                   TuitionDetails.subjects.length > 0 && 
                  <div className="selected-items gp">
@@ -173,18 +186,18 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         {
             isEditing?
             <div className="time-inputs">
-            <div className='inputs-flex'>
+            <div className='time-flex'>
                 <p>Start Time:</p>
                 <input type="time" name="duration" value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
             </div>
-            <div className='inputs-flex'>
+            <div className='time-flex'>
                 <p>End Time:</p>
                 <input type="time" name="duration" value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
             </div>
            </div>
             :
             <div className="tuition-value-div">
-                <p>{tuition.duration.join(' - ')}</p>
+               <p>{`${convertTo12Hour(tuition.duration[0])} - ${convertTo12Hour(tuition.duration[1])}`}</p>
             </div>
         }
 
@@ -197,29 +210,39 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className='days-inputs'>
                 {
                 <>
-                    <div className='inputs-flex'>
+                    <div className='days-flex'>
                         <div>
                             <label>From:</label>
                         </div>
-                        <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)}>
+                        <div className='select-container dys-slt-cntr'>
+                        <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)} className='select-box dt-select'>
                             {
-                                daysOfWeek.map((days)=>(
-                                    <option value={days}>{days}</option>
-                                ))
+                              daysOfWeek.map((days)=>(
+                                <option value={days}>{days}</option>
+                              ))
                             }
                         </select>
+                         <div className='drp-icon dt-drp'>
+                           <IoMdArrowDropdown size="1.6em"/>
+                         </div>
+                          </div>
                     </div>
-                    <div className='inputs-flex'>
+                    <div className='days-flex'>
                         <div>
                             <label>To:</label>
                         </div>
-                        <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)}>
-                            {
-                                daysOfWeek.map((days)=>(
-                                    <option value={days}>{days}</option>
-                                ))
-                            }
-                        </select>
+                        <div className='select-container dys-slt-cntr'>
+                          <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)} className='select-box dt-select'>
+                              {
+                                  daysOfWeek.map((days)=>(
+                                      <option value={days}>{days}</option>
+                                  ))
+                              }
+                          </select>
+                          <div className='drp-icon dt-drp'>
+                           <IoMdArrowDropdown size="1.6em"/>
+                          </div>
+                        </div>
                     </div>
                 </>
                 }
@@ -237,14 +260,19 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         {
             isEditing?
             <div className="isEditing-div">
-                <select name="boards" onChange={HandleBoardSelect}>
+              <div className='select-container'>
+                <select name="boards" onChange={HandleBoardSelect} className='select-box'>
                 <option value="">Select a board</option>
                 {
-                    boards.map((board)=>(
-                        <option value={board}>{board}</option>
-                    ))
+                  boards.map((board)=>(
+                    <option value={board}>{board}</option>
+                  ))
                 }
               </select>
+                <div className='drp-icon'>
+                            <IoMdArrowDropdown size="1.6em"/>
+                </div>
+              </div>
               {
               TuitionDetails.boards.length > 0 && 
               <div className="selected-items gp">
@@ -262,25 +290,35 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         </div>
         {isEditing?
           <div className="std-select">
-          <div className='inputs-flex'>
+          <div className='std-flex'>
             <label>From:</label>
-            <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)}>
+            <div className='select-container std-select-tag'>
+            <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)} className='select-box std-slt-cntr'>
               {
                 standards.map((standard)=>(
-                   <option value={standard}>{standard}</option>
+                  <option value={standard}>{standard}</option>
                 ))
               }
             </select>
+             <div className='drp-icon std-drp'>
+                  <IoMdArrowDropdown size="1.6em"/>
+              </div>
+            </div>
           </div>
-          <div className='inputs-flex'>
+          <div className='std-flex'>
             <label>To:</label>
-            <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)}>
+            <div className='select-container std-select-tag'>
+            <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)} className='select-box std-slt-cntr'>
                {
-                standards.map((standard)=>(
+                 standards.map((standard)=>(
                    <option value={standard}>{standard}</option>
-                ))
+                  ))
                 }
             </select>
+            <div className='drp-icon std-drp'>
+                  <IoMdArrowDropdown size="1.6em"/>
+              </div>
+            </div>
           </div>
         </div>
          :
@@ -298,7 +336,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
             :
             <div className="tuition-value-div">
-                <p>{tuition.fees}</p>
+                <p><FaRupeeSign size='0.8em'/>{tuition.fees}</p>
             </div>
          }
     </div>
@@ -307,13 +345,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                   <>
                   <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
                     <div className='itms-cntr style-links-updated sv-bck'>
-                      <SaveIcon />
+                    <IoIosSave size="1.45em"/>
                       <p>Save</p>
                     </div>
                   </button>
                   <button className='edit-prof-btn spz' onClick={() => handleCancelClick()}>
                     <div className='itms-cntr style-links-updated cncl-bck'>
-                      <CloseIcon />
+                    <MdCancel  size="1.45em"/> 
                       <p>Cancel</p>
                     </div>
                   </button>
@@ -322,13 +360,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                   <>
                     <button className='edit-prof-btn spz' onClick={() => handleEditClick()}>
                       <div className='itms-cntr style-links-updated ed-bck'>
-                        <EditIcon />
+                      <MdEdit  size="1.45em"/> 
                         <p>Edit</p>
                       </div>
                     </button>
                     <button className='edit-prof-btn spz' onClick={() => DeleteTuition(index)}>
                       <div className='itms-cntr style-links-updated del-bck'>
-                        <DeleteIcon />
+                      <MdDelete size="1.45em"/>
                         <p>Delete</p>
                       </div>
                     </button>

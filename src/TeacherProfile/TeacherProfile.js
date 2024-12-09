@@ -14,6 +14,9 @@ import { ThreeCircles } from 'react-loader-spinner'
 import DisplayRating from '../components/DisplayRating';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { handleModalSize } from '../utils/modalSize';
+import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
+
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -25,6 +28,7 @@ const TeacherProfile = () => {
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
   const [isDoable,setDoable] = useState(true)
+  const navigate = useNavigate()
 
   let props = location.state.profileDetails
 
@@ -64,6 +68,10 @@ const TeacherProfile = () => {
   const openLoginModel = () =>{
       setLoginModelOpen(true)  
   }
+
+  const navigateBack = () =>{
+    navigate('/searchtutor')
+   }
 
   const validateReview = (rating)=>{
       if(rating === 0){
@@ -164,6 +172,9 @@ const TeacherProfile = () => {
     <>
      <div className='top-wst'></div>
     <div className={`profile-page pt-serif-regular ${isLoginModalOpen? 'stator':''}`}>
+      <div className='pfp-pg-arrow-nav' onClick={navigateBack}>
+        <FaArrowLeft size="1.8em"/>
+      </div>
       <div className="profile-container">
         <div className="profile-header">
           <div className="profile-picture">
@@ -174,28 +185,28 @@ const TeacherProfile = () => {
         <div className='sps-container'>
 
         <div className="teacher-profile-details">
-          <div className="label">Name</div>
+          <div className="label">Name:</div>
           <div className="value">{props.name}</div>
           
-          <div className="label">Subject Handling</div>
+          <div className="label">Subjects Handling:</div>
           <div className="value">{props.subjects.join(', ')}</div>
           
-          <div className="label">Years of Experience</div>
+          <div className="label">Years of Experience:</div>
           <div className="value">{props.year_of_exp}</div>
 
-          <div className="label">Qualification</div>
+          <div className="label">Qualification:</div>
           <div className="value">{props.qualification}</div>
 
-          <div className="label">State</div>
+          <div className="label">State:</div>
           <div className="value">{props.state}</div>
 
-          <div className="label">District</div>
+          <div className="label">District:</div>
           <div className="value">{props.district}</div>
 
-          <div className="label">Email</div>
+          <div className="label">Email:</div>
           <div className="value">{props.email}</div>
 
-          <div className="label">Mobile Number</div>
+          <div className="label">Mobile Number:</div>
           <div className="value">{props.mobileno}</div>
 
           <div className="label">Number of Tuitions created:</div>

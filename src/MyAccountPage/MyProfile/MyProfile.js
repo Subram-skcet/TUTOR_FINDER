@@ -11,7 +11,10 @@ import { subjects,qualifications,stateDistricts } from '../../components/stateEx
 import SelectedSubject from '../AddTution/Subjects';
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-
+import { IoMdArrowDropdown } from "react-icons/io";
+import { MdCancel } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
+import { MdEdit } from "react-icons/md";
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -48,6 +51,8 @@ const MyProfile = () => {
 
   const districts = stateDistricts[editDetails.state] || [];
 
+  const textareaRef = useRef(null)
+
   const fetchTutionCountAndRating = async () => {
     try {
       const response = await axios.get(`/api/v1/teacher/`);
@@ -75,8 +80,17 @@ const MyProfile = () => {
   };
 
   useEffect(()=>{
+    console.log(profile);
+    
       fetchTutionCountAndRating()
   },[])
+
+  useEffect(() => {
+    if (isEditing && textareaRef.current) {
+            console.log("Focusing on textarea");
+            textareaRef.current.focus();
+    }
+}, [isEditing]);
 
   const HandleSubjectSelect = (e) => {
     if(errorText){
@@ -278,7 +292,7 @@ const MyProfile = () => {
   const handleIconClick = () => fileInputRef.current.click();
 
   return (
-    <div className="my-profile-page">
+    <div className="my-profile-page pt-serif-regular">
       <div className="my-profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
@@ -350,26 +364,37 @@ const MyProfile = () => {
                :
                <div className="value">{profile.year_of_exp}</div>
              }
-          <div className='label'>State</div>
+          <div className='label'>State:</div>
           {
             isEditing?
-            <div>
-                <select className='profile-select'  name='state' value={editDetails.state} onChange={handleStateChange} required>
+              <div className='select-container'>
+
+                <select 
+                   className='profile-select select-box'  
+                   name='state' 
+                   value={editDetails.state} 
+                   onChange={handleStateChange} 
+                   required>
                 {Object.keys(stateDistricts).map((state) => (
                   <option key={state} value={state}>
                     {state}
                   </option>
                 ))}
                 </select>
-            </div>
+                <div className='drp-icon'>
+                 <IoMdArrowDropdown size="1.6em"/>
+               </div>
+              
+                </div>
             :
             <div className='value'>{profile.state}</div>
           }
-          <div className='label'>District</div>
+          <div className='label'>District:</div>
           {
             isEditing?
-            <div>
-                <select className='profile-select' name='district' value={editDetails.district} onChange={handleChange} required>
+              <div className='select-container'>
+
+                <select className='profile-select select-box' name='district' value={editDetails.district} onChange={handleChange} required>
                 <option value="">-- select district --</option>
                 {districts.map((district) => (
                   <option key={district} value={district}>
@@ -377,37 +402,49 @@ const MyProfile = () => {
                   </option>
                  ))}
                 </select>
-            </div>
+              <div className='drp-icon'>
+                 <IoMdArrowDropdown size="1.6em"/>
+               </div>
+              </div>
             :
             <div className='value'>{profile.district}</div>
           }
-          <div className='label'>Qualification</div>
+          <div className='label'>Qualification:</div>
           {
             isEditing ?
-            <div>
-              <select className='profile-select' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
+            <div className='select-container'>
+              <select className='profile-select select-box' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
                 {
                   qualifications.map((qualification,index)=>(
                     <option key={index} value={qualification}>{qualification}</option>
                   ))
                 }
               </select>
+              <div className='drp-icon'>
+                 <IoMdArrowDropdown size="1.6em"/>
+               </div>
             </div>
             :
             <div className='value'>{profile.qualification}</div>
           }
 
 
-          <div className='subj-label'>My Subjects</div>
+          <div className='subj-label'>My Subjects:</div>
           {
             isEditing?
             <div className='subjects-list'>
-                <select className='profile-select add-subj' onChange={HandleSubjectSelect}>
+                <div className='select-container'>
+
+                <select className='profile-select add-subj select-box' onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
                     {subjects.map((subject,index)=>(
                       <option key={index} value={subject}>{subject}</option>
                     ))}
                  </select>
+                 <div className='drp-icon'>
+                 <IoMdArrowDropdown size="1.6em"/>
+                  </div>
+                    </div>
                  {
                   editDetails.subjects.length > 0 &&
                   <div className="selected-items">
@@ -423,11 +460,11 @@ const MyProfile = () => {
               </div>
           }
           {Object.entries({
-            'Number of Tutions': 'numOfTutions',
+            'Number of Tuitions': 'numOfTutions',
             'Average Rating': 'averageRating',
           }).map(([label, key]) => (
             <React.Fragment key={key}>
-              <div className="label">{label}</div>
+              <div className="label">{label}:</div>
               <div className="value">
                 {label === 'Average Rating' ? (
                   <div className="rating">
@@ -442,9 +479,10 @@ const MyProfile = () => {
           ))}
         </div>
         <div className="about-section">
-          <p className="about-heading">About</p>
+          <h2 className="my-prof-about-heading">About</h2>
           {isEditing ? (
             <textarea
+            ref={textareaRef}
               className="about-content"
               name="about"
               value={editDetails.about}
@@ -470,13 +508,13 @@ const MyProfile = () => {
         <div className='my-prof-isedit-btns-div'>
           <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
             <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
-              <SaveIcon /> 
+            <IoIosSave size="1.45em"/>
               <p>Save Profile</p>
             </div>
           </button>
           <button className="edit-prof-btn" onClick={handleCancelClick}>
             <div className='itms-cntr style-links-updated cncl-bck'>
-              <CloseIcon /> 
+            <MdCancel  size="1.45em"/> 
               <p>Cancel</p>
             </div>
           </button>
@@ -485,7 +523,7 @@ const MyProfile = () => {
           :
           <button className="edit-prof-btn">
             <div className='itms-cntr style-links-updated norm-style' onClick={handleEditClick}>
-              <EditIcon />
+            <MdEdit size="1.45em"/>
               <p>Edit Profile</p>
             </div>
           </button>

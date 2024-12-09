@@ -30,14 +30,14 @@
   color: white;
     margin-left: 1rem;
     margin-top: 2rem;
-    width: 150px;
-    height: 50px;
-    font-size: 20px;
-    background-color: rgb(255, 68, 0);
-    border-radius: 10px;
-    border: none;
-    font-weight: bolder;
-    cursor: pointer;
+    background-color: #de7321;
+      width: 140px;
+      height: 50px;
+      font-size: 20px;
+      border-radius: 10px;
+      border: none;
+      font-weight: bolder;
+      cursor: pointer;
   }
   .about-para{
     font-size: 30px;
@@ -101,10 +101,10 @@
    }
 
    .home-srch-btn{
-      width: 50vw;
-      height: 18vw;
-      font-size: 6vw;
-   }
+    width: 50vw;
+    height: 18vw;
+    font-size: 6vw;
+ }
 }
 
 @media (max-width:389px){

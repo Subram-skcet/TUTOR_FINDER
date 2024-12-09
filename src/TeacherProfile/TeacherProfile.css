@@ -314,17 +314,23 @@
     width: auto;
 }
 
+.pfp-pg-arrow-nav{
+    position: fixed;
+    left: 5rem;
+    top: 10rem;
+    cursor: pointer;
+}
+
 /* @media (max-width:425px) {
     .error-para-div{
         width: auto;
     }
 } */
 
-@media (min-width:426px) {
-    /* .profile-container{
-        background: linear-gradient(to top left,rgb(216, 206, 206),#4b35ec);
-        background: #68a5e1;
-    } */
+@media (max-width:1120px) {
+    .pfp-pg-arrow-nav{
+        display: none;
+    }
 }
 
 

@@ -50,21 +50,21 @@ const TeacherLogin = ({openLogin}) => {
   return (
     <div className='teacher-login-wrap'>
         <div>
-            <h2>Login to your EduQuest Teacher account</h2>
+            <h2 className='lato-bold'>Login to your EduQuest Teacher account</h2>
         </div>
       <form className='teacher-login-form'>
          <div>
-            <label className='login-teacher-label'>Email:</label>
+            <label className='login-teacher-label'><strong>Email:</strong></label>
             <input type='text' name='email' value={loginDetails.name} onChange={handleChange}/>
          </div>
          <div>
-            <label className='login-teacher-label'>Password:</label>
+            <label className='login-teacher-label'><strong>Password:</strong></label>
             <input type='password' name='password' value={loginDetails.password} onChange={handleChange}/>
          </div>
          <div className='submit-btn-div'>
              <button
                 type='submit'
-                className='submit-btn'
+                className='lg-btn poppins-font btn-cntr'
                 onClick={handleSubmit}
                 >
                 Log in

@@ -55,18 +55,18 @@ const LoginModal = () => {
 
     return (
         <div className="login-container modal-login">
-            <h2>You need to login to post a review</h2>
+            <h2 className='lato-bold'>You need to login to do this action</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email">Email:</label>
+                    <label htmlFor="email" className='pt-serif-regular'>Email:</label>
                     <input type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password" className='pt-serif-regular'>Password:</label>
                     <input type="password" id="password" name="password" value={userDetails.password} onChange={handleChange} />
                 </div>
-                <div className="form-group">
-                    <button type="submit">Log In</button>
+                <div>
+                    <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
                 </div>
             </form>
         </div>

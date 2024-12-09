@@ -2,6 +2,8 @@
 .create-button {
   display: flex;
   justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
 }
 
 .submit-tuition {
@@ -58,7 +60,6 @@
 }
 
 .create-tuition-select{
-  width: max-content;
   padding: 5px;
 }
 
@@ -76,6 +77,7 @@ input[type='time']{
   min-height:calc(100vh - var(--header-height));
   gap: 1rem;
   padding: 1rem 0px 1rem 0px;
+  position: relative;
 }
 
 .create-tuition-form{
@@ -103,6 +105,16 @@ input[type='time']{
 
 .at-gp{
   margin-top: 1rem;
+}
+.arrow-nav{
+  position: absolute;
+  cursor: pointer;
+  top: 5rem;
+  left: 5rem;
+}
+
+.crt-tut-sl-cntr{
+  width: 100px;
 }
 
 @media (max-width:550px) {

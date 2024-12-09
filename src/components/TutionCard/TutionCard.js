@@ -10,6 +10,8 @@ import LoginModal from '../LoginModal/LoginModal';
 import { extractDateFields } from '../../utils/getCreatedAt'
 import { toast } from 'react-toastify';
 import profileimg from '../../assets/17330480.png'
+import { convertTo12Hour } from '../../utils/TimeFormatConverter';
+import { FaRupeeSign } from "react-icons/fa";
 
 function TutionCard({tution,index,profilenavigate}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -59,7 +61,7 @@ function TutionCard({tution,index,profilenavigate}) {
 
     return (
         <>
-         <Modal isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
+         <Modal  childrenWidth={400} isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
             <LoginModal/>
         </Modal>
         <div className="tutor-card" key={index}>
@@ -111,7 +113,7 @@ function TutionCard({tution,index,profilenavigate}) {
                                 </p>
                             </div>
                             <div> 
-                              <p className='tution-card-para'><strong>Time:</strong>{tution.duration.join(' - ')}</p>
+                              <p className='tution-card-para'><strong>Time:</strong>{`${convertTo12Hour(tution.duration[0])} - ${convertTo12Hour(tution.duration[1])}`}</p>
                             </div>
                             <div>
                                <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
@@ -129,7 +131,7 @@ function TutionCard({tution,index,profilenavigate}) {
                             </div>
                             <div>
                                 <p className='tution-card-para '><strong>Fees:</strong> 
-                                <span className='rp'>₹{tution.fees}</span>
+                                <span className='rp'><FaRupeeSign size="0.85em"/>{tution.fees}</span>
                                 
                             </p>
                             </div>

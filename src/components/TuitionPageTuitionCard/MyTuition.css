@@ -16,14 +16,14 @@
 }
 
 .gp{
-    margin-top: 1rem;
+    margin-top: 5px;
 }
 
 .tuition-wrapper{
    width: 100%;
    display: flex;
    justify-content: space-between;
-   gap: 1rem;
+   gap:1rem;
    background: white;
    box-shadow: 1px 1px 5px blue;
    padding: 1rem;
@@ -34,8 +34,9 @@
     display: grid;
     grid-template-columns: max-content 1fr;
     column-gap: 1rem;
-    row-gap: 0.5rem;
+    row-gap: 2rem;
     align-items: center;
+    /* background: green; */
 }
 
 .time-inputs{
@@ -53,7 +54,7 @@
     gap: 1rem;
 }
 
-.inputs-flex{
+.time-flex,.days-flex,.std-flex{
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -83,9 +84,9 @@
     align-self: start;
 }
 
-.subject-label-div{
+/* .subject-label-div{
     align-self: start;
-}
+} */
 
 .tuition-grid-edited{
     display: flex;
@@ -97,13 +98,60 @@
     margin-top: 1rem;
 }
 
+.std-select-tag{
+    height: 30px;
+    width: max-content;
+}
+
+.isEditing-div{
+    /* background: red; */
+    width: 100%;
+}
+
+.dt-select{
+    width: max-content;
+}
+
+.dys-slt-cntr{
+    height: 35px;
+    /* font-size: 10px; */
+}
+
+.dt-drp{
+    width: 20px;
+}
+
+.std-slt-cntr{
+    /* height: 35px; */
+}
+
+.std-drp{
+    width: 20px;
+}
+
+@media (max-width:271px) {
+    .time-flex{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0rem;
+    }
+}
+
+@media (max-width:231px) {
+    .days-flex{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0rem;
+    }
+}
+
 @media (max-width:352px) {
     .gp{
         margin-top: 0;
     }
 }
 
-@media (max-width:400px) {
+@media (max-width:405px) {
     .tuition-grid{
         display: flex;
         flex-direction: column;
@@ -114,18 +162,19 @@
     .tuition-value-div{
         margin-bottom: 10px;
     }
-}
-
-@media (max-width:400px) {
-    .time-inputs{
-        display: flex;
-        flex-direction: column;
-    }
 
     .days-inputs{
         display: flex;
         flex-direction: column;
     }
+}
+
+@media (max-width:420px) {
+    .time-inputs{
+        display: flex;
+        flex-direction: column;
+    }
+
 }
 
 @media (max-width:700px) {
@@ -138,5 +187,10 @@
     }
     .mobile-icons{
         display: flex;
+    }
+}
+@media (max-width:290px) {
+    .std-select{
+        flex-direction: column;
     }
 }

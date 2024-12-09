@@ -34,12 +34,18 @@ const RegisterTeacher = ({openLogin}) => {
     }
   )
   const [verifiedEmail,setVerifiedEmail] = useState('')
-
+  
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [errorText,setErrorText] = useState('')
-
+  
   const navigate = useNavigate();
-
+  
+  const regbtnstyle = {
+    width: 'max-content',
+    display: 'block',
+    marginInline: 'auto'
+  };
+  
   const handleOtpSend = async()=>{
     if(!teacherDetails.email.trim()){
       setErrorText("Enter email to verify it")
@@ -306,7 +312,7 @@ const validateUser = () =>{
   return (
     <div className='teacher-signup-wrap'>
       <div>
-        <h2>Create your Teacher account in EduQuest</h2>
+        <h2 className='lato-bold'>Create your Teacher account in EduQuest</h2>
       </div>
 
     <div className='teacher-reg-wrap'>
@@ -314,11 +320,14 @@ const validateUser = () =>{
        <div className='teacher-det-wrap'>
 
         <div className='space-div'>
-          <label htmlFor='name'  className='register-label'>Name:</label>
+          <label htmlFor='name'  className='register-label'>
+            <strong>Name:</strong>
+            </label>
           <input
             type='text'
             name='name'
             id='name'
+            className='reg-tchr-pg-input'
             value={teacherDetails.name}
             onChange={handleChange}
             maxLength={20}
@@ -328,7 +337,9 @@ const validateUser = () =>{
 
         <div className='space-div'>
           <div className='email-label-flex'>
-          <label htmlFor='email' className='register-label'>Email:</label>
+          <label htmlFor='email' className='register-label'>
+           <strong> Email:
+            </strong></label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
               <div className='verified-icon'>
@@ -349,6 +360,7 @@ const validateUser = () =>{
             type='email'
             name='email'
             id='email'
+            className='reg-tchr-pg-input'
             value={teacherDetails.email}
             onChange={handleChange}
             pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -359,7 +371,7 @@ const validateUser = () =>{
           otpDetails.isVisible ?
         <div className="form-group">
           <div className='email-label-flex'>
-            <label>Enter otp:</label>
+            <label><strong> Enter otp: </strong></label>
             <p className='link-colour'  onClick={()=>handleOtpSubmit()}>Submit</p>
           </div>
           <div>
@@ -371,6 +383,7 @@ const validateUser = () =>{
                 type="text"
                 name="otp"
                 maxLength="1"
+                className='reg-tchr-pg-input'
                 value={otpDetails.otp[index]}
                 onChange={(e) => handleOtpChange(e.target, index)}
                 onKeyDown={(e) => handleBackspace(e, index)}
@@ -392,11 +405,12 @@ const validateUser = () =>{
           <div className='hide'></div>
         }
         <div className='space-div'>
-          <label htmlFor='password'  className='register-label'>Password:</label>
+          <label htmlFor='password'  className='register-label'><strong>Password:</strong></label>
           <input
             type='password'
             name='password'
             id='password'
+            className='reg-tchr-pg-input'
             value={teacherDetails.password}
             onChange={handleChange}
             minLength={5}
@@ -404,11 +418,13 @@ const validateUser = () =>{
           />
         </div>
         <div className='space-div'>
-          <label htmlFor='mobileno'  className='register-label'>Mobile No:</label>
+          <label htmlFor='mobileno'  className='register-label'>
+            <strong>Mobile No:</strong></label>
           <input
             type='tel'
             name='mobileno'
             id='mobileno'
+            className='reg-tchr-pg-input'
             value={teacherDetails.mobileno}
             pattern='^[0-9]{10}$'
             onChange={handleChange}
@@ -419,8 +435,9 @@ const validateUser = () =>{
         </div>
 
         <div className='space-div'>
-          <label htmlFor='qualification'  className='register-label'>Highest Qualification:</label>
-          <div className='select-container'>
+          <label htmlFor='qualification'  className='register-label'>
+            <strong>Highest Qualification:</strong></label>
+          <div className='select-container req-bx-slct-cntr'>
 
           <select
             name='qualification'
@@ -444,59 +461,82 @@ const validateUser = () =>{
 
 
         <div className='space-div'>
-          <label htmlFor='yoexp'   className='register-label'>Year Of Experience:</label>
+          <label htmlFor='yoexp'   className='register-label'><strong>Year Of Experience:</strong></label>
           <input
             type='number'
             name='year_of_exp'
             id='year_of_exp'
+            className='reg-tchr-pg-input'
             value={teacherDetails.year_of_exp}
             onChange={handleChange}
             required
           />
         </div>
         <div className='space-div'>
-          <label htmlFor='inputState'  className='register-label'>Select State:</label>
+          <label htmlFor='inputState'  className='register-label'>
+            <strong>Select State:</strong></label>
+          <div className='select-container req-bx-slct-cntr'>
+
           <select
             name='state'
             id='inputState'
+            className='select-box'
             value={teacherDetails.state}
             onChange={handleStateChange}
             required
-          >
-            <option value=''>Select State</option>
+            >
+            <option value=''>Select</option>
             {Object.keys(stateDistricts).map((state) => (
               <option key={state} value={state}>
                 {state}
               </option>
             ))}
           </select>
+          <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+            </div>
         </div>
         <div className='space-div'>
-          <label htmlFor='inputDistrict'  className='register-label'>Select District:</label>
+          <label htmlFor='inputDistrict'  className='register-label'>
+            <strong>Select District:</strong></label>
+          <div className='select-container req-bx-slct-cntr'>
           <select
             name='district'
             id='inputDistrict'
+            className='select-box'
             value={teacherDetails.district}
             onChange={handleChange}
             disabled={!teacherDetails.state}
             required
             >
-            <option value=''>-- select one --</option>
+            <option value=''>Select</option>
             {districts.map((district) => (
               <option key={district} value={district}>
                 {district}
               </option>
             ))}
           </select>
+          <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+          </div>
         </div>
         <div className="space-div">
-          <label  className='register-label'>Select Subjects you teach</label>
-          <select onChange={HandleSubjectSelect} required>
-            <option value="">Select a subject</option>
+          <label  className='register-label'>
+            <strong>Select Subjects you teach:</strong></label>
+          <div className='select-container req-bx-slct-cntr'>
+
+          <select onChange={HandleSubjectSelect} className='select-box' required>
+            <option value="">Select</option>
             {subjects.map((subject)=>
             <option value={subject}>{subject}</option>
-            )}
+          )}
           </select>
+          <div className='drp-icon'>
+              <IoMdArrowDropdown size="1.6em"/>
+            </div>
+          </div>
         </div >
         {
           teacherDetails.subjects.length > 0 &&
@@ -515,10 +555,11 @@ const validateUser = () =>{
                         <p className='errorText'>{errorText}</p>
           </div>
         }
-        <div className='submit-btn-div'>
+        <div>
           <button
             type='submit'
-            className='submit-btn'
+           className='poppins-font reg-btn'
+           style={regbtnstyle}
             >
             Register
           </button>
