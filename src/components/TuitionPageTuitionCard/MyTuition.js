@@ -120,12 +120,12 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                   <>
                   <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
                     <div className='itms-cntr style-links-updated sv-bck'>
-                      <SaveIcon fontSize="small"/>
+                    <IoIosSave size="1.45em"/>
                     </div>
                   </button>
                   <button className='edit-prof-btn spz' onClick={() => handleCancelClick()}>
                     <div className='itms-cntr style-links-updated cncl-bck'>
-                      <CloseIcon fontSize="small"/>
+                    <MdCancel  size="1.45em"/> 
                     </div>
                   </button>
                   </>
@@ -133,19 +133,19 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                   <>
                     <button className='edit-prof-btn spz' onClick={() => handleEditClick()}>
                       <div className='itms-cntr style-links-updated ed-bck'>
-                        <EditIcon fontSize="small"/>                     
+                      <MdEdit size="1.45em"/>                   
                       </div>
                     </button>
                     <button className='edit-prof-btn spz' onClick={() => DeleteTuition(index)}>
                       <div className='itms-cntr style-links-updated del-bck'>
-                        <DeleteIcon fontSize="small"/>
+                      <MdDelete size="1.45em"/>
                       </div>
                     </button>
                   </>
                 )}
         </div>
-
-      <div className={`${(isBelow626px && isEditing)? 'tuition-grid-edited':'tuition-grid'}`}>
+        
+        <div className={`${(isBelow626px && isEditing)? 'tuition-grid-edited':isEditing ? 'tuition-grid' : 'tuition-grid tuition-grid-nrml'}`}>
         <div className='subject-label-div'>
             <label className="poppins-font">Subjects:</label>
         </div>
@@ -188,11 +188,11 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className="time-inputs">
             <div className='time-flex'>
                 <p>Start Time:</p>
-                <input type="time" name="duration" value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
+                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
             </div>
             <div className='time-flex'>
                 <p>End Time:</p>
-                <input type="time" name="duration" value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
+                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
             </div>
            </div>
             :
@@ -332,7 +332,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
          {
             isEditing?
             <div className="isEditing-div">
-              <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className="fee-input"/> 
+              <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className="fees-input"/> 
             </div>
             :
             <div className="tuition-value-div">

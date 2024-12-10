@@ -8,6 +8,12 @@
     gap: 1rem;
 }
 
+.my-reviews-pg-reviews-container{
+    background: rgb(240, 240, 240);
+    padding: 10px;
+    border-radius: 5px;
+}
+
 /* Hide scrollbars but keep scrolling functionality */
 .reviews-section::-webkit-scrollbar {
     display: none; /* Hide scrollbar for WebKit browsers */

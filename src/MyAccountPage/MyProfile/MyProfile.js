@@ -320,7 +320,7 @@ const MyProfile = () => {
               isEditing ?
               <input
                   type='text'
-                   className="value"
+                   className="pfp-value"
                    name="name"
                    value={editDetails.name}
                    onChange={handleChange}
@@ -337,7 +337,7 @@ const MyProfile = () => {
               isEditing ?
               <input
                    type='tel'
-                   className="value"
+                   className="pfp-value"
                    name="mobileno"
                    value={editDetails.mobileno}
                    onChange={handleChange}
@@ -355,7 +355,7 @@ const MyProfile = () => {
               isEditing?
               <input
                    type='number'
-                   className="value"
+                   className="pfp-value"
                    name="year_of_exp"
                    value={editDetails.year_of_exp}
                    onChange={handleChange}

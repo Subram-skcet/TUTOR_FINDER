@@ -59,11 +59,11 @@ const LoginModal = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email" className='pt-serif-regular'>Email:</label>
-                    <input type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} />
+                    <input type="email" id="email" name="email" className='lg-mdl-inp' value={userDetails.email} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password" className='pt-serif-regular'>Password:</label>
-                    <input type="password" id="password" name="password" value={userDetails.password} onChange={handleChange} />
+                    <input type="password" id="password" name="password" className='lg-mdl-inp' value={userDetails.password} onChange={handleChange} />
                 </div>
                 <div>
                     <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>

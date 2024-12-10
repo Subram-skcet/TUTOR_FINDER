@@ -39,6 +39,10 @@
     /* background: green; */
 }
 
+.tuition-grid-nrml{
+    row-gap: 1rem;
+}
+
 .time-inputs{
     display: flex;
     gap: 1rem;
@@ -65,10 +69,6 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.fee-input{
-    width: 100px;
 }
 
 .mobile-icons{

@@ -45,7 +45,7 @@
     width: 100vw;
     height: max-content;
     padding: 20px;
-    background-color: pink;
+    background-color: white;
     z-index: 1001;
     position: absolute;
 }
@@ -54,7 +54,7 @@
     width: 100vw;
     height: auto;
     padding: 20px;
-    background-color: green;
+    background-color: white;
     z-index: 1001;
     position: absolute;
     top:50%;

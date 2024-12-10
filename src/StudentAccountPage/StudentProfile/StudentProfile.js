@@ -180,6 +180,7 @@ const StudentProfile = () => {
             <input
               type="text"
               name="name"
+              className='std-pfp-nm-inp'
               value={editDetails.name}
               onChange={handleChange}
               minLength={5}

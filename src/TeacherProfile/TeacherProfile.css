@@ -17,8 +17,8 @@
     text-align: center;
     margin-bottom: 20px;
     padding: 10px 0px 10px 0;
-    background: rgb(245, 245, 56);
-    border-top: 10px solid orange;
+    background: rgb(52, 103, 214);
+    border-top: 10px solid rgb(11, 36, 101);
 }
 
 .sps-container{
@@ -235,6 +235,8 @@
 }
 .profile-page-textarea{
     width: 100%;
+    border: 2px solid #ccc;
+
 }
 
 .profile-page-textarea:focus{
@@ -319,6 +321,11 @@
     left: 5rem;
     top: 10rem;
     cursor: pointer;
+}
+
+.prf-name{
+    color: white;
+    text-shadow: 1px 1px 1px black;
 }
 
 /* @media (max-width:425px) {

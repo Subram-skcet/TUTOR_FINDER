@@ -101,6 +101,29 @@ input[type='time']{
 .fees-input{
   width: 100px;
   height: 30px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  box-shadow: 0px 0px 5px black;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s
+}
+
+.fees-input:focus{
+  border-color: #007BFF; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Hide the spinner for WebKit browsers */
+.fees-input::-webkit-inner-spin-button,
+.fees-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Removes margin */
+}
+
+/* Hide the spinner for Firefox */
+.fees-input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .at-gp{
@@ -114,7 +137,46 @@ input[type='time']{
 }
 
 .crt-tut-sl-cntr{
-  width: 100px;
+  width: 50%;
+}
+
+.crt-tut-brd-slt-cnt{
+  width: 50%;
+}
+
+.time-tg-styl{
+  padding: 5px;
+  font-size: 16px;
+  /* color: #2114d5; */
+  background-color: rgb(255, 255, 255);
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px black;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.time-tg-styl:focus{
+  border-color: #007BFF;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5)
+}
+
+.time-tg-styl::-webkit-calendar-picker-indicator {
+  cursor: pointer; /* Pointer cursor for time picker icon */
+  filter: invert(50%); /* Adjust icon color (optional) */
+}
+
+@media (max-width:500px) {
+  .crt-tut-sl-cntr,.crt-tut-brd-slt-cnt{
+    width: 100%;
+  }
+}
+
+@media (max-width:1350px) {
+     .arrow-nav{
+      display: none;
+     }
 }
 
 @media (max-width:550px) {
