@@ -1,6 +1,6 @@
 // src/AddTution.js
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SelectedSubject from './Subjects';
 import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaMapMarkedAlt } from "react-icons/fa";
+import Modal from '../../components/Modal/Modal';
+import MapComponent from '../../components/TeacherMap/AMapSample';
 
 
 const AddTution = () => {
@@ -29,10 +33,34 @@ const AddTution = () => {
     startDay: 'Monday',
     endDay: 'Monday',
     Fees: '',
-    Boards: [],
+    Boards: []
   });
 
   const [errorText,setErrorText] = useState('')
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [isMapOpen,setMapOpen] = useState(false)
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lng: longitude });
+          setErrorText('');
+        },
+        (err) => {
+          setErrorText(err.message);
+        }
+      );
+    } else {
+      setErrorText("Geolocation is not supported by this browser.");
+    }
+  };
+
+  useEffect(()=>{
+       console.log(location.lat , location.lng);
+       
+  },[location])
 
   const handleChange = (e) => {
     if(errorText){
@@ -91,6 +119,13 @@ const AddTution = () => {
     }));
   };
 
+  const setLatLngfromChd = (lat,lng) =>{
+    setLocation({
+      lat,lng
+    })
+      // alert(lat,lng)
+  }
+
 
 function isTimeAfter(time1, time2) {
   const today = new Date().toISOString().slice(0, 10);
@@ -125,7 +160,7 @@ const navigateBack = () =>{
 }
 
   const ValidateTuition = () =>{
-      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim()){
+      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim() || !location.lat  || !location.lng){
         setErrorText("Please fill all fields")
         return false;
       }
@@ -139,6 +174,7 @@ const navigateBack = () =>{
          setErrorText("Please choose atleast one board")
          return false
        }
+
 
        if(!isTimeAfter(TutionDetails.endTime,TutionDetails.startTime)){
          setErrorText("End Time cannot be less than or equal to start Time")
@@ -170,6 +206,7 @@ const navigateBack = () =>{
           standard: [TutionDetails.startStd, TutionDetails.endStd],
           fees: TutionDetails.Fees,
           boards: TutionDetails.Boards,
+          location:[location.lat,location.lng]
         });
         console.log(response);
         
@@ -189,6 +226,10 @@ const navigateBack = () =>{
   };
 
   return (
+    <>
+      <Modal childrenWidth={400}  isopen={isMapOpen} onClose={()=>setMapOpen(false)}>
+        <MapComponent setLatLng = {setLatLngfromChd}/>
+      </Modal>
     <div className="create-tuition-container">
       <div className='arrow-nav' onClick={navigateBack}>
         <FaArrowLeft size="1.8em"/>
@@ -215,7 +256,7 @@ const navigateBack = () =>{
           </div>
           {
             TutionDetails.Subjects.length !== 0 ? 
-          <div className="selected-items at-gp">
+            <div className="selected-items at-gp">
             {TutionDetails.Subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
             ))}
@@ -265,7 +306,7 @@ const navigateBack = () =>{
                  value={TutionDetails.startTime}
                  onChange={handleChange}
                  required
-              />
+                 />
             </div>
             <div className='header-flx'>
               <label>End Time:</label>
@@ -350,6 +391,22 @@ const navigateBack = () =>{
            </div>
         </div>
 
+        <div className='header-flx'>
+              <label className='poppins-font'>Location:</label>
+              {
+                (!location.lat || !location.lng)?
+                  <div className='location-choose-btn'>
+                      <button onClick={getLocation}>Choose current location</button>
+                      <button onClick={()=> setMapOpen(true)}>Choose on Map</button>
+                  </div>
+                :
+                 <div>
+                    <p>Location added</p>
+                    <button onClick={()=>{ setLocation({ lat: null, lng: null});}}>Change location</button>
+                 </div>
+              }
+        </div>
+
         {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
@@ -369,6 +426,7 @@ const navigateBack = () =>{
       </button>
       </form>
     </div>
+        </>
   );
 };
 

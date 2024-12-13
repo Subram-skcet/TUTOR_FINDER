@@ -10,6 +10,7 @@ import Route from './Routes/Route'
 import WelcomePage from './WelcomeInstructor/WelcomePage';
 import AboutPage from './components/AboutPage/About';
 import App from './App';
+import AMapSample from './'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,11 +18,12 @@ root.render(
   <React.StrictMode>
     <DataLayer initialState={initialState} reducer={reducer}>
       <BrowserRouter>
-        <Route/>
+      <Route/>
     </BrowserRouter>
     </DataLayer>
   </React.StrictMode>
   </>
+    // <AMapSample/>
         // <App/>
   //  <AboutPage/>
       //  <WelcomePage/>

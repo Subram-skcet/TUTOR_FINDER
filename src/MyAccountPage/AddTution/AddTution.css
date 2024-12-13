@@ -167,6 +167,11 @@ input[type='time']{
   filter: invert(50%); /* Adjust icon color (optional) */
 }
 
+.location-choose-btn{
+  display: flex;
+  gap: 1rem;
+}
+
 @media (max-width:500px) {
   .crt-tut-sl-cntr,.crt-tut-brd-slt-cnt{
     width: 100%;

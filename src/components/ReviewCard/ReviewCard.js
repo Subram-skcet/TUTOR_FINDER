@@ -140,12 +140,6 @@ const handleSaveClick = async() =>{
     return (
         <div className="review-card">
            <div className="my-reviews-page-flex-div">
-                <div className="header">
-                    <div className="pfp-pg-img-div">
-                      <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
-                    </div>
-                    <div className="name">{review.createdBy.name}</div>
-                </div>
                 {location.pathname === '/myaccount/studentprofile/myreviews' ? 
                 <>
                     <div className="reviews-page-options-icons">
@@ -169,9 +163,6 @@ const handleSaveClick = async() =>{
                             </>
                             }
                     </div>
-                    <div>
-                        <ArrowRightAltIcon fontSize="large"/>
-                    </div>
                     <div className="header">
                     <div className="pfp-pg-img-div">
                         <img src={review.createdFor.profilepic} alt="Profile" className="profilePic" />
@@ -180,7 +171,12 @@ const handleSaveClick = async() =>{
                     </div>
                 </>
                 :
-                 <></>
+                <div className="header">
+                    <div className="pfp-pg-img-div">
+                    <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
+                    </div>
+                    <div className="name">{review.createdBy.name}</div>
+                </div>
                  }
            </div>
              {

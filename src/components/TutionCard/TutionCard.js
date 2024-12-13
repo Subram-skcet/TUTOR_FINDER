@@ -12,6 +12,8 @@ import { toast } from 'react-toastify';
 import profileimg from '../../assets/17330480.png'
 import { convertTo12Hour } from '../../utils/TimeFormatConverter';
 import { FaRupeeSign } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import StudentSideMap  from '../StudentMap/StudentSideMap'
 
 function TutionCard({tution,index,profilenavigate}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -22,6 +24,7 @@ function TutionCard({tution,index,profilenavigate}) {
         return false
     })
     const [isLoginModalOpen,setLoginModelOpen] = useState(false)
+    const [isMapOpen,setMapOpen] = useState(false)
 
     const BookMarkTution = async() =>{
         if(!logged){
@@ -63,6 +66,9 @@ function TutionCard({tution,index,profilenavigate}) {
         <>
          <Modal  childrenWidth={400} isopen={isLoginModalOpen} onClose={()=>setLoginModelOpen(false)}>
             <LoginModal/>
+        </Modal>
+        <Modal  childrenWidth={400} isopen={isMapOpen} onClose={()=>setMapOpen(false)}>
+            <StudentSideMap lat={tution.location[0]} lng={tution.location[1]}/>
         </Modal>
         <div className="tutor-card" key={index}>
         <div className='date-div'>
@@ -118,6 +124,15 @@ function TutionCard({tution,index,profilenavigate}) {
                             <div>
                                <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
                             </div>
+                            <div>
+                               <p className='tution-card-para'><strong>Location:</strong>
+                               {/* See location on map */}
+                               <button onClick={()=>setMapOpen(true)}>
+                               <FaLocationDot/>
+                               </button>
+                                {/* {tution.location.join(' - ')} */}
+                               </p>
+                            </div>
                         </div>
                         <div className="tution-sub-info-2">
                             <div>
@@ -127,7 +142,7 @@ function TutionCard({tution,index,profilenavigate}) {
                                <p className='tution-card-para'><strong>Board:</strong> {tution.boards.join(', ')}</p>
                             </div>
                             <div>
-                               <p className='tution-card-para'><strong>Location:</strong>{tution.createdBy.district} , {tution.createdBy.state}</p>
+                               <p className='tution-card-para'><strong>Place:</strong>{tution.createdBy.district} , {tution.createdBy.state}</p>
                             </div>
                             <div>
                                 <p className='tution-card-para '><strong>Fees:</strong> 
