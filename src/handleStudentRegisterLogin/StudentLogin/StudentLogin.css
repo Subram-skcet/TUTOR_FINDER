@@ -35,7 +35,6 @@
     }
     
     .eye-icon{
-        display: flex;
         cursor: pointer;
   }
   
@@ -81,10 +80,9 @@
   position: relative;
 }
 
-.lg-std-inp{
-    width: 100%;
-    padding-right: 3rem; 
-    border: 2px solid #ccc;
+.password-container input {
+width: 100%;
+padding-right: 3rem; 
 }
 
 @media (max-width:800px) {

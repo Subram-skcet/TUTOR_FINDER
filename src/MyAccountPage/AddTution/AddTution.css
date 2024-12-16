@@ -101,29 +101,6 @@ input[type='time']{
 .fees-input{
   width: 100px;
   height: 30px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 2px solid #ccc;
-  box-shadow: 0px 0px 5px black;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s
-}
-
-.fees-input:focus{
-  border-color: #007BFF; /* Blue border on focus */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* Hide the spinner for WebKit browsers */
-.fees-input::-webkit-inner-spin-button,
-.fees-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0; /* Removes margin */
-}
-
-/* Hide the spinner for Firefox */
-.fees-input[type="number"] {
-  -moz-appearance: textfield;
 }
 
 .at-gp{
@@ -165,6 +142,11 @@ input[type='time']{
 .time-tg-styl::-webkit-calendar-picker-indicator {
   cursor: pointer; /* Pointer cursor for time picker icon */
   filter: invert(50%); /* Adjust icon color (optional) */
+}
+
+.location-choose-btn{
+  display: flex;
+  gap: 1rem;
 }
 
 @media (max-width:500px) {

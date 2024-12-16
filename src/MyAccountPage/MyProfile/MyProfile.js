@@ -166,8 +166,8 @@ const MyProfile = () => {
        return false
     }
 
-    if(editDetails.name.length < 5){
-      setErrorText("Name should be atleast 5 characters")
+    if(editDetails.name.length < 3){
+      setErrorText("Name should be atleast 3   characters")
       return false
     }
 
@@ -186,8 +186,8 @@ const MyProfile = () => {
       return false;
     }
 
-    if(editDetails.year_of_exp < 0){
-      setErrorText("Experience cannot be less than 0 years");
+    if(editDetails.year_of_exp < 0 || editDetails.year_of_exp >100){
+      setErrorText("Please enter a valid years of experience");
       return false;
     }
 
@@ -320,11 +320,11 @@ const MyProfile = () => {
               isEditing ?
               <input
                   type='text'
-                   className="pfp-value"
+                   className="value"
                    name="name"
                    value={editDetails.name}
                    onChange={handleChange}
-                   minLength={5}
+                   minLength={3}
                    maxLength={20}
                    required
                />
@@ -337,7 +337,7 @@ const MyProfile = () => {
               isEditing ?
               <input
                    type='tel'
-                   className="pfp-value"
+                   className="value"
                    name="mobileno"
                    value={editDetails.mobileno}
                    onChange={handleChange}
@@ -355,7 +355,7 @@ const MyProfile = () => {
               isEditing?
               <input
                    type='number'
-                   className="pfp-value"
+                   className="value"
                    name="year_of_exp"
                    value={editDetails.year_of_exp}
                    onChange={handleChange}
@@ -395,7 +395,7 @@ const MyProfile = () => {
               <div className='select-container'>
 
                 <select className='profile-select select-box' name='district' value={editDetails.district} onChange={handleChange} required>
-                <option value="">-- select district --</option>
+                <option value="">Select</option>
                 {districts.map((district) => (
                   <option key={district} value={district}>
                     {district}

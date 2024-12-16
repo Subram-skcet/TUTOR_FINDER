@@ -8,10 +8,6 @@
     gap: 1rem;
 }
 
-.lg-mdl-inp{
-    border: 2px solid #ccc;
-}
-
 @media (max-width:440px) {
     .login-container{
         width: 100%;

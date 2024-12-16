@@ -33,7 +33,8 @@ const RegisterTeacher = ({openLogin}) => {
       isVerified:false,
     }
   )
-  const [verifiedEmail,setVerifiedEmail] = useState('')
+  const [verifyLinkMail,setVerifyLinkMail] = useState(null)
+  const [verifiedEmail,setVerifiedEmail] = useState(null)
   
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [errorText,setErrorText] = useState('')
@@ -65,6 +66,7 @@ const RegisterTeacher = ({openLogin}) => {
         }
       )
       if(response.status === 201){
+        setVerifyLinkMail(teacherDetails.email)
         toast.info("OTP has sent to your mail. Enter it below. Valid for only 15 minutes.");
         setOtpDetails((prevDetails)=>({
           ...prevDetails,
@@ -100,6 +102,10 @@ const handleOtpSubmit = async() => {
   if(otpDetails.otp.join('').length !== 6){
     setErrorText("Enter all digits to verify the otp")
     return;
+  }
+  if(!(teacherDetails.email === verifyLinkMail)){
+     setErrorText("Enter email for which the verify link sent or verify this new email")
+     return
   }
 
   try {
@@ -201,6 +207,11 @@ const validateUser = () =>{
        if(teacherDetails.mobileno.length !== 10){
           setErrorText("Mobile number should have 10 digits")
           return false;
+       }
+       
+       if(teacherDetails.year_of_exp<0 || teacherDetails.year_of_exp>100){
+         setErrorText("Please enter valid Years of Experience")
+         return false
        }
 
        if(!otpDetails.isVerified){
@@ -330,6 +341,7 @@ const validateUser = () =>{
             className='reg-tchr-pg-input'
             value={teacherDetails.name}
             onChange={handleChange}
+            minLength={3}
             maxLength={20}
             required
             />

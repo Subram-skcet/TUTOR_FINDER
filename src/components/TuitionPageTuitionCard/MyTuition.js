@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './MyTuition.css'
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import { subjects,daysOfWeek,boards,standards } from '../stateExporter';
@@ -17,7 +17,11 @@ import { IoIosSave } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-
+import StudentSideMap from '../StudentMap/StudentSideMap'
+import MapComponent from '../TeacherMap/AMapSample';
+import Modal from '../Modal/Modal'
+import { IoMdCheckmarkCircle } from "react-icons/io";
+import { FaMapLocationDot } from "react-icons/fa6";
 
 const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     const [TuitionDetails, setDetails] = useState({
@@ -26,12 +30,54 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         days:[],
         fees: 0,
         boards: [],
-        standard:[]
+        standard:[],
+        location:[]
       });
     const [isEditing,setIsEditing] = useState(false)
     const [{asTeacher},dispatch] = useDataLayerValue()
     const isBelow626px = useMediaQuery({ query: '(max-width: 626px)' })
     const isBelow400px = useMediaQuery({ query: '(max-width: 400px)' })
+    const [isCurrentLocMapOpen,setCurrentLocMapOpen] = useState(false)
+    const [isUpdateLocMapOpen,setUpdateLocMapOpen] = useState(false)
+    const [location, setLocation] = useState({ lat: null, lng: null });
+    
+    
+    
+    useEffect(()=>{
+        if(location.lat && location.lng){
+          setDetails((prevDetails)=>({
+            ...prevDetails,
+            location:[location.lat,location.lng]
+          }))
+          console.log("Location Updated")
+        }
+    },[location])
+
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const { latitude, longitude } = position.coords;
+            setLocation({ lat: latitude, lng: longitude });
+            toast.info("Ensure that the correct location of the tuition is displayed on the map if you set location by 'Current location'")
+          },
+          (err) => {
+            toast.error(err.message);
+          },
+          { enableHighAccuracy: true }
+        );
+      } else {
+        toast.info("Geolocation is not supported by this browser.");
+      }
+    };
+    
+    const setLatLngfromChd = (lat,lng) =>{
+      console.log(lat,lng);
+      
+      setLocation({
+        lat,lng
+      })
+    }
 
     const HandleSubjectSelect = (e) => {
         const selectedSubject = e.target.value;
@@ -93,13 +139,17 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         console.log(editTution);
         setDetails(editTution)
         console.log(TuitionDetails);
+        setLocation({ lat: null, lng: null })
         setIsEditing(true)
       };
       const handleCancelClick = () =>{
          setIsEditing(false);
       }
+
     
       const handleSaveClick = async (index) => {
+        console.log(location);
+        
         SaveTuition(TuitionDetails,index)
         setIsEditing(false);
       };
@@ -114,18 +164,25 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     };
 
   return (
+    <>
+     <Modal  childrenWidth={400} isopen={isCurrentLocMapOpen} onClose={()=>setCurrentLocMapOpen(false)}>
+            <StudentSideMap lat={tuition.location[0]} lng={tuition.location[1]}/>
+     </Modal>
+     <Modal childrenWidth={400}  isopen={isUpdateLocMapOpen} onClose={()=>setUpdateLocMapOpen(false)}>
+        <MapComponent setLatLng = {setLatLngfromChd}/>
+      </Modal>
     <div className='tuition-wrapper'>
       <div className='mobile-icons'>
                 {isEditing?(
                   <>
                   <button className='edit-prof-btn spz' onClick={() => handleSaveClick(index)}>
                     <div className='itms-cntr style-links-updated sv-bck'>
-                    <IoIosSave size="1.45em"/>
+                      <SaveIcon fontSize="small"/>
                     </div>
                   </button>
                   <button className='edit-prof-btn spz' onClick={() => handleCancelClick()}>
                     <div className='itms-cntr style-links-updated cncl-bck'>
-                    <MdCancel  size="1.45em"/> 
+                      <CloseIcon fontSize="small"/>
                     </div>
                   </button>
                   </>
@@ -133,19 +190,19 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                   <>
                     <button className='edit-prof-btn spz' onClick={() => handleEditClick()}>
                       <div className='itms-cntr style-links-updated ed-bck'>
-                      <MdEdit size="1.45em"/>                   
+                        <EditIcon fontSize="small"/>                     
                       </div>
                     </button>
                     <button className='edit-prof-btn spz' onClick={() => DeleteTuition(index)}>
                       <div className='itms-cntr style-links-updated del-bck'>
-                      <MdDelete size="1.45em"/>
+                        <DeleteIcon fontSize="small"/>
                       </div>
                     </button>
                   </>
                 )}
         </div>
-        
-        <div className={`${(isBelow626px && isEditing)? 'tuition-grid-edited':isEditing ? 'tuition-grid' : 'tuition-grid tuition-grid-nrml'}`}>
+
+      <div className={`${(isBelow626px && isEditing)? 'tuition-grid-edited':'tuition-grid'}`}>
         <div className='subject-label-div'>
             <label className="poppins-font">Subjects:</label>
         </div>
@@ -165,8 +222,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                  </div>
                 </div>
                  {
-                  TuitionDetails.subjects.length > 0 && 
-                 <div className="selected-items gp">
+                   TuitionDetails.subjects.length > 0 && 
+                   <div className="selected-items gp">
                     {TuitionDetails.subjects.map((subject) => (
                       <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
                     ))}
@@ -188,11 +245,11 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className="time-inputs">
             <div className='time-flex'>
                 <p>Start Time:</p>
-                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
+                <input type="time" name="duration" value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
             </div>
             <div className='time-flex'>
                 <p>End Time:</p>
-                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
+                <input type="time" name="duration" value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
             </div>
            </div>
             :
@@ -209,7 +266,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             isEditing ?
             <div className='days-inputs'>
                 {
-                <>
+                  <>
                     <div className='days-flex'>
                         <div>
                             <label>From:</label>
@@ -234,9 +291,9 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                         <div className='select-container dys-slt-cntr'>
                           <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)} className='select-box dt-select'>
                               {
-                                  daysOfWeek.map((days)=>(
-                                      <option value={days}>{days}</option>
-                                  ))
+                                daysOfWeek.map((days)=>(
+                                  <option value={days}>{days}</option>
+                                ))
                               }
                           </select>
                           <div className='drp-icon dt-drp'>
@@ -248,7 +305,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 }
             </div>
                :
-                    <div className="tuition-value-div">
+               <div className="tuition-value-div">
                         <p>{tuition.days.join(' - ')}</p>
                     </div>
         }
@@ -274,8 +331,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 </div>
               </div>
               {
-              TuitionDetails.boards.length > 0 && 
-              <div className="selected-items gp">
+                TuitionDetails.boards.length > 0 && 
+                <div className="selected-items gp">
                 {TuitionDetails.boards.map((board) => (
                   <SelectedSubject key={board} Subject={board} delFunction={HandleBoardRemove} />
                 ))}
@@ -284,7 +341,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             </div>
             :
             <div className="tuition-value-div"><p>{tuition.boards.join(', ')}</p></div>
-        }
+          }
         <div className={`${(isBelow626px && isEditing)? 'isEditing-label':''}`}>
             <label className="poppins-font">Standard:</label>
         </div>
@@ -330,8 +387,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <label className="poppins-font">Fees:</label> 
          </div>
          {
-            isEditing?
-            <div className="isEditing-div">
+           isEditing?
+           <div className="isEditing-div">
               <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className="fees-input"/> 
             </div>
             :
@@ -339,6 +396,34 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 <p><FaRupeeSign size='0.8em'/>{tuition.fees}</p>
             </div>
          }
+         <div>
+           <label className='poppins-font'>Location:</label>
+         </div>
+         {
+          isEditing?
+          (!location.lat || !location.lng)?
+
+          <div className='location-choose-btn'>
+            <button onClick={getLocation}>Current location</button>
+            <button onClick={()=> setUpdateLocMapOpen(true)}>Choose on Map</button>
+          </div>
+
+          :
+          <div className='loc-ad-div'>
+                <p>Location added</p>
+                <div className='loc-ad-ic'>
+                  <IoMdCheckmarkCircle size="1.2em"/>
+                </div>
+           </div>
+          :
+          <button onClick={()=>setCurrentLocMapOpen(true)}>
+            <div className='see-loc-div'>
+                <FaMapLocationDot size="1.3em"/>
+                <p>See Location</p>
+            </div>
+            
+            </button>
+        }
     </div>
         <div className='tution-options'>
                 {isEditing?(
@@ -374,6 +459,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 )}
         </div>
     </div>
+                  </>
   )
 }
 

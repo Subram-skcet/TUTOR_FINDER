@@ -5,7 +5,7 @@
     padding: 16px;
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     background-color: #97caf6;
+     background-color: #a4a4a4;
      /* background-color: #797979; */
 
   }
@@ -42,10 +42,8 @@
   }
 
   .name {
-    font-size: 17px;
-    width: fit-content;
+    font-size: 18px;
     font-weight: bold;
-    word-break: break-word;
   }
   
   .rating {
@@ -62,7 +60,7 @@
   .review-div {
     margin-bottom: 12px;
     font-size: 16px;
-    width: 100%;background: #53a6ef;
+    width: 100%;background: rgb(125, 125, 125);
     height: max-content;
     word-break: break-word;
     padding: 10px;
@@ -108,10 +106,10 @@
   .my-reviews-page-flex-div{
     display: flex;
     align-items: center;
-    gap:0;
+    gap:1rem;
   }
 .review-card{
-  padding-top: 1.8rem;
+  /* padding-top: 1.8rem; */
   position: relative;
 }
 .reviews-page-options-icons{
@@ -160,7 +158,6 @@
   outline: none;
   font-size: 17.5px;
   margin-bottom: 12px;
-  border: 2px solid #ccc;
 }
 
 .review-pg-txtarea:focus{
@@ -222,6 +219,14 @@
   bottom: 0.5rem;
 }
 
+<<<<<<< Updated upstream
+=======
+@media (max-width:273px) {
+  .review-card{
+    padding-top: 1.8rem;
+  }
+}
+
 @media (max-width:350px) {
   .my-reviews-page-flex-div{
     flex-direction: column;
@@ -229,6 +234,7 @@
   }
 }
 
+>>>>>>> Stashed changes
 @media (max-width: 530px) {
   .review-card {
       transform: scale(0.97); /* Scales down to 80% of the original size */
@@ -236,7 +242,7 @@
   }
 }
 
-/* @media (max-width: 400px) {
+@media (max-width: 400px) {
   .my-reviews-page-flex-div{
     gap: 0;
   }
@@ -245,5 +251,5 @@
     top: auto;
     bottom: 1.5rem;
   }
-} */
+}
 

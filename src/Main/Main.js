@@ -9,6 +9,7 @@ import { ThreeCircles } from 'react-loader-spinner'
 const Main = () => {
   const location = useLocation();
   const [results, setResults] = useState([]);
+  const [isAnyModalOpen,setModalOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate();
 
@@ -39,10 +40,15 @@ const Main = () => {
       fetchData({});
   }, []);
 
+  useEffect(()=>{
+  console.log(isAnyModalOpen);
+  
+  },[isAnyModalOpen])
+
   return (
     <>
       <div className='top-wst'></div>
-      <div className="container">
+      <div className={`container ${isAnyModalOpen ? 'stator':''}`}>
         <div className='search-prt'>
           <h1 className='main-pg-h1 lato-bold'>Filter Your Search</h1>
           <Search onSearch={fetchData} />
@@ -71,7 +77,7 @@ const Main = () => {
               </div>
               ) : (
               results.map((result,index) => (
-                  <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
+                  <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
                 ))
               )}
             </div>

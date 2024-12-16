@@ -39,10 +39,6 @@
     /* background: green; */
 }
 
-.tuition-grid-nrml{
-    row-gap: 1rem;
-}
-
 .time-inputs{
     display: flex;
     gap: 1rem;
@@ -69,6 +65,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.fee-input{
+    width: 100px;
 }
 
 .mobile-icons{
@@ -127,6 +127,25 @@
 
 .std-drp{
     width: 20px;
+}
+
+.loc-ad-div{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.loc-ad-ic{
+    display: flex;
+    color: green;
+}
+
+.see-loc-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
 }
 
 @media (max-width:271px) {

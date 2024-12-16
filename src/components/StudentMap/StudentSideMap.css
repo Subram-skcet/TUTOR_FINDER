@@ -1,0 +1,17 @@
+.std-map-wrp{
+     width:800px;
+     height: 500px;
+     margin-top: 1rem;
+}
+
+@media (max-width:850px) {
+    .std-map-wrp{
+        width: 90vw;
+    }   
+}
+
+@media (max-width:425px) {
+    .std-map-wrp{
+        height: 92vh;
+    } 
+}

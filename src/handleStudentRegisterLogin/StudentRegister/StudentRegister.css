@@ -91,10 +91,6 @@
     display: none;
 }
 
-.reg-std-inp{
-    border: 2px solid #ccc;
-}
-
 @media (max-width:426px) {
     .submit-mob{
         display: block;

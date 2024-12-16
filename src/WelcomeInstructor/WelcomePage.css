@@ -1,7 +1,6 @@
 
 .stator{
-    height: calc(100vh - 70px);
-    overflow: hidden;
+    position: fixed;
 }
 
 .welcome-part-one{

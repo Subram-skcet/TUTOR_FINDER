@@ -67,6 +67,8 @@ const MyTution = () => {
   };
 
   const handleSaveClick = async (TuitionDetails, index) => {
+    console.log(TuitionDetails);
+    
     let updatedTution = TuitionDetails
     try {
       // Include createdBy in the updated tution data

@@ -1,6 +1,6 @@
 // src/AddTution.js
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SelectedSubject from './Subjects';
 import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
@@ -14,6 +14,10 @@ import { FaArrowLeft } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaMapMarkedAlt } from "react-icons/fa";
+import Modal from '../../components/Modal/Modal';
+import MapComponent from '../../components/TeacherMap/AMapSample';
 
 
 const AddTution = () => {
@@ -29,10 +33,35 @@ const AddTution = () => {
     startDay: 'Monday',
     endDay: 'Monday',
     Fees: '',
-    Boards: [],
+    Boards: []
   });
 
   const [errorText,setErrorText] = useState('')
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [isMapOpen,setMapOpen] = useState(false)
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lng: longitude });
+          setErrorText('');
+        },
+        (err) => {
+          setErrorText(err.message);
+        },
+        { enableHighAccuracy: true }
+      );
+    } else {
+      setErrorText("Geolocation is not supported by this browser.");
+    }
+  };
+
+  useEffect(()=>{
+       console.log(location.lat , location.lng);
+       
+  },[location])
 
   const handleChange = (e) => {
     if(errorText){
@@ -50,7 +79,7 @@ const AddTution = () => {
       setErrorText('')
     }
     const selectedSubject = e.target.value;
-    if (selectedSubject.length>0 && !TutionDetails.Subjects.includes(selectedSubject)) {
+    if (!TutionDetails.Subjects.includes(selectedSubject)) {
       setDetails((prevDetails) => ({
         ...prevDetails,
         Subjects: [...prevDetails.Subjects, selectedSubject],
@@ -73,7 +102,7 @@ const AddTution = () => {
       setErrorText('')
     }
     const selectedBoard = e.target.value;
-    if (selectedBoard.length>0 && !TutionDetails.Boards.includes(selectedBoard)) {
+    if (!TutionDetails.Boards.includes(selectedBoard)) {
       setDetails((prevDetails) => ({
         ...prevDetails,
         Boards: [...prevDetails.Boards, selectedBoard],
@@ -90,6 +119,13 @@ const AddTution = () => {
       Boards: prevDetails.Boards.filter((board) => board !== boardToRemove),
     }));
   };
+
+  const setLatLngfromChd = (lat,lng) =>{
+    setLocation({
+      lat,lng
+    })
+      // alert(lat,lng)
+  }
 
 
 function isTimeAfter(time1, time2) {
@@ -125,7 +161,7 @@ const navigateBack = () =>{
 }
 
   const ValidateTuition = () =>{
-      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim()){
+      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim() || !location.lat  || !location.lng){
         setErrorText("Please fill all fields")
         return false;
       }
@@ -139,6 +175,7 @@ const navigateBack = () =>{
          setErrorText("Please choose atleast one board")
          return false
        }
+
 
        if(!isTimeAfter(TutionDetails.endTime,TutionDetails.startTime)){
          setErrorText("End Time cannot be less than or equal to start Time")
@@ -170,6 +207,7 @@ const navigateBack = () =>{
           standard: [TutionDetails.startStd, TutionDetails.endStd],
           fees: TutionDetails.Fees,
           boards: TutionDetails.Boards,
+          location:[location.lat,location.lng]
         });
         console.log(response);
         
@@ -189,6 +227,10 @@ const navigateBack = () =>{
   };
 
   return (
+    <>
+      <Modal childrenWidth={400}  isopen={isMapOpen} onClose={()=>setMapOpen(false)}>
+        <MapComponent setLatLng = {setLatLngfromChd}/>
+      </Modal>
     <div className="create-tuition-container">
       <div className='arrow-nav' onClick={navigateBack}>
         <FaArrowLeft size="1.8em"/>
@@ -200,10 +242,10 @@ const navigateBack = () =>{
         
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Subjects:</label>
+            <label className="poppins-font">Select Subject</label>
             <div className='select-container crt-tut-sl-cntr'>
             <select onChange={HandleSubjectSelect} className='create-tuition-select select-box'>
-              <option value="">Select</option>
+              <option value="">Subjects</option>
               {asTeacher.subjects.map((subject,index) => (
                 <option key={index} value={subject}>{subject}</option>
               ))}
@@ -215,7 +257,7 @@ const navigateBack = () =>{
           </div>
           {
             TutionDetails.Subjects.length !== 0 ? 
-          <div className="selected-items at-gp">
+            <div className="selected-items at-gp">
             {TutionDetails.Subjects.map((subject) => (
               <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
             ))}
@@ -227,10 +269,10 @@ const navigateBack = () =>{
 
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Boards:</label>
-            <div className='select-container crt-tut-brd-slt-cnt'>
+            <label className="poppins-font">Select Boards</label>
+            <div className='select-container'>
             <select onChange={HandleBoardSelect} className='create-tuition-select select-box' aria-placeholder='Select boards '>
-              <option value=''>Select</option>
+              <option value=''>Boards</option>
                {boards.map((board,index) => (
                  <option key={index} value={board}>{board}</option>
                 ))}
@@ -261,15 +303,15 @@ const navigateBack = () =>{
               <input 
                  type="time"
                  name="startTime"
-                 className='time-tg-styl'
                  value={TutionDetails.startTime}
                  onChange={handleChange}
                  required
-              />
+                 className='time-tg-styl'
+                 />
             </div>
             <div className='header-flx'>
               <label>End Time:</label>
-              <input type="time" name="endTime" className='time-tg-styl' value={TutionDetails.endTime} onChange={handleChange} required />
+              <input type="time" name="endTime" value={TutionDetails.endTime} onChange={handleChange} required />
             </div>
 
             <div>
@@ -277,28 +319,28 @@ const navigateBack = () =>{
             </div>
             <div className='header-flx'>
               <label>From:</label>
-              <div className='select-container dys-slt-cntr'>
+              <div className='select-container'>
 
-              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box dt-select'>
+              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box'>
               {daysOfWeek.map((day) => (
                 <option value={day}>{day}</option>
               ))}
               </select>
-              <div className='drp-icon dt-drp'>
+              <div className='drp-icon'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
             </div>
             <div className='header-flx'>
               <label>To:</label>
-              <div className='select-container dys-slt-cntr'>
+              <div className='select-container'>
 
-              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box dt-select'>
+              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box'>
                 {daysOfWeek.map((day) => (
                   <option value={day}>{day}</option>
                 ))}
               </select>
-              <div className='drp-icon dt-drp'>
+              <div className='drp-icon'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
                 </div>
@@ -309,34 +351,34 @@ const navigateBack = () =>{
             </div>
           <div className='header-flx'>
             <label>Start Class:</label>
-            <div className='select-container std-select-tag'>
+            <div className='select-container'>
 
             <select 
             value={TutionDetails.startStd}
             name="startStd" 
             onChange={handleChange}
-            className='select-box std-slt-cntr'
+            className='create-tuition-select select-box'
             required
             >
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
-            <div className='drp-icon std-drp'>
+            <div className='drp-icon'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
           </div>
           <div className='header-flx'>
             <label>End Class:</label>
-            <div className='select-container std-select-tag'>
+            <div className='select-container'>
 
-            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='select-box std-slt-cntr'>
+            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select select-box'>
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
-              <div className='drp-icon std-drp'>
+              <div className='drp-icon'>
                 <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
@@ -345,9 +387,23 @@ const navigateBack = () =>{
         </div>
         <div className='header-flx'>
            <label className="poppins-font">Fees:</label>
-           <div>
-           <FaRupeeSign size='0.8em'/><input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input' required/>
-           </div>
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input' required/>
+        </div>
+
+        <div className='header-flx'>
+              <label className='poppins-font'>Location:</label>
+              {
+                (!location.lat || !location.lng)?
+                  <div className='location-choose-btn'>
+                      <button onClick={getLocation}>Current location</button>
+                      <button onClick={()=> setMapOpen(true)}>Choose on Map</button>
+                  </div>
+                :
+                 <div>
+                    <p>Location added</p>
+                    <button onClick={()=>{ setLocation({ lat: null, lng: null});}}>Change location</button>
+                 </div>
+              }
         </div>
 
         {errorText && 
@@ -362,13 +418,14 @@ const navigateBack = () =>{
 
         <div className="create-button" type="submit">
           <div className="submit-tuition">
-            <MdOutlinePostAdd size='1.45em' />
+            <PostAddIcon />
             <p>Create</p>
           </div>
         </div>
       </button>
       </form>
     </div>
+        </>
   );
 };
 

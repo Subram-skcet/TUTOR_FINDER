@@ -234,7 +234,7 @@ const RegisterStudent = () => {
       <form onSubmit={handleSubmit} className='reg-std-form'>
         <div className='form-group'>
           <label>Name:</label>
-          <input className='pt-serif-regular reg-std-inp' type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
+          <input className='pt-serif-regular' type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
         </div>
         <div className='form-group'>
           <div className='email-label-flex'>
@@ -259,7 +259,7 @@ const RegisterStudent = () => {
              type='email' 
              name='email' 
              id='email'
-             className='pt-serif-regular reg-std-inp' 
+             className='pt-serif-regular' 
              value={userDetails.email} 
              onChange={handleChange} 
              pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -278,7 +278,6 @@ const RegisterStudent = () => {
               <input
                 key={index}
                 id={`otp-input-${index}`}
-                className='reg-std-inp'
                 type="text"
                 name="otp"
                 maxLength="1"
@@ -306,7 +305,7 @@ const RegisterStudent = () => {
         <div className='form-group'>
           <label>Password:</label>
           <div className='password-container'>
-            <input className='pt-serif-regular reg-std-inp' type={`${isPasswordVisible? 'text' : 'password'}`} name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
+            <input className='pt-serif-regular' type='password' name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
             { userDetails.password.length > 0 &&
               <span className='visibility-icon'>
                           {
