@@ -60,19 +60,14 @@
 
 .verified-div-para{
     color: green;
-    padding: 2px;
 }
 
 .verified-div{
     display: flex;
-    background: yellow;
-    height: max-content;
-}
-
-.done-img{
-    width:  20px;
-    height: 20px;
     color: green;
+    align-items: center;
+    justify-content: center;
+    gap:0.2rem;
 }
 
 .er-streg{
@@ -89,6 +84,14 @@
 
 .submit-mob{
     display: none;
+}
+
+.eye-icon{
+    display: flex;
+}
+
+.std-reg-inp{
+    border: 2px solid red;
 }
 
 @media (max-width:426px) {

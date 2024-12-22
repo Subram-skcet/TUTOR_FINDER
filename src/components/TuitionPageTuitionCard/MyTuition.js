@@ -245,11 +245,11 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className="time-inputs">
             <div className='time-flex'>
                 <p>Start Time:</p>
-                <input type="time" name="duration" value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
+                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} />
             </div>
             <div className='time-flex'>
                 <p>End Time:</p>
-                <input type="time" name="duration" value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
+                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} />
             </div>
            </div>
             :
@@ -389,7 +389,10 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
          {
            isEditing?
            <div className="isEditing-div">
-              <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className="fees-input"/> 
+             <div className='fee-inp-div'>
+                  <FaRupeeSign size='0.8em'/>
+                  <input name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className='fees-input-styl'/> 
+              </div>
             </div>
             :
             <div className="tuition-value-div">

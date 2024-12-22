@@ -7,7 +7,7 @@ import doneimg from '../../assets/done.png'
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import loadgif from '../../assets/89.gif'
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { MdOutlineTaskAlt } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
 
@@ -30,6 +30,8 @@ const RegisterStudent = () => {
   });
   const [errorText,setErrorText] = useState('')
   const [isPasswordVisible,setPasswordVisible] = useState(false)
+  const [verifyLinkMail,setVerifyLinkMail] = useState(null)
+  const [verifiedEmail,setVerifiedEmail] = useState(null)
 
   
   useEffect(()=>{
@@ -44,12 +46,12 @@ const RegisterStudent = () => {
 
   const handleOtpSend = async()=>{
     if(!userDetails.email.trim()){
-      setErrorText("Enter email to verify it")
+      setErrorText("Enter an email address to verify.")
       return
     }
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if(!emailRegex.test(userDetails.email)){
-      setErrorText("Enter valid email to verify it")
+      setErrorText("Enter a valid email address to verify.")
       return
     }
     setVerifyClickable(false)
@@ -61,6 +63,7 @@ const RegisterStudent = () => {
           }
         )
         if(response.status === 201){
+        setVerifyLinkMail(userDetails.email)
           toast.info("OTP has sent to your mail. Enter it below. Valid for only 15 minutes.");
           setOtpDetails((prevDetails)=>({
             ...prevDetails,
@@ -84,18 +87,23 @@ const RegisterStudent = () => {
 
   const handleOtpSubmit = async() => {
     if(!userDetails.email.trim()){
-      setErrorText("Enter email first")
+      setErrorText("Please enter an email address first.")
       return;
     }
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if(!emailRegex.test(userDetails.email)){
-      setErrorText("Enter valid email to verify it")
+      setErrorText("Enter a valid email address to verify.")
       return
     }
     if(otpDetails.otp.join('').length !== 6){
-      setErrorText("Enter all digits to verify the otp")
+      setErrorText("Enter all digits to verify the OTP")
       return;
     }
+
+    if(!(userDetails.email === verifyLinkMail)){
+      setErrorText("Enter the email address for which the verification link was sent, or verify this new email.")
+      return
+   }
     
      try {
       const response = await axios.post('/api/v1/auth/verifyemail',{
@@ -111,6 +119,7 @@ const RegisterStudent = () => {
             isVisible:false
           }
         ))
+        setVerifiedEmail(userDetails.email)
       }
       console.log(response);
      } catch (error) {
@@ -140,6 +149,20 @@ const RegisterStudent = () => {
       ...prevDetails,
       [name]: value,
     }));
+
+    if (name === 'email') {
+      if (value !== verifiedEmail) { 
+        setOtpDetails((prevDetails) => ({
+          ...prevDetails,
+          isVerified: false,
+        }));
+      } else {
+        setOtpDetails((prevDetails) => ({
+          ...prevDetails,
+          isVerified: true,
+        }));
+      }
+    }
   };
 
   const handleOtpChange = (element, index) => {
@@ -172,15 +195,15 @@ const RegisterStudent = () => {
 
   const ValidateUser = () =>{
        if(!userDetails.name.trim() || !userDetails.email.trim() || !userDetails.password.trim()){
-          setErrorText("Please enter all the fields")
+          setErrorText("Please fill in all the fields.")
           return false;
        }
        if(userDetails.password.length < 5){
-         setErrorText("Password should be atleast 5 characters")
+         setErrorText("Password must be atleast 5 characters")
          return false;
        }
        if(!otpDetails.isVerified){
-        setErrorText("Verify email to register")
+        setErrorText("Verify your email address to register.")
         return false;
        }
 
@@ -234,16 +257,17 @@ const RegisterStudent = () => {
       <form onSubmit={handleSubmit} className='reg-std-form'>
         <div className='form-group'>
           <label>Name:</label>
-          <input className='pt-serif-regular' type='text' name='name' id='name' value={userDetails.name} onChange={handleChange} required />
+          <input className='pt-serif-regular std-reg-inp' type='text' name='name' id='name' value={userDetails.name}  minLength={3}
+            maxLength={20} onChange={handleChange} required />
         </div>
         <div className='form-group'>
           <div className='email-label-flex'>
             <label>Email:</label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
-              <div className='verified-icon'>
-               <TaskAltIcon fontSize='small'/>
-              </div>
+              {/* <div className='verified-icon'> */}
+               <MdOutlineTaskAlt size="1.2em"/>
+              {/* </div> */}
               <p className='verified-div-para'>Verified</p>
             </div>
             :
@@ -259,7 +283,7 @@ const RegisterStudent = () => {
              type='email' 
              name='email' 
              id='email'
-             className='pt-serif-regular' 
+             className='pt-serif-regular std-reg-inp' 
              value={userDetails.email} 
              onChange={handleChange} 
              pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -281,6 +305,7 @@ const RegisterStudent = () => {
                 type="text"
                 name="otp"
                 maxLength="1"
+                className='std-reg-inp'
                 value={otpDetails.otp[index]}
                 onChange={(e) => handleOtpChange(e.target, index)}
                 onKeyDown={(e) => handleBackspace(e, index)}
@@ -305,7 +330,7 @@ const RegisterStudent = () => {
         <div className='form-group'>
           <label>Password:</label>
           <div className='password-container'>
-            <input className='pt-serif-regular' type='password' name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
+            <input className='pt-serif-regular std-reg-inp' type={`${isPasswordVisible? 'text' : 'password'}`} name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
             { userDetails.password.length > 0 &&
               <span className='visibility-icon'>
                           {

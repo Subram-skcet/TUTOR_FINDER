@@ -116,12 +116,12 @@ const Login = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
-                    <input className="pt-serif-regular" type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
+                    <input className="pt-serif-regular std-lg-inp" type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <div className='password-container'>
-                    <input className="pt-serif-regular" type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
+                    <input className="pt-serif-regular std-lg-inp" type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
                     {
                         userDetails.password.length > 0 && 
 

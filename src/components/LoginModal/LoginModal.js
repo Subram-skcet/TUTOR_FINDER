@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import './LoginModal.css'; // Assuming you save the CSS file as Login.css
-// import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios'
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 const LoginModal = () => {
     const [{logged},dispatch] = useDataLayerValue()
-    // const navigate = useNavigate()
     const [userDetails, setDetails] = useState({
         email: '',
         password: '',
     });
+    const [isPasswordVisible,setPasswordVisible] = useState(false)
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -59,11 +61,28 @@ const LoginModal = () => {
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email" className='pt-serif-regular'>Email:</label>
-                    <input type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} />
+                    <input type="email" id="email" name="email" className='lg-mdl-inp' value={userDetails.email} onChange={handleChange} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password" className='pt-serif-regular'>Password:</label>
-                    <input type="password" id="password" name="password" value={userDetails.password} onChange={handleChange} />
+                    <div className='password-container'>
+                    
+                        <input type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" className='lg-mdl-inp' value={userDetails.password} onChange={handleChange} />
+                            { userDetails.password.length > 0 &&
+                                    <span className='visibility-icon'>
+                                        {
+                                        isPasswordVisible ? 
+                                               <div onClick={()=>setPasswordVisible(false)} className='eye-icon'>
+                                                <MdVisibility size="1.3em"/>
+                                                    </div>
+                                                        :
+                                                    <div onClick={()=>setPasswordVisible(true)} className='eye-icon'>
+                                                        <MdVisibilityOff size="1.3em"/>
+                                                    </div>
+                                       }
+                                                      </span>
+                                        }
+                                        </div>
                 </div>
                 <div>
                     <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>

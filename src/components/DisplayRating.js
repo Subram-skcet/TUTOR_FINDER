@@ -4,8 +4,8 @@ import { MdOutlineStar } from "react-icons/md";
 
 const DisplayRating = ({rating}) => {
   return (
-    <div>
-      <div style={{ display: 'flex', gap: '5px'}}>
+    <div style={{height:'max-content'}}>
+      <div style={{ display: 'flex', columnGap: '5px',  height:'18px'}}>
         {[1, 2, 3, 4, 5].map((value) => (
           <span
             key={value}

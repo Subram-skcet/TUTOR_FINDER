@@ -97,12 +97,21 @@
  .reg-tchr-pg-input{
   margin-top: 10px;
   width: 100%;
-  border: 1px solid black;
+  border: 2px solid #ccc;
   height: 40px;
   border-radius: 10px;
   font-size: 16px;
   padding: 10px;
   outline: none;
+ }
+
+ .tchr-reg-password-container{
+   margin-top: 10px;
+   position: relative;
+ }
+
+ .reg-tch-pwd-input{
+  margin-top: 0;
  }
 
 @media (max-width:839px) {

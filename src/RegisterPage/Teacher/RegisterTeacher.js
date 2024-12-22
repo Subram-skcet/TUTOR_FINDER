@@ -11,6 +11,8 @@ import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { IoMdArrowDropdown } from "react-icons/io";
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 
 const RegisterTeacher = ({openLogin}) => {
@@ -38,6 +40,7 @@ const RegisterTeacher = ({openLogin}) => {
   
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [errorText,setErrorText] = useState('')
+  const [isPasswordVisible,setPasswordVisible] = useState(false)
   
   const navigate = useNavigate();
   
@@ -418,16 +421,33 @@ const validateUser = () =>{
         }
         <div className='space-div'>
           <label htmlFor='password'  className='register-label'><strong>Password:</strong></label>
+          <div className='tchr-reg-password-container'>
           <input
-            type='password'
+            type={`${isPasswordVisible? 'text' : 'password'}`}
             name='password'
             id='password'
-            className='reg-tchr-pg-input'
+            className='reg-tchr-pg-input reg-tch-pwd-input'
             value={teacherDetails.password}
             onChange={handleChange}
             minLength={5}
             required
-          />
+            />
+              { teacherDetails.password.length > 0 &&
+                          <span className='visibility-icon'>
+                                      {
+                                        isPasswordVisible ? 
+                                          <div onClick={()=>setPasswordVisible(false)} className='eye-icon'>
+                                            <MdVisibility size="1.3em"/>
+                                          </div>
+                                          :
+                                          <div onClick={()=>setPasswordVisible(true)} className='eye-icon'>
+                                          <MdVisibilityOff size="1.3em"/>
+                                          </div>
+                                      }
+                          </span>
+          }
+          </div>
+          
         </div>
         <div className='space-div'>
           <label htmlFor='mobileno'  className='register-label'>

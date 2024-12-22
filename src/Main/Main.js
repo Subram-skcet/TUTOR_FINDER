@@ -69,18 +69,18 @@ const Main = () => {
               wrapperClass=""
               />
              </div>
-             :
-            <div className="search-results">
-            {results.length === 0 ? (
+             : results.length === 0 ? (
               <div className='teachers-not-found-para'>
                 <p className='pt-serif-regular tchr-not-fnd-p'>No Teachers available for the specified conditions..</p>
               </div>
-              ) : (
-              results.map((result,index) => (
+             )
+             :
+             <div className="search-results">
+              {  results.map((result,index) => (
                   <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
                 ))
-              )}
-            </div>
+              }
+             </div>
           }
         </div>
       </div>

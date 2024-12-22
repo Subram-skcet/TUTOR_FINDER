@@ -242,10 +242,10 @@ const navigateBack = () =>{
         
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Subject</label>
+            <label className="poppins-font">Select Subjects:</label>
             <div className='select-container crt-tut-sl-cntr'>
             <select onChange={HandleSubjectSelect} className='create-tuition-select select-box'>
-              <option value="">Subjects</option>
+              <option value="">Select</option>
               {asTeacher.subjects.map((subject,index) => (
                 <option key={index} value={subject}>{subject}</option>
               ))}
@@ -269,10 +269,10 @@ const navigateBack = () =>{
 
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Boards</label>
-            <div className='select-container'>
+            <label className="poppins-font">Select Boards:</label>
+            <div className='select-container crt-tut-sl-cntr'>
             <select onChange={HandleBoardSelect} className='create-tuition-select select-box' aria-placeholder='Select boards '>
-              <option value=''>Boards</option>
+              <option value=''>Select</option>
                {boards.map((board,index) => (
                  <option key={index} value={board}>{board}</option>
                 ))}
@@ -311,7 +311,7 @@ const navigateBack = () =>{
             </div>
             <div className='header-flx'>
               <label>End Time:</label>
-              <input type="time" name="endTime" value={TutionDetails.endTime} onChange={handleChange} required />
+              <input type="time" name="endTime" className='time-tg-styl' value={TutionDetails.endTime} onChange={handleChange} required />
             </div>
 
             <div>
@@ -319,7 +319,7 @@ const navigateBack = () =>{
             </div>
             <div className='header-flx'>
               <label>From:</label>
-              <div className='select-container'>
+              <div className='select-container dys-slt-cntr'>
 
               <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box'>
               {daysOfWeek.map((day) => (
@@ -333,7 +333,7 @@ const navigateBack = () =>{
             </div>
             <div className='header-flx'>
               <label>To:</label>
-              <div className='select-container'>
+              <div className='select-container dys-slt-cntr'>
 
               <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box'>
                 {daysOfWeek.map((day) => (
@@ -351,34 +351,34 @@ const navigateBack = () =>{
             </div>
           <div className='header-flx'>
             <label>Start Class:</label>
-            <div className='select-container'>
+            <div className='select-container std-select-tag'>
 
             <select 
             value={TutionDetails.startStd}
             name="startStd" 
             onChange={handleChange}
-            className='create-tuition-select select-box'
+            className=' select-box std-slt-cntr'
             required
             >
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
-            <div className='drp-icon'>
+            <div className='drp-icon std-drp'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
           </div>
           <div className='header-flx'>
             <label>End Class:</label>
-            <div className='select-container'>
+            <div className='select-container std-select-tag'>
 
-            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className='create-tuition-select select-box'>
+            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className=' select-box std-slt-cntr'>
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
             </select>
-              <div className='drp-icon'>
+              <div className='drp-icon std-drp'>
                 <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
@@ -387,7 +387,10 @@ const navigateBack = () =>{
         </div>
         <div className='header-flx'>
            <label className="poppins-font">Fees:</label>
-                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input' required/>
+           <div className='fee-inp-div'>
+                <FaRupeeSign/>
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl' required/>
+           </div>
         </div>
 
         <div className='header-flx'>

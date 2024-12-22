@@ -226,39 +226,37 @@ const TeacherProfile = () => {
         <hr className='hr-tag'></hr>
         <div className="reviews-container">
           <h3 className="reviews-heading lato-bold">Student Reviews</h3>
-          {isLoading ?
-              <ThreeCircles
-              visible={true}
-              height="100"
-              width="100"
-              color="#4fa94d"
-              ariaLabel="three-circles-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-              />
-              :
-              <div className="reviews-section">
-            {reviews.length === 0 ? (
-              <p className='no-review-text'>No reviews for this teacher..</p>
-            )
-            :(
-              reviews.map(review => (
-                <ReviewCard 
-                review={review} 
-                isClickable={true}
-                handleLike = {handleLikeReview}
-                loginpop = {openLoginModel}
-                isLikeable = {isDoable}
-                />
-              ))
-            )
-          }
-          </div>
-          }
+          {isLoading ? (
+  <ThreeCircles
+    visible={true}
+    height="100"
+    width="100"
+    color="#4fa94d"
+    ariaLabel="three-circles-loading"
+    wrapperStyle={{}}
+    wrapperClass=""
+  />
+) : reviews.length === 0 ? (
+  <p className="no-review-text">No reviews for this teacher..</p>
+) : (
+  <div className="reviews-section">
+    {reviews.map((review) => (
+      <ReviewCard
+        key={review.id} // Ensure to add a unique key for each item in the list
+        review={review}
+        isClickable={true}
+        handleLike={handleLikeReview}
+        loginpop={openLoginModel}
+        isLikeable={isDoable}
+      />
+    ))}
+  </div>
+)}
+
         </div>
         <hr className='hr-tag'></hr>
           <div className="write-review">
-            <p>Already studied in his tution? Leave a review to help others student 
+            <p>Already studied in his tuition? Leave a review to help others student 
             </p>
               <div onClick={handleFocus} className='rating-div'>
                 <Rating ref={childRef}/>

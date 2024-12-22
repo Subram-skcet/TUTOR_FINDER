@@ -55,6 +55,7 @@
 }
 
 .tutor-card__reviews {
+    display: flex;
     font-size: 14px;
     color: rgb(32, 32, 32);
 }

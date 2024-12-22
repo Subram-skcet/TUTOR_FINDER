@@ -22,6 +22,15 @@
     font-size: 16px;
 }
 
+.tchr-lgn-mdl{
+    border: 2px solid #ccc;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 10px;
+    outline: none;
+}
+
 @media (max-width:479px) {
     .teacher-login-wrap{
        width: 100%;

@@ -2,12 +2,12 @@
     width: max-content;
     height: 100%;
     cursor: pointer;
-    /* background: red; */
 }
 .acc-img{
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    display: flex;
 }
 /* .acc-wrap:hover{
     background-color: rgba(121, 103, 103, 0.5);

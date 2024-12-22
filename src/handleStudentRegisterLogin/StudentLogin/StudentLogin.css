@@ -52,7 +52,7 @@
 .form-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 2px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
 }
@@ -85,6 +85,9 @@ width: 100%;
 padding-right: 3rem; 
 }
 
+.std-lg-inp{
+    border: 2px solid red;
+}
 @media (max-width:800px) {
     .student-login-header h1{
         font-size: 20px;
