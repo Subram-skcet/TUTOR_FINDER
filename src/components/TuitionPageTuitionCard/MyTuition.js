@@ -81,7 +81,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
 
     const HandleSubjectSelect = (e) => {
         const selectedSubject = e.target.value;
-        if (!TuitionDetails.subjects.includes(selectedSubject)) {
+        if (selectedSubject.length > 0 && !TuitionDetails.subjects.includes(selectedSubject)) {
           setDetails((prevDetails) => ({
             ...prevDetails,
             subjects: [...prevDetails.subjects, selectedSubject],
@@ -112,7 +112,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     }
     const HandleBoardSelect = (e) => {
         const selectedBoard = e.target.value;
-        if (!TuitionDetails.boards.includes(selectedBoard)) {
+        if (selectedBoard.length > 0 && !TuitionDetails.boards.includes(selectedBoard)) {
           setDetails((prevDetails) => ({
             ...prevDetails,
             boards: [...prevDetails.boards, selectedBoard],

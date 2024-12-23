@@ -97,7 +97,7 @@ const MyProfile = () => {
       setErrorText('')
     }
     const selectedSubject = e.target.value;
-    if (!editDetails.subjects.includes(selectedSubject)) {
+    if (selectedSubject && !editDetails.subjects.includes(selectedSubject)) {
       setEditDetails((prevDetails) => ({
         ...prevDetails,
         subjects: [...prevDetails.subjects, selectedSubject],
@@ -162,42 +162,33 @@ const MyProfile = () => {
   const ValidateUser = ()=>{
 
     if(!editDetails.name.trim() || !editDetails.mobileno.trim() || !editDetails.state.trim() || !editDetails.district.trim() || !editDetails.qualification.trim() || !editDetails.about.trim()){
-       setErrorText("Enter all details")
+       setErrorText("All fields are required. Please fill out the details.")
        return false
     }
 
     if(editDetails.name.length < 3){
-      setErrorText("Name should be atleast 3   characters")
+      setErrorText("Name must contain at least 3 characters.")
       return false
     }
 
     if(editDetails.name.length > 20){
-      setErrorText("Name cannot be greater than 20 characters")
+      setErrorText("Name cannot exceed 20 characters.")
       return false
     }
 
-    if(editDetails.mobileno.length !== 10){
-      setErrorText("Mobile number must be of length 10")
-    }
-
     const mbnoRegex = /^[0-9]{10}$/;
-    if (!mbnoRegex.test(editDetails.mobileno)) {
+    if (editDetails.mobileno.length !== 10 || !mbnoRegex.test(editDetails.mobileno)) {
       setErrorText("Enter a valid 10-digit Mobile Number");
       return false;
     }
 
-    if(editDetails.year_of_exp < 0 || editDetails.year_of_exp >100){
-      setErrorText("Please enter a valid years of experience");
-      return false;
-    }
-
-    if(editDetails.year_of_exp > 100){
-      setErrorText("Experience cannot be greater than 100 years");
+    if(editDetails.year_of_exp < 0 || editDetails.year_of_exp >= 100){
+      setErrorText("Please enter a valid years of experience.");
       return false;
     }
 
     if(editDetails.subjects.length === 0){
-      setErrorText("Please choose atleast one subject that you could teach");
+      setErrorText("Select at least one subject you can teach.");
       return false;
     }
 

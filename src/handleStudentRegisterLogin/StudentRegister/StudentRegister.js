@@ -198,6 +198,10 @@ const RegisterStudent = () => {
           setErrorText("Please fill in all the fields.")
           return false;
        }
+       if(userDetails.name.length < 3 || userDetails.name.length >20){
+        setErrorText("Name should be between 3 and 20 characters long.")
+        return false;
+       }
        if(userDetails.password.length < 5){
          setErrorText("Password must be atleast 5 characters")
          return false;

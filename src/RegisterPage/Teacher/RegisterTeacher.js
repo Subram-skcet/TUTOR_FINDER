@@ -9,7 +9,7 @@ import doneimg from '../../assets/done.png'
 import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { MdOutlineTaskAlt } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
@@ -52,12 +52,12 @@ const RegisterTeacher = ({openLogin}) => {
   
   const handleOtpSend = async()=>{
     if(!teacherDetails.email.trim()){
-      setErrorText("Enter email to verify it")
+      setErrorText("Enter an email address to verify.")
       return
     }
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     if(!emailRegex.test(teacherDetails.email)){
-      setErrorText("Enter valid email to verify it")
+      setErrorText("Enter a valid email address to verify.")
       return
     }
     setVerifyClickable(false)
@@ -94,20 +94,20 @@ const RegisterTeacher = ({openLogin}) => {
 
 const handleOtpSubmit = async() => {
   if(!teacherDetails.email.trim()){
-    setErrorText("Enter email first")
+    setErrorText("Please enter an email address first.")
     return;
   }
   const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   if(!emailRegex.test(teacherDetails.email)){
-    setErrorText("Enter valid email to verify it")
+    setErrorText("Enter a valid email address to verify.")
     return
   }
   if(otpDetails.otp.join('').length !== 6){
-    setErrorText("Enter all digits to verify the otp")
+    setErrorText("Enter all digits to verify the OTP.")
     return;
   }
   if(!(teacherDetails.email === verifyLinkMail)){
-     setErrorText("Enter email for which the verify link sent or verify this new email")
+     setErrorText("Enter the email address for which the verification link was sent, or verify this new email.")
      return
   }
 
@@ -181,23 +181,23 @@ const handleBackspace = (e, index) => {
    
 const validateUser = () =>{
        if(!teacherDetails.name.trim() || !teacherDetails.email.trim() || !teacherDetails.password.trim() || !teacherDetails.mobileno.trim() || !teacherDetails.qualification.trim() || !teacherDetails.state.trim() || teacherDetails.subjects.length === 0){
-           setErrorText("Enter all details")
+           setErrorText("Please fill in all the fields.")
            return false
        }
 
-       if(!teacherDetails.name.length > 20){
-        setErrorText("Name should be less than 20 characters")
-         return false;
+       if(teacherDetails.name.length < 3 || teacherDetails.name.length > 20){
+        setErrorText("Name should be between 3 and 20 characters long.")
+        return false;
        }
 
        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
        if(!emailRegex.test(teacherDetails.email)){
-         setErrorText("Enter valid email to verify it")
+         setErrorText("Enter a valid email address to verify.")
          return false
        }
 
        if(!teacherDetails.password.length > 5){
-        setErrorText("Password should be atleast 5 characters")
+        setErrorText("Password must be at least 5 characters long.")
          return false;
        }
 
@@ -218,7 +218,7 @@ const validateUser = () =>{
        }
 
        if(!otpDetails.isVerified){
-        setErrorText("Verify email to register")
+        setErrorText("Verify your email address to register.")
         return false;
        }
 
@@ -303,7 +303,7 @@ const validateUser = () =>{
       setErrorText('')
     }
     const selectedSubject = e.target.value;
-    if (!teacherDetails.subjects.includes(selectedSubject)) {
+    if (selectedSubject.length > 0 && !teacherDetails.subjects.includes(selectedSubject)) {
       setDetails((prevDetails) => ({
         ...prevDetails,
         subjects: [...prevDetails.subjects, selectedSubject],
@@ -357,9 +357,7 @@ const validateUser = () =>{
             </strong></label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
-              <div className='verified-icon'>
-               <TaskAltIcon fontSize='small'/>
-              </div>
+              <MdOutlineTaskAlt size="1.1em"/>
               <p className='verified-div-para'>Verified</p>
             </div>
             :

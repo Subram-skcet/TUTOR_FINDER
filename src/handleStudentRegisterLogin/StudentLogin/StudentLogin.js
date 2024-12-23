@@ -33,7 +33,7 @@ const Login = () => {
 
     const handleForgetPassword = async(req,res) =>{
         if(!userDetails.email.trim()){
-            setErrorText("Enter email to send password Reset mail")
+            setErrorText("Please enter your email to receive the password reset link.")
             return;
         }
 
@@ -42,14 +42,14 @@ const Login = () => {
             setForgetClickable(false)
           const response = await axios.post('/api/v1/auth/changepassword',body)
           if(response.status === 200){
-              toast.info('Check your mail for password changing link note that link is valid for only 10 minutes')
+              toast.info('Check your email for the password reset link. Note that the link is valid for only 10 minutes.')
           }
         } catch (error) {
             if(error.response && error.response.data.message){
                 toast.error(error.response.data.message)
             }
             else{
-                toast.error("Something went wrong. Plesae try again later")
+                toast.error("An error occurred. Please try again later.")
             }
         }
         finally{
@@ -60,13 +60,13 @@ const Login = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
         if(!userDetails.email.trim() || !userDetails.password.trim()){
-            setErrorText('Please enter all the fields')
+            setErrorText('Please fill in all the fields.')
             return;
         }
 
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             if(!emailRegex.test(userDetails.email)){
-                setErrorText("Enter valid email")
+                setErrorText("Enter a valid email address")
                 return
             }
             console.log(userDetails);

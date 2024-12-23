@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import './ChangePassword.css'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
 
 const ChangePassword = () => {
     const [Details, setDetails] = useState({
@@ -17,6 +19,8 @@ const ChangePassword = () => {
     const token = queryParams.get('token')
     const role = queryParams.get('role')
     const email = queryParams.get('email')
+    const [isPasswordVisible,setPasswordVisible] = useState(false)
+    const [isConfirmPasswordVisible,setConfirmPasswordVisible] = useState(false)
 
     const navigate = useNavigate();
 
@@ -74,28 +78,69 @@ const ChangePassword = () => {
             <div className="top-wst"></div>
         <div className="pwd-wrapper">
             <form onSubmit={handleSubmit} className='password-reset-div'>
-               <div className='pwd-div'>  
+               <div className='form-group pwd-div'>  
                     <label className='pwd-label pt-serif-regular'>New Password:</label>
+                    <div className='password-container'>
+
                     <input
-                        type="password"
+                        type={`${isPasswordVisible? 'text' : 'password'}`}
                         name="pwd"
                         value={Details.pwd}
                         onChange={handleChange}
                         minLength={5}
                         required
                         />
+                    {
+                        Details.pwd.length > 0 && 
+                    
+                        <span className='visibility-icon'>
+                                {
+                                isPasswordVisible ? 
+                                    <div onClick={()=>setPasswordVisible(false)} className='eye-icon'>
+                                        <MdVisibility size="1.3em"/>
+                                    </div>
+                                    :
+                                    <div onClick={()=>setPasswordVisible(true)} className='eye-icon'>
+                                        <MdVisibilityOff size="1.3em"/>
+                                    </div>
+                                }
+                        </span>
+                    
+                    }
+                    </div>
                 </div>
 
-                <div className='pwd-div'>
+                <div className='form-group pwd-div'>
                     <label className='pwd-label pt-serif-regular'>Confirm Password:</label>
+
+                    <div className='password-container'>
+
                     <input
-                        type="password"
+                        type={`${isConfirmPasswordVisible? 'text' : 'password'}`}
                         name="cnfrm_pwd"
                         value={Details.cnfrm_pwd}
                         onChange={handleChange}
                         minLength={5}
                         required
-                    />
+                        />
+                        {
+                        Details.cnfrm_pwd.length > 0 && 
+                    
+                        <span className='visibility-icon'>
+                                {
+                                isConfirmPasswordVisible ? 
+                                    <div onClick={()=>setConfirmPasswordVisible(false)} className='eye-icon'>
+                                        <MdVisibility size="1.3em"/>
+                                    </div>
+                                    :
+                                    <div onClick={()=>setConfirmPasswordVisible(true)} className='eye-icon'>
+                                        <MdVisibilityOff size="1.3em"/>
+                                    </div>
+                                }
+                        </span>
+                    
+                    }
+                  </div>
                 </div>
                 {errorText && 
                <div className='error-para-div er-streg'>
@@ -105,7 +150,7 @@ const ChangePassword = () => {
                         <p className='errorText'>{errorText}</p>
               </div>
                  }
-                <button type="submit" className='pwd-submit-btn'>Submit</button>
+                <button type="submit" className='pwd-submit-btn'>Change</button>
             </form>
         </div>
         </>

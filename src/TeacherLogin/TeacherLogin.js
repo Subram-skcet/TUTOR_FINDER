@@ -6,28 +6,75 @@ import { useDataLayerValue } from '../StateProviders/StateProvider'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import loadgif from '../assets/89.gif'
+
 
 const TeacherLogin = ({openLogin,onClose}) => {
     const [loginDetails,setDetails] = useState({
         email:'',
         password:''
     })
+    const [errorText,setErrorText] = useState('')
     const [{logged},dispatch] = useDataLayerValue()
     const [isPasswordVisible,setPasswordVisible] = useState(false)
+    const [isForgetClickable,setForgetClickable] = useState(true)
     const navigate = useNavigate()
 
     const handleChange = (e) =>{
+        if(errorText)
+             setErrorText('')
         const { name,value } = e.target
         setDetails((prevDetails)=>({
             ...prevDetails,
             [name]:value
         }))
     }
+
+    const handleForgetPassword = async(req,res) =>{
+        if(!loginDetails.email.trim()){
+            setErrorText("Please enter your email to receive the password reset link.")
+            return;
+        }
+
+        const body = { email:loginDetails.email, role:'teacher'}
+        try {
+            setForgetClickable(false)
+          const response = await axios.post('/api/v1/auth/changepassword',body)
+          if(response.status === 200){
+              toast.info('Check your email for the password reset link. Note that the link is valid for only 10 minutes.')
+          }
+        } catch (error) {
+            if(error.response && error.response.data.message){
+                toast.error(error.response.data.message)
+            }
+            else{
+                toast.error("An error occurred. Please try again later.")
+            }
+        }
+        finally{
+            setForgetClickable(true)
+        }
+      }
+
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        if(!loginDetails.email.trim() || !loginDetails.password.trim()){
+            setErrorText('Please fill in all the fields.')
+            return;
+        }
+
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        if(!emailRegex.test(loginDetails.email)){
+            setErrorText("Enter a valid email address")
+            return
+        }
+
         console.log(loginDetails);
         try {
             const response = await axios.post('/api/v1/auth/loginteacher',loginDetails)
+            console.log(response);
+            
             if(response.status === 200){
                 dispatch({
                     type: "LOG_USER",
@@ -49,8 +96,13 @@ const TeacherLogin = ({openLogin,onClose}) => {
                 navigate('/myaccount/teacherprofile/myprofile')
             }
         } catch (error) {
-            toast.error('Something went wrong, Try agin later')
-        }
+                        if(error.response && error.response.data.message){
+                            toast.error(error.response.data.message)
+                        }
+                        else{
+                            toast.error("Something went wrong. Please try again later")
+                        }
+                    }
     }
 
   return (
@@ -84,13 +136,26 @@ const TeacherLogin = ({openLogin,onClose}) => {
                     }
                     </div>
                 </div>
+                {errorText && 
+                    <div className='error-para-div er-streg'>
+                         <div className='amber-icon'>
+                             <WarningAmberIcon/>
+                         </div>
+                        <p className='errorText'>{errorText}</p>
+                    </div>
+                 }
                 <div>
                     <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
                 </div>
                 <div className='log-in-content-div'>
-                    <div>
-                        <span className='anchor-link'>Forgot Password?</span>
-                    </div>
+                <div>
+                    {
+                        isForgetClickable?
+                        <span className='anchor-link' onClick={()=>handleForgetPassword()}>Forgot Password?</span>
+                        :
+                        <img src={loadgif} className='verify-load-gif' alt='Load'/>
+                    }
+               </div>
                     <div>
                     <p>Don't have an account? <span className='anchor-link' onClick={()=>openLogin(false)}>Register</span></p>
                     </div>
