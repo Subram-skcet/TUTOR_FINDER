@@ -138,10 +138,16 @@ const handleSaveClick = async() =>{
 }
 
     return (
-        <div className="review-card">
+        <div className="review-card lato-regular">
            <div className="my-reviews-page-flex-div">
                 {location.pathname === '/myaccount/studentprofile/myreviews' ? 
-                <>
+                <div className="review-header-div">
+                    <div className="review-header">
+                    <div className="pfp-pg-img-div">
+                        <img src={review.createdFor.profilepic} alt="Profile" className="profilePic" />
+                    </div>
+                        <div className="name">{review.createdFor.name}</div>
+                    </div>
                     <div className="reviews-page-options-icons">
                              {isEditing ?
                                 <>
@@ -163,15 +169,9 @@ const handleSaveClick = async() =>{
                             </>
                             }
                     </div>
-                    <div className="header">
-                    <div className="pfp-pg-img-div">
-                        <img src={review.createdFor.profilepic} alt="Profile" className="profilePic" />
-                    </div>
-                        <div className="name">{review.createdFor.name}</div>
-                    </div>
-                </>
+                </div>
                 :
-                <div className="header">
+                <div className="review-header">
                     <div className="pfp-pg-img-div">
                     <img src={review.createdBy.profilepic} alt="Profile" className="profilePic" />
                     </div>
@@ -226,8 +226,8 @@ const handleSaveClick = async() =>{
                         <p>{dislikeCount}</p>
                     </div>
                 </div>
-             </div>
                 <div className="review-createdat"><p className='createdAt-p'>{extractDateFields(review.createdAt)}</p></div>
+             </div>
         </div>
     );
 };

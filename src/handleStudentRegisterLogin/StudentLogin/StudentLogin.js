@@ -109,19 +109,19 @@ const Login = () => {
     };
 
     return (
-        <div className="student-login-container">
+        <div className="student-login-container lato-regular">
             <div className='student-login-header'>
                 <h1 className='lato-bold'>Log in to your EduQuest account</h1>
             </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email">Email:</label>
-                    <input className="pt-serif-regular std-lg-inp" type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
+                    <label htmlFor="email" className='lato-bold'>Email:</label>
+                    <input className=" std-lg-inp lato-regular" type="email" id="email" name="email" value={userDetails.email} onChange={handleChange} required/>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password" className='lato-bold'>Password:</label>
                     <div className='password-container'>
-                    <input className="pt-serif-regular std-lg-inp" type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
+                    <input className=" std-lg-inp lato-regular" type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" value={userDetails.password} onChange={handleChange} required/>
                     {
                         userDetails.password.length > 0 && 
 
@@ -150,7 +150,7 @@ const Login = () => {
                     </div>
                  }
                 <div>
-                    <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
+                    <button type="submit" className='lg-btn lato-bold btn-cntr'>Log In</button>
                 </div>
             </form>
             <div className='log-in-content-div'>

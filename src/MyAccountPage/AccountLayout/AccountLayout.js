@@ -63,7 +63,7 @@ const AccountLayout = () => {
       <DeleteAccount/>
     </Modal>
     <div>
-        <div className='account-layout'>
+        <div className='account-layout lato-regular'>
 
             <div className='itms-cntr style-links home-icon-div ac-layout' onClick={()=>navigate('/')}>
                     <MdHome size="1.3em"/>

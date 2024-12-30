@@ -48,7 +48,7 @@ const MyReview = () => {
       <>
         {reviews.length === 0 ? (
                 <div className='student-pg-review-div'>
-                  <p className='pt-serif-regular'>
+                  <p className='lato-regular'>
                     Reviews written by students about you will have appear here.
                   </p>
                 </div>

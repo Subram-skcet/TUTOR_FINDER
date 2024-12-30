@@ -5,7 +5,7 @@ import AccountLayout from '../AccountLayout/AccountLayout'
 import MenuIcon from '@mui/icons-material/Menu';
 
 const App = (props) => {
-  const [isSidebarOpen,setSidebarOpen]=useState(true)
+  const [isSidebarOpen,setSidebarOpen]=useState(window.innerWidth > 1000)
 
   useEffect(() => {
     const handleResize = () => {

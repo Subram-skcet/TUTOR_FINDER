@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './LoginModal.css'; // Assuming you save the CSS file as Login.css
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
 
@@ -12,6 +13,7 @@ const LoginModal = () => {
         password: '',
     });
     const [isPasswordVisible,setPasswordVisible] = useState(false)
+     const navigate = useNavigate()
 
 
     const handleChange = (e) => {
@@ -56,18 +58,18 @@ const LoginModal = () => {
     };
 
     return (
-        <div className="login-container modal-login">
+        <div className="login-container modal-login lato-regular">
             <h2 className='lato-bold'>You need to login to do this action</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email" className='pt-serif-regular'>Email:</label>
-                    <input type="email" id="email" name="email" className='lg-mdl-inp' value={userDetails.email} onChange={handleChange} />
+                    <label htmlFor="email" className=''>Email:</label>
+                    <input type="email" id="email" name="email" className='lg-mdl-inp lato-regular' value={userDetails.email} onChange={handleChange} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password" className='pt-serif-regular'>Password:</label>
+                    <label htmlFor="password" className=''>Password:</label>
                     <div className='password-container'>
                     
-                        <input type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" className='lg-mdl-inp' value={userDetails.password} onChange={handleChange} />
+                        <input type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" className='lg-mdl-inp lato-regular' value={userDetails.password} onChange={handleChange} />
                             { userDetails.password.length > 0 &&
                                     <span className='visibility-icon'>
                                         {
@@ -86,6 +88,9 @@ const LoginModal = () => {
                 </div>
                 <div>
                     <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
+                </div>
+                <div>
+                    <p>Don't have an account? <span className='anchor-link' onClick={()=>navigate('/register')}>Sign up</span></p>
                 </div>
             </form>
         </div>

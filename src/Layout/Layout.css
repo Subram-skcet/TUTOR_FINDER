@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    background-color: #27187E;
+    background-color: #2E294E;
     color: white;
     z-index: 1;
 }
@@ -68,9 +68,6 @@
       border-radius: 10px;
       background: rgba(0,0,0,.1);
   }
-.invis{
-    display: none;
-}
 .nav-btm-flx{
     display: flex;
     align-items: center;

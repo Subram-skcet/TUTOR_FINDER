@@ -51,12 +51,12 @@ const StudentProfile = () => {
   const ValidateUser = ()=>{
     console.log(editDetails.name);
     if(!editDetails || !editDetails.name || !editDetails.name.trim()){
-      setErrorText("Name cannot be empty!")
+      setErrorText("Please enter a name!")
       return false;
     }
 
-    if(editDetails.name.length < 20){
-      setErrorText("Name cannot be more than 20 charaters")
+    if(editDetails.name.length > 20){
+      setErrorText("Name must not exceed 20 characters!")
       return false;
     }
 
@@ -152,9 +152,9 @@ const StudentProfile = () => {
   }
 
   return (
-    <div className="student-profile-container">
+    <div className="student-profile-container lato-regular">
       <div className="student-profile-footer">
-        <p className='student-profile-para poppins-font'>Welcome to your profile page!</p>
+        <p className='student-profile-para lato-bold'>Welcome to your profile page!</p>
       </div>
       <form onSubmit={handleSaveClick}>
 
@@ -165,7 +165,7 @@ const StudentProfile = () => {
           </div>
             <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
           <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
-              <EditIcon fontSize='medium' />
+                <MdEdit size="1.45em"/>
               <input
                 type="file"
                 accept="image/*"
@@ -181,6 +181,7 @@ const StudentProfile = () => {
               type="text"
               name="name"
               value={editDetails.name}
+              className='std-pfp-nm-inp'
               onChange={handleChange}
               minLength={5}
               maxLength={20}
@@ -203,13 +204,13 @@ const StudentProfile = () => {
           }
         <div className='isedit-btns-div'>
           <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
-            <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
+            <div className={`itms-cntr style-links-updated edit-styl lato-regular ${saveBtnLoading ? `save-load-btn-style`:``}`}>
             <IoIosSave size="1.45em"/>
-              <p>Save Profile</p>
+              <p>Save</p>
             </div>
           </button>
           <button className="edit-prof-btn" onClick={handleCancelClick}>
-            <div className='itms-cntr style-links-updated cncl-bck' >
+            <div className='itms-cntr style-links-updated cncl-bck lato-regular' >
             <MdCancel  size="1.45em"/>
               <p>Cancel</p>
             </div>
@@ -218,9 +219,9 @@ const StudentProfile = () => {
         </>
         :
         <button className="edit-prof-btn" onClick={handleEditClick}>
-          <div className='itms-cntr style-links-updated norm-style' >
+          <div className='itms-cntr style-links-updated norm-style lato-regular' >
               <MdEdit size="1.45em"/>
-            <p>Edit Profile</p>
+            <p>Edit</p>
           </div>
         </button> 
       }

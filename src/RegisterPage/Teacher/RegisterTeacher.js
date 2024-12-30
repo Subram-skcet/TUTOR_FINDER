@@ -324,7 +324,7 @@ const validateUser = () =>{
   const districts = stateDistricts[teacherDetails.state] || [];
 
   return (
-    <div className='teacher-signup-wrap'>
+    <div className='teacher-signup-wrap lato-regular'>
       <div>
         <h2 className='lato-bold'>Create your Teacher account in EduQuest</h2>
       </div>
@@ -341,7 +341,7 @@ const validateUser = () =>{
             type='text'
             name='name'
             id='name'
-            className='reg-tchr-pg-input'
+            className='reg-tchr-pg-input lato-regular'
             value={teacherDetails.name}
             onChange={handleChange}
             minLength={3}
@@ -373,7 +373,7 @@ const validateUser = () =>{
             type='email'
             name='email'
             id='email'
-            className='reg-tchr-pg-input'
+            className='reg-tchr-pg-input lato-regular'
             value={teacherDetails.email}
             onChange={handleChange}
             pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -396,7 +396,7 @@ const validateUser = () =>{
                 type="text"
                 name="otp"
                 maxLength="1"
-                className='reg-tchr-pg-input'
+                className='reg-tchr-pg-input lato-regular'
                 value={otpDetails.otp[index]}
                 onChange={(e) => handleOtpChange(e.target, index)}
                 onKeyDown={(e) => handleBackspace(e, index)}
@@ -424,7 +424,7 @@ const validateUser = () =>{
             type={`${isPasswordVisible? 'text' : 'password'}`}
             name='password'
             id='password'
-            className='reg-tchr-pg-input reg-tch-pwd-input'
+            className='reg-tchr-pg-input reg-tch-pwd-input lato-regular'
             value={teacherDetails.password}
             onChange={handleChange}
             minLength={5}
@@ -454,7 +454,7 @@ const validateUser = () =>{
             type='tel'
             name='mobileno'
             id='mobileno'
-            className='reg-tchr-pg-input'
+            className='reg-tchr-pg-input lato-regular'
             value={teacherDetails.mobileno}
             pattern='^[0-9]{10}$'
             onChange={handleChange}
@@ -474,7 +474,7 @@ const validateUser = () =>{
             id='qualification'
             value={teacherDetails.qualification}
             onChange={handleChange}
-            className='select-box'
+            className='select-box lato-regular'
             required
             >
             <option value=''>Select</option>
@@ -496,7 +496,7 @@ const validateUser = () =>{
             type='number'
             name='year_of_exp'
             id='year_of_exp'
-            className='reg-tchr-pg-input'
+            className='reg-tchr-pg-input lato-regular'
             value={teacherDetails.year_of_exp}
             onChange={handleChange}
             required
@@ -510,7 +510,7 @@ const validateUser = () =>{
           <select
             name='state'
             id='inputState'
-            className='select-box'
+            className='select-box lato-regular'
             value={teacherDetails.state}
             onChange={handleStateChange}
             required
@@ -534,7 +534,7 @@ const validateUser = () =>{
           <select
             name='district'
             id='inputDistrict'
-            className='select-box'
+            className='select-box lato-regular'
             value={teacherDetails.district}
             onChange={handleChange}
             disabled={!teacherDetails.state}
@@ -557,7 +557,7 @@ const validateUser = () =>{
             <strong>Select Subjects you teach:</strong></label>
           <div className='select-container req-bx-slct-cntr'>
 
-          <select onChange={HandleSubjectSelect} className='select-box' required>
+          <select onChange={HandleSubjectSelect} className='select-box lato-regular' required>
             <option value="">Select</option>
             {subjects.map((subject)=>
             <option value={subject}>{subject}</option>
@@ -588,7 +588,7 @@ const validateUser = () =>{
         <div>
           <button
             type='submit'
-           className='poppins-font reg-btn'
+           className='lato-bold reg-btn'
            style={regbtnstyle}
             >
             Register

@@ -6,14 +6,18 @@ import { useNavigate } from 'react-router-dom'
 import './Bookmark.css'
 import SearchIcon from '@mui/icons-material/Search';
 import { ThreeCircles } from 'react-loader-spinner'
+import { FaSearch } from "react-icons/fa";
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
   const [{asStudent},dispatch] = useDataLayerValue()
   const navigate = useNavigate()
   const [isLoading,setIsLoading] = useState(true)
+  const [isAnyModalOpen,setModalOpen] = useState(false)
 
   const fetchTutions = async()=>{
+    console.log(asStudent.favouriteTutions)
+    
     setIsLoading(true)
     let tutions=[];
     try {
@@ -44,7 +48,7 @@ const Bookmark = () => {
   },[asStudent])
 
   return (
-    <div className='bookmarks-wrap'>
+    <div className={`bookmarks-wrap ${isAnyModalOpen ? 'stator' : ''}`}>
       <div>
          <h1 className='lato-bold'>Your favourite tuitions</h1>
       </div>
@@ -65,9 +69,9 @@ const Bookmark = () => {
         <>
           {favouritetutions.length === 0 ? (
             <div className='bookmark-empty-content'>
-              <p className='pt-serif-regular bookmark-p'>Tutions you have added into your favourite list will appear here. Currently you have no favourite tutions</p>
-              <div className='bookmark-pg-explr-div itms-cntr style-links-updated' onClick={()=>navigate('/searchtutor')}>
-                <SearchIcon/>
+              <p className='lato-regular bookmark-p'>Tuitions you have added into your favourite list will show here. Currently you have no favourite tuitions</p>
+              <div className='bookmark-pg-explr-div itms-cntr style-links-updated lato-regular' onClick={()=>navigate('/searchtutor')}>
+                <FaSearch/>
                 <p>Explore tuitions</p>
               </div>
             </div>
@@ -75,11 +79,11 @@ const Bookmark = () => {
               <>
                 <div className="search-results fav-tutions">{
                   favouritetutions.map((result,index) => (
-                    <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate}/>            
+                    <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
                   ))
                 }
                 </div> 
-                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn style-links-updated'>
+                <button onClick={()=>navigate('/searchtutor')} className='bookmark-pg-btn style-links-updated lato-regular'>
                   <p>Find more</p>
                   </button>
                 </>

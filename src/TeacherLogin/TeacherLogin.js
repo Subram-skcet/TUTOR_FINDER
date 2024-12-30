@@ -108,18 +108,18 @@ const TeacherLogin = ({openLogin,onClose}) => {
   return (
     <>
 
-        <div className="login-container modal-login">
+        <div className="login-container modal-login lato-regular">
             <h2 className='lato-bold'>Login to your EduQuest Teacher account</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="email" className='pt-serif-regular'>Email:</label>
-                    <input type="email" id="email" name="email" className='lg-mdl-inp' value={loginDetails.email} onChange={handleChange} />
+                    <label htmlFor="email" className='lato-bold'>Email:</label>
+                    <input type="email" id="email" name="email" className='lg-mdl-inp lato-regular' value={loginDetails.email} onChange={handleChange} />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password" className='pt-serif-regular'>Password:</label>
+                    <label htmlFor="password" className='lato-bold'>Password:</label>
                     <div className='password-container'>
 
-                    <input type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" className='lg-mdl-inp' value={loginDetails.password} onChange={handleChange} />
+                    <input type={`${isPasswordVisible? 'text' : 'password'}`} id="password" name="password" className='lg-mdl-inp lato-regular' value={loginDetails.password} onChange={handleChange} />
                      { loginDetails.password.length > 0 &&
                                   <span className='visibility-icon'>
                                               {
@@ -145,7 +145,7 @@ const TeacherLogin = ({openLogin,onClose}) => {
                     </div>
                  }
                 <div>
-                    <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
+                    <button type="submit" className='lg-btn lato-bold btn-cntr'>Log In</button>
                 </div>
                 <div className='log-in-content-div'>
                 <div>

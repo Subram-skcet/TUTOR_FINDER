@@ -33,7 +33,7 @@
 .profile-details {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 10px;
+    gap: 1.5rem;
     font-size: 18px;
     margin-bottom: 20px;
     align-items: center;
@@ -59,14 +59,22 @@
     border:none;
    background-color: transparent;
 }
-.about-content{
+.pfp-pg-about-content{
     width: 100%;
     min-height: 200px;
     max-height: max-content;
     word-break: break-word;
     padding: 1rem;
     font-size: 1rem;
+    border-radius: 10px;
+    margin-top: 1rem;
 }
+
+.pfp-pg-about-content:focus{
+  border: 2px solid blue;
+  outline: none;
+}
+
 .edit-styl{
     background: green;
     color: white;
@@ -119,6 +127,8 @@
   .about-content-p{
     margin-top: 1rem;
     font-size: 18px;
+    line-height: 2rem;
+    word-spacing: 0.5rem;
     word-break: break-word;
   }
 

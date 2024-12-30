@@ -132,7 +132,7 @@ const MyTution = () => {
         </div>
       <div>
         <button className='edit-prof-btn' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
-          <div className='itms-cntr style-links-updated add-tut-bck'>
+          <div className='itms-cntr style-links-updated add-tut-bck lato-regular'>
             <AddIcon />
             <p>Create Tuition</p>
           </div>

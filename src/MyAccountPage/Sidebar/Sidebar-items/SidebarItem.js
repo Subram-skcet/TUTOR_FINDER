@@ -4,7 +4,7 @@ const SidebarItem = ({field,Icon}) => {
   return (
     <div>
         <div className='sb-items'>
-            <Icon fontSize='large'/>
+            <Icon size="2.5em"/>
             <p className='sb-para'>{field}</p>
         </div>
     </div>

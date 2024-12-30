@@ -44,7 +44,7 @@
     /* background: green; */
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    gap: 10px;
+    gap: 1.5rem;
     font-size: 18px;
 
     margin-bottom: 20px;
@@ -161,10 +161,10 @@
     transition: background-color 0.3s ease;
 }
 
-.rating {
-    display: flex; /* Use flexbox to align items */
+.tchr-pfp-rating {
+    display: flex;
     gap: 5px;
-    align-items: center;
+    /* background: red; */
 }
 
 .like,
@@ -231,6 +231,7 @@
     padding-bottom: 2rem;
 }
 .review-textarea{
+    margin-top: 1rem;
     height: fit-content;
 }
 .profile-page-textarea{
@@ -260,18 +261,19 @@
 }
 .rating-div{
     width: max-content;
-    margin: auto;
+    margin: 1rem auto auto auto;
+    /* background: red; */
 }
 
 .post-submit{
     color: white;
     width: max-content;
     height: max-content;
-    padding: 13px;
+    padding: 12px 12px;
     font-size: 15px;
     background-color: green;
+    box-shadow: 0px 0px 5px 1px black;
     border: none;
-    font-weight: bolder;
     cursor: pointer;
     border-radius: 10px;
 }
@@ -280,11 +282,11 @@
     color: white;
     width: max-content;
     height: max-content;
-    padding: 13px;
+    padding: 12px 12px;
     font-size: 15px;
     background-color: red;
     border: none;
-    font-weight: bolder;
+    box-shadow: 0px 0px 5px 1px black;
     cursor: pointer;
     border-radius: 10px;
 
@@ -292,6 +294,10 @@
 
 .about-content-div{
   padding-top: 10px;
+  font-size: 18px;
+  line-height: 2rem;
+  word-spacing: 0.5rem;
+  word-break: break-word;
 }
 
 .errorText{
@@ -336,7 +342,8 @@
 @media (max-width:840px) {
     .profile-container{
         width: 100%;
-        margin: 0;    
+        margin: 0;   
+        border-radius: 0; 
     }
     .profile-header{
         border: none;
@@ -384,7 +391,7 @@
     .teacher-profile-details{
         display: flex;
         flex-direction: column;
-        gap:0;
+        gap:0.5rem;
     }
 
      .value{
@@ -395,7 +402,6 @@
 @media (max-width:400px) {
     .reviews-section{
         width:100%;
-        gap: 0rem;
     }
 
     .review-box-btns{

@@ -253,20 +253,20 @@ const RegisterStudent = () => {
   };
 
   return (
-    <div className='student-signp-wrap'>
+    <div className='student-signp-wrap lato-regular'>
     <div className='student-register-h1'>
         <h1 className='lato-bold'>Sign up to your EduQuest account</h1>
     </div>
-    <div className='student-signup-form pt-serif-regular'>
+    <div className='student-signup-form '>
       <form onSubmit={handleSubmit} className='reg-std-form'>
         <div className='form-group'>
-          <label>Name:</label>
-          <input className='pt-serif-regular std-reg-inp' type='text' name='name' id='name' value={userDetails.name}  minLength={3}
+          <label className='lato-bold'>Name:</label>
+          <input className=' std-reg-inp lato-regular' type='text' name='name' id='name' value={userDetails.name}  minLength={3}
             maxLength={20} onChange={handleChange} required />
         </div>
         <div className='form-group'>
           <div className='email-label-flex'>
-            <label>Email:</label>
+            <label className='lato-bold'>Email:</label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
               {/* <div className='verified-icon'> */}
@@ -287,7 +287,7 @@ const RegisterStudent = () => {
              type='email' 
              name='email' 
              id='email'
-             className='pt-serif-regular std-reg-inp' 
+             className=' std-reg-inp lato-regular' 
              value={userDetails.email} 
              onChange={handleChange} 
              pattern='[^@\s]+@[^@\s]+\.[^@\s]+'
@@ -297,7 +297,7 @@ const RegisterStudent = () => {
           otpDetails.isVisible ?
         <div className="otp-input form-group">
           <div className='email-label-flex'>
-             <label>Enter otp:</label>
+             <label className='lato-bold'>Enter otp:</label>
              <div><p className='link-colour submit-mob'  onClick={()=>handleOtpSubmit()}>Submit</p></div>
           </div>
           <div className='otp-verify-flex'>
@@ -309,7 +309,7 @@ const RegisterStudent = () => {
                 type="text"
                 name="otp"
                 maxLength="1"
-                className='std-reg-inp'
+                className='std-reg-inp lato-regular'
                 value={otpDetails.otp[index]}
                 onChange={(e) => handleOtpChange(e.target, index)}
                 onKeyDown={(e) => handleBackspace(e, index)}
@@ -332,9 +332,9 @@ const RegisterStudent = () => {
           <></>
         }
         <div className='form-group'>
-          <label>Password:</label>
+          <label className='lato-bold'>Password:</label>
           <div className='password-container'>
-            <input className='pt-serif-regular std-reg-inp' type={`${isPasswordVisible? 'text' : 'password'}`} name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
+            <input className='std-reg-inp lato-regular' type={`${isPasswordVisible? 'text' : 'password'}`} name='password' id='password' value={userDetails.password} onChange={handleChange} required minLength={5}/>
             { userDetails.password.length > 0 &&
               <span className='visibility-icon'>
                           {
@@ -360,7 +360,7 @@ const RegisterStudent = () => {
           </div>
         }
         <div>
-          <button type='submit' className='poppins-font reg-btn' style={regbtnstyle}>Register</button>
+          <button type='submit' className='reg-btn lato-bold' style={regbtnstyle}>Register</button>
         </div>
       </form>
       <div className='log-in-div'>

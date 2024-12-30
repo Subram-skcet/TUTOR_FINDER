@@ -51,7 +51,7 @@
   border-top-right-radius: 50px;
   transform: rotate(-45deg);
   position: absolute;
-  background: rgb(67, 67, 206);
+  background: rgb(66, 66, 228);
   border-top: 3px solid white;
   border-left: 3px solid white;
   border-right: 3px solid white;
@@ -61,14 +61,24 @@
 
 .profile-edit-icon {
   position: absolute;
-   right: 10%;
-  bottom: 5%;
+   right: 11.5%;
+  bottom: 7.5%;
   cursor: pointer;
+
 }
 .isedit-btns-div{
   width: 400px;
   display: flex;
   /* background: red; */
+}
+
+.std-pfp-nm-inp{
+  border: 2px solid #ccc;
+  height: 40px;
+  border-radius: 10px;
+  font-size: 16px;
+  padding: 10px;
+  outline: none;
 }
 
 @media (max-width:400px) {

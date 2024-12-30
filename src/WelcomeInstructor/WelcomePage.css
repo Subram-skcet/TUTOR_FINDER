@@ -1,6 +1,7 @@
 
 .stator{
-    position: fixed;
+    height: calc(100vh - 70px);
+    overflow: hidden;
 }
 
 .welcome-part-one{
@@ -80,6 +81,8 @@
 
 .welcoming-contents{
     font-size: 20px;
+    line-height: 2rem;
+    word-spacing: 0.2rem;
 }
 
 .welcome-btn-div{
@@ -100,7 +103,9 @@
     background: rgb(66, 63, 63);
 }
 .doable-para{
-    font-size: 17px;
+    font-size: 19.5px;
+    line-height: 2rem;
+    word-spacing: 0.2rem;
 }
 
 .doable-divs{

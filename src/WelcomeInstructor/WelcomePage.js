@@ -41,6 +41,7 @@ const WelcomePage = () => {
 
    }
    useEffect(()=>{
+      window.scrollTo(0,0)
       getCountStats()
    },[])
 
@@ -62,7 +63,7 @@ const WelcomePage = () => {
       }
    </Modal>
    <div className='top-wst'></div>
-    <div className={`welcome-pg-wrap ${isRegisterModalOpen ? 'stator':''}`}>
+    <div className={`welcome-pg-wrap lato-regular ${isRegisterModalOpen ? 'stator':''}`}>
       <div className='welcome-part-one'>
          <div className='welcome-notes'>
             <div className='actual-content'>
@@ -72,12 +73,12 @@ const WelcomePage = () => {
                   </h1>
                </div>
                <div>
-               <p className='welcoming-contents welcome-p pt-serif-regular'>
-                  Become an instructor and change lives — including your own
+               <p className='welcoming-contents welcome-p  '>
+               Join us to empower students and shape brighter futures—together, we grow!
                </p>
                </div>
                <div className='welcome-btn-div'>
-               <button className='welcoming-btn' onClick={()=>setRegisterModelOpen(true)}>Get Started</button>
+               <button className='welcoming-btn lato-regular' onClick={()=>setRegisterModelOpen(true)}>Get Started</button>
                </div>
             </div>
           </div>
@@ -98,38 +99,38 @@ const WelcomePage = () => {
                  <img src={tution} className='doable-image'/>
             </div>
             <div>
-               <h2 className='welcome-p poppins-font'>Customize Your Tuitions</h2>
-               <p className='welcome-p doable-para pt-serif-regular'>Create tuitions based on your actual classes, tailored to different subjects, standards, and boards in your area.</p>
+               <h3 className='welcome-p poppins-font'>Customize Your Tuitions</h3>
+               <p className='welcome-p doable-para  '>Create tuitions based on your actual classes, tailored to different subjects, standards, and boards in your area.</p>
             </div>
          </div>
          <div className='doable-divs'>
              <div>
                  <img src={reviews} className='doable-image'/>
             </div>
-            <h2 className='welcome-p poppins-font'>Improve with Feedback</h2>
-            <p className='welcome-p  doable-para pt-serif-regular'>Get insights into what students think of your tuitions, helping you improve in areas where you're lacking</p>
+            <h3 className='welcome-p poppins-font'>Improve with Feedback</h3>
+            <p className='welcome-p  doable-para  '>Get insights into what students think of your tuitions, helping you improve in areas where you're lacking</p>
          </div>
          <div className='doable-divs'>
             <div>
                  <img src={growth} className='doable-image'/>
             </div>
-            <h2 className='welcome-p poppins-font'>Expand Your Reach</h2>
-            <p className='welcome-p doable-para pt-serif-regular'>Grow your offline tuition by posting here and reach more students to expand your impact</p>
+            <h3 className='welcome-p poppins-font'>Expand Your Reach</h3>
+            <p className='welcome-p doable-para  '>Grow your offline tuition by posting here and reach more students to expand your impact</p>
          </div>
         </div>
       </div>
       <div className='show-case'>
          <div className='lists'>
             <h1 className='count-size'>{statDetails.studentCount}</h1>
-            <p className='pt-serif-regular'>Students</p>
+            <p className=' '>Students</p>
          </div>
          <div className='lists'>
             <h1 className='count-size'>{statDetails.teacherCount}</h1>
-            <p className='pt-serif-regular'>Teachers</p>
+            <p className=' '>Teachers</p>
          </div>
          <div className='lists'>
             <h1 className='count-size'>{statDetails.tuitionCount}</h1>
-            <p className='pt-serif-regular'>Tuitions</p>
+            <p className=' '>Tuitions</p>
          </div>
       </div>
     </div>

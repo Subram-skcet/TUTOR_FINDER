@@ -47,11 +47,14 @@
 .bookmark-pg-explr-div{
     background: rgb(55, 132, 233);
     color: white;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 .bookmark-p{
     font-size: 20px;
+  line-height: 2rem;
+  word-spacing: 0.2rem;
+  text-align: center;
+  background: red;
 }
 
 @media (max-width:500px) {

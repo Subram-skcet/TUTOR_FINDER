@@ -25,7 +25,7 @@
   .search-bar > div {
     flex: 1 1 37%;
     margin-bottom: 20px;
-    min-width: 135px;
+    min-width: 145px;
   }
   
   .search-bar > label {
@@ -71,7 +71,7 @@
     color: white;
     width: 125px;
     height: 50px;
-    font-size: 17px;
+    font-size: 18px;
     background-color: rgb(126, 29, 126);
     border-radius: 50px;
     box-shadow: 1px 1px 5px 1px black;

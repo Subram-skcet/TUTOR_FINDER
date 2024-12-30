@@ -1,5 +1,8 @@
 import React from 'react'
 import SidebarItem from './Sidebar-items/SidebarItem'
+import { IoMdContact } from "react-icons/io";
+import { IoIosSchool } from "react-icons/io"
+import { MdRateReview } from "react-icons/md";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SchoolIcon from '@mui/icons-material/School';
 import ReviewsIcon from '@mui/icons-material/Reviews';
@@ -11,7 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 const Sidebar = ({closesidebar}) => {
   const navigate = useNavigate();
   return (
-    <div className='sidebar-tot-wrap'>
+    <div className='sidebar-tot-wrap lato-regular'>
         <div className='sidebar-content-wrap'>
         <div className='sidebar-img-div sbar-lrg'>
             <img src={logo} className='sidebar-img'></img>
@@ -28,13 +31,13 @@ const Sidebar = ({closesidebar}) => {
 
         <div className='sidebar-items'>
                <div onClick={()=>navigate('/myaccount/teacherprofile/myprofile')}>
-                <SidebarItem field='Profile' Icon={AccountCircleIcon}/>
+                <SidebarItem field='Profile' Icon={IoMdContact}/>
                </div>
                <div onClick={()=>navigate('/myaccount/teacherprofile/mytutions')}>
-                <SidebarItem field='My Tuitions' Icon={SchoolIcon}/>
+                <SidebarItem field='My Tuitions' Icon={IoIosSchool}/>
                </div>
                <div onClick={()=>navigate('/myaccount/teacherprofile/myreviews')}>
-                <SidebarItem field='Reviews' Icon={ReviewsIcon}/>
+                <SidebarItem field='Reviews' Icon={MdRateReview}/>
                </div>
         </div>
         </div>

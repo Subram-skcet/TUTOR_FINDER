@@ -12,13 +12,13 @@ const AboutPage = () => {
     <div className="about-container">
       <section className="about-header">
         <h1 className="about-title lato-bold">About EduQuest</h1>
-        <p className="about-subtitle pt-serif-regular">"Connecting students with the best teachers for home tuitions"</p>
+        <p className="about-subtitle lato-regular">"Connecting students with the best teachers for home tuitions"</p>
       </section>
 
       <div className='image-section'>
       <section className="about-overview">
         <h2 className="overview-title lato-bold">Our Mission</h2>
-        <p className="overview-description pt-serif-regular">
+        <p className="overview-description lato-regular">
           EduQuest simplifies the process of finding personalized and effective home tuition by connecting students with the best teachers in their area or any preferred location. Whether it’s for improving grades or mastering specific subjects, our platform makes the search for quality education easy and convenient.
         </p>
       </section>
@@ -41,7 +41,7 @@ const AboutPage = () => {
               </div>
               <div className='feature-content'>
                 <h3 className="feature-heading poppins-font">Find Your Perfect Tutor</h3>
-                <p className="feature-description pt-serif-regular">
+                <p className="feature-description lato-regular">
                   Search for tutors by name, subject, location, syllabus board, or grade level. We give you the flexibility to find the tutor that fits your needs perfectly.
                 </p>
               </div>
@@ -52,7 +52,7 @@ const AboutPage = () => {
               </div>
               <div className='feature-content'>
                 <h3 className="feature-heading poppins-font">Comprehensive Teacher Profiles</h3>
-                <p className="feature-description pt-serif-regular">
+                <p className="feature-description lato-regular">
                   Explore complete teacher profiles, including experience, teaching philosophy, subjects taught, and reviews from other students to make an informed choice.
                 </p>
               </div>
@@ -63,7 +63,7 @@ const AboutPage = () => {
               </div>
               <div className='feature-content'>
                 <h3 className="feature-heading poppins-font">Seamless Interaction</h3>
-                <p className="feature-description pt-serif-regular">
+                <p className="feature-description lato-regular">
                   Teachers can manage their profiles, post tuition offerings, and respond to reviews, while students can manage favorites and provide feedback.
                 </p>
               </div>
@@ -79,7 +79,7 @@ const AboutPage = () => {
       </div>
       <section className="about-overview">
         <h2 className="overview-title lato-bold">Our Goal</h2>
-        <p className="overview-description pt-serif-regular">
+        <p className="overview-description lato-regular">
         We aim to bridge the gap between students seeking personalized tuition and teachers offering their expertise, creating an environment where academic success is within reach for everyone.
         </p>
       </section>

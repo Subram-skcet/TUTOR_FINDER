@@ -68,7 +68,7 @@ const Search = ({ onSearch }) => {
 
       <div className="search-bar">
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Search By Name:</strong>
             </label>
           <input 
@@ -77,11 +77,11 @@ const Search = ({ onSearch }) => {
             value={searchDetails.name} 
             onChange={handleChange} 
             placeholder="Eg.Julie"
-            className="pt-serif-regular nm-input"
+            className="lato-regular nm-input"
             />
         </div>
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Search By Subject:</strong>
             </label>
             <div className='select-container req-bx-slct-cntr'>
@@ -89,7 +89,7 @@ const Search = ({ onSearch }) => {
              name='subject' 
              value={searchDetails.subject} 
              onChange={handleChange}
-             className="pt-serif-regular select-box req-bx-slct"
+             className="lato-regular select-box req-bx-slct"
           >
              <option value=''>All subjects</option>
              {subjects.map((subject,index)=>(
@@ -102,11 +102,11 @@ const Search = ({ onSearch }) => {
              </div>
         </div>
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Search By Board:</strong>
             </label>
             <div className='select-container req-bx-slct-cntr'>
-            <select name="boards" onChange={handleChange} className="pt-serif-regular req-bx-slct select-box">
+            <select name="boards" onChange={handleChange} className="lato-regular req-bx-slct select-box">
               <option value="">Any boards</option>
               {boards.map((board,index)=>(
                 <option key={index} value={board}>{board}</option>
@@ -118,12 +118,12 @@ const Search = ({ onSearch }) => {
             </div>
         </div>
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Select State:</strong>
             </label>
             <div className='select-container req-bx-slct-cntr'>
 
-          <select name="state" id="inputState" value={searchDetails.state} onChange={handleStateChange} className="pt-serif-regular req-bx-slct select-box">
+          <select name="state" id="inputState" value={searchDetails.state} onChange={handleStateChange} className="lato-regular req-bx-slct select-box">
             <option value="">Any State</option>
             {Object.keys(stateDistricts).map((state) => (
               <option key={state} value={state}>
@@ -137,11 +137,11 @@ const Search = ({ onSearch }) => {
             </div>
         </div>
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Search By District:</strong>
           </label>
           <div className='select-container req-bx-slct-cntr'>
-          <select name="district" id="inputDistrict" value={searchDetails.district} onChange={handleChange} disabled={!searchDetails.state} className="pt-serif-regular req-bx-slct select-box">
+          <select name="district" id="inputDistrict" value={searchDetails.district} onChange={handleChange} disabled={!searchDetails.state} className="lato-regular req-bx-slct select-box">
             <option value="">Any districts</option>
             {districts.map((district) => (
               <option key={district} value={district}>
@@ -155,11 +155,11 @@ const Search = ({ onSearch }) => {
           </div>
         </div>
         <div>
-          <label className="pt-serif-regular">
+          <label className="lato-regular">
             <strong>Search By Standard:</strong>
             </label>
             <div className='select-container req-bx-slct-cntr'>
-            <select value={searchDetails.std} name="std" onChange={handleChange} className="pt-serif-regular req-bx-slct select-box">
+            <select value={searchDetails.std} name="std" onChange={handleChange} className="lato-regular req-bx-slct select-box">
               <option value="">All Standards</option>
               {
                 standards.map((std,index)=>(
@@ -174,7 +174,7 @@ const Search = ({ onSearch }) => {
         </div>
       </div>
       </div>
-      <button onClick={handleSubmit} className="req-srch-btn btn-cntr poppins-font">Search</button>
+      <button onClick={handleSubmit} className="req-srch-btn btn-cntr lato-bold">Search</button>
     </div>
   );
 };

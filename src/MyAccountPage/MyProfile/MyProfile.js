@@ -283,7 +283,7 @@ const MyProfile = () => {
   const handleIconClick = () => fileInputRef.current.click();
 
   return (
-    <div className="my-profile-page pt-serif-regular">
+    <div className="my-profile-page lato-regular">
       <div className="my-profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
@@ -458,7 +458,7 @@ const MyProfile = () => {
               <div className="label">{label}:</div>
               <div className="value">
                 {label === 'Average Rating' ? (
-                  <div className="rating">
+                  <div className="tchr-pfp-rating">
                     <DisplayRating rating={profile.averageRating}/>
                     <p>({profile.numOfReviews})</p>
                   </div>
@@ -469,12 +469,13 @@ const MyProfile = () => {
             </React.Fragment>
           ))}
         </div>
+        <hr className='hr-tag'></hr>
         <div className="about-section">
           <h2 className="my-prof-about-heading">About</h2>
           {isEditing ? (
             <textarea
             ref={textareaRef}
-              className="about-content"
+              className="pfp-pg-about-content"
               name="about"
               value={editDetails.about}
               onChange={handleChange}
@@ -498,13 +499,13 @@ const MyProfile = () => {
           }
         <div className='my-prof-isedit-btns-div'>
           <button className="edit-prof-btn" type='submit' disabled={saveBtnLoading}>
-            <div className={`itms-cntr style-links-updated edit-styl ${saveBtnLoading ? `save-load-btn-style`:``}`}>
+            <div className={`itms-cntr style-links-updated edit-styl lato-regular ${saveBtnLoading ? `save-load-btn-style`:``}`}>
             <IoIosSave size="1.45em"/>
-              <p>Save Profile</p>
+              <p>Save</p>
             </div>
           </button>
           <button className="edit-prof-btn" onClick={handleCancelClick}>
-            <div className='itms-cntr style-links-updated cncl-bck'>
+            <div className='itms-cntr style-links-updated cncl-bck lato-regular'>
             <MdCancel  size="1.45em"/> 
               <p>Cancel</p>
             </div>
@@ -513,9 +514,9 @@ const MyProfile = () => {
         </>
           :
           <button className="edit-prof-btn">
-            <div className='itms-cntr style-links-updated norm-style' onClick={handleEditClick}>
+            <div className='itms-cntr style-links-updated norm-style lato-regular' onClick={handleEditClick}>
             <MdEdit size="1.45em"/>
-              <p>Edit Profile</p>
+              <p>Edit</p>
             </div>
           </button>
         }

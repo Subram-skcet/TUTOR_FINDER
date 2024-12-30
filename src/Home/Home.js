@@ -1,11 +1,15 @@
 import './Home.css'
 import Search from '../Search/Search'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import ImageSlider from './ImageSlider/ImageSlider';
 
 
 const Home = (props) => {
   const [srch,setSrch] = useState(false)
+
+  useEffect(()=>{
+       window.scrollTo(0,0)
+  },[])
   return (
     <>
     <div className='top-wst'></div>
@@ -18,7 +22,7 @@ const Home = (props) => {
           :
           <div className="home-content">
             <h1 className='home-h1 lato-bold'>Find the Teacher best suits your needs</h1>
-            <button className="home-srch-btn" onClick={()=>setSrch(true)}>Search</button>
+            <button className="home-srch-btn lato-bold" onClick={()=>setSrch(true)}>Search</button>
           </div>
           }
         <div className="home-img-div">

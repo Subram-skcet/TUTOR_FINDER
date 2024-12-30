@@ -38,17 +38,14 @@ const Main = () => {
       setResults(location.state.resultset)
     else
       fetchData({});
+    window.scrollTo(0,0)
   }, []);
 
-  useEffect(()=>{
-  console.log(isAnyModalOpen);
-  
-  },[isAnyModalOpen])
 
   return (
     <>
       <div className='top-wst'></div>
-      <div className={`container ${isAnyModalOpen ? 'stator':''}`}>
+      <div className={`container ${isAnyModalOpen ? 'stator' : ''}`}>
         <div className='search-prt'>
           <h1 className='main-pg-h1 lato-bold'>Filter Your Search</h1>
           <Search onSearch={fetchData} />

@@ -94,8 +94,8 @@ const deleteReview = async(id) =>{
       <>
             {reviews.length === 0 ? (
               <div className='student-pg-review-div'>
-                <p className='pt-serif-regular'>
-                  Reviews you have written about teachers will appear here so far you haven't written any reviews
+                <p className='lato-regular std-pg-review-p'>
+                  Reviews you have written about teachers will show here so far you haven't written any reviews
                 </p>
               </div>
             )

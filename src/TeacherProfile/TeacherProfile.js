@@ -52,6 +52,7 @@ const TeacherProfile = () => {
   };
   
   useEffect(() => {
+    window.scrollTo(0,0)
     fetchReviews();
   }, []);
 
@@ -171,7 +172,7 @@ const TeacherProfile = () => {
   return (
     <>
      <div className='top-wst'></div>
-    <div className={`profile-page pt-serif-regular ${isLoginModalOpen? 'stator':''}`}>
+    <div className={`profile-page lato-regular ${isLoginModalOpen? 'stator':''}`}>
       <div className='pfp-pg-arrow-nav' onClick={navigateBack}>
         <FaArrowLeft size="1.8em"/>
       </div>
@@ -213,9 +214,9 @@ const TeacherProfile = () => {
           <div className="value">{props.numOfTutions}</div>
 
           <div className='label'>Average Rating:</div>
-          <div className="rating">
+          <div className="tchr-pfp-rating">
                     <DisplayRating rating={props.averageRating}/>
-                    <p>({props.numOfReviews})</p>
+                    <span className='tchr-pfp-nor'>({props.numOfReviews})</span>
           </div>
         </div>
         <hr className='hr-tag'></hr>
@@ -269,17 +270,16 @@ const TeacherProfile = () => {
                     value={newReviewText}
                     ref={textareaRef}
                     onFocus={handleFocus}
-                    onBlur={handleBlur}
                     onChange={(e) => setNewReviewText(e.target.value)}
                     placeholder="Write review..."
-                    className='profile-page-textarea pt-serif-regular'
+                    className='profile-page-textarea lato-regular'
                     minLength={1}
                     required
                     ></textarea>
                   </div>
                   <div className='review-box-btns'>
-                      <button type="submit" className="post-submit">Submit</button>
-                      <button className='post-cancel' onClick={handleBlur}>Cancel</button>
+                      <button type="submit" className="post-submit lato-bold">Submit</button>
+                      <button className='post-cancel lato-bold' onClick={handleBlur}>Cancel</button>
                   </div>
                 </div>
                   </form>

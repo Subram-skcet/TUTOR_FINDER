@@ -9,11 +9,11 @@ import Modal from '../Modal/Modal';
 import LoginModal from '../LoginModal/LoginModal';
 import { extractDateFields } from '../../utils/getCreatedAt'
 import { toast } from 'react-toastify';
-import profileimg from '../../assets/17330480.png'
 import { convertTo12Hour } from '../../utils/TimeFormatConverter';
 import { FaRupeeSign } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import StudentSideMap  from '../StudentMap/StudentSideMap'
+import { useSearchParams } from 'react-router-dom';
 
 function TutionCard({tution,index,profilenavigate,setModalOpen}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -23,6 +23,7 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
         }
         return false
     })
+    const [isBookMarking,setIsBookMarking] = useState(false)
     const [isLoginModalOpen,setLoginModelOpen] = useState(false)
     const [isMapOpen,setMapOpen] = useState(false)
 
@@ -34,13 +35,14 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
             toast.warn("This feature is supposed for students. Teacher's can't use this")
             return
         }
+        setIsBookMarking(true)
         try {
-            setBookMark(prevState => !prevState)
             const response = await axios.post(`/api/v1/student/favouritetutions/`,{
                 tutionId:tution._id,
                 favourite:!isBookMark
             })
             if(response.status === 201){
+                setBookMark(prevState => !prevState)
                 let updatedStudentDetails = {
                     ...asStudent,
                     favouriteTutions: !isBookMark 
@@ -60,6 +62,9 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
             toast.error('Something went wrong try again later')
             console.log(error.message);
         }
+        finally{
+            setIsBookMarking(false)
+        }
     }
 
     useEffect(()=>{
@@ -77,23 +82,23 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
         <Modal  childrenWidth={400} isopen={isMapOpen} onClose={()=>setMapOpen(false)}>
             <StudentSideMap lat={tution.location[0]} lng={tution.location[1]}/>
         </Modal>
-        <div className="tutor-card" key={index}>
+        <div className='tutor-card lato-regular' key={index}>
         <div className='date-div'>
               <p className='createdAt-p'>{extractDateFields(tution.createdAt)}</p>
         </div>
             <div className='bookmark-icon-div' onClick={BookMarkTution}>
                 {
                     isBookMark?
-                        <div className='bookmark-icon' title="Remove from Bookmark">
+                        <div className={`bookmark-icon ${isBookMarking? 'bm-doning' : ''}`} title="Remove from Bookmark">
                         <BookmarkAddedIcon fontSize='large'/>
                         </div>
                     :
-                    <div className='bookmark-icon' title="Add to Bookmark">
+                    <div className={`bookmark-icon ${isBookMarking? 'bm-doning' : ''}`} title="Add to Bookmark">
                        <BookmarkAddIcon fontSize='large'/>
                     </div>
                 }
             </div>
-            <div className="tutor-card__profile-container pt-serif-regular">
+            <div className="tutor-card__profile-container">
                 <div className='tutor-img-div bg-scr-div' onClick={()=>profilenavigate(index)}>
                     <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                 </div>
@@ -102,7 +107,6 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
                         <img src={tution.createdBy.profilepic} alt='tutor-img' className='tutor-img' title={`${tution.createdBy.name}'s profile`}/>
                     </div>
                     <div onClick={()=>profilenavigate(index)} className='visit-prof-div'>
-                        <img src={profileimg} className='visit-profile-img'/>
                         <p className='vsp-prof-p'>Visit profile</p>
                     </div>
                 </div>

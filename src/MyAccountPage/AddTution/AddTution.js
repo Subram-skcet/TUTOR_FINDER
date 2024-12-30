@@ -18,6 +18,8 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import Modal from '../../components/Modal/Modal';
 import MapComponent from '../../components/TeacherMap/AMapSample';
+import { isTimeAfter } from '../../utils/isTimeAfter';
+import { isRomanAfter } from '../../utils/isRomanAfter';
 
 
 const AddTution = () => {
@@ -32,7 +34,7 @@ const AddTution = () => {
     endStd: 'I',
     startDay: 'Monday',
     endDay: 'Monday',
-    Fees: '',
+    Fees: 0,
     Boards: []
   });
 
@@ -79,7 +81,7 @@ const AddTution = () => {
       setErrorText('')
     }
     const selectedSubject = e.target.value;
-    if (!TutionDetails.Subjects.includes(selectedSubject)) {
+    if (selectedSubject.length > 0 && !TutionDetails.Subjects.includes(selectedSubject)) {
       setDetails((prevDetails) => ({
         ...prevDetails,
         Subjects: [...prevDetails.Subjects, selectedSubject],
@@ -102,7 +104,7 @@ const AddTution = () => {
       setErrorText('')
     }
     const selectedBoard = e.target.value;
-    if (!TutionDetails.Boards.includes(selectedBoard)) {
+    if (selectedBoard.length>0 && !TutionDetails.Boards.includes(selectedBoard)) {
       setDetails((prevDetails) => ({
         ...prevDetails,
         Boards: [...prevDetails.Boards, selectedBoard],
@@ -128,63 +130,40 @@ const AddTution = () => {
   }
 
 
-function isTimeAfter(time1, time2) {
-  const today = new Date().toISOString().slice(0, 10);
-  const date1 = new Date(`${today}T${time1}`);
-  const date2 = new Date(`${today}T${time2}`);
-
-  return date1 > date2; // Compare if time1 is after time2
-}
-
-function isRomanAfter(roman1, roman2) {
-  const romanToInt = {
-    I: 1,
-    II: 2,
-    III: 3,
-    IV: 4,
-    V: 5,
-    VI: 6,
-    VII: 7,
-    VIII: 8,
-    IX: 9,
-    X: 10,
-    XI: 11,
-    XII: 12
-  };
-
-  return romanToInt[roman1] <= romanToInt[roman2]; // Compare if roman1 is after roman2
-}
-
-
 const navigateBack = () =>{
     navigate('/myaccount/teacherprofile/mytutions')
 }
 
   const ValidateTuition = () =>{
-      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees.trim() || !location.lat  || !location.lng){
-        setErrorText("Please fill all fields")
+      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees || !location.lat  || !location.lng){
+        setErrorText("Please fill in all the fields.")
         return false;
       }
 
        if(TutionDetails.Subjects.length === 0){
-         setErrorText("Please choose atleast one subjects")
+         setErrorText("Select at least one subject from the list.")
          return false
        }
 
        if(TutionDetails.Boards.length === 0){
-         setErrorText("Please choose atleast one board")
+         setErrorText("Choose at least one board from the list.")
          return false
        }
 
 
        if(!isTimeAfter(TutionDetails.endTime,TutionDetails.startTime)){
-         setErrorText("End Time cannot be less than or equal to start Time")
+         setErrorText("End time must be greater than the start time.")
          return false
        }
 
        if(!isRomanAfter(TutionDetails.startStd,TutionDetails.endStd)){
-         setErrorText("End Standard cannnot come between Start Standard")
+         setErrorText("End standard must not precede the start standard.")
          return false
+       }
+
+       if(TutionDetails.Fees < 0){
+        setErrorText("Tuition Fees cannot be less than zero")
+        return false
        }
        return true;   
   }
@@ -231,7 +210,7 @@ const navigateBack = () =>{
       <Modal childrenWidth={400}  isopen={isMapOpen} onClose={()=>setMapOpen(false)}>
         <MapComponent setLatLng = {setLatLngfromChd}/>
       </Modal>
-    <div className="create-tuition-container">
+    <div className="create-tuition-container lato-regular">
       <div className='arrow-nav' onClick={navigateBack}>
         <FaArrowLeft size="1.8em"/>
       </div>
@@ -242,7 +221,7 @@ const navigateBack = () =>{
         
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Subjects:</label>
+            <label className="lato-bold">Select Subjects:</label>
             <div className='select-container crt-tut-sl-cntr'>
             <select onChange={HandleSubjectSelect} className='create-tuition-select select-box'>
               <option value="">Select</option>
@@ -269,7 +248,7 @@ const navigateBack = () =>{
 
         <div className="list-container">
           <div className='list-header-flx'>
-            <label className="poppins-font">Select Boards:</label>
+            <label className="lato-bold">Select Boards:</label>
             <div className='select-container crt-tut-sl-cntr'>
             <select onChange={HandleBoardSelect} className='create-tuition-select select-box' aria-placeholder='Select boards '>
               <option value=''>Select</option>
@@ -296,7 +275,7 @@ const navigateBack = () =>{
         <div className='grid-columns'>
 
             <div>
-              <label className="poppins-font">Duration:</label>
+              <label className="lato-bold">Duration:</label>
             </div>
             <div className='header-flx'>
               <label>Start Time:</label>
@@ -315,7 +294,7 @@ const navigateBack = () =>{
             </div>
 
             <div>
-              <label className="poppins-font">Days:</label>
+              <label className="lato-bold">Days:</label>
             </div>
             <div className='header-flx'>
               <label>From:</label>
@@ -326,7 +305,7 @@ const navigateBack = () =>{
                 <option value={day}>{day}</option>
               ))}
               </select>
-              <div className='drp-icon'>
+              <div className='drp-icon dt-drp'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
               </div>
@@ -340,14 +319,14 @@ const navigateBack = () =>{
                   <option value={day}>{day}</option>
                 ))}
               </select>
-              <div className='drp-icon'>
+              <div className='drp-icon dt-drp'>
               <IoMdArrowDropdown size="1.6em"/>
               </div>
                 </div>
             </div>
 
             <div>
-              <label className="poppins-font">Standard:</label>
+              <label className="lato-bold">Standard:</label>
             </div>
           <div className='header-flx'>
             <label>Start Class:</label>
@@ -385,20 +364,22 @@ const navigateBack = () =>{
           </div>
 
         </div>
-        <div className='header-flx'>
-           <label className="poppins-font">Fees:</label>
+        
+        <div className='nrm-header-flx'>
+           <label className="lato-bold">Fees:</label>
            <div className='fee-inp-div'>
                 <FaRupeeSign/>
                 <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl' required/>
            </div>
         </div>
 
-        <div className='header-flx'>
-              <label className='poppins-font'>Location:</label>
+        <div className='nrm-header-flx'>
+              <label className="lato-bold">Location:</label>
               {
                 (!location.lat || !location.lng)?
                   <div className='location-choose-btn'>
                       <button onClick={getLocation}>Current location</button>
+                      or
                       <button onClick={()=> setMapOpen(true)}>Choose on Map</button>
                   </div>
                 :

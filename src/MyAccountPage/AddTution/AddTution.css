@@ -2,7 +2,6 @@
 .create-button {
   display: flex;
   justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
   font-weight: 700;
 }
 
@@ -37,6 +36,14 @@
   display:flex;
   align-items: center;
   gap: 1rem;
+}
+
+.nrm-header-flx{
+  display:flex;
+  align-items: center;
+  gap: 1rem;
+  /* background: red; */
+  margin-top: 0.5rem;
 }
 
 .list-header-flx{
