@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './AMapSample.css'
+import { toast } from "react-toastify";
 // import TuitionMap from "../../StudentSide";
 
 const MapComponent = ({setLatLng,onClose}) => {
@@ -66,7 +67,7 @@ const MapComponent = ({setLatLng,onClose}) => {
   
   const handleAddClick = () =>{
     if(!markerLocation){
-      alert("Choose any location to add")
+      toast.info("Choose any location to add")
       return
     }
     setLatLng(markerLocation.lat,markerLocation.lng)
@@ -79,7 +80,7 @@ const MapComponent = ({setLatLng,onClose}) => {
 
     <div className="map-wrapper">
        <div id="map"></div>
-       <button onClick={handleAddClick}>
+       <button style={{padding:'5px 10px',borderRadius:'5px',fontSize:'16px',backgroundColor:'green',color:'white',border:'none', boxShadow:'0px 0px 3px 0.5px black'}} className="lato-bold" onClick={handleAddClick}>
         Add
        </button>
 

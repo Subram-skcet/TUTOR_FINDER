@@ -200,6 +200,12 @@
     pointer-events: none;
 }
 
+.tut-crd-loc-div{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 @media (max-width:600px) {
     .bg-scr-div{
         display: none;

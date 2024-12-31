@@ -99,6 +99,9 @@
   margin-bottom: 0;
 }
 .teachers-not-found-para{
+  font-size: 18px;
+  line-height: 2rem;
+  word-spacing: 0.5rem;
   padding: 10px;
   position: absolute;
   top: 50%;

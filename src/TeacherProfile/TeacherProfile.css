@@ -301,15 +301,15 @@
 }
 
 .errorText{
-    color: rgb(255, 64, 0);
+    color: red;
+
 }
 
 .amber-icon{
-    color: rgb(255, 64, 0);
+    color: red;
 }
 
 .error-para-div{
-    background-color: #cdc8c8;
     display: flex;
     justify-content: center;
     align-items: center;

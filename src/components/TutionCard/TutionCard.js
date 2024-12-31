@@ -135,14 +135,15 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
                             <div>
                                <p className='tution-card-para'><strong>Day:</strong> {tution.days.join(' - ')}</p>
                             </div>
-                            <div>
+                            <div className='tut-crd-loc-div'>
                                <p className='tution-card-para'><strong>Location:</strong>
-                               {/* See location on map */}
-                               <button onClick={()=>setMapOpen(true)}>
-                               <FaLocationDot/>
-                               </button>
-                                {/* {tution.location.join(' - ')} */}
                                </p>
+                               <button onClick={()=>setMapOpen(true)} className="see-loc-btn lato-bold">
+                                   <div className='see-loc-div lato-bold'>
+                                        <FaLocationDot size="1.1em"/>
+                                        <p>See Location</p>
+                                    </div>
+                               </button>
                             </div>
                         </div>
                         <div className="tution-sub-info-2">

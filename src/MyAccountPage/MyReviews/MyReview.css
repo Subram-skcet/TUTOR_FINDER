@@ -8,6 +8,12 @@
     gap: 1rem;
 }
 
+.mt-rev-p{
+    font-size: 20px;
+    line-height: 2rem;
+    word-spacing: 0.2rem;
+}
+
 /* Hide scrollbars but keep scrolling functionality */
 .reviews-section::-webkit-scrollbar {
     display: none; /* Hide scrollbar for WebKit browsers */

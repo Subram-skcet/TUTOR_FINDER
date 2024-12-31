@@ -20,6 +20,10 @@ import Modal from '../../components/Modal/Modal';
 import MapComponent from '../../components/TeacherMap/AMapSample';
 import { isTimeAfter } from '../../utils/isTimeAfter';
 import { isRomanAfter } from '../../utils/isRomanAfter';
+import { BiCurrentLocation } from "react-icons/bi";
+import { FaMapLocationDot } from "react-icons/fa6";
+import { IoMdCheckmarkCircle } from "react-icons/io";
+
 
 
 const AddTution = () => {
@@ -223,7 +227,7 @@ const navigateBack = () =>{
           <div className='list-header-flx'>
             <label className="lato-bold">Select Subjects:</label>
             <div className='select-container crt-tut-sl-cntr'>
-            <select onChange={HandleSubjectSelect} className='create-tuition-select select-box'>
+            <select onChange={HandleSubjectSelect} className='create-tuition-select select-box lato-regular'>
               <option value="">Select</option>
               {asTeacher.subjects.map((subject,index) => (
                 <option key={index} value={subject}>{subject}</option>
@@ -250,7 +254,7 @@ const navigateBack = () =>{
           <div className='list-header-flx'>
             <label className="lato-bold">Select Boards:</label>
             <div className='select-container crt-tut-sl-cntr'>
-            <select onChange={HandleBoardSelect} className='create-tuition-select select-box' aria-placeholder='Select boards '>
+            <select onChange={HandleBoardSelect} className='create-tuition-select select-box lato-regular' aria-placeholder='Select boards '>
               <option value=''>Select</option>
                {boards.map((board,index) => (
                  <option key={index} value={board}>{board}</option>
@@ -285,12 +289,12 @@ const navigateBack = () =>{
                  value={TutionDetails.startTime}
                  onChange={handleChange}
                  required
-                 className='time-tg-styl'
+                 className='time-tg-styl lato-regular'
                  />
             </div>
             <div className='header-flx'>
               <label>End Time:</label>
-              <input type="time" name="endTime" className='time-tg-styl' value={TutionDetails.endTime} onChange={handleChange} required />
+              <input type="time" name="endTime" className='time-tg-styl lato-regular' value={TutionDetails.endTime} onChange={handleChange} required />
             </div>
 
             <div>
@@ -300,7 +304,7 @@ const navigateBack = () =>{
               <label>From:</label>
               <div className='select-container dys-slt-cntr'>
 
-              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box'>
+              <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box lato-regular'>
               {daysOfWeek.map((day) => (
                 <option value={day}>{day}</option>
               ))}
@@ -314,7 +318,7 @@ const navigateBack = () =>{
               <label>To:</label>
               <div className='select-container dys-slt-cntr'>
 
-              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box'>
+              <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box lato-regular'>
                 {daysOfWeek.map((day) => (
                   <option value={day}>{day}</option>
                 ))}
@@ -336,7 +340,7 @@ const navigateBack = () =>{
             value={TutionDetails.startStd}
             name="startStd" 
             onChange={handleChange}
-            className=' select-box std-slt-cntr'
+            className=' select-box lato-regular std-slt-cntr'
             required
             >
               {standards.map((std) => (
@@ -352,7 +356,7 @@ const navigateBack = () =>{
             <label>End Class:</label>
             <div className='select-container std-select-tag'>
 
-            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className=' select-box std-slt-cntr'>
+            <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className=' select-box lato-regular std-slt-cntr'>
               {standards.map((std) => (
                 <option value={std}>{std}</option>
               ))}
@@ -369,7 +373,7 @@ const navigateBack = () =>{
            <label className="lato-bold">Fees:</label>
            <div className='fee-inp-div'>
                 <FaRupeeSign/>
-                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl' required/>
+                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl lato-regular' required/>
            </div>
         </div>
 
@@ -378,15 +382,29 @@ const navigateBack = () =>{
               {
                 (!location.lat || !location.lng)?
                   <div className='location-choose-btn'>
-                      <button onClick={getLocation}>Current location</button>
-                      or
-                      <button onClick={()=> setMapOpen(true)}>Choose on Map</button>
-                  </div>
+                             <button className="see-loc-btn lato-bold loc-clr" onClick={getLocation}>
+                               <div className='see-loc-div'>
+                                 <BiCurrentLocation size="1.3em"/>
+                                 <p>Set Current location</p>
+                               </div> 
+                               </button>
+                             or
+                             <button className="see-loc-btn lato-bold loc-clr" onClick={()=> setMapOpen(true)}>
+                               <div className='see-loc-div'>
+                                 <FaMapLocationDot size="1.3em"/>
+                                 <p>Choose on Map</p>
+                               </div> 
+                               
+                               </button>
+                           </div>
                 :
-                 <div>
-                    <p>Location added</p>
-                    <button onClick={()=>{ setLocation({ lat: null, lng: null});}}>Change location</button>
-                 </div>
+                <div className='loc-ad-div'>
+                    <div className='loc-ad-ic'>
+                        <IoMdCheckmarkCircle size="1.3em"/>
+                    </div>
+                        <p>Location added</p>
+                     <button className='lato-bold chg-btn' onClick={()=>{ setLocation({ lat: null, lng: null});}}>Change</button>
+                </div>
               }
         </div>
 
@@ -398,14 +416,12 @@ const navigateBack = () =>{
                         <p className='errorText'>{errorText}</p>
                     </div>
         }
-      <button style={{all:"unset"}}>
 
-        <div className="create-button" type="submit">
-          <div className="submit-tuition">
-            <PostAddIcon />
-            <p>Create</p>
+      <button className='edit-prof-btn spz tut-crt-btn' type='submit'>
+          <div className='itms-cntr style-links-updated ed-bck lato-regular'>
+             <MdOutlinePostAdd size="1.45em"/>
+                  <p>Create</p>
           </div>
-        </div>
       </button>
       </form>
     </div>

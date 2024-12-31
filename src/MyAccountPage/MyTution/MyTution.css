@@ -50,8 +50,10 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-size: 18px;
-    text-align: center;
+    font-size: 20px;
+    line-height: 2rem;
+  word-spacing: 0.2rem;
+  text-align: center;
 }
 
 .tution-options{

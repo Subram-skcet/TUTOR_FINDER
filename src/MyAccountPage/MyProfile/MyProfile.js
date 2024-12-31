@@ -311,7 +311,7 @@ const MyProfile = () => {
               isEditing ?
               <input
                   type='text'
-                   className="value tchr-pfp-inp"
+                   className="value tchr-pfp-inp lato-regular"
                    name="name"
                    value={editDetails.name}
                    onChange={handleChange}
@@ -328,7 +328,7 @@ const MyProfile = () => {
               isEditing ?
               <input
                    type='tel'
-                   className="value tchr-pfp-inp"
+                   className="value tchr-pfp-inp lato-regular"
                    name="mobileno"
                    value={editDetails.mobileno}
                    onChange={handleChange}
@@ -346,7 +346,7 @@ const MyProfile = () => {
               isEditing?
               <input
                    type='number'
-                   className="value tchr-pfp-inp"
+                   className="value tchr-pfp-inp lato-regular"
                    name="year_of_exp"
                    value={editDetails.year_of_exp}
                    onChange={handleChange}
@@ -361,7 +361,7 @@ const MyProfile = () => {
               <div className='select-container'>
 
                 <select 
-                   className='profile-select select-box'  
+                   className='profile-select select-box lato-regular'  
                    name='state' 
                    value={editDetails.state} 
                    onChange={handleStateChange} 
@@ -385,7 +385,7 @@ const MyProfile = () => {
             isEditing?
               <div className='select-container'>
 
-                <select className='profile-select select-box' name='district' value={editDetails.district} onChange={handleChange} required>
+                <select className='profile-select select-box lato-regular' name='district' value={editDetails.district} onChange={handleChange} required>
                 <option value="">Select</option>
                 {districts.map((district) => (
                   <option key={district} value={district}>
@@ -404,7 +404,7 @@ const MyProfile = () => {
           {
             isEditing ?
             <div className='select-container'>
-              <select className='profile-select select-box' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
+              <select className='profile-select select-box lato-regular' name='qualification' value={editDetails.qualification} onChange={handleChange} required>
                 {
                   qualifications.map((qualification,index)=>(
                     <option key={index} value={qualification}>{qualification}</option>
@@ -416,7 +416,7 @@ const MyProfile = () => {
                </div>
             </div>
             :
-            <div className='value'>{profile.qualification}</div>
+            <div className='value lato-regular'>{profile.qualification}</div>
           }
 
 
@@ -426,7 +426,7 @@ const MyProfile = () => {
             <div className='subjects-list'>
                 <div className='select-container'>
 
-                <select className='profile-select add-subj select-box' onChange={HandleSubjectSelect}>
+                <select className='profile-select add-subj select-box lato-regular' onChange={HandleSubjectSelect}>
                     <option value="">Add Subjects</option>
                     {subjects.map((subject,index)=>(
                       <option key={index} value={subject}>{subject}</option>
@@ -475,7 +475,7 @@ const MyProfile = () => {
           {isEditing ? (
             <textarea
             ref={textareaRef}
-              className="pfp-pg-about-content"
+              className="pfp-pg-about-content lato-regular"
               name="about"
               value={editDetails.about}
               onChange={handleChange}

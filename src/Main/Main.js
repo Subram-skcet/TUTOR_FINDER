@@ -67,8 +67,8 @@ const Main = () => {
               />
              </div>
              : results.length === 0 ? (
-              <div className='teachers-not-found-para'>
-                <p className='pt-serif-regular tchr-not-fnd-p'>No Teachers available for the specified conditions..</p>
+              <div className='teachers-not-found-para lato-regular'>
+                <p className='pt-serif-regular tchr-not-fnd-p'>No Tuitions available for the specified conditions..</p>
               </div>
              )
              :

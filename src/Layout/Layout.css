@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    background-color: #2E294E;
+    background-color: #27187E;
     color: white;
     z-index: 1;
 }
@@ -55,7 +55,7 @@
     height: max-content;
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 1px 1px 10px black;
+    box-shadow: 0px 0px 5px black;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
 }

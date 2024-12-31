@@ -17,7 +17,6 @@ import { handleModalSize } from '../utils/modalSize';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 
-
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
   const [newReviewText, setNewReviewText] = useState('');

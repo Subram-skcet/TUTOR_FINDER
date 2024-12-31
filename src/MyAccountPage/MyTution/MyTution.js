@@ -112,7 +112,7 @@ const MyTution = () => {
           {tutions.length === 0 ? 
           (
             <div className='mytuition-notuition-div'>
-            <p className='empty-tuition-p pt-serif-regular'>Currently you haven't created any tuitions, Create one by clicking the below button</p>
+            <p className='empty-tuition-p pt-serif-regular lato-regular'>Currently, you haven't created any tuitions. Create one by clicking the button below.</p>
             </div>
           )
           :

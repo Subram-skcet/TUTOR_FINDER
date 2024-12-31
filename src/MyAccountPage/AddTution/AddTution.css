@@ -1,22 +1,4 @@
 
-.create-button {
-  display: flex;
-  justify-content: center;
-  font-weight: 700;
-}
-
-.submit-tuition {
-  display: flex;
-  align-items: center;
-  border-radius: 5px;
-  background-color: #2114d5;
-  color: white;
-  padding: 10px;
-  cursor: pointer;
-  /* padding: 10px 20px;
-  font-weight: bold; */
-}
-
 .submit-tuition:hover {
   background-color: #45a049;
 }
@@ -131,7 +113,6 @@ input[type='time']{
 
 .time-tg-styl{
   padding: 5px;
-  font-size: 16px;
   /* color: #2114d5; */
   background-color: rgb(255, 255, 255);
   border: 2px solid #ccc;
@@ -173,6 +154,17 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none; /* For Chrome, Safari, and Edge */
   margin: 0;
+}
+
+.chg-btn{
+  border-radius: 5px;
+  outline: none;
+  background: rgb(16, 127, 179);
+  color: white;
+}
+
+.tut-crt-btn{
+  margin-top: 1rem;
 }
 
 @media (max-width:500px) {

@@ -181,7 +181,7 @@ const StudentProfile = () => {
               type="text"
               name="name"
               value={editDetails.name}
-              className='std-pfp-nm-inp'
+              className='std-pfp-nm-inp lato-regular'
               onChange={handleChange}
               minLength={5}
               maxLength={20}

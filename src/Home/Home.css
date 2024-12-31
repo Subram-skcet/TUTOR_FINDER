@@ -30,7 +30,7 @@
   color: white;
     margin-left: 1rem;
     margin-top: 2rem;
-    background-color: #F46036;
+    background-color: #f58402;
       width: 125px;
       height: 50px;
       font-size: 20px;
@@ -38,6 +38,7 @@
       border: none;
       font-weight: bolder;
       cursor: pointer;
+      box-shadow: 0px 0px 5px black;
   }
   .about-para{
     font-size: 30px;
@@ -46,7 +47,7 @@
   text-align: center;
 }
 .home-srch-btn:hover{
-  background-color:#de7321;
+  background-color:#ff8902;
 }
 
 .btn-cntr{

@@ -191,7 +191,7 @@ const handleSaveClick = async() =>{
                       name="editreview" 
                       value={editDetails.editreview} 
                       onChange={handleChange}
-                      className="review-pg-txtarea"
+                      className="review-pg-txtarea lato-regular"
                       >
                     </textarea>
                 </div>

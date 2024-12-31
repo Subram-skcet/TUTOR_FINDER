@@ -25,6 +25,8 @@ import { FaMapLocationDot } from "react-icons/fa6";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { isTimeAfter } from '../../utils/isTimeAfter';
 import { isRomanAfter } from '../../utils/isRomanAfter';
+import { FaLocationDot } from "react-icons/fa6";
+import { BiCurrentLocation } from "react-icons/bi";
 
 
 const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
@@ -269,7 +271,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             isEditing ?
             <div className="isEditing-div">
               <div className='select-container'>
-                <select onChange={HandleSubjectSelect} className='select-box'>
+                <select onChange={HandleSubjectSelect} className='select-box lato-regular'>
                     <option value="">Add Subjects</option>
                     {asTeacher.subjects.map((subject,index)=>(
                       <option key={index} value={subject}>{subject}</option>
@@ -303,11 +305,11 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <div className="time-inputs">
             <div className='time-flex'>
                 <p>Start Time:</p>
-                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} required/>
+                <input type="time" name="duration" className='time-tg-styl lato-regular' value={TuitionDetails.duration[0]} onChange={(e)=>handleArrayChange(e,0)} required/>
             </div>
             <div className='time-flex'>
                 <p>End Time:</p>
-                <input type="time" name="duration" className='time-tg-styl' value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} required/>
+                <input type="time" name="duration" className='time-tg-styl lato-regular' value={TuitionDetails.duration[1]} onChange={(e)=>handleArrayChange(e,1)} required/>
             </div>
            </div>
             :
@@ -330,7 +332,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                             <label>From:</label>
                         </div>
                         <div className='select-container dys-slt-cntr'>
-                        <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)} className='select-box dt-select' required>
+                        <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)} className='select-box lato-regular dt-select' required>
                             {
                               daysOfWeek.map((days)=>(
                                 <option value={days}>{days}</option>
@@ -347,7 +349,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                             <label>To:</label>
                         </div>
                         <div className='select-container dys-slt-cntr'>
-                          <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)} className='select-box dt-select' required>
+                          <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)} className='select-box lato-regular dt-select' required>
                               {
                                 daysOfWeek.map((days)=>(
                                   <option value={days}>{days}</option>
@@ -376,7 +378,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             isEditing?
             <div className="isEditing-div">
               <div className='select-container'>
-                <select name="boards" onChange={HandleBoardSelect} className='select-box' required>
+                <select name="boards" onChange={HandleBoardSelect} className='select-box lato-regular' required>
                 <option value="">Select a board</option>
                 {
                   boards.map((board)=>(
@@ -408,7 +410,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
           <div className='std-flex'>
             <label>From:</label>
             <div className='select-container std-select-tag'>
-            <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)} className='select-box std-slt-cntr' required>
+            <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)} className='select-box lato-regular std-slt-cntr' required>
               {
                 standards.map((standard)=>(
                   <option value={standard}>{standard}</option>
@@ -423,7 +425,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
           <div className='std-flex'>
             <label>To:</label>
             <div className='select-container std-select-tag'>
-            <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)} className='select-box std-slt-cntr' required>
+            <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)} className='select-box lato-regular std-slt-cntr' required>
                {
                  standards.map((standard)=>(
                    <option value={standard}>{standard}</option>
@@ -449,7 +451,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
            <div className="isEditing-div">
              <div className='fee-inp-div'>
                   <FaRupeeSign size='1em'/>
-                  <input type='number' name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className='fees-input-styl'/> 
+                  <input type='number' name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className='fees-input-styl lato-regular'/> 
               </div>
             </div>
             :
@@ -465,8 +467,20 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
           (!location.lat || !location.lng)?
           
           <div className='location-choose-btn'>
-            <button onClick={getLocation}>Current location</button>
-            <button onClick={()=> setUpdateLocMapOpen(true)}>Choose on Map</button>
+            <button className="see-loc-btn lato-bold" onClick={getLocation}>
+              <div className='see-loc-div'>
+                <BiCurrentLocation size="1.3em"/>
+                <p>Set Current location</p>
+              </div> 
+              </button>
+            or
+            <button className="see-loc-btn lato-bold" onClick={()=> setUpdateLocMapOpen(true)}>
+              <div className='see-loc-div'>
+                <FaMapLocationDot size="1.3em"/>
+                <p>Choose on Map</p>
+              </div> 
+              
+              </button>
           </div>
 
 :
@@ -477,9 +491,9 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 </div>
            </div>
           :
-          <button onClick={()=>setCurrentLocMapOpen(true)}>
-            <div className='see-loc-div'>
-                <FaMapLocationDot size="1.3em"/>
+          <button  className="see-loc-btn lato-bold" onClick={()=>setCurrentLocMapOpen(true)}>
+            <div className='see-loc-div lato-bold'>
+                <FaLocationDot size="1.1em"/>
                 <p>See Location</p>
             </div>
             

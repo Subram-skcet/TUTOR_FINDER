@@ -1,5 +1,5 @@
 .delete-modal-container{
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -10,4 +10,17 @@
     display: flex;
     justify-content: center;
     gap: 2rem;
+}
+
+@media (max-width:440px) {
+    .delete-modal-container{
+        width: 90vw;
+    }
+}
+
+@media (max-width:250px) {
+        
+        .delete-modal-buttons{
+            flex-direction: column;
+        }
 }

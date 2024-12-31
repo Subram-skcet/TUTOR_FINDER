@@ -3,11 +3,12 @@ import './StudentLogin.css'; // Assuming you save the CSS file as Login.css
 import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+// import MdWarningAmber from '@mui/icons-material/WarningAmber';
 import { toast } from 'react-toastify';
 import loadgif from '../../assets/89.gif'
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
 
 const Login = () => {
     const [{logged,logged_as,asTeacher,asStudent},dispatch] = useDataLayerValue()
@@ -144,7 +145,7 @@ const Login = () => {
                 {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
-                             <WarningAmberIcon/>
+                             <MdWarningAmber size="1.3em"/>
                          </div>
                         <p className='errorText'>{errorText}</p>
                     </div>
