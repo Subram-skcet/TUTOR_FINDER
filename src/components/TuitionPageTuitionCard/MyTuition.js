@@ -27,6 +27,8 @@ import { isTimeAfter } from '../../utils/isTimeAfter';
 import { isRomanAfter } from '../../utils/isRomanAfter';
 import { FaLocationDot } from "react-icons/fa6";
 import { BiCurrentLocation } from "react-icons/bi";
+import { MdWarningAmber } from "react-icons/md";
+
 
 
 const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
@@ -537,7 +539,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 {isEditing && errorText && 
                            <div className='error-para-div er-streg'>
                                 <div className='amber-icon'>
-                                    <WarningAmberIcon/>
+                                  <MdWarningAmber size="1.3em"/>
                                 </div>
                                <p className='errorText'>{errorText}</p>
                            </div>

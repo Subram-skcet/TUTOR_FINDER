@@ -1,12 +1,50 @@
 import React, { useEffect, useState } from "react";
 import './AMapSample.css'
 import { toast } from "react-toastify";
+import axios from "axios";
 // import TuitionMap from "../../StudentSide";
+import { useDataLayerValue } from "../../StateProviders/StateProvider";
+
 
 const MapComponent = ({setLatLng,onClose}) => {
   const [map, setMap] = useState(null); // State to store the map instance
   const [markers, setMarkers] = useState([]); // State to store all markers
   const [markerLocation, setMarkerLocation] = useState(null);
+  const [{asTeacher},dispatch] = useDataLayerValue()
+
+  const getLatLng = async () => {
+    try {
+      const resp_1 = await axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${asTeacher.district},${asTeacher.state},India&format=json`
+      );
+  
+      // Check if the response contains data and has at least one result
+      if (resp_1.data.length !== 0) {
+        return {
+          lat: Number(resp_1.data[0].lat),
+          lng: Number(resp_1.data[0].lon),
+        };
+      }
+  
+      const resp_2 = await axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${asTeacher.state},India&format=json`
+      );
+  
+      if (resp_2.data.length !== 0) {
+        return {
+          lat: Number(resp_2.data[0].lat),
+          lng: Number(resp_2.data[0].lon),
+        };
+      }
+  
+      // Default coordinates
+      return { lat: 22.3511148, lng: 78.6677428 };
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      return { lat: 22.3511148, lng: 78.6677428 }; // Return default in case of error
+    }
+  };
+  
 
   useEffect(() => {
     const initMap = async () => {
@@ -15,10 +53,12 @@ const MapComponent = ({setLatLng,onClose}) => {
           const { Map } = await window.google.maps.importLibrary("maps");
           const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
 
+          const center = await getLatLng();
+
           // Initialize the map
           const mapInstance = new Map(document.getElementById("map"), {
-            center: { lat: 9.9261153, lng: 78.1140983 },
-            zoom: 9,
+            center, // Use the awaited center coordinates
+            zoom: 9.5,
             mapId: "YOUR_MAP_ID_HERE", // Replace with a valid Map ID
           });
 

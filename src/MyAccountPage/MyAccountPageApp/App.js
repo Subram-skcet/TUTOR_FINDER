@@ -3,6 +3,7 @@ import Sidebar from '../Sidebar/Sidebar'
 import './App.css'
 import AccountLayout from '../AccountLayout/AccountLayout'
 import MenuIcon from '@mui/icons-material/Menu';
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const App = (props) => {
   const [isSidebarOpen,setSidebarOpen]=useState(window.innerWidth > 1000)
@@ -24,7 +25,7 @@ const App = (props) => {
     <div className='app-wrap'>
       <div className='acc-layout'>
           <div className='sidebar-menu' onClick={()=>setSidebarOpen(true)}>
-               <MenuIcon fontSize='large'/>
+              <GiHamburgerMenu size="1.75em"/>
           </div>
           <AccountLayout/>
       </div>

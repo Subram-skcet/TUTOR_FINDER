@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { MdWarningAmber } from "react-icons/md";
+
 import loadgif from '../assets/89.gif'
 
 
@@ -139,7 +141,7 @@ const TeacherLogin = ({openLogin,onClose}) => {
                 {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
-                             <WarningAmberIcon/>
+                         <MdWarningAmber size="1.3em"/>
                          </div>
                         <p className='errorText'>{errorText}</p>
                     </div>

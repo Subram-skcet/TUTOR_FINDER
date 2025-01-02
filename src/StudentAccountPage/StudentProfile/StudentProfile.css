@@ -51,7 +51,10 @@
   border-top-right-radius: 50px;
   transform: rotate(-45deg);
   position: absolute;
-  background: rgb(66, 66, 228);
+  background: rgb(78, 78, 186);
+  /* border-top: 3px solid rgb(183, 53, 222);
+  border-left: 3px solid rgb(151, 62, 145);
+  border-right: 3px solid rgb(127, 94, 204); */
   border-top: 3px solid white;
   border-left: 3px solid white;
   border-right: 3px solid white;
@@ -64,7 +67,7 @@
    right: 11.5%;
   bottom: 7.5%;
   cursor: pointer;
-
+   color: white;
 }
 .isedit-btns-div{
   width: 400px;
@@ -83,6 +86,6 @@
 
 @media (max-width:400px) {
   .isedit-btns-div{
-    width: 100%;
+    width: 100vw;
   }
 }

@@ -8,7 +8,7 @@
 
 .account-layout{
     display: flex;
-    background-color: #3689d6 ;
+    background-color: #27187E;
     width: 100%;
     height: var(--header-height);
     align-items: center;
@@ -63,7 +63,7 @@
 
 @media (max-width:500px) {
     .account-layout{
-        gap: 0;
+        gap: 0.5rem;
         padding-right: 0
     }
 

@@ -15,6 +15,8 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
+
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -287,10 +289,10 @@ const MyProfile = () => {
       <div className="my-profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
-          <img src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
+          <img className='profile-picture' src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
             <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
           <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
-              <EditIcon fontSize='medium' />
+              <MdEdit size="1.45em"/>
               <input
                 type="file"
                 accept="image/*"
@@ -492,7 +494,8 @@ const MyProfile = () => {
           {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
-                             <WarningAmberIcon/>
+                          <MdWarningAmber size="1.3em"/>
+                             
                          </div>
                         <p className='errorText'>{errorText}</p>
                     </div>

@@ -7,6 +7,8 @@ import './ChangePassword.css'
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
+
 
 const ChangePassword = () => {
     const [Details, setDetails] = useState({
@@ -76,16 +78,17 @@ const ChangePassword = () => {
     return (
         <>
             <div className="top-wst"></div>
-        <div className="pwd-wrapper">
+        <div className="pwd-wrapper lato-regular">
             <form onSubmit={handleSubmit} className='password-reset-div'>
                <div className='form-group pwd-div'>  
-                    <label className='pwd-label pt-serif-regular'>New Password:</label>
+                    <label className='pwd-label lato-bold'>New Password:</label>
                     <div className='password-container'>
 
                     <input
                         type={`${isPasswordVisible? 'text' : 'password'}`}
                         name="pwd"
                         value={Details.pwd}
+                        className='lato-regular'
                         onChange={handleChange}
                         minLength={5}
                         required
@@ -111,7 +114,7 @@ const ChangePassword = () => {
                 </div>
 
                 <div className='form-group pwd-div'>
-                    <label className='pwd-label pt-serif-regular'>Confirm Password:</label>
+                    <label className='pwd-label lato-bold'>Confirm Password:</label>
 
                     <div className='password-container'>
 
@@ -119,6 +122,7 @@ const ChangePassword = () => {
                         type={`${isConfirmPasswordVisible? 'text' : 'password'}`}
                         name="cnfrm_pwd"
                         value={Details.cnfrm_pwd}
+                        className='lato-regular'
                         onChange={handleChange}
                         minLength={5}
                         required
@@ -145,12 +149,12 @@ const ChangePassword = () => {
                 {errorText && 
                <div className='error-para-div er-streg'>
                         <div className='amber-icon'>
-                          <WarningAmberIcon/>
+                          <MdWarningAmber size="1.3em"/>
                         </div>
                         <p className='errorText'>{errorText}</p>
               </div>
                  }
-                <button type="submit" className='pwd-submit-btn'>Change</button>
+                <button type="submit" className='pwd-submit-btn style-links-updated lato-regular'>Change</button>
             </form>
         </div>
         </>

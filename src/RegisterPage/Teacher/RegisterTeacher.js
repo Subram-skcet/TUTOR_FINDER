@@ -13,6 +13,7 @@ import { MdOutlineTaskAlt } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterTeacher = ({openLogin}) => {
@@ -580,7 +581,7 @@ const validateUser = () =>{
        {errorText && 
           <div className='error-para-div er-streg'>
                         <div className='amber-icon'>
-                          <WarningAmberIcon/>
+                      <MdWarningAmber size="1.3em"/>    
                         </div>
                         <p className='errorText'>{errorText}</p>
           </div>

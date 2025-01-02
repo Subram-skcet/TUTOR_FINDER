@@ -10,6 +10,7 @@ import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/edu_quest_final.png'
 import CloseIcon from '@mui/icons-material/Close';
+import { IoClose } from "react-icons/io5";
 
 const Sidebar = ({closesidebar}) => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ const Sidebar = ({closesidebar}) => {
                 <img src={logo} className='sidebar-img'></img>
             </div>
             <div className='sbar-close-icon' onClick={()=>closesidebar(false)}>
-              <CloseIcon fontSize='large'/>
+              <IoClose size="2em"/>
             </div>
         </div>
 

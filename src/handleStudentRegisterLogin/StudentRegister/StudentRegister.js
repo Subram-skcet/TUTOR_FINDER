@@ -10,6 +10,8 @@ import loadgif from '../../assets/89.gif'
 import { MdOutlineTaskAlt } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
+
 
 const RegisterStudent = () => {
   const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
@@ -354,7 +356,7 @@ const RegisterStudent = () => {
         {errorText && 
           <div className='error-para-div er-streg'>
                         <div className='amber-icon'>
-                          <WarningAmberIcon/>
+                           <MdWarningAmber size="1.3em"/>
                         </div>
                         <p className='errorText'>{errorText}</p>
           </div>

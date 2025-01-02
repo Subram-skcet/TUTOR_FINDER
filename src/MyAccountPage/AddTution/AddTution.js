@@ -23,6 +23,7 @@ import { isRomanAfter } from '../../utils/isRomanAfter';
 import { BiCurrentLocation } from "react-icons/bi";
 import { FaMapLocationDot } from "react-icons/fa6";
 import { IoMdCheckmarkCircle } from "react-icons/io";
+import { MdWarningAmber } from "react-icons/md";
 
 
 
@@ -411,7 +412,7 @@ const navigateBack = () =>{
         {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
-                             <WarningAmberIcon/>
+                             <MdWarningAmber size="1.3em"/>
                          </div>
                         <p className='errorText'>{errorText}</p>
                     </div>

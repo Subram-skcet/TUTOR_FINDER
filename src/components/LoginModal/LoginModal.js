@@ -5,6 +5,9 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
+import { toast } from 'react-toastify';
+
 
 const LoginModal = () => {
     const [{logged},dispatch] = useDataLayerValue()
@@ -13,10 +16,14 @@ const LoginModal = () => {
         password: '',
     });
     const [isPasswordVisible,setPasswordVisible] = useState(false)
+    const [errorText,setErrorText] = useState('')
      const navigate = useNavigate()
 
 
     const handleChange = (e) => {
+        if(errorText){
+            setErrorText('');
+        }
         const { name, value } = e.target;
         setDetails((prevDetails) => ({
             ...prevDetails,
@@ -27,6 +34,16 @@ const LoginModal = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        if(!userDetails.email.trim() || !userDetails.password.trim()){
+            setErrorText('Please fill in all the fields.')
+            return;
+        }
+
+        const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            if(!emailRegex.test(userDetails.email)){
+                setErrorText("Enter a valid email address")
+                return
+        }
         console.log(userDetails);
         try {
             const response = await axios.post('/api/v1/auth/loginstudent',
@@ -35,25 +52,33 @@ const LoginModal = () => {
                         password:userDetails.password
                 }
             )
-            dispatch({
-                type: "LOG_USER",
-                payload: true
-              });
-            
-              let loggedUserDetails =response.data.student
-                  dispatch({
-                    type: "SET_STUDENT",
-                    payload: loggedUserDetails
+            if(response.status === 200){
+                dispatch({
+                    type: "LOG_USER",
+                    payload: true
                   });
-                  dispatch(
-                    {
-                      type:"LOGGED_USER",
-                      payload:'student'
-                    }
-                  )
-            console.log(loggedUserDetails);
+                
+                  let loggedUserDetails =response.data.student
+                      dispatch({
+                        type: "SET_STUDENT",
+                        payload: loggedUserDetails
+                      });
+                      dispatch(
+                        {
+                          type:"LOGGED_USER",
+                          payload:'student'
+                        }
+                      )
+                console.log(loggedUserDetails);
+                navigate('/myaccount/studentprofile/myprofile')
+            }
         } catch (error) {
-            console.log(error.message);
+            if(error.response && error.response.data.message){
+                                toast.error(error.response.data.message)
+                            }
+                            else{
+                                toast.error("Something went wrong. Please try again later")
+             }
         }
     };
 
@@ -86,10 +111,18 @@ const LoginModal = () => {
                                         }
                                         </div>
                 </div>
+                {errorText && 
+                                    <div className='error-para-div er-streg'>
+                                         <div className='amber-icon'>
+                                             <MdWarningAmber size="1.3em"/>
+                                         </div>
+                                        <p className='errorText'>{errorText}</p>
+                                    </div>
+                }
                 <div>
                     <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
                 </div>
-                <div>
+                <div style={{display:'flex',justifyContent:'center'}}>
                     <p>Don't have an account? <span className='anchor-link' onClick={()=>navigate('/register')}>Sign up</span></p>
                 </div>
             </form>

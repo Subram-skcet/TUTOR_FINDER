@@ -41,6 +41,7 @@
     left: 10px;
     top: 50%;
     transform: translateY(-50%);
+    color: white;
 }
 
 @media (min-width:1000px) and (max-width:1200px) {

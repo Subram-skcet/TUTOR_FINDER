@@ -154,7 +154,7 @@
     width: 120px; /* Adjust size as needed */
     height: 120px; /* Adjust size as needed */
     object-fit: cover; /* Ensures the image covers the area without distortion */
-    border: 3px solid #ccc; /* Optional border around the profile picture */
+     /* Optional border around the profile picture */
   }
 
   .edit-btns-pfp-pg{
@@ -200,7 +200,7 @@
     .profile-details{
         display: flex;
         flex-direction: column;
-        gap:0;
+        gap:5px;
         align-items: baseline;
     }
 

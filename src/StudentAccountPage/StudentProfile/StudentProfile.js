@@ -8,6 +8,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdEdit } from "react-icons/md";
+import { MdWarningAmber } from "react-icons/md";
+
 
 const StudentProfile = () => {
   const [{ asStudent }, dispatch] = useDataLayerValue();
@@ -53,6 +55,11 @@ const StudentProfile = () => {
     if(!editDetails || !editDetails.name || !editDetails.name.trim()){
       setErrorText("Please enter a name!")
       return false;
+    }
+
+    if(editDetails.name.trim().length < 3){
+      setErrorText("Name must contain at least 3 characters.")
+      return false
     }
 
     if(editDetails.name.length > 20){
@@ -183,7 +190,7 @@ const StudentProfile = () => {
               value={editDetails.name}
               className='std-pfp-nm-inp lato-regular'
               onChange={handleChange}
-              minLength={5}
+              minLength={3}
               maxLength={20}
             />
           ) : (
@@ -197,7 +204,7 @@ const StudentProfile = () => {
          {errorText && 
                     <div className='error-para-div er-streg'>
                          <div className='amber-icon'>
-                             <WarningAmberIcon/>
+                            <MdWarningAmber size="1.3em"/> 
                          </div>
                         <p className='errorText'>{errorText}</p>
                     </div>

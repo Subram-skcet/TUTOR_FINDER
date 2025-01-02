@@ -99,7 +99,10 @@
 .tuition-grid-edited{
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: flex-start;
+    padding:0px 10px;
+    margin-bottom: 1rem;
 }
 
 .isEditing-label{
@@ -193,12 +196,13 @@
     }
 }
 
-@media (max-width:405px) {
+@media (max-width:425px) {
     .tuition-grid{
         display: flex;
         flex-direction: column;
-        gap: 0;
+        gap: 5px;
         align-items: flex-start;
+        padding-top: 0;
     }
 
     .tuition-value-div{
@@ -217,6 +221,11 @@
         flex-direction: column;
     }
 
+    .location-choose-btn{
+        flex-direction: column;
+        gap: 0rem;
+    }
+
 }
 
 @media (max-width:700px) {
@@ -231,7 +240,7 @@
         display: flex;
     }
 }
-@media (max-width:290px) {
+@media (max-width:313px) {
     .std-select{
         flex-direction: column;
     }
