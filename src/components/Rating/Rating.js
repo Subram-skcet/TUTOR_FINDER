@@ -1,5 +1,4 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
-import { FaStar } from "react-icons/fa";
 import { MdOutlineStar } from "react-icons/md";
 
 

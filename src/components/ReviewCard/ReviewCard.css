@@ -6,8 +6,6 @@
     width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
      background-color: #a4a4a4;
-     /* overflow: hidden; */
-     /* background-color: #797979; */
 
   }
 
@@ -112,7 +110,6 @@
     gap:1rem;
   }
 .review-card{
-  /* padding-top: 1.8rem; */
   position: relative;
 }
 .reviews-page-options-icons{
@@ -218,7 +215,6 @@
 .review-card-footer{
   display: flex;
   justify-content: space-between;
-  /* background: red; */
 }
 
 .review-createdat{
@@ -228,7 +224,6 @@
 .review-header-div{
   display: flex;
   justify-content: space-between;
-  /* background: red; */
   width: 100%;
 }
 
@@ -245,15 +240,4 @@
       transition: transform 0.3s ease; /* Smooth transition */
   }
 }
-
-/* @media (max-width: 400px) {
-  .my-reviews-page-flex-div{
-    gap: 0;
-  }
-
-  .reviews-page-options-icons{
-    top: auto;
-    bottom: 1.5rem;
-  }
-} */
 

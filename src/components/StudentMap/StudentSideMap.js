@@ -1,7 +1,8 @@
 import './StudentSideMap.css'
+const embedApi = process.env.REACT_APP_GOOGLE_EMBED_API
 
 const TuitionMap = ({ lat, lng }) => {
-    const mapSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBOnYtvhgg-jdcP2lmVbI67gHAbpxg9OKY&q=${lat},${lng}`;
+    const mapSrc = `https://www.google.com/maps/embed/v1/place?key=${embedApi}&q=${lat},${lng}`;
     return (
       <div className='std-map-wrp'>
       <iframe

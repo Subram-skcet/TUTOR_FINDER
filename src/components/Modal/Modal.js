@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
 import ReactDom from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Modal.css'; // Import the CSS file
+import { IoClose } from "react-icons/io5";
+
 
 const Modal = ({ children, isopen, onClose, childrenWidth }) => {
     const childrenRef = useRef('');
@@ -47,7 +48,7 @@ const Modal = ({ children, isopen, onClose, childrenWidth }) => {
         <div className={overlayClass} aria-modal="true" role="dialog" onClick={onClose}>
             <div className={modelClass} onClick={(e) => e.stopPropagation()}>
                 <div className="close-styles" onClick={onClose}>
-                    <CloseIcon />
+                     <IoClose size="1.25em"/>
                 </div>
                 <div ref={childrenRef}>{childrenWithProps}</div>
             </div>

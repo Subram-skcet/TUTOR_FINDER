@@ -4,13 +4,12 @@ import axios from 'axios'
 import TutionCard from '../../components/TutionCard/TutionCard'
 import { useNavigate } from 'react-router-dom'
 import './Bookmark.css'
-import SearchIcon from '@mui/icons-material/Search';
 import { ThreeCircles } from 'react-loader-spinner'
 import { FaSearch } from "react-icons/fa";
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
-  const [{asStudent},dispatch] = useDataLayerValue()
+  const [{asStudent},] = useDataLayerValue()
   const navigate = useNavigate()
   const [isLoading,setIsLoading] = useState(true)
   const [isAnyModalOpen,setModalOpen] = useState(false)

@@ -22,8 +22,6 @@
 
 .reg-btn{
       color: white;
-      /* width: 300px; */
-      /* height: 50px; */
       font-size: 16px;
       background-color: rgb(32, 29, 126);
       border-radius: 50px;
@@ -71,7 +69,6 @@
 }
 
 .er-streg{
-    /* display: block; */
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0.5rem;

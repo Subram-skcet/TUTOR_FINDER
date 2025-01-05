@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './TutionCard.css';
 import DisplayRating from '../DisplayRating';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import { MdBookmarkAdd } from "react-icons/md";
+import { MdBookmarkAdded } from "react-icons/md";
 import axios from 'axios';
 import {useDataLayerValue} from '../../StateProviders/StateProvider'
 import Modal from '../Modal/Modal';
@@ -13,7 +13,6 @@ import { convertTo12Hour } from '../../utils/TimeFormatConverter';
 import { FaRupeeSign } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import StudentSideMap  from '../StudentMap/StudentSideMap'
-import { useSearchParams } from 'react-router-dom';
 
 function TutionCard({tution,index,profilenavigate,setModalOpen}) {
     const [{asStudent,logged,logged_as},dispatch] = useDataLayerValue()
@@ -90,11 +89,11 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
                 {
                     isBookMark?
                         <div className={`bookmark-icon ${isBookMarking? 'bm-doning' : ''}`} title="Remove from Bookmark">
-                        <BookmarkAddedIcon fontSize='large'/>
+                        <MdBookmarkAdded size="2.3em"/>
                         </div>
                     :
                     <div className={`bookmark-icon ${isBookMarking? 'bm-doning' : ''}`} title="Add to Bookmark">
-                       <BookmarkAddIcon fontSize='large'/>
+                       <MdBookmarkAdd size="2.3em"/>
                     </div>
                 }
             </div>

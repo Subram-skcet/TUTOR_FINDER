@@ -1,12 +1,10 @@
 import React, { useState,useRef, useEffect } from 'react';
 import './StudentProfile.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
-import EditIcon from '@mui/icons-material/Edit';
 import { IoIosSave } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdEdit } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
 

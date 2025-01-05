@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import './ChangePassword.css'
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";

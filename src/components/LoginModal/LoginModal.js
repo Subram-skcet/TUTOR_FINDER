@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginModal.css'; // Assuming you save the CSS file as Login.css
+import './LoginModal.css'; 
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 
 const LoginModal = () => {
-    const [{logged},dispatch] = useDataLayerValue()
+    const [,dispatch] = useDataLayerValue()
     const [userDetails, setDetails] = useState({
         email: '',
         password: '',

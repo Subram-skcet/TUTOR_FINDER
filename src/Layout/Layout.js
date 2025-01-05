@@ -2,19 +2,17 @@ import './Layout.css'
 import { useNavigate } from 'react-router-dom'
 import { useDataLayerValue } from '../StateProviders/StateProvider';
 import MyAccount from '../My_Account/MyAccount'
-import SearchIcon from '@mui/icons-material/Search';
-import HomeIcon from '@mui/icons-material/Home';
-import logo from '../assets/edu_quest_final.png'
+import { MdHome } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import LoginIcon from '@mui/icons-material/Login';
+import { IoClose } from "react-icons/io5";
 import { useState } from 'react';
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { RiLoginCircleLine } from "react-icons/ri"
 import { FaSearch } from "react-icons/fa";
-import { MdHome } from "react-icons/md";
+import { IoMenu } from "react-icons/io5";
+import logo from '../assets/logo.png'
+
 
 const Layout = (props) => {
   const [{logged,logged_as},dispatch] = useDataLayerValue();
@@ -25,7 +23,7 @@ const Layout = (props) => {
 
   const RegisterNavigateTeacher = () => {
     navigate('/welcometeacher')
-    // navigate('/register', { state: { name: 'Teacher' } });
+   
   };
 
   const RegisterNavigateStudent = () => {
@@ -49,24 +47,24 @@ const Layout = (props) => {
         <div className='logo-img'>
           <img src={logo} alt="Logo" className='layout-img'/>
         </div>
-                  <div className="nav-links ">
-                    <div className='itms-cntr style-links ' onClick={()=>navigate('/')}>
+                  <div className="nav-links">
+                    <div className={`itms-cntr style-links ${location.pathname !== '/' ? 'dim-clr':''}`} onClick={()=>navigate('/')}>
                           <MdHome size="1.3em"/>
                           <p>Home</p>
                     </div>
-                    <div className='itms-cntr style-links' onClick={()=>navigate('/searchtutor')}>
+                    <div className={`itms-cntr style-links ${location.pathname !== '/searchtutor' ? 'dim-clr':''}`} onClick={()=>navigate('/searchtutor')}>
                           <FaSearch size="1em"/>
                           <p>Search</p>
                     </div>
-                    <div className='itms-cntr style-links'>
+                    <div className={`itms-cntr style-links ${location.pathname !== '/welcometeacher' ? 'dim-clr':''}`}>
                     <FaChalkboardTeacher size="1.3em"/>
                       <span onClick={RegisterNavigateTeacher}>Teach with EduQuest</span>
                     </div>
-                    <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
+                    <div className={`itms-cntr style-links ${location.pathname !== '/register' ? 'dim-clr':''} ${logged? 'invis' : ''}`}>
                     <PiStudentBold size="1.3em"/>
                       <span onClick={RegisterNavigateStudent}>Register</span>
                     </div>
-                    <div className={`itms-cntr style-links ${logged? 'invis' : ''}`}>
+                    <div className={`itms-cntr style-links ${location.pathname !== '/login' ? 'dim-clr':''} ${logged? 'invis' : ''}`}>
                       <RiLoginCircleLine size="1.3em"/>
                       <span onClick={LoginNavigate}>Login</span>
                     </div>
@@ -76,19 +74,19 @@ const Layout = (props) => {
                 </div>
             <div className='hamburger-div' onClick={()=>setHamburgerOpen(true)}>
               <div className='menu-open'>
-                <MenuIcon fontSize='large'/>
+                 <IoMenu size="2em"/>
               </div>
             </div>
             <div className={`${isHamburgerOpen ? 'open-close':''} hamburger-menu`}>
                     <div className='menu-close' onClick={()=>setHamburgerOpen(false)}>
-                      <CloseIcon fontSize='large'/>
+                      <IoClose size="2em"/>
                     </div>
                     <div className={`${!logged?'invis':''} menu-my-profile`} onClick={handleProfileNavigate}>
                       <MyAccount/>
-                      <p className='my-profile-para'>My Profile</p>
+                      <p className='my-profile-para'>Profile</p>
                     </div>
                     <div className='menu-icon' onClick={()=>navigate('/')}>
-                          <HomeIcon/>
+                         <MdHome size="1.1em"/>
                           <p>Home</p>
                     </div>
                     <div className='menu-icon' onClick={()=>navigate('/searchtutor')}>

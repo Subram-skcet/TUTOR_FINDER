@@ -12,7 +12,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
 import { ThreeCircles } from 'react-loader-spinner'
 import DisplayRating from '../components/DisplayRating';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { handleModalSize } from '../utils/modalSize';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';

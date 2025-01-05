@@ -3,13 +3,9 @@ import SidebarItem from './Sidebar-items/SidebarItem'
 import { IoMdContact } from "react-icons/io";
 import { IoIosSchool } from "react-icons/io"
 import { MdRateReview } from "react-icons/md";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SchoolIcon from '@mui/icons-material/School';
-import ReviewsIcon from '@mui/icons-material/Reviews';
 import './Sidebar.css'
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/edu_quest_final.png'
-import CloseIcon from '@mui/icons-material/Close';
+import logo from '../../assets/logo.png'
 import { IoClose } from "react-icons/io5";
 
 const Sidebar = ({closesidebar}) => {

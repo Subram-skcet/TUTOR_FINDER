@@ -54,7 +54,6 @@ const Search = ({ onSearch }) => {
         navigate('/searchtutor', { state: { resultset: response.data.ResultSet } });
       } catch (error) {
         console.error('Error fetching data:', error);
-        // Optionally set an error state here and display an error message
       }
     } else {
       onSearch(params);

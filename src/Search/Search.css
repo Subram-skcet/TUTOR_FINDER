@@ -72,16 +72,16 @@
     width: 125px;
     height: 50px;
     font-size: 18px;
-    background-color: rgb(126, 29, 126);
     border-radius: 50px;
     box-shadow: 1px 1px 5px 1px black;
+    background-color:rgb(153, 49, 153);
     border: none;
     margin-top: 1rem;
     cursor: pointer;
   }
   
   .req-srch-btn:hover{
-    background-color:rgb(153, 49, 153);
+    background-color: rgb(126, 29, 126);
   }
 
   .req-bx-slct-cntr{
@@ -116,7 +116,6 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     /* background: #157c87; */
      color: white;
   }
 

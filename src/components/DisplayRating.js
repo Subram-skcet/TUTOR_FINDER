@@ -1,5 +1,4 @@
 import React from 'react';
-import { IoMdStar } from "react-icons/io";
 import { MdOutlineStar } from "react-icons/md";
 
 const DisplayRating = ({rating}) => {

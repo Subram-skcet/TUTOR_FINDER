@@ -4,7 +4,6 @@
     align-items: center;
     padding: 1rem;
     height:calc(100vh - var(--header-height));
-    /* background: green; */
     gap: 1rem;
 }
 
@@ -12,9 +11,4 @@
     font-size: 20px;
     line-height: 2rem;
     word-spacing: 0.2rem;
-}
-
-/* Hide scrollbars but keep scrolling functionality */
-.reviews-section::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for WebKit browsers */
 }

@@ -1,8 +1,6 @@
-// src/SelectedSubject.js
 
 import React from 'react';
-import './SelectedSubject.css'; // Import the CSS file for styling
-import CloseIcon from '@mui/icons-material/Close';
+import './SelectedSubject.css'; 
 import { MdCancel } from "react-icons/md";
 
 const SelectedSubject = ({ Subject, delFunction }) => {

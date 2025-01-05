@@ -73,7 +73,6 @@
   width: 750px;
   padding-bottom: 1rem;
   position: relative;
-  /* background: #3dc53d; */
 }
 .search-results{
   
@@ -85,9 +84,7 @@
   background: rgb(216, 211, 211);
   padding: 1rem;
 }
-.search-results::-webkit-scrollbar {
-  display: none;
-}
+
 .search-prt{
   display: flex;
   width: 600px;
@@ -146,7 +143,6 @@
 @media (max-width:749px) {
   .results-prt{
     width: 100vw;
-    /* background: #3dc53d; */
   }
   .search-rst-hd{
     font-size:30px

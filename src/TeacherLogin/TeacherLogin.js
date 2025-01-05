@@ -6,7 +6,6 @@ import { useDataLayerValue } from '../StateProviders/StateProvider'
 import { useNavigate } from 'react-router-dom'
 import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdWarningAmber } from "react-icons/md";
 
 import loadgif from '../assets/89.gif'
@@ -18,7 +17,7 @@ const TeacherLogin = ({openLogin,onClose}) => {
         password:''
     })
     const [errorText,setErrorText] = useState('')
-    const [{logged},dispatch] = useDataLayerValue()
+    const [,dispatch] = useDataLayerValue()
     const [isPasswordVisible,setPasswordVisible] = useState(false)
     const [isForgetClickable,setForgetClickable] = useState(true)
     const navigate = useNavigate()

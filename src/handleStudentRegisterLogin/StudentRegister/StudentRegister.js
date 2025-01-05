@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // Make sure to install axios using npm or yarn
+import axios from 'axios'; 
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import './StudentRegister.css'
 import { useNavigate } from 'react-router-dom';
-import doneimg from '../../assets/done.png'
 import { toast } from 'react-toastify';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import loadgif from '../../assets/89.gif'
 import { MdOutlineTaskAlt } from "react-icons/md";
 import { MdVisibility } from "react-icons/md";
@@ -14,7 +12,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterStudent = () => {
-  const [{ logged,asStudent,logged_as }, dispatch] = useDataLayerValue();
+  const [{ logged_as }, dispatch] = useDataLayerValue();
   const navigate = useNavigate()
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [otpDetails,setOtpDetails] = useState(
@@ -271,9 +269,7 @@ const RegisterStudent = () => {
             <label className='lato-bold'>Email:</label>
             {otpDetails.isVerified ?
             <div className='verified-div'>
-              {/* <div className='verified-icon'> */}
                <MdOutlineTaskAlt size="1.2em"/>
-              {/* </div> */}
               <p className='verified-div-para'>Verified</p>
             </div>
             :

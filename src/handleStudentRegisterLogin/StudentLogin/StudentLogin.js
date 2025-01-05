@@ -11,7 +11,7 @@ import { MdVisibilityOff } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
 
 const Login = () => {
-    const [{logged,logged_as,asTeacher,asStudent},dispatch] = useDataLayerValue()
+    const [,dispatch] = useDataLayerValue()
     const navigate = useNavigate()
     const [userDetails, setDetails] = useState({
         email: '',

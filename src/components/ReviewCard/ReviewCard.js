@@ -1,16 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import './ReviewCard.css'; // Import the CSS file
 import DisplayRating from "../DisplayRating";
 import { useDataLayerValue } from "../../StateProviders/StateProvider";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { MdEdit } from "react-icons/md";
-import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
 import Rating from '../Rating/Rating'
 import { toast } from "react-toastify";
 import { extractDateFields } from "../../utils/getCreatedAt";
@@ -104,7 +98,7 @@ const HandleEditClick = () =>{
 const handleSaveClick = async() =>{
     let rating;
     if(childRef.current)
-        rating = childRef.current.returnRating() //get rating from the ReviewCard component method 
+        rating = childRef.current.returnRating() 
 
     if(rating === 0){
         setErrorText('Rating cannot be zero')

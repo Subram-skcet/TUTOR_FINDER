@@ -2,11 +2,6 @@ import React, { useEffect, useState } from 'react'
 import './MyTuition.css'
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import { subjects,daysOfWeek,boards,standards } from '../stateExporter';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CloseIcon from '@mui/icons-material/Close';
-import SaveIcon from '@mui/icons-material/Save';
-import axios from 'axios';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive'; 
@@ -22,7 +17,6 @@ import MapComponent from '../TeacherMap/AMapSample';
 import Modal from '../Modal/Modal'
 import { IoMdCheckmarkCircle } from "react-icons/io";
 import { FaMapLocationDot } from "react-icons/fa6";
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { isTimeAfter } from '../../utils/isTimeAfter';
 import { isRomanAfter } from '../../utils/isRomanAfter';
 import { FaLocationDot } from "react-icons/fa6";
@@ -189,15 +183,9 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             }
 
             if(!TuitionDetails.fees){
-                setErrorText("Tuition Fees must not be empty")
+                setErrorText("Tuition Fees must not be empty.")
                 return false
             }
-
-            if(TuitionDetails.fees < 0){
-              setErrorText("Tuition Fees cannot be less than zero")
-              return false
-             }
-
 
           return true;
       }
@@ -215,12 +203,19 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
       };
 
       const handleChange = (e) => {
+        if(errorText)
+           setErrorText('')
         const { name, value } = e.target;
-        setDetails((prevDetails)=>({
-              ...prevDetails,
-              [name]:value
-        }))
-      
+        let sanitizedValue = value;
+    
+        if (name === "fees") {
+            sanitizedValue = value.replace(/[^0-9]/g, ""); // Sanitize input for 'fees'
+        }
+    
+        setDetails((prevDetails) => ({
+            ...prevDetails,
+            [name]: sanitizedValue, // Use sanitized value
+        }));
     };
 
   return (
@@ -453,7 +448,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
            <div className="isEditing-div">
              <div className='fee-inp-div'>
                   <FaRupeeSign size='1em'/>
-                  <input type='number' name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className='fees-input-styl lato-regular'/> 
+                  <input type='text' name="fees" value={TuitionDetails.fees} onChange={(e) => handleChange(e)} className='fees-input-styl lato-regular' inputMode="numeric"/> 
               </div>
             </div>
             :

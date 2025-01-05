@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import './AMapSample.css'
 import { toast } from "react-toastify";
 import axios from "axios";
-// import TuitionMap from "../../StudentSide";
 import { useDataLayerValue } from "../../StateProviders/StateProvider";
 
 
@@ -10,7 +9,7 @@ const MapComponent = ({setLatLng,onClose}) => {
   const [map, setMap] = useState(null); // State to store the map instance
   const [markers, setMarkers] = useState([]); // State to store all markers
   const [markerLocation, setMarkerLocation] = useState(null);
-  const [{asTeacher},dispatch] = useDataLayerValue()
+  const [{asTeacher},] = useDataLayerValue()
 
   const getLatLng = async () => {
     try {
@@ -59,7 +58,7 @@ const MapComponent = ({setLatLng,onClose}) => {
           const mapInstance = new Map(document.getElementById("map"), {
             center, // Use the awaited center coordinates
             zoom: 9.5,
-            mapId: "YOUR_MAP_ID_HERE", // Replace with a valid Map ID
+            mapId: "MAP_ID_HERE", // Replace with a valid Map ID
           });
 
           setMap(mapInstance); // Set the map instance in state

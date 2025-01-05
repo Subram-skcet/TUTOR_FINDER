@@ -11,7 +11,7 @@ import { MdDelete } from "react-icons/md";
 
 
 const DeleteAccount = ({onClose}) => {
-    const [{logged,logged_as},dispatch] = useDataLayerValue()
+    const [{logged_as},dispatch] = useDataLayerValue()
     const navigate = useNavigate()
 
     const handleDeleteAccount = async() =>{

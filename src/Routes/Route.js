@@ -8,18 +8,15 @@ import TeacherProfile from '../TeacherProfile/TeacherProfile';
 import StudentProfileRoutes from '../StudentAccountPage/Routes'
 import WelcomePage from '../WelcomeInstructor/WelcomePage';
 import StudentMain from '../handleStudentRegisterLogin/StudentMain'
-import StudentLogin from '../handleStudentRegisterLogin/StudentLogin/StudentLogin'
 import { useDataLayerValue } from '../StateProviders/StateProvider';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import ChangePassword from '../components/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Router = () => {
-  const [{logged},dispatch] = useDataLayerValue()
-  const navigate = useNavigate()
+  const [,dispatch] = useDataLayerValue()
 
   const getUser = async () => {
     try {

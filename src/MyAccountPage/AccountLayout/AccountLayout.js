@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
 import './AccountLayout.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';

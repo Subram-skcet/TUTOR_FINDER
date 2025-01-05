@@ -1,16 +1,12 @@
 import React, { useState, useRef,useEffect, Profiler } from 'react';
 import './MyProfile.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios';
 import DisplayRating from '../../components/DisplayRating'
-import CloseIcon from '@mui/icons-material/Close';
 import { subjects,qualifications,stateDistricts } from '../../components/stateExporter';
 import SelectedSubject from '../AddTution/Subjects';
 import { toast } from 'react-toastify';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdCancel } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";

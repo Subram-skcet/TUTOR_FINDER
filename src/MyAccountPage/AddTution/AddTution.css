@@ -24,7 +24,6 @@
   display:flex;
   align-items: center;
   gap: 1rem;
-  /* background: red; */
   margin-top: 0.5rem;
 }
 
@@ -58,7 +57,6 @@ input[type='time']{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background: #45a049; */
   min-height:calc(100vh - var(--header-height));
   gap: 1rem;
   padding: 1rem 0px 1rem 0px;
@@ -75,6 +73,7 @@ input[type='time']{
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 20px;
+  overflow-x: hidden;
 }
 
 .list-container{
@@ -133,7 +132,7 @@ input[type='time']{
   filter: invert(50%); /* Adjust icon color (optional) */
 }
 
-.location-choose-btn{
+.location-choose-btn,.ad-tut-location-choose-btn{
   display: flex;
   gap: 1rem;
 }
@@ -171,6 +170,12 @@ input[type="number"]::-webkit-outer-spin-button {
   .crt-tut-sl-cntr,.crt-tut-brd-slt-cnt{
     width: 100%;
   }
+  .crt-tut-loc-div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
 }
 
 @media (max-width:1350px) {
@@ -200,3 +205,4 @@ input[type="number"]::-webkit-outer-spin-button {
       align-items: flex-start;
     }
 }
+

@@ -1,4 +1,3 @@
-import { act } from "react";
 
 export const initialState = {
     logged:false,

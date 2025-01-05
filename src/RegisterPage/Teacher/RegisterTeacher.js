@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './RegisterTeacher.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { useNavigate } from 'react-router-dom';
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
 import { stateDistricts,subjects } from '../../components/stateExporter'
-import doneimg from '../../assets/done.png'
 import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { MdOutlineTaskAlt } from "react-icons/md";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdVisibility } from "react-icons/md";
@@ -17,7 +15,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterTeacher = ({openLogin}) => {
-  const [{ logged }, dispatch] = useDataLayerValue();
+  const [, dispatch] = useDataLayerValue();
   const [teacherDetails, setDetails] = useState({
     name: '',
     email: '',

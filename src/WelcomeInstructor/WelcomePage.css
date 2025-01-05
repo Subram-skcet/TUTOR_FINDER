@@ -47,18 +47,11 @@
 }
 .doables{
     padding: 3rem 0px 3rem 0px;
-    /* padding-bottom: 5rem; */
     display: flex;
     width: 100%;
     text-align: center;
     justify-content: space-around;
     align-items: center;
-    /* background:red; */
-}
-.doable-heading{
-    /* padding-top: 1rem;
-    padding-bottom: 1rem; */
-    /* background: green; */
 }
 .welcome-p{
     margin-top: 0.5rem;

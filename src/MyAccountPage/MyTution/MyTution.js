@@ -3,29 +3,18 @@ import axios from 'axios';
 import './MyTution.css';
 
 import { useNavigate } from 'react-router-dom';
-import AddIcon from '@mui/icons-material/Add';
 
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
-import SelectedSubject from '../AddTution/Subjects';
-import { subjects,standards } from '../../components/stateExporter';
 import { toast } from 'react-toastify';
 import MyTuition from '../../components/TuitionPageTuitionCard/MyTuition';
 import { ThreeCircles } from 'react-loader-spinner'
+import { IoMdAdd } from "react-icons/io";
 
 const MyTution = () => {
   const navigate = useNavigate();
   const [{ asTeacher }] = useDataLayerValue(); // Get teacher ID from state provider
   const [tutions, setTutions] = useState([]); // Initialize as an empty array
-  const [editIndex, setEditIndex] = useState(null);
   const [isLoading,setIsLoading] = useState(false)
-  const [TutionDetails, setDetails] = useState({
-    subjects: [],
-    duration:[],
-    days:[],
-    fees: 0,
-    boards: [],
-    standard:[]
-  });
   
   const fetchTutions = async () => {
     setIsLoading(true)
@@ -34,7 +23,7 @@ const MyTution = () => {
         params: { createdBy: asTeacher._id },
       });
       console.log(response)
-      setTutions(response.data.tutions || []); // Ensure response matches the format and defaults to empty array
+      setTutions(response.data.tutions || []); 
     } catch (error) {
       console.error('Error fetching tutions:', error);
     }
@@ -133,7 +122,7 @@ const MyTution = () => {
       <div>
         <button className='edit-prof-btn' onClick={() => navigate('/myaccount/teacherprofile/addtution')}>
           <div className='itms-cntr style-links-updated add-tut-bck lato-regular'>
-            <AddIcon />
+            <IoMdAdd size="1.6em" />
             <p>Create Tuition</p>
           </div>
         </button>

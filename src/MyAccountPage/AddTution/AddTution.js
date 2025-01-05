@@ -6,16 +6,12 @@ import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'; // Import the StateProvider hook
 import axios from 'axios';
-import PostAddIcon from '@mui/icons-material/PostAdd';
-import { subjects,daysOfWeek,boards,standards } from '../../components/stateExporter';
+import {daysOfWeek,boards,standards } from '../../components/stateExporter';
 import { toast } from 'react-toastify';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { FaArrowLeft } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { MdOutlinePostAdd } from "react-icons/md";
 import { FaRupeeSign } from "react-icons/fa";
-import { FaLocationDot } from "react-icons/fa6";
-import { FaMapMarkedAlt } from "react-icons/fa";
 import Modal from '../../components/Modal/Modal';
 import MapComponent from '../../components/TeacherMap/AMapSample';
 import { isTimeAfter } from '../../utils/isTimeAfter';
@@ -71,15 +67,20 @@ const AddTution = () => {
   },[location])
 
   const handleChange = (e) => {
-    if(errorText){
-      setErrorText('')
-    }
+    if(errorText)
+       setErrorText('')
     const { name, value } = e.target;
+    let sanitizedValue = value;
+
+    if (name === "Fees") {
+        sanitizedValue = value.replace(/[^0-9]/g, ""); // Sanitize input for 'fees'
+    }
+
     setDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
+        ...prevDetails,
+        [name]: sanitizedValue, // Use sanitized value
     }));
-  };
+};
 
   const HandleSubjectSelect = (e) => {
     if(errorText){
@@ -131,7 +132,6 @@ const AddTution = () => {
     setLocation({
       lat,lng
     })
-      // alert(lat,lng)
   }
 
 
@@ -374,11 +374,11 @@ const navigateBack = () =>{
            <label className="lato-bold">Fees:</label>
            <div className='fee-inp-div'>
                 <FaRupeeSign/>
-                <input type="number" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl lato-regular' required/>
+                <input type="text" name="Fees" value={TutionDetails.Fees} onChange={handleChange} className='fees-input-styl lato-regular' required/>
            </div>
         </div>
 
-        <div className='nrm-header-flx'>
+        <div className='nrm-header-flx crt-tut-loc-div'>
               <label className="lato-bold">Location:</label>
               {
                 (!location.lat || !location.lng)?

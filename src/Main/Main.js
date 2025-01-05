@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Profiler } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Main.css';
 import Search from '../Search/Search';
 import { useNavigate,useLocation } from 'react-router-dom';
