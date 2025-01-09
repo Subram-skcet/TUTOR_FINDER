@@ -7,6 +7,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { MdEdit } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
+import { ThreeCircles } from 'react-loader-spinner'
+
 
 
 const StudentProfile = () => {
@@ -15,9 +17,11 @@ const StudentProfile = () => {
   const [saveBtnLoading,setSaveBtn] = useState(false)
   const [errorText,setErrorText] = useState('')
   const [profile, setProfile] = useState({
-    profilepic: asStudent.profilepic,
+    profilepic: asStudent.profilepic || 'https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png',
     name: asStudent.name,
   });
+  const [profileLoading,setProfileLoading] = useState(true)
+  
 
   const fileInputRef = useRef(null);
 
@@ -30,13 +34,34 @@ const StudentProfile = () => {
   
   const [selectedImage, setSelectedImage] = useState({})
 
-  useEffect(()=>{
-      console.log(asStudent);
+  const loadDetails = async () => {
+    try {
+      const response = await axios.get('/api/v1/student/')
+      console.log(response.data.student.profilepic);
+      
+      console.log(response);
+      
       setProfile({
-        profilepic: asStudent.profilepic,
-        name: asStudent.name,
+        profilepic:response.data.student.profilepic,
+        name:response.data.student.name
       })
-  },[asStudent])
+      setPermImage({
+        url:response.data.student.profilepic,
+        file: null
+      })
+    } catch (error) {
+      // toast.error('Error loading profile.')
+      console.log(error);  
+    }
+    finally{
+      setProfileLoading(false)
+    }
+
+  };
+
+  useEffect(()=>{
+     loadDetails()
+  },[])
 
   const handleEditClick = () =>{
     const { name } = profile
@@ -157,7 +182,23 @@ const StudentProfile = () => {
   }
 
   return (
-    <div className="student-profile-container lato-regular">
+    <>
+     {
+          profileLoading ? 
+          <div className='circle-animation anim-cntr'>
+                  <ThreeCircles
+                  visible={true}
+                  height="100"
+                  width="100"
+                  color="#3689d6"
+                  ariaLabel="three-circles-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  />
+                 </div>   
+                 :
+                 
+                 <div className="student-profile-container lato-regular">
       <div className="student-profile-footer">
         <p className='student-profile-para lato-bold'>Welcome to your profile page!</p>
       </div>
@@ -169,7 +210,7 @@ const StudentProfile = () => {
             <img className='pfp-img' src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
           </div>
             <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
-          <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
+          <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} onClick={handleIconClick}>
                 <MdEdit size="1.45em"/>
               <input
                 type="file"
@@ -177,7 +218,7 @@ const StudentProfile = () => {
                 ref={fileInputRef}
                 style={{ display: 'none' }}
                 onChange={handleFileChange}
-              />
+                />
             </div>
         </div>
         <div className="student-profile-info">
@@ -232,6 +273,8 @@ const StudentProfile = () => {
       }
       </form>
     </div>
+}
+  </>
   );
 };
 

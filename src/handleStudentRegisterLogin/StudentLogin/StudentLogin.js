@@ -10,6 +10,7 @@ import { MdVisibility } from "react-icons/md";
 import { MdVisibilityOff } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
 
+
 const Login = () => {
     const [,dispatch] = useDataLayerValue()
     const navigate = useNavigate()
@@ -151,7 +152,9 @@ const Login = () => {
                     </div>
                  }
                 <div>
-                    <button type="submit" className='lg-btn lato-bold btn-cntr'>Log In</button>
+                    <button type="submit" className='lg-btn lato-bold btn-cntr'>
+                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                    </button>
                 </div>
             </form>
             <div className='log-in-content-div'>

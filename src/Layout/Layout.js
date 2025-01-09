@@ -5,7 +5,7 @@ import MyAccount from '../My_Account/MyAccount'
 import { MdHome } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 import { IoClose } from "react-icons/io5";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { FaChalkboardTeacher } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { RiLoginCircleLine } from "react-icons/ri"
@@ -20,10 +20,22 @@ const Layout = (props) => {
   const location = useLocation()
   const [isHamburgerOpen,setHamburgerOpen] = useState(false)
 
+  useEffect(()=>{
+
+    const handleResize = () => {
+     if(window.innerWidth > 820)
+         setHamburgerOpen(false)
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  },[])
+
 
   const RegisterNavigateTeacher = () => {
     navigate('/welcometeacher')
-   
   };
 
   const RegisterNavigateStudent = () => {

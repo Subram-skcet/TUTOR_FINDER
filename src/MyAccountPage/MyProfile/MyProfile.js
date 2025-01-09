@@ -12,12 +12,20 @@ import { MdCancel } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
+import { GetUser } from '../../utils/getUser';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { ThreeCircles } from 'react-loader-spinner'
+
 
 
 const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [{ asTeacher }, dispatch] = useDataLayerValue();
   const [saveBtnLoading,setSaveBtn] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [profileLoading,setProfileLoading] = useState(true)
 
   const [profile, setProfile] = useState({
     profilepic: asTeacher.profilepic || 'https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png',
@@ -77,11 +85,24 @@ const MyProfile = () => {
     }
   };
 
+  const loadDetails = async () => {
+    try {
+      const response = await axios.get('/api/v1/teacher')
+      setProfile(response.data.teacher)
+      // fetchTutionCountAndRating(); 
+    } catch (error) {
+      console.log(error);  
+    }
+    finally{
+      setProfileLoading(false)
+    }
+
+  };
+
   useEffect(()=>{
-    console.log(profile);
-    
-      fetchTutionCountAndRating()
+    loadDetails(); // Call the async function
   },[])
+
 
   useEffect(() => {
     if (isEditing && textareaRef.current) {
@@ -281,13 +302,28 @@ const MyProfile = () => {
   const handleIconClick = () => fileInputRef.current.click();
 
   return (
+    <>
+    {
+      profileLoading ? 
+      <div className='circle-animation anim-cntr'>
+              <ThreeCircles
+              visible={true}
+              height="100"
+              width="100"
+              color="#3689d6"
+              ariaLabel="three-circles-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              />
+             </div>   
+             :
     <div className="my-profile-page lato-regular">
       <div className="my-profile-container">
         <div className="profile-header">
         <div className="teacher-profile-picture">
           <img className='profile-picture' src={isEditing? selectedImage.url:permImage.url} alt={`${profile.name}'s profile`}/>
             <div className={`hf-crc ${isEditing ? ``: `invis`}`}></div>
-          <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} extr onClick={handleIconClick}>
+          <div className={`profile-edit-icon ${isEditing ? ``: `invis`}`} onClick={handleIconClick}>
               <MdEdit size="1.45em"/>
               <input
                 type="file"
@@ -334,21 +370,21 @@ const MyProfile = () => {
                    minLength={10}
                    maxLength={10}
                    required
-               />
+                   />
                :
                <div className="value">{profile.mobileno}</div>
              }
 
              <div className="label">Years of Experience:</div>
              {
-              isEditing?
-              <input
-                   type='number'
-                   className="value tchr-pfp-inp lato-regular"
-                   name="year_of_exp"
-                   value={editDetails.year_of_exp}
-                   onChange={handleChange}
-                   required
+               isEditing?
+               <input
+               type='number'
+               className="value tchr-pfp-inp lato-regular"
+               name="year_of_exp"
+               value={editDetails.year_of_exp}
+               onChange={handleChange}
+               required
                />
                :
                <div className="value">{profile.year_of_exp}</div>
@@ -356,7 +392,7 @@ const MyProfile = () => {
           <div className='label'>State:</div>
           {
             isEditing?
-              <div className='select-container'>
+            <div className='select-container'>
 
                 <select 
                    className='profile-select select-box lato-regular'  
@@ -435,7 +471,7 @@ const MyProfile = () => {
                   </div>
                     </div>
                  {
-                  editDetails.subjects.length > 0 &&
+                   editDetails.subjects.length > 0 &&
                   <div className="selected-items">
                     {editDetails.subjects.map((subject) => (
                       <SelectedSubject key={subject} Subject={subject} delFunction={HandleSubjectRemove} />
@@ -473,13 +509,13 @@ const MyProfile = () => {
           {isEditing ? (
             <textarea
             ref={textareaRef}
-              className="pfp-pg-about-content lato-regular"
-              name="about"
-              value={editDetails.about}
-              onChange={handleChange}
-              required
-              />
-            ) : (
+            className="pfp-pg-about-content lato-regular"
+            name="about"
+            value={editDetails.about}
+            onChange={handleChange}
+            required
+            />
+          ) : (
             <p className="about-content-p">{profile.about}</p>
           )}
         </div>
@@ -522,7 +558,9 @@ const MyProfile = () => {
         </div>
         </form>
       </div>
-    </div>
+      </div>
+    }
+    </>
   );
 };
 

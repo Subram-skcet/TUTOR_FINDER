@@ -8,50 +8,47 @@ import TeacherProfile from '../TeacherProfile/TeacherProfile';
 import StudentProfileRoutes from '../StudentAccountPage/Routes'
 import WelcomePage from '../WelcomeInstructor/WelcomePage';
 import StudentMain from '../handleStudentRegisterLogin/StudentMain'
-import { useDataLayerValue } from '../StateProviders/StateProvider';
-import axios from 'axios';
 import { useEffect } from 'react';
 import ChangePassword from '../components/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useDataLayerValue } from '../StateProviders/StateProvider';
 import 'react-toastify/dist/ReactToastify.css';
+import { GetUser } from '../utils/getUser';
 
 const Router = () => {
-  const [,dispatch] = useDataLayerValue()
+  const [{logged,asStudent,asTeacher},dispatch] = useDataLayerValue()
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get('/get-user'); 
-      dispatch({
-        type: 'LOG_USER',
-        payload: true
-      });
+  const checkCookie = (cookieName) => {
+    const cookies = document.cookie.split('; ');
+    return cookies.some(cookie => cookie.startsWith(`${cookieName}=`));
+  };
+
+  const handleTabVisibilityChange = () => {
+    if (document.visibilityState === "visible") {
+      console.log("Tab is now active");
+      console.log("Logged value = ", logged, asTeacher, asStudent);
       
-      if (response.data.student) {
-        dispatch({
-          type: 'SET_STUDENT',
-          payload: response.data.student
-        });
-        dispatch({
-          type: 'LOGGED_USER',
-          payload: 'student'
-        });
-      } else if (response.data.teacher) {
-        dispatch({
-          type: 'SET_TEACHER',
-          payload: response.data.teacher
-        });
-        dispatch({
-          type: 'LOGGED_USER',
-          payload: 'teacher'
-        });
-      }
-    } catch (error) {
-      // navigate('/'); 
+      if(!(checkCookie("accessToken") && checkCookie("refreshToken")) && 
+      (location.pathname.startsWith('/myaccount/studentprofile') || location.pathname.startsWith('/myaccount/teacherprofile')
+      || logged)
+    )
+          window.location.reload()
     }
   };
 
+
   useEffect(() => {
-    getUser(); 
+    GetUser(dispatch,location,navigate);
+    document.addEventListener("visibilitychange", handleTabVisibilityChange);
+
+    // Cleanup the event listener on unmount
+    return () => {
+      document.removeEventListener("visibilitychange", handleTabVisibilityChange);
+    }; 
   }, []);
 
   const routes = useRoutes([
