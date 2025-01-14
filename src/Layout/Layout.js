@@ -43,7 +43,6 @@ const Layout = (props) => {
   };
 
   const LoginNavigate = () => {
-    console.log("Here you go ",logged);
     navigate('/login');
   };
 
@@ -70,7 +69,7 @@ const Layout = (props) => {
                     </div>
                     <div className={`itms-cntr style-links ${location.pathname !== '/welcometeacher' ? 'dim-clr':''}`}>
                     <FaChalkboardTeacher size="1.3em"/>
-                      <span onClick={RegisterNavigateTeacher}>Teach with EduQuest</span>
+                      <span onClick={RegisterNavigateTeacher}>Teach with FMT</span>
                     </div>
                     <div className={`itms-cntr style-links ${location.pathname !== '/register' ? 'dim-clr':''} ${logged? 'invis' : ''}`}>
                     <PiStudentBold size="1.3em"/>
@@ -107,7 +106,7 @@ const Layout = (props) => {
                     </div>
                     <div className='menu-icon'>
                       <FaChalkboardTeacher size="1.1em"/>
-                      <span onClick={RegisterNavigateTeacher}>Teach with EduQuest</span>
+                      <span onClick={RegisterNavigateTeacher}>Teach with FMT</span>
                     </div>
                     <div className={`menu-icon ${logged? 'invis' : ''}`}>
                     <PiStudentBold size="1.1em"/>

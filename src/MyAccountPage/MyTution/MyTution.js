@@ -22,7 +22,6 @@ const MyTution = () => {
       const response = await axios.get('/api/v1/tution/gettutions', {
         params: { createdBy: asTeacher._id },
       });
-      console.log(response)
       setTutions(response.data.tutions || []); 
     } catch (error) {
       console.error('Error fetching tutions:', error);
@@ -42,7 +41,6 @@ const MyTution = () => {
       const response = await axios.delete(`/api/v1/tution/${tutionToDelete._id}`, {
         data: { createdBy: tutionToDelete.createdBy } // Include createdBy in the request body
       });
-      console.log(response);
       
       // Optionally check the response data
       if (response.status === 200) {
@@ -56,7 +54,6 @@ const MyTution = () => {
   };
 
   const handleSaveClick = async (TuitionDetails, index) => {
-    console.log(TuitionDetails);
     
     let updatedTution = TuitionDetails
     try {
@@ -65,7 +62,6 @@ const MyTution = () => {
         ...updatedTution,
         createdBy: asTeacher._id // Ensure createdBy is included in the request body
       });
-      console.log(response);
   
       if (response.status === 200) {
         toast.success('Tuition saved successfully')

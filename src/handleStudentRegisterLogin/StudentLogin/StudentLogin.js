@@ -12,7 +12,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const Login = () => {
-    const [,dispatch] = useDataLayerValue()
+    const [{logged},dispatch] = useDataLayerValue()
     const navigate = useNavigate()
     const [userDetails, setDetails] = useState({
         email: '',
@@ -21,6 +21,7 @@ const Login = () => {
     const [errorText,setErrorText] = useState('')
     const [isForgetClickable,setForgetClickable] = useState(true)
     const [isPasswordVisible,setPasswordVisible] = useState(false)
+    const [isLoginLoad,setLoginLoad] = useState(false)
 
     const handleChange = (e) => {
         if(errorText){
@@ -61,6 +62,11 @@ const Login = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+         if(logged){
+            toast.info("Sign out of the currently logged-in account and try again.")
+                return
+        }
+        setLoginLoad(true)
         if(!userDetails.email.trim() || !userDetails.password.trim()){
             setErrorText('Please fill in all the fields.')
             return;
@@ -68,10 +74,9 @@ const Login = () => {
 
         const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             if(!emailRegex.test(userDetails.email)){
-                setErrorText("Enter a valid email address")
+                setErrorText("Enter a valid email address.")
                 return
             }
-            console.log(userDetails);
             try {
                 const response = await axios.post('/api/v1/auth/loginstudent',
                     {
@@ -97,7 +102,6 @@ const Login = () => {
                               payload:'student'
                             }
                           )
-                    console.log(loggedUserDetails);
                     navigate('/myaccount/studentprofile/myprofile')
                 }
             } catch (error) {
@@ -107,6 +111,9 @@ const Login = () => {
                 else{
                     toast.error("Something went wrong. Please try again later")
                 }
+            }
+            finally{
+                setLoginLoad(false)
             }
     };
 
@@ -153,7 +160,12 @@ const Login = () => {
                  }
                 <div>
                     <button type="submit" className='lg-btn lato-bold btn-cntr'>
-                    <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                        {
+                            isLoginLoad ?
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            :
+                            <>Login</>
+                        }
                     </button>
                 </div>
             </form>

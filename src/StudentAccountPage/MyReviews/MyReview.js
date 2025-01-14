@@ -16,10 +16,9 @@ const MyReview = () => {
     setIsLoading(true)
        try {
           const response = await axios.get(`/api/v1/review/`)
-          console.log(response);
           setReviews(response.data.reviews)
-       } catch (error) {
-         console.log(error.message);
+        } catch (error) {
+         toast.error("Error fetching reviews. Try again later")
        }
        finally{
          setIsLoading(false)
@@ -34,10 +33,8 @@ const MyReview = () => {
        reviewid,
        option
      }
-     console.log(req_body);
      try {
        const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
-       console.log(response);
        if(response.status === 200){
         const StudentDetails = {...asStudent}
         StudentDetails.likedReviews = response.data.likedReviews
@@ -48,7 +45,6 @@ const MyReview = () => {
         })
        }
      } catch (error) {
-      console.log(error.message);
         toast.error('Something went wrong please try agin later')
      }
      finally{
@@ -64,8 +60,7 @@ const deleteReview = async(id) =>{
         fetchMyReviews()
       }
   } catch (error) {
-     toast.succes('Something went wrong try again later')
-      console.log(error);
+     toast.error('Something went wrong try again later')
   }
 }
 

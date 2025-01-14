@@ -59,32 +59,6 @@ const MyProfile = () => {
 
   const textareaRef = useRef(null)
 
-  const fetchTutionCountAndRating = async () => {
-    try {
-      const response = await axios.get(`/api/v1/teacher/`);
-      const updatedDetails = {
-        ...asTeacher,
-        numOfTutions: response.data.teacher.numOfTutions,
-        numOfReviews: response.data.teacher.numOfReviews
-      };
-  
-      // Update global state
-      dispatch({
-        type: "SET_TEACHER",
-        payload: updatedDetails
-      });
-  
-      // Update local profile state
-      setProfile(prevProfile => ({
-        ...prevProfile,
-        numOfTutions: response.data.teacher.numOfTutions,
-        numOfReviews: response.data.teacher.numOfReviews
-      }))
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const loadDetails = async () => {
     try {
       const response = await axios.get('/api/v1/teacher')
@@ -106,7 +80,6 @@ const MyProfile = () => {
 
   useEffect(() => {
     if (isEditing && textareaRef.current) {
-            console.log("Focusing on textarea");
             textareaRef.current.focus();
     }
 }, [isEditing]);
@@ -185,18 +158,18 @@ const MyProfile = () => {
        return false
     }
 
-    if(editDetails.name.length < 3){
+    if(editDetails.name.trim().length < 3){
       setErrorText("Name must contain at least 3 characters.")
       return false
     }
 
-    if(editDetails.name.length > 20){
+    if(editDetails.name.trim().length > 20){
       setErrorText("Name cannot exceed 20 characters.")
       return false
     }
 
     const mbnoRegex = /^[0-9]{10}$/;
-    if (editDetails.mobileno.length !== 10 || !mbnoRegex.test(editDetails.mobileno)) {
+    if (editDetails.mobileno.trim().length !== 10 || !mbnoRegex.test(editDetails.mobileno)) {
       setErrorText("Enter a valid 10-digit Mobile Number");
       return false;
     }
@@ -229,12 +202,10 @@ const MyProfile = () => {
 
   const handleSaveClick = async (e) => {
     e.preventDefault()
-    console.log("Came in");
 
 
     const userValidated = ValidateUser()
 
-    console.log("Validated Status = ", userValidated);
 
     if(userValidated){
       setSaveBtn(true)
@@ -242,11 +213,8 @@ const MyProfile = () => {
       let updatedProfilePic = profile.profilepic;
   
       if (selectedImage.file && selectedImage.file!==permImage.file) {
-        console.log("Image changed");
         if(profile.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
-          const response = await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
-           if(response.status === 200)
-              console.log("Image deleted");
+          await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
         }
 
         const formData = new FormData();
@@ -257,7 +225,7 @@ const MyProfile = () => {
           });
           updatedProfilePic = response.data.image;
         } catch (error) {
-          console.log(error.message);
+          toast.error("Error uploading image. Try again later");
         }
       }
   
@@ -285,7 +253,6 @@ const MyProfile = () => {
          toast.success('Profile saved successfully!!')
       } catch (error) {
         toast.error("Couldn't save profile. Try again later")
-        console.log(error.message);
       }
       finally{
         setSaveBtn(false)

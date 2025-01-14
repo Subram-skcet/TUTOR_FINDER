@@ -14,7 +14,6 @@ const Main = () => {
   const navigate = useNavigate();
 
   const handleProfileNavigate = (idx) =>{
-    console.log(results[idx]);
      const profileDetails = results[idx].createdBy;
      navigate('/teacherProfile', {state:{profileDetails}})
   }
@@ -23,7 +22,6 @@ const Main = () => {
     setIsLoading(true)
     try {
       const response = await axios.get('/api/v1/tution/', { params: searchParams });
-      console.log(response);
       setResults(response.data.ResultSet);
     } catch (error) {
       console.error('Error fetching data:', error);

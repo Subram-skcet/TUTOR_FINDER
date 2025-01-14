@@ -17,9 +17,10 @@ const TeacherLogin = ({openLogin,onClose}) => {
         password:''
     })
     const [errorText,setErrorText] = useState('')
-    const [,dispatch] = useDataLayerValue()
+    const [{logged},dispatch] = useDataLayerValue()
     const [isPasswordVisible,setPasswordVisible] = useState(false)
     const [isForgetClickable,setForgetClickable] = useState(true)
+    const [isLoginLoad,setLoginLoad] = useState(false)
     const navigate = useNavigate()
 
     const handleChange = (e) =>{
@@ -33,6 +34,7 @@ const TeacherLogin = ({openLogin,onClose}) => {
     }
 
     const handleForgetPassword = async(req,res) =>{
+        
         if(!loginDetails.email.trim()){
             setErrorText("Please enter your email to receive the password reset link.")
             return;
@@ -57,9 +59,14 @@ const TeacherLogin = ({openLogin,onClose}) => {
             setForgetClickable(true)
         }
       }
-
-    const handleSubmit = async(e) =>{
-        e.preventDefault();
+      
+      const handleSubmit = async(e) =>{
+          e.preventDefault();
+        if(logged){
+              toast.info("Sign out of the currently logged-in account and try again.")
+              return
+        }
+        
         if(!loginDetails.email.trim() || !loginDetails.password.trim()){
             setErrorText('Please fill in all the fields.')
             return;
@@ -71,10 +78,9 @@ const TeacherLogin = ({openLogin,onClose}) => {
             return
         }
 
-        console.log(loginDetails);
+        setLoginLoad(true)
         try {
             const response = await axios.post('/api/v1/auth/loginteacher',loginDetails)
-            console.log(response);
             
             if(response.status === 200){
                 dispatch({
@@ -104,13 +110,16 @@ const TeacherLogin = ({openLogin,onClose}) => {
                             toast.error("Something went wrong. Please try again later")
                         }
                     }
+                    finally{
+                        setLoginLoad(false)
+                    }
     }
 
   return (
     <>
 
         <div className="login-container modal-login lato-regular">
-            <h2 className='lato-bold'>Login to your EduQuest Teacher account</h2>
+            <h2 className='lato-bold'>Login to your FMT Teacher account</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="email" className='lato-bold'>Email:</label>
@@ -146,7 +155,12 @@ const TeacherLogin = ({openLogin,onClose}) => {
                     </div>
                  }
                 <div>
-                    <button type="submit" className='lg-btn lato-bold btn-cntr'>Log In</button>
+                    <button type="submit" className='lg-btn lato-bold btn-cntr'> {
+                            isLoginLoad ?
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            :
+                            <>Login</>
+                        }</button>
                 </div>
                 <div className='log-in-content-div'>
                 <div>

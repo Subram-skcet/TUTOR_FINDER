@@ -44,6 +44,9 @@ const AddTution = () => {
   const [isMapOpen,setMapOpen] = useState(false)
 
   const getLocation = () => {
+    if(errorText){
+      setErrorText('')
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -52,6 +55,9 @@ const AddTution = () => {
           setErrorText('');
         },
         (err) => {
+          if(err.message === 'User denied Geolocation')
+            setErrorText('Allow geolocation access to add location');
+          else
           setErrorText(err.message);
         },
         { enableHighAccuracy: true }
@@ -61,10 +67,6 @@ const AddTution = () => {
     }
   };
 
-  useEffect(()=>{
-       console.log(location.lat , location.lng);
-       
-  },[location])
 
   const handleChange = (e) => {
     if(errorText)
@@ -176,12 +178,10 @@ const navigateBack = () =>{
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Entered");
     const tuitionValidated = ValidateTuition();
 
     if(tuitionValidated){
 
-      console.log(TutionDetails);
       try {
         const response = await axios.post('/api/v1/tution/', {
           createdBy: asTeacher._id,
@@ -193,7 +193,6 @@ const navigateBack = () =>{
           boards: TutionDetails.Boards,
           location:[location.lat,location.lng]
         });
-        console.log(response);
         
   
         if(response.status === 201){
@@ -410,7 +409,7 @@ const navigateBack = () =>{
         </div>
 
         {errorText && 
-                    <div className='error-para-div er-streg'>
+                    <div className='error-para-div er-streg mrg-tp'>
                          <div className='amber-icon'>
                              <MdWarningAmber size="1.3em"/>
                          </div>
@@ -418,7 +417,7 @@ const navigateBack = () =>{
                     </div>
         }
 
-      <button className='edit-prof-btn spz tut-crt-btn' type='submit'>
+      <button className='edit-prof-btn spz' type='submit'>
           <div className='itms-cntr style-links-updated ed-bck lato-regular'>
              <MdOutlinePostAdd size="1.45em"/>
                   <p>Create</p>

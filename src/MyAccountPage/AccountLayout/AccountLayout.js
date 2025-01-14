@@ -17,7 +17,6 @@ const AccountLayout = () => {
   const handleLogout = async() =>{
     try {
       const response = await axios.post('/api/v1/auth/logout')
-      console.log(response);
       if(response.data.message === 'User logged out successfully'){
         toast.success('Logged out successfully')
          dispatch({
@@ -27,7 +26,6 @@ const AccountLayout = () => {
       }
     } catch (error) {
       toast.error('Error logging out user')
-       console.log(error.message);
     }
   }
 
@@ -49,7 +47,6 @@ const AccountLayout = () => {
           toast.info('Check your mail for password changing link note that link valid for only 10 minutes')
       }
     } catch (error) {
-      console.log(error.message);
       toast.error('Error generating password reset mail try again later')
     }
   }

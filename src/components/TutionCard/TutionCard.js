@@ -59,7 +59,6 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
             }
         } catch (error) {
             toast.error('Something went wrong try again later')
-            console.log(error.message);
         }
         finally{
             setIsBookMarking(false)

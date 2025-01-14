@@ -37,10 +37,6 @@ const StudentProfile = () => {
   const loadDetails = async () => {
     try {
       const response = await axios.get('/api/v1/student/')
-      console.log(response.data.student.profilepic);
-      
-      console.log(response);
-      
       setProfile({
         profilepic:response.data.student.profilepic,
         name:response.data.student.name
@@ -50,7 +46,6 @@ const StudentProfile = () => {
         file: null
       })
     } catch (error) {
-      // toast.error('Error loading profile.')
       console.log(error);  
     }
     finally{
@@ -74,7 +69,7 @@ const StudentProfile = () => {
   } 
 
   const ValidateUser = ()=>{
-    console.log(editDetails.name);
+
     if(!editDetails || !editDetails.name || !editDetails.name.trim()){
       setErrorText("Please enter a name!")
       return false;
@@ -85,7 +80,7 @@ const StudentProfile = () => {
       return false
     }
 
-    if(editDetails.name.length > 20){
+    if(editDetails.name.trim().length > 20){
       setErrorText("Name must not exceed 20 characters!")
       return false;
     }
@@ -99,21 +94,14 @@ const StudentProfile = () => {
     e.preventDefault()
     const userValidated = ValidateUser()
 
-    console.log("Validate" , userValidated);
-
-    console.log(editDetails);
-
     if(userValidated){
-    console.log("means Validated");
       setSaveBtn(true)
       let updatedProfilePic = profile.profilepic
   
       if (selectedImage.file && selectedImage.file!==permImage.file) {
 
         if(profile.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
-          const response = await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
-           if(response.status === 200)
-              console.log("Image deleted");
+          await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
         }
 
         const formData = new FormData();
@@ -123,9 +111,8 @@ const StudentProfile = () => {
             headers: { 'Content-Type': 'multipart/form-data' }
           });
           updatedProfilePic = response.data.image;
-          console.log(updatedProfilePic);
         } catch (error) {
-          console.log(error.message);
+          toast.error("Error uploading image. Try again later")
         }
       }
       
@@ -138,7 +125,6 @@ const StudentProfile = () => {
         setProfile(updatedDetails)
         setPermImage(selectedImage)
         let newStudentDetails = { ...asStudent, ...updatedDetails };
-        console.log(newStudentDetails);
         dispatch({
           type:"SET_STUDENT",
           payload:newStudentDetails
@@ -146,7 +132,6 @@ const StudentProfile = () => {
         toast.success('Profile saved successfully!!')
       } catch (error) {
         toast.error("Couldn't save profile. Try again later")
-        console.log(error.message);
       }
       finally{
         setIsEditing(false)
@@ -174,7 +159,6 @@ const StudentProfile = () => {
         file: file
       });
     }
-    console.log(selectedImage);
   };
 
   const handleCancelClick = () =>{

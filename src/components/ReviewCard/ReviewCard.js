@@ -39,7 +39,6 @@ const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable ,
 
     useEffect(() => {
         if (isEditing && textareaRef.current) {
-                console.log("Focusing on textarea");
                 textareaRef.current.focus();
         }
     }, [isEditing]);
@@ -115,7 +114,6 @@ const handleSaveClick = async() =>{
             rating,
             review:editDetails.editreview
         })
-        console.log(response);
         if(response.status === 200){
             toast.success('Review saved successfully')
             setPermDetails({

@@ -26,21 +26,36 @@ const TeacherProfile = () => {
   const [isLoginModalOpen,setLoginModelOpen] = useState(false)
   const [isLoading,setIsLoading] = useState(false)
   const [isDoable,setDoable] = useState(true)
+  const [props, setProps] = useState(null);
+  const [hasProps,setHasProps] = useState(false)
   const navigate = useNavigate()
 
-  let props = location.state.profileDetails
+  useEffect(() => {
+    if (!location.state || !location.state.profileDetails) {
+      navigate('/');
+    } else {
+      setProps(location.state.profileDetails);
+      window.scrollTo(0,0)
+      setHasProps(true)
+    }
+  }, []);
+  
+  useEffect(()=>{
+    fetchReviews();
+    
+  },[props])
+  
 
   if(isLoginModalOpen){
        handleModalSize()
   }
 
   const fetchReviews = async () => {
+    
     setIsLoading(true)
     try {
       const response = await axios.get(`/api/v1/review/teacher-reviews/${props._id}`);
-      console.log(response);
       setReviews(response.data.reviews)
-      // Handle response and set reviews if needed
     } catch (error) {
       console.error('Error fetching reviews:', error);
     }
@@ -49,16 +64,8 @@ const TeacherProfile = () => {
     }
   };
   
-  useEffect(() => {
-    window.scrollTo(0,0)
-    fetchReviews();
-  }, []);
-
-
-  // Example: props.reviewData could be used to prepopulate reviews if needed
 
   const ReviewExists = () =>{
-    console.log(reviews);
      return reviews.some(review => review.createdBy._id === asStudent._id)
   }
 
@@ -92,12 +99,11 @@ const TeacherProfile = () => {
         return false
     }
     if(logged_as === 'teacher'){
-      toast.info('Only students can review about a teacher')
+      toast.info('Only students are permitted to review teachers.')
       return
     }
     if(ReviewExists()){
-      console.log('Executing');
-      toast.error('Review alredy exists!!')
+      toast.error('Review already exists!!')
       return
     }
     let rating;
@@ -114,14 +120,12 @@ const TeacherProfile = () => {
             createdFor:props._id,
             rating:rating
       }
-      console.log(req_body);
       try {
         const response = await axios.post('/api/v1/review/',req_body)
-        console.log(response);
         toast.success('Review posted successfully')
         await fetchReviews();
       } catch (error) {
-        toast.error("Couldn't post a review try again later")
+        toast.error("Couldn't post a review try again later.")
       }
 
     }
@@ -149,7 +153,6 @@ const TeacherProfile = () => {
        }
        try {
          const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
-         console.log(response);
          if(response.status === 200){
           const StudentDetails = {...asStudent}
           StudentDetails.likedReviews = response.data.likedReviews
@@ -160,7 +163,7 @@ const TeacherProfile = () => {
           })
          }
        } catch (error) {
-          toast.error('Something went wrong please try agin later')
+          toast.error('Something went wrong please try again later')
        }
        finally{
         setDoable(true)
@@ -169,7 +172,21 @@ const TeacherProfile = () => {
 
   return (
     <>
-     <div className='top-wst'></div>
+  <div className='top-wst'></div>
+    {
+              !hasProps ? 
+              <div className='circle-animation anim-cntr'>
+                      <ThreeCircles
+                      visible={true}
+                      height="100"
+                      width="100"
+                      color="#3689d6"
+                      ariaLabel="three-circles-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                      />
+                </div>   
+                     :
     <div className={`profile-page lato-regular ${isLoginModalOpen? 'stator':''}`}>
       <div className='pfp-pg-arrow-nav' onClick={navigateBack}>
         <FaArrowLeft size="1.8em"/>
@@ -241,7 +258,7 @@ const TeacherProfile = () => {
   <div className="reviews-section">
     {reviews.map((review) => (
       <ReviewCard
-        key={review.id} // Ensure to add a unique key for each item in the list
+        key={review._id} // Ensure to add a unique key for each item in the list
         review={review}
         isClickable={true}
         handleLike={handleLikeReview}
@@ -269,7 +286,7 @@ const TeacherProfile = () => {
                     ref={textareaRef}
                     onFocus={handleFocus}
                     onChange={(e) => setNewReviewText(e.target.value)}
-                    placeholder="Write review..."
+                    placeholder="Write your thoughts..."
                     className='profile-page-textarea lato-regular'
                     minLength={1}
                     required
@@ -289,6 +306,7 @@ const TeacherProfile = () => {
           </div>
       </div>
     </div>
+    }
   </>
   );
 };

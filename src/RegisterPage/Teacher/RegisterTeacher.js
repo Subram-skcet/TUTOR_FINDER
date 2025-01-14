@@ -4,7 +4,7 @@ import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { useNavigate } from 'react-router-dom';
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
 import axios from 'axios';
-import { stateDistricts,subjects } from '../../components/stateExporter'
+import { stateDistricts,subjects,qualifications } from '../../components/stateExporter'
 import loadgif from '../../assets/89.gif'
 import { toast } from 'react-toastify';
 import { MdOutlineTaskAlt } from "react-icons/md";
@@ -15,7 +15,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterTeacher = ({openLogin}) => {
-  const [, dispatch] = useDataLayerValue();
+  const [{logged}, dispatch] = useDataLayerValue();
   const [teacherDetails, setDetails] = useState({
     name: '',
     email: '',
@@ -40,6 +40,7 @@ const RegisterTeacher = ({openLogin}) => {
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [errorText,setErrorText] = useState('')
   const [isPasswordVisible,setPasswordVisible] = useState(false)
+  const [isRegisterLoad,setRegisterLoad] = useState(false)
   
   const navigate = useNavigate();
   
@@ -77,7 +78,6 @@ const RegisterTeacher = ({openLogin}) => {
         }))
       }
 
-      console.log(response);
     } catch (error) {
       if(error.response && error.response.data){
         toast.error(error.response.data.message)
@@ -126,7 +126,6 @@ const handleOtpSubmit = async() => {
     ))
     setVerifiedEmail(teacherDetails.email)
   }
-   console.log(response);
   } catch (error) {
     if(error.response && error.response.data){
       if(error.response.data.message.includes("expired")){
@@ -179,12 +178,12 @@ const handleBackspace = (e, index) => {
 };
    
 const validateUser = () =>{
-       if(!teacherDetails.name.trim() || !teacherDetails.email.trim() || !teacherDetails.password.trim() || !teacherDetails.mobileno.trim() || !teacherDetails.qualification.trim() || !teacherDetails.state.trim() || teacherDetails.subjects.length === 0){
-           setErrorText("Please fill in all the fields.")
+  if(!teacherDetails.name.trim() || !teacherDetails.email.trim() || !teacherDetails.password.trim() || !teacherDetails.mobileno.trim() || !teacherDetails.qualification.trim() || !teacherDetails.state.trim() || teacherDetails.subjects.length === 0){
+    setErrorText("Please fill in all the fields.")
            return false
        }
 
-       if(teacherDetails.name.length < 3 || teacherDetails.name.length > 20){
+       if(teacherDetails.name.trim().length < 3 || teacherDetails.name.trim().length > 20){
         setErrorText("Name should be between 3 and 20 characters long.")
         return false;
        }
@@ -220,25 +219,27 @@ const validateUser = () =>{
         setErrorText("Verify your email address to register.")
         return false;
        }
-
+       
        return true;
-   }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log("Teacher Details = ", teacherDetails);
+      }
+      
+      const handleSubmit = async (e) => {
+        e.preventDefault()
+        if(logged){
+         toast.info("Sign out of the currently logged-in account and try again.")
+         return
+        }
     const userValidated = validateUser()
 
     if(userValidated){
+      setRegisterLoad(true)
         let setTeacher;
         try {
         const response = await axios.post('/api/v1/auth/registerteacher',teacherDetails );
         
-        console.log(response);
         if(response.status === 201){
           toast.success('User registered succcessfully')
           setTeacher = response.data.teacherData
-        console.log("Here the response = " , setTeacher);
         dispatch({ type: 'LOG_USER', payload: true });
         dispatch(
           {
@@ -256,6 +257,9 @@ const validateUser = () =>{
         }
       } catch (error) {
         console.error('Error sending data:', error);
+      }
+      finally{
+        setRegisterLoad(false)
       }
     }
   };
@@ -325,7 +329,7 @@ const validateUser = () =>{
   return (
     <div className='teacher-signup-wrap lato-regular'>
       <div>
-        <h2 className='lato-bold'>Create your Teacher account in EduQuest</h2>
+        <h2 className='lato-bold'>Create your Teacher account in FMT</h2>
       </div>
 
     <div className='teacher-reg-wrap'>
@@ -477,10 +481,11 @@ const validateUser = () =>{
             required
             >
             <option value=''>Select</option>
-            <option value='B.E'>B.E</option>
-            <option value='M.E'>M.E</option>
-            <option value='B.Sc'>B.Sc</option>
-            <option value='M.Sc'>M.Sc</option>
+            {
+              qualifications.map((qual)=>(
+                <option value={qual}>{qual}</option>
+              ))
+            }
           </select>
           <div className='drp-icon'>
               <IoMdArrowDropdown size="1.6em"/>
@@ -590,7 +595,12 @@ const validateUser = () =>{
            className='lato-bold reg-btn'
            style={regbtnstyle}
             >
-            Register
+             {
+                  isRegisterLoad ?
+                  <div class="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
+                      :
+                    <>Register</>
+                  }
           </button>
         </div>
         <div className='log-in-div'>

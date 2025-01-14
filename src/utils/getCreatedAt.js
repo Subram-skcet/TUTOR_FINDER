@@ -19,7 +19,6 @@ export const extractDateFields = (createdAt) => {
     const minutes = localDate.getMinutes();
     const seconds = localDate.getSeconds();
 
-    console.log(year, month, day, hours, minutes, seconds);
 
     // Calculate the distance from now
     return formatDistanceToNow(localDate, { includeSeconds: true })+" ago";

@@ -17,6 +17,7 @@ const LoginModal = () => {
     });
     const [isPasswordVisible,setPasswordVisible] = useState(false)
     const [errorText,setErrorText] = useState('')
+    const [isLoginLoad,setLoginLoad] = useState(false)
      const navigate = useNavigate()
 
 
@@ -44,7 +45,7 @@ const LoginModal = () => {
                 setErrorText("Enter a valid email address")
                 return
         }
-        console.log(userDetails);
+        setLoginLoad(true)
         try {
             const response = await axios.post('/api/v1/auth/loginstudent',
                 {
@@ -69,7 +70,6 @@ const LoginModal = () => {
                           payload:'student'
                         }
                       )
-                console.log(loggedUserDetails);
                 navigate('/myaccount/studentprofile/myprofile')
             }
         } catch (error) {
@@ -79,6 +79,9 @@ const LoginModal = () => {
                             else{
                                 toast.error("Something went wrong. Please try again later")
              }
+        }
+        finally{
+            setLoginLoad(false)
         }
     };
 
@@ -120,7 +123,14 @@ const LoginModal = () => {
                                     </div>
                 }
                 <div>
-                    <button type="submit" className='lg-btn poppins-font btn-cntr'>Log In</button>
+                    <button type="submit" className='lg-btn poppins-font btn-cntr'>
+                       {
+                            isLoginLoad ?
+                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            :
+                            <>Login</>
+                        }
+                    </button>
                 </div>
                 <div style={{display:'flex',justifyContent:'center'}}>
                     <p>Don't have an account? <span className='anchor-link' onClick={()=>navigate('/register')}>Sign up</span></p>

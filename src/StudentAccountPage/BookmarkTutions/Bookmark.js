@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import './Bookmark.css'
 import { ThreeCircles } from 'react-loader-spinner'
 import { FaSearch } from "react-icons/fa";
+import { toast } from 'react-toastify'
 
 const Bookmark = () => {
   const [favouritetutions,setfavouritetutions ] = useState([])
@@ -15,29 +16,24 @@ const Bookmark = () => {
   const [isAnyModalOpen,setModalOpen] = useState(false)
 
   const fetchTutions = async()=>{
-    console.log(asStudent.favouriteTutions)
     
     setIsLoading(true)
     let tutions=[];
     try {
       for(let i=0;i<asStudent.favouriteTutions.length;i++){
-        console.log('Executing');
          const response = await axios.get(`/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`)
-         console.log(response);
          tutions.push(response.data.tution)
       }
       setfavouritetutions(tutions)
-      console.log(favouritetutions);
       
     } catch (error) {
-         console.log(error.message);
+         toast.info("Error fetching tuitions")
     }
     finally{
       setIsLoading(false)
     }
   }
   const handleProfileNavigate = (idx) =>{
-    console.log(favouritetutions[idx]);
      const profileDetails = favouritetutions[idx].createdBy;
      navigate('/myaccount/studentprofile/teacherProfile', {state:{profileDetails}})
   }

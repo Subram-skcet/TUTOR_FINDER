@@ -97,16 +97,16 @@ padding-right: 3rem;
 .lds-ring {
   display: flex;
   position: relative;
-  width: 10px;
-  height: 10px;
+  width: 38px;
+  height: 19px;
   align-items: center;
   justify-content: center;
 }
 .lds-ring div {
   box-sizing: border-box;
   position: absolute;
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   transform: translate(-50%,-50%);
   /* margin: 5px; */
   border: 3px solid currentColor;
@@ -123,6 +123,9 @@ padding-right: 3rem;
 .lds-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
+
+
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);

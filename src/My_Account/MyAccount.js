@@ -16,7 +16,6 @@ const MyAccount = () => {
             setName(asStudent.name);
             setImg(asStudent.profilepic);
         }
-        console.log(name , img);
     }, [logged_as, asTeacher, asStudent]);
 
     const handleProfileNavigate = () =>{

@@ -52,7 +52,6 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             ...prevDetails,
             location:[location.lat,location.lng]
           }))
-          console.log("Location Updated")
         }
     },[location])
 
@@ -75,7 +74,6 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
     };
     
     const setLatLngfromChd = (lat,lng) =>{
-      console.log(lat,lng);
       
       setLocation({
         lat,lng
@@ -107,10 +105,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         if(setErrorText)
           setErrorText('')
         const { name,value } = e.target;
-        console.log(name , value);
         setDetails(prevDetails => {
             const newcombo = [...prevDetails[name]];
-            console.log(newcombo);
             newcombo[index] = value;
             return {
                 ...prevDetails,
@@ -144,16 +140,13 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         if(setErrorText)
           setErrorText('')
         let editTution = { ...tuition}
-        console.log(editTution);
         delete editTution._id
         delete editTution.createdBy
         delete editTution.__v
         delete editTution.createdAt
         delete editTution.updatedAt
         
-        console.log(editTution);
         setDetails(editTution)
-        console.log(TuitionDetails);
         setLocation({ lat: null, lng: null })
         setIsEditing(true)
       };
@@ -195,7 +188,6 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         const tuitionValidated = validateTuition();
 
         if(tuitionValidated){
-          console.log(location);
           
           SaveTuition(TuitionDetails,index)
           setIsEditing(false);

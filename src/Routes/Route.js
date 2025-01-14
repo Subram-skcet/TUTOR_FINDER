@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../StateProviders/StateProvider';
 import 'react-toastify/dist/ReactToastify.css';
 import { GetUser } from '../utils/getUser';
+import NotFound from '../404/404'
 
 const Router = () => {
   const [{logged,asStudent,asTeacher},dispatch] = useDataLayerValue()
@@ -28,10 +29,7 @@ const Router = () => {
   };
 
   const handleTabVisibilityChange = () => {
-    if (document.visibilityState === "visible") {
-      console.log("Tab is now active");
-      console.log("Logged value = ", logged, asTeacher, asStudent);
-      
+    if (document.visibilityState === "visible") {      
       if(!(checkCookie("accessToken") && checkCookie("refreshToken")) && 
       (location.pathname.startsWith('/myaccount/studentprofile') || location.pathname.startsWith('/myaccount/teacherprofile')
       || logged)
@@ -88,12 +86,16 @@ const Router = () => {
       path: '/myaccount/teacherprofile/*',
       element:<ToastLayer> <MyProfileRoute /> </ToastLayer> ,
     },
+    {
+      path:'*',
+      element:<ToastLayer><LayoutWrapper><NotFound/></LayoutWrapper></ToastLayer>
+    }
   ]);
 
   return routes;
 };
 
-const LayoutWrapper = ({ children }) => {
+export const LayoutWrapper = ({ children }) => {
   return (
     <Layout>
       {children}

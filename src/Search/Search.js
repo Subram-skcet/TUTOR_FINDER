@@ -49,7 +49,6 @@ const Search = ({ onSearch }) => {
     if (location.pathname === '/') {
       try {
         const response = await axios.get('http://localhost:3001/api/v1/tution/', { params });
-        console.log(response);
         setResults(response.data.ResultSet);
         navigate('/searchtutor', { state: { resultset: response.data.ResultSet } });
       } catch (error) {

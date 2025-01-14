@@ -2,10 +2,6 @@
 import axios from 'axios';
 
 export const GetUser = async (dispatch, location, navigate) => {
-  console.log("Executing");
-  console.log(location.pathname);
-
-
   try {
     const response = await axios.get('/get-user');
     dispatch({
@@ -40,7 +36,6 @@ export const GetUser = async (dispatch, location, navigate) => {
 
     
   } catch (error) {
-    console.log(error);
     
     if (location.pathname.startsWith('/myaccount/studentprofile')) {
       navigate('/login');

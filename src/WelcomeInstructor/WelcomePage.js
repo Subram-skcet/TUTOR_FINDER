@@ -27,7 +27,6 @@ const WelcomePage = () => {
    const getCountStats = async() =>{
       try {
          const response = await axios.get('/api/v1/auth/get-stats')
-         console.log(response);
          
          setStatDetails({
             studentCount:response.data.stdnt,
@@ -69,7 +68,7 @@ const WelcomePage = () => {
             <div className='actual-content'>
                <div>
                   <h1 className='notes-heading lato-bold'>
-                     Come teach with EduQuest
+                     Come teach with FMT(Find My Tuition)
                   </h1>
                </div>
                <div>

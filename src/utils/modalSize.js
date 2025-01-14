@@ -4,9 +4,6 @@ export const handleModalSize = () => {
     const parentWidth = parent.offsetWidth;
     const screenWidth = window.innerWidth;
 
-    console.log(parentWidth);
-    console.log(screenWidth);
-
     if (parentWidth >= screenWidth) {
         alert('Max width is reached!!');
         // Apply specific styles when parent width is 100% of the screen

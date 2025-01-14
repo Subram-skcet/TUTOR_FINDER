@@ -12,7 +12,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterStudent = () => {
-  const [{ logged_as }, dispatch] = useDataLayerValue();
+  const [{ logged_as,logged }, dispatch] = useDataLayerValue();
   const navigate = useNavigate()
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [otpDetails,setOtpDetails] = useState(
@@ -32,11 +32,9 @@ const RegisterStudent = () => {
   const [isPasswordVisible,setPasswordVisible] = useState(false)
   const [verifyLinkMail,setVerifyLinkMail] = useState(null)
   const [verifiedEmail,setVerifiedEmail] = useState(null)
+  const [isRegisterLoad,setRegisterLoad] = useState(false)
 
-  
-  useEffect(()=>{
-      console.log("State updated successfully", logged_as);
-  },[logged_as])
+
   
   const regbtnstyle = {
     width: 'max-content',
@@ -71,7 +69,6 @@ const RegisterStudent = () => {
           }))
         }
 
-        console.log(response);
       } catch (error) {
           if(error.response && error.response.data){
             toast.error(error.response.data.message)
@@ -121,7 +118,6 @@ const RegisterStudent = () => {
         ))
         setVerifiedEmail(userDetails.email)
       }
-      console.log(response);
      } catch (error) {
       if(error.response && error.response.data){
         if(error.response.data.message.includes("expired")){
@@ -198,7 +194,7 @@ const RegisterStudent = () => {
           setErrorText("Please fill in all the fields.")
           return false;
        }
-       if(userDetails.name.length < 3 || userDetails.name.length >20){
+       if(userDetails.name.trim().length < 3 || userDetails.name.trim(  ).length >20){
         setErrorText("Name should be between 3 and 20 characters long.")
         return false;
        }
@@ -217,13 +213,17 @@ const RegisterStudent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     if(logged){
+          toast.info("Sign out of the currently logged-in account and try again.")
+          return
+      }
     const userValidated = ValidateUser()
     if(userValidated){
+      setRegisterLoad(true)
       try {
         const response = await axios.post('/api/v1/auth/registerstudent', userDetails);
         if(response.status === 201){
           toast.success('User Registered successfully')
-            console.log('User registered successfully:', response.data);
       
             const studentDetails = response.data.student;
             // Optionally, clear form or redirect after successful registration
@@ -248,6 +248,9 @@ const RegisterStudent = () => {
         
       } catch (error) {
         toast.error("Error creating user, Try again later")
+      }
+      finally{
+        setRegisterLoad(false)
       }
     }
   };
@@ -358,7 +361,14 @@ const RegisterStudent = () => {
           </div>
         }
         <div>
-          <button type='submit' className='reg-btn lato-bold' style={regbtnstyle}>Register</button>
+          <button type='submit' className='reg-btn lato-bold' style={regbtnstyle}>
+          {
+                            isRegisterLoad ?
+                            <div class="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
+                            :
+                            <>Register</>
+                        }
+          </button>
         </div>
       </form>
       <div className='log-in-div'>

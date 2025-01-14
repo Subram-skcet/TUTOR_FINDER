@@ -97,12 +97,6 @@ const MapComponent = ({setLatLng,onClose}) => {
     initMap();
   }, []);
 
-  useEffect(()=>{
-    if(markerLocation){
-      console.log(markerLocation.lat, markerLocation.lng);
-    }
-    
-  },[markerLocation])
   
   const handleAddClick = () =>{
     if(!markerLocation){
@@ -124,8 +118,6 @@ const MapComponent = ({setLatLng,onClose}) => {
        </button>
 
     </div>
-    
-    {/* <TuitionMap lat={20.5937} lng={78.9629} />; */}
     </>
 
 

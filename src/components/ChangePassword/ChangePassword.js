@@ -43,7 +43,7 @@ const ChangePassword = () => {
             return;
         }
         if (Details.pwd !== Details.cnfrm_pwd) {
-            setErrorText("Password doesn't match")
+            setErrorText("Passwords doesn't match")
             return;
         }
         try {
@@ -53,7 +53,6 @@ const ChangePassword = () => {
                 role,
                 password: Details.pwd,
             });
-            console.log(response);
             if(response.status === 201){
                 toast.success('Password changed successfully!')
                 navigate('/');
