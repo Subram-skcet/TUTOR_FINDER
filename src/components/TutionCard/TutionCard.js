@@ -65,12 +65,9 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
         }
     }
 
-    useEffect(()=>{
-        if(isLoginModalOpen || isMapOpen)
-            setModalOpen(true)
-        else
-            setModalOpen(false)
-    },[isLoginModalOpen,isMapOpen])
+    useEffect(() => {
+        setModalOpen(isLoginModalOpen || isMapOpen);
+    }, [isLoginModalOpen, isMapOpen, setModalOpen]);
 
     return (
         <>
@@ -121,11 +118,11 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
                     <div className='tution-info'>
                         <div className='tution-sub-info-1'>
                             <div className='subject-container'>
-                                <p className='tution-card-para'><strong>Subjects:</strong>
+                                <div className='tution-card-para'><strong>Subjects:</strong>
                                     <div className='subjects-div'>
                                     {tution.subjects.join(', ')}
                                     </div>
-                                </p>
+                                </div>
                             </div>
                             <div> 
                               <p className='tution-card-para'><strong>Time:</strong>{`${convertTo12Hour(tution.duration[0])} - ${convertTo12Hour(tution.duration[1])}`}</p>

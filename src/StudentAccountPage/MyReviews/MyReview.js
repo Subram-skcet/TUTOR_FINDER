@@ -99,6 +99,7 @@ const deleteReview = async(id) =>{
                 {
                   reviews.map(review => (
                     <ReviewCard 
+                       key={review._id}
                       review={review}
                       isClickable={true}
                       handleLike = {handleLikeReview}

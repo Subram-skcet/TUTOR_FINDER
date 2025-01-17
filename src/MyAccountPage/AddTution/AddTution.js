@@ -1,6 +1,4 @@
-// src/AddTution.js
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import SelectedSubject from './Subjects';
 import './AddTution.css'; // Import the CSS file for styling
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +23,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 const AddTution = () => {
   const navigate = useNavigate();
-  const [{ asTeacher }, dispatch] = useDataLayerValue(); // Get createdBy id from StateProvider
+  const [{ asTeacher },] = useDataLayerValue(); // Get createdBy id from StateProvider
 
   const [TutionDetails, setDetails] = useState({
     Subjects: [],
@@ -201,8 +199,8 @@ const navigateBack = () =>{
         }
         
       } catch (error) {
-        if(error.response && error.response.data.message)
-            toast.error(error.response.data.message)
+        if(error.response && error.response.data.msg)
+            toast.error(error.response.data.msg)
         else
           toast.error('Error creating tuition ,try again later')
       }
@@ -254,7 +252,7 @@ const navigateBack = () =>{
           <div className='list-header-flx'>
             <label className="lato-bold">Select Boards:</label>
             <div className='select-container crt-tut-sl-cntr'>
-            <select onChange={HandleBoardSelect} className='create-tuition-select select-box lato-regular' aria-placeholder='Select boards '>
+            <select onChange={HandleBoardSelect} className='create-tuition-select select-box lato-regular'>
               <option value=''>Select</option>
                {boards.map((board,index) => (
                  <option key={index} value={board}>{board}</option>
@@ -306,7 +304,7 @@ const navigateBack = () =>{
 
               <select value={TutionDetails.startDay} name="startDay" onChange={handleChange} className='select-box lato-regular'>
               {daysOfWeek.map((day) => (
-                <option value={day}>{day}</option>
+                <option key={day} value={day}>{day}</option>
               ))}
               </select>
               <div className='drp-icon dt-drp'>
@@ -320,7 +318,7 @@ const navigateBack = () =>{
 
               <select value={TutionDetails.endDay} name="endDay" onChange={handleChange} className='select-box lato-regular'>
                 {daysOfWeek.map((day) => (
-                  <option value={day}>{day}</option>
+                  <option key={day} value={day}>{day}</option>
                 ))}
               </select>
               <div className='drp-icon dt-drp'>
@@ -344,7 +342,7 @@ const navigateBack = () =>{
             required
             >
               {standards.map((std) => (
-                <option value={std}>{std}</option>
+                <option key={std} value={std}>{std}</option>
               ))}
             </select>
             <div className='drp-icon std-drp'>
@@ -358,7 +356,7 @@ const navigateBack = () =>{
 
             <select value={TutionDetails.endStd} name="endStd" onChange={handleChange} className=' select-box lato-regular std-slt-cntr'>
               {standards.map((std) => (
-                <option value={std}>{std}</option>
+                <option key={std} value={std}>{std}</option>
               ))}
             </select>
               <div className='drp-icon std-drp'>

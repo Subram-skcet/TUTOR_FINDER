@@ -6,9 +6,13 @@ import { IoMdContact } from "react-icons/io";
 import { IoMdBookmarks } from "react-icons/io";
 import { MdRateReview } from "react-icons/md";
 import logo from "../../assets/logo.png"
+import { useMediaQuery } from 'react-responsive'; 
+
 
 const Sidebar = ({closesidebar}) => {
   const navigate = useNavigate();
+  const isBelow1000px = useMediaQuery({ query: '(max-width: 1000px)' })
+  
   return (
     <div className='sidebar-tot-wrap lato-regular'>
         <div className='sidebar-content-wrap'>
@@ -26,13 +30,13 @@ const Sidebar = ({closesidebar}) => {
         </div>
 
         <div className='sidebar-items'>
-               <div onClick={()=>navigate('/myaccount/studentprofile/myprofile')}>
+               <div onClick={()=>{navigate('/myaccount/studentprofile/myprofile'); if(isBelow1000px) closesidebar(false)}}>
                 <SidebarItem field='Profile' Icon={IoMdContact}/>
                </div>
-               <div onClick={()=>navigate('/myaccount/studentprofile/mybookmarks')}>
+               <div onClick={()=>{navigate('/myaccount/studentprofile/mybookmarks'); if(isBelow1000px) closesidebar(false)}}>
                 <SidebarItem field='My Favourite Tuitions' Icon={IoMdBookmarks}/>
                </div>
-               <div onClick={()=>navigate('/myaccount/studentprofile/myreviews')}>
+               <div onClick={()=>{navigate('/myaccount/studentprofile/myreviews'); if(isBelow1000px) closesidebar(false)}}>
                 <SidebarItem field='Reviews' Icon={MdRateReview}/>
                </div>
         </div>

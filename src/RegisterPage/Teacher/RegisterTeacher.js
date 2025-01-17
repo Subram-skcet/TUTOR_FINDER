@@ -79,8 +79,8 @@ const RegisterTeacher = ({openLogin}) => {
       }
 
     } catch (error) {
-      if(error.response && error.response.data){
-        toast.error(error.response.data.message)
+      if(error.response && error.response.data.msg){
+        toast.error(error.response.data.msg)
       }
       else{
           toast.error("Something went wrong please try again later")
@@ -483,7 +483,7 @@ const validateUser = () =>{
             <option value=''>Select</option>
             {
               qualifications.map((qual)=>(
-                <option value={qual}>{qual}</option>
+                <option value={qual} key={qual}>{qual}</option>
               ))
             }
           </select>
@@ -563,9 +563,9 @@ const validateUser = () =>{
 
           <select onChange={HandleSubjectSelect} className='select-box lato-regular' required>
             <option value="">Select</option>
-            {subjects.map((subject)=>
-            <option value={subject}>{subject}</option>
-          )}
+            {subjects.map(subject => (
+               <option key={subject} value={subject}>{subject}</option>
+             ))}
           </select>
           <div className='drp-icon'>
               <IoMdArrowDropdown size="1.6em"/>
@@ -597,7 +597,7 @@ const validateUser = () =>{
             >
              {
                   isRegisterLoad ?
-                  <div class="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
+                  <div className="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
                       :
                     <>Register</>
                   }

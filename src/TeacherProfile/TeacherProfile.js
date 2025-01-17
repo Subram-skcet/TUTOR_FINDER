@@ -15,6 +15,7 @@ import DisplayRating from '../components/DisplayRating';
 import { handleModalSize } from '../utils/modalSize';
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 const TeacherProfile = () => {
   const [reviews, setReviews] = useState([]);
@@ -30,6 +31,7 @@ const TeacherProfile = () => {
   const [hasProps,setHasProps] = useState(false)
   const navigate = useNavigate()
 
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (!location.state || !location.state.profileDetails) {
       navigate('/');
@@ -39,31 +41,32 @@ const TeacherProfile = () => {
       setHasProps(true)
     }
   }, []);
-  
-  useEffect(()=>{
-    fetchReviews();
-    
-  },[props])
+  /* eslint-enable react-hooks/exhaustive-deps */
+
+  /* eslint-enable react-hooks/exhaustive-deps */
+  /* eslint-enable react-hooks/exhaustive-deps */
   
 
   if(isLoginModalOpen){
        handleModalSize()
   }
 
-  const fetchReviews = async () => {
-    
-    setIsLoading(true)
+  const fetchReviews = useCallback(async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(`/api/v1/review/teacher-reviews/${props._id}`);
-      setReviews(response.data.reviews)
+      setReviews(response.data.reviews);
     } catch (error) {
       console.error('Error fetching reviews:', error);
+    } finally {
+      setIsLoading(false);
     }
-    finally{
-      setIsLoading(false)
-    }
-  };
+  }, [props]);
   
+  useEffect(()=>{
+    if(props?._id)
+      fetchReviews();
+  },[props,fetchReviews])
 
   const ReviewExists = () =>{
      return reviews.some(review => review.createdBy._id === asStudent._id)
@@ -122,8 +125,10 @@ const TeacherProfile = () => {
       }
       try {
         const response = await axios.post('/api/v1/review/',req_body)
-        toast.success('Review posted successfully')
-        await fetchReviews();
+        if(response.status === 201){
+          toast.success('Review posted successfully')
+          await fetchReviews()
+        }
       } catch (error) {
         toast.error("Couldn't post a review try again later.")
       }

@@ -15,9 +15,9 @@ const WelcomePage = () => {
    const [isRegisterModalOpen,setRegisterModelOpen] = useState(false)
    const [isLoginModalOpen,setLoginModalOpen] = useState(false)
    const [statDetails,setStatDetails] = useState({
-         studentCount : '',
-         teacherCount : '',
-         tuitionCount : ''
+         studentCount : '500',
+         teacherCount : '50',
+         tuitionCount : '1000'
 
    })
    if(isRegisterModalOpen || isLoginModalOpen){
@@ -82,10 +82,10 @@ const WelcomePage = () => {
             </div>
           </div>
             <div className='welcome-image-div-small'>
-               <img src={coverImg2} alt='Teacher Image' className='welcome-img'/>
+               <img src={coverImg2} alt='Teacher Image1' className='welcome-img'/>
             </div>
             <div className='welcome-image-div'>
-               <img src={coverImg} alt='Teacher Image' className='welcome-img'/>
+               <img src={coverImg} alt='Teacher Image2' className='welcome-img'/>
             </div>
          </div>
       <div className='welcome-part-two'>
@@ -95,7 +95,7 @@ const WelcomePage = () => {
         <div className='doables'>
          <div className='doable-divs'>
             <div>
-                 <img src={tution} className='doable-image'/>
+                 <img alt='doable-1' src={tution} className='doable-image'/>
             </div>
             <div>
                <h3 className='welcome-p poppins-font'>Customize Your Tuitions</h3>
@@ -104,14 +104,14 @@ const WelcomePage = () => {
          </div>
          <div className='doable-divs'>
              <div>
-                 <img src={reviews} className='doable-image'/>
+                 <img alt='doable-2' src={reviews} className='doable-image'/>
             </div>
             <h3 className='welcome-p poppins-font'>Improve with Feedback</h3>
             <p className='welcome-p  doable-para  '>Get insights into what students think of your tuitions, helping you improve in areas where you're lacking</p>
          </div>
          <div className='doable-divs'>
             <div>
-                 <img src={growth} className='doable-image'/>
+                 <img alt='doable-3' src={growth} className='doable-image'/>
             </div>
             <h3 className='welcome-p poppins-font'>Expand Your Reach</h3>
             <p className='welcome-p doable-para  '>Grow your offline tuition by posting here and reach more students to expand your impact</p>

@@ -57,7 +57,8 @@ const MyReview = () => {
                 <div className="my-reviews-pg-reviews-container">
                   {
                   reviews.map(review => (
-                    <ReviewCard 
+                    <ReviewCard
+                       key={review._id} 
                       review={review}
                       isClickable={false}
                     />

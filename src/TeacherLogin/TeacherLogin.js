@@ -48,8 +48,8 @@ const TeacherLogin = ({openLogin,onClose}) => {
               toast.info('Check your email for the password reset link. Note that the link is valid for only 10 minutes.')
           }
         } catch (error) {
-            if(error.response && error.response.data.message){
-                toast.error(error.response.data.message)
+            if(error.response && error.response.data.msg){
+                toast.error(error.response.data.msg)
             }
             else{
                 toast.error("An error occurred. Please try again later.")
@@ -103,8 +103,8 @@ const TeacherLogin = ({openLogin,onClose}) => {
                 navigate('/myaccount/teacherprofile/myprofile')
             }
         } catch (error) {
-                        if(error.response && error.response.data.message){
-                            toast.error(error.response.data.message)
+                        if(error.response && error.response.data.msg){
+                            toast.error(error.response.data.msg)
                         }
                         else{
                             toast.error("Something went wrong. Please try again later")
@@ -157,7 +157,7 @@ const TeacherLogin = ({openLogin,onClose}) => {
                 <div>
                     <button type="submit" className='lg-btn lato-bold btn-cntr'> {
                             isLoginLoad ?
-                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
                             :
                             <>Login</>
                         }</button>

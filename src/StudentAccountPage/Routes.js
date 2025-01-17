@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route,Routes,useRoutes } from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
 import App from './App'
 import StudentProfile from './StudentProfile/StudentProfile'
 import Bookmark from './BookmarkTutions/Bookmark'

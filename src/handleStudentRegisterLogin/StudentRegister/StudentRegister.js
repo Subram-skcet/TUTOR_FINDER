@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios'; 
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import './StudentRegister.css'
@@ -12,7 +12,7 @@ import { MdWarningAmber } from "react-icons/md";
 
 
 const RegisterStudent = () => {
-  const [{ logged_as,logged }, dispatch] = useDataLayerValue();
+  const [{ logged }, dispatch] = useDataLayerValue();
   const navigate = useNavigate()
   const [ isVerifyClickable, setVerifyClickable ] =useState(true)
   const [otpDetails,setOtpDetails] = useState(
@@ -70,8 +70,8 @@ const RegisterStudent = () => {
         }
 
       } catch (error) {
-          if(error.response && error.response.data){
-            toast.error(error.response.data.message)
+          if(error.response && error.response.data.msg){
+            toast.error(error.response.data.msg)
           }
           else{
               toast.error("Something went wrong please try again later")
@@ -258,7 +258,7 @@ const RegisterStudent = () => {
   return (
     <div className='student-signp-wrap lato-regular'>
     <div className='student-register-h1'>
-        <h1 className='lato-bold'>Sign up to your EduQuest account</h1>
+        <h1 className='lato-bold'>Sign up to your FMT account</h1>
     </div>
     <div className='student-signup-form '>
       <form onSubmit={handleSubmit} className='reg-std-form'>
@@ -364,7 +364,7 @@ const RegisterStudent = () => {
           <button type='submit' className='reg-btn lato-bold' style={regbtnstyle}>
           {
                             isRegisterLoad ?
-                            <div class="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
+                            <div className="lds-ring" style={{width:'60px'}}><div></div><div></div><div></div><div></div></div>
                             :
                             <>Register</>
                         }

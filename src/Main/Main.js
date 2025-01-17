@@ -37,7 +37,7 @@ const Main = () => {
     else
       fetchData({});
     window.scrollTo(0,0)
-  }, []);
+  }, [location.state]);
 
 
   return (
@@ -72,7 +72,7 @@ const Main = () => {
              :
              <div className="search-results">
               {  results.map((result,index) => (
-                  <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
+                  <TutionCard key={result._id} tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
                 ))
               }
              </div>

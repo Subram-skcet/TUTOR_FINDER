@@ -19,35 +19,39 @@ import { GetUser } from '../utils/getUser';
 import NotFound from '../404/404'
 
 const Router = () => {
-  const [{logged,asStudent,asTeacher},dispatch] = useDataLayerValue()
+  const [{logged},dispatch] = useDataLayerValue()
   const location = useLocation()
   const navigate = useNavigate()
 
   const checkCookie = (cookieName) => {
     const cookies = document.cookie.split('; ');
+    // console.log(document.cookie);
+    
     return cookies.some(cookie => cookie.startsWith(`${cookieName}=`));
   };
 
-  const handleTabVisibilityChange = () => {
-    if (document.visibilityState === "visible") {      
-      if(!(checkCookie("accessToken") && checkCookie("refreshToken")) && 
-      (location.pathname.startsWith('/myaccount/studentprofile') || location.pathname.startsWith('/myaccount/teacherprofile')
-      || logged)
-    )
-          window.location.reload()
-    }
-  };
-
-
+  
+  
   useEffect(() => {
-    GetUser(dispatch,location,navigate);
+
+    const handleTabVisibilityChange = () => {
+      if (document.visibilityState === "visible") {      
+        if(!(checkCookie("accessToken") && checkCookie("refreshToken")) && 
+        (location.pathname.startsWith('/myaccount/studentprofile') || location.pathname.startsWith('/myaccount/teacherprofile')
+        || logged)
+      )
+            window.location.reload()
+      }
+    };
+    if(checkCookie("accessToken") || checkCookie("refreshToken"))
+       GetUser(dispatch,location,navigate);
     document.addEventListener("visibilitychange", handleTabVisibilityChange);
 
     // Cleanup the event listener on unmount
     return () => {
       document.removeEventListener("visibilitychange", handleTabVisibilityChange);
     }; 
-  }, []);
+  }, [dispatch,location,logged,navigate]);
 
   const routes = useRoutes([
     {

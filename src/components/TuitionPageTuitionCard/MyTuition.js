@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './MyTuition.css'
 import SelectedSubject from '../../MyAccountPage/AddTution/Subjects';
-import { subjects,daysOfWeek,boards,standards } from '../stateExporter';
+import { daysOfWeek,boards,standards } from '../stateExporter';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
 import { useMediaQuery } from 'react-responsive'; 
@@ -36,9 +36,8 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
         location:[]
       });
     const [isEditing,setIsEditing] = useState(false)
-    const [{asTeacher},dispatch] = useDataLayerValue()
+    const [{asTeacher},] = useDataLayerValue()
     const isBelow626px = useMediaQuery({ query: '(max-width: 626px)' })
-    const isBelow400px = useMediaQuery({ query: '(max-width: 400px)' })
     const [isCurrentLocMapOpen,setCurrentLocMapOpen] = useState(false)
     const [isUpdateLocMapOpen,setUpdateLocMapOpen] = useState(false)
     const [location, setLocation] = useState({ lat: null, lng: null });
@@ -64,7 +63,10 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             toast.info("Ensure that the correct location of the tuition is displayed on the map if you set location by 'Current location'")
           },
           (err) => {
-            toast.error(err.message);
+            if(err.message === 'User denied Geolocation')
+              toast.error('Allow geolocation access to add location');
+            else
+              toast.error(err.message);
           },
           { enableHighAccuracy: true }
         );
@@ -324,7 +326,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                         <select value={TuitionDetails.days[0]} name="days" onChange={(e)=>handleArrayChange(e,0)} className='select-box lato-regular dt-select' required>
                             {
                               daysOfWeek.map((days)=>(
-                                <option value={days}>{days}</option>
+                                <option key={days} value={days}>{days}</option>
                               ))
                             }
                         </select>
@@ -341,7 +343,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                           <select value={TuitionDetails.days[1]} name="days" onChange={(e)=>handleArrayChange(e,1)} className='select-box lato-regular dt-select' required>
                               {
                                 daysOfWeek.map((days)=>(
-                                  <option value={days}>{days}</option>
+                                  <option key={days} value={days}>{days}</option>
                                 ))
                               }
                           </select>
@@ -371,7 +373,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
                 <option value="">Select a board</option>
                 {
                   boards.map((board)=>(
-                    <option value={board}>{board}</option>
+                    <option key={board} value={board}>{board}</option>
                   ))
                 }
               </select>
@@ -402,7 +404,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <select value={TuitionDetails.standard[0]} name="standard" onChange={(e)=>handleArrayChange(e,0)} className='select-box lato-regular std-slt-cntr' required>
               {
                 standards.map((standard)=>(
-                  <option value={standard}>{standard}</option>
+                  <option key={standard} value={standard}>{standard}</option>
                 ))
               }
             </select>
@@ -417,7 +419,7 @@ const MyTuition = ({tuition,index,DeleteTuition,SaveTuition}) => {
             <select value={TuitionDetails.standard[1]} name="standard" onChange={(e)=>handleArrayChange(e,1)} className='select-box lato-regular std-slt-cntr' required>
                {
                  standards.map((standard)=>(
-                   <option value={standard}>{standard}</option>
+                   <option key={standard} value={standard}>{standard}</option>
                   ))
                 }
             </select>

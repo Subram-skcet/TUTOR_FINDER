@@ -58,7 +58,7 @@ const ChangePassword = () => {
                 navigate('/');
             }
         } catch (error) {
-            if(error.response && error.response.data.message){
+            if(error.response && error.response.data.msg){
                 if(error.response.data.message.includes('expired')){
                     toast.info("10 minute time limit for password reset is elapsed try to resend the password reset mail")
                     navigate('/')

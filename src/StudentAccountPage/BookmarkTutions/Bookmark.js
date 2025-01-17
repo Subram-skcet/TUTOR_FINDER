@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from 'react'
+import React,{ useEffect, useState, useCallback } from 'react'
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
 import TutionCard from '../../components/TutionCard/TutionCard'
@@ -15,32 +15,32 @@ const Bookmark = () => {
   const [isLoading,setIsLoading] = useState(true)
   const [isAnyModalOpen,setModalOpen] = useState(false)
 
-  const fetchTutions = async()=>{
-    
-    setIsLoading(true)
-    let tutions=[];
+  const fetchTutions = useCallback(async () => {
+    setIsLoading(true);
+    let tutions = [];
     try {
-      for(let i=0;i<asStudent.favouriteTutions.length;i++){
-         const response = await axios.get(`/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`)
-         tutions.push(response.data.tution)
+      for (let i = 0; i < asStudent.favouriteTutions.length; i++) {
+        const response = await axios.get(`/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`);
+        tutions.push(response.data.tution);
       }
-      setfavouritetutions(tutions)
-      
+      setfavouritetutions(tutions);
     } catch (error) {
-         toast.info("Error fetching tuitions")
+      toast.info("Error fetching tuitions");
+    } finally {
+      setIsLoading(false);
     }
-    finally{
-      setIsLoading(false)
-    }
-  }
+  }, [asStudent]);
+
   const handleProfileNavigate = (idx) =>{
      const profileDetails = favouritetutions[idx].createdBy;
      navigate('/myaccount/studentprofile/teacherProfile', {state:{profileDetails}})
   }
 
-  useEffect(()=>{
-      fetchTutions();
-  },[asStudent])
+  /* eslint-enable react-hooks/exhaustive-deps */
+ useEffect(() => {
+  fetchTutions();
+}, [fetchTutions]);
+  /* eslint-enable react-hooks/exhaustive-deps */
 
   return (
     <div className={`bookmarks-wrap ${isAnyModalOpen ? 'stator' : ''}`}>
@@ -74,7 +74,7 @@ const Bookmark = () => {
               <>
                 <div className="search-results fav-tutions">{
                   favouritetutions.map((result,index) => (
-                    <TutionCard tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
+                    <TutionCard key={result._id} tution={result} index={index} profilenavigate={handleProfileNavigate} setModalOpen={setModalOpen}/>            
                   ))
                 }
                 </div> 

@@ -16,24 +16,24 @@ const MyTution = () => {
   const [tutions, setTutions] = useState([]); // Initialize as an empty array
   const [isLoading,setIsLoading] = useState(false)
   
-  const fetchTutions = async () => {
-    setIsLoading(true)
-    try {
-      const response = await axios.get('/api/v1/tution/gettutions', {
-        params: { createdBy: asTeacher._id },
-      });
-      setTutions(response.data.tutions || []); 
-    } catch (error) {
-      console.error('Error fetching tutions:', error);
-    }
-    finally{
-      setIsLoading(false)
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchTutions = async () => {
+      setIsLoading(true)
+      try {
+        const response = await axios.get('/api/v1/tution/gettutions', {
+          params: { createdBy: asTeacher._id },
+        });
+        setTutions(response.data.tutions || []); 
+      } catch (error) {
+        console.error('Error fetching tutions:', error);
+      }
+      finally{
+        setIsLoading(false)
+      }
+    };
     fetchTutions();
-  }, []);  
+  }, [asTeacher._id]);  
 
   const handleDeleteClick = async (index) => {
     try {
@@ -103,7 +103,8 @@ const MyTution = () => {
           :
           (
             tutions.map((tuition, index) => (
-              <MyTuition 
+              <MyTuition
+                key={tuition._id} 
                 tuition={tuition}
                 index={index}
                 DeleteTuition={handleDeleteClick}

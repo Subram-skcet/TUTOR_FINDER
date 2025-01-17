@@ -48,8 +48,8 @@ const Login = () => {
               toast.info('Check your email for the password reset link. Note that the link is valid for only 10 minutes.')
           }
         } catch (error) {
-            if(error.response && error.response.data.message){
-                toast.error(error.response.data.message)
+            if(error.response && error.response.data.msg){
+                toast.error(error.response.data.msg)
             }
             else{
                 toast.error("An error occurred. Please try again later.")
@@ -105,8 +105,8 @@ const Login = () => {
                     navigate('/myaccount/studentprofile/myprofile')
                 }
             } catch (error) {
-                if(error.response && error.response.data.message){
-                    toast.error(error.response.data.message)
+                if(error.response && error.response.data.msg){
+                    toast.error(error.response.data.msg)
                 }
                 else{
                     toast.error("Something went wrong. Please try again later")
@@ -120,7 +120,7 @@ const Login = () => {
     return (
         <div className="student-login-container lato-regular">
             <div className='student-login-header'>
-                <h1 className='lato-bold'>Log in to your EduQuest account</h1>
+                <h1 className='lato-bold'>Log in to your FMT account</h1>
             </div>
             <form className="login-form" onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -162,7 +162,7 @@ const Login = () => {
                     <button type="submit" className='lg-btn lato-bold btn-cntr'>
                         {
                             isLoginLoad ?
-                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                            <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
                             :
                             <>Login</>
                         }

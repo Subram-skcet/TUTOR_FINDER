@@ -1,4 +1,4 @@
-import React, { useState, useRef,useEffect, Profiler } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import './MyProfile.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
@@ -12,9 +12,6 @@ import { MdCancel } from "react-icons/md";
 import { IoIosSave } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
 import { MdWarningAmber } from "react-icons/md";
-import { GetUser } from '../../utils/getUser';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import { ThreeCircles } from 'react-loader-spinner'
 
 
@@ -23,8 +20,6 @@ const MyProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [{ asTeacher }, dispatch] = useDataLayerValue();
   const [saveBtnLoading,setSaveBtn] = useState(false)
-  const location = useLocation()
-  const navigate = useNavigate()
   const [profileLoading,setProfileLoading] = useState(true)
 
   const [profile, setProfile] = useState({

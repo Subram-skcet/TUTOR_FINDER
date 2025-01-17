@@ -73,11 +73,11 @@ const LoginModal = () => {
                 navigate('/myaccount/studentprofile/myprofile')
             }
         } catch (error) {
-            if(error.response && error.response.data.message){
-                                toast.error(error.response.data.message)
-                            }
-                            else{
-                                toast.error("Something went wrong. Please try again later")
+            if(error.response && error.response.data.msg){
+                toast.error(error.response.data.msg)
+            }
+            else{
+                toast.error("Something went wrong. Please try again later")
              }
         }
         finally{
