@@ -2,6 +2,7 @@
   "name": "find-my-tuition",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://find-my-tuition.onrender.com",
   "dependencies": {
     "axios": "^1.7.3",
     "date-fns": "^3.6.0",
