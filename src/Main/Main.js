@@ -21,7 +21,7 @@ const Main = () => {
   const fetchData = async (searchParams) => {
     setIsLoading(true)
     try {
-      const response = await axios.get('/api/v1/tution/', { params: searchParams });
+      const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/tution/', { params: searchParams });
       setResults(response.data.ResultSet);
     } catch (error) {
       console.error('Error fetching data:', error);
