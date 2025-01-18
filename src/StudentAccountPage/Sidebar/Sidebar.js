@@ -17,12 +17,12 @@ const Sidebar = ({closesidebar}) => {
     <div className='sidebar-tot-wrap lato-regular'>
         <div className='sidebar-content-wrap'>
         <div className='sidebar-img-div sbar-lrg'>
-            <img src={logo} className='sidebar-img'></img>
+            <img src={logo} alt='logo' className='sidebar-img'></img>
         </div>
 
         <div className='small-sidebar'>
             <div className='sidebar-img-div'>
-                <img src={logo} className='sidebar-img'></img>
+                <img src={logo} alt='mob-logo' className='sidebar-img'></img>
             </div>
             <div className='sbar-close-icon' onClick={()=>closesidebar(false)}>
                <IoClose size="2em"/>

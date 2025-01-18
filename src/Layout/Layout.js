@@ -15,7 +15,7 @@ import logo from '../assets/logo.png'
 
 
 const Layout = (props) => {
-  const [{logged,logged_as},dispatch] = useDataLayerValue();
+  const [{logged,logged_as},] = useDataLayerValue();
   const navigate = useNavigate()
   const location = useLocation()
   const [isHamburgerOpen,setHamburgerOpen] = useState(false)
@@ -96,25 +96,25 @@ const Layout = (props) => {
                       <MyAccount/>
                       <p className='my-profile-para'>Profile</p>
                     </div>
-                    <div className='menu-icon' onClick={()=>navigate('/')}>
+                    <div className='menu-icon' onClick={()=>{navigate('/');setHamburgerOpen(false)}}>
                          <MdHome size="1.1em"/>
                           <p>Home</p>
                     </div>
-                    <div className='menu-icon' onClick={()=>navigate('/searchtutor')}>
+                    <div className='menu-icon' onClick={()=>{navigate('/searchtutor');setHamburgerOpen(false)}}>
                     <FaSearch size="1.1em"/>
                           <p>Search</p>
                     </div>
                     <div className='menu-icon'>
                       <FaChalkboardTeacher size="1.1em"/>
-                      <span onClick={RegisterNavigateTeacher}>Teach with FMT</span>
+                      <span onClick={()=>{navigate('/welcometeacher');setHamburgerOpen(false)}}>Teach with FMT</span>
                     </div>
                     <div className={`menu-icon ${logged? 'invis' : ''}`}>
                     <PiStudentBold size="1.1em"/>
-                      <span onClick={RegisterNavigateStudent}>Register</span>
+                      <span onClick={()=>{navigate('/register');setHamburgerOpen(false)}}>Register</span>
                     </div>
                     <div className={`menu-icon ${logged? 'invis' : ''}`}>
                     <RiLoginCircleLine size="1.1em"/>
-                      <span onClick={LoginNavigate}>Login</span>
+                      <span onClick={()=>{navigate('/login');setHamburgerOpen(false)}}>Login</span>
                     </div>
                 </div>
       </div>

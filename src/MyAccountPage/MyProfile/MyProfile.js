@@ -1,6 +1,5 @@
 import React, { useState, useRef,useEffect } from 'react';
 import './MyProfile.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import axios from 'axios';
 import DisplayRating from '../../components/DisplayRating'

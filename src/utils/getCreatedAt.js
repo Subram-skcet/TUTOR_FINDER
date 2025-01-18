@@ -11,15 +11,6 @@ export const extractDateFields = (createdAt) => {
     // Apply the offset to the date to convert it to GMT+5:30
     const localDate = new Date(date.getTime());
 
-    // Extract the year, month, day, hours, minutes, and seconds
-    const year = localDate.getFullYear();
-    const month = localDate.getMonth();
-    const day = localDate.getDate();
-    const hours = localDate.getHours();
-    const minutes = localDate.getMinutes();
-    const seconds = localDate.getSeconds();
-
-
     // Calculate the distance from now
     return formatDistanceToNow(localDate, { includeSeconds: true })+" ago";
 };

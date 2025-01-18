@@ -16,7 +16,7 @@ import { IoClose } from "react-icons/io5";
 
 
 const ReviewCard = ({ review, deleteReview, loginpop, isClickable , isLikeable , handleLike}) => {
-        const [{logged,logged_as,asStudent},dispatch] = useDataLayerValue();
+        const [{logged,logged_as,asStudent},] = useDataLayerValue();
         const [userReaction, setUserReaction] = useState({
             liked: asStudent.likedReviews.includes(review._id),
             disliked: asStudent.dislikedReviews.includes(review._id)

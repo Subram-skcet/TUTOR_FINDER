@@ -2,7 +2,6 @@ import React, { useState,useEffect,useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './TeacherProfile.css';
 import axios from 'axios';
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Ensure this is correctly imported
 import ReviewCard from '../components/ReviewCard/ReviewCard';
 import Rating from '../components/Rating/Rating'
 import { useDataLayerValue } from '../StateProviders/StateProvider';

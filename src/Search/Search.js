@@ -14,7 +14,6 @@ const Search = ({ onSearch }) => {
     district: '',
     std: ''
   });
-  const [results, setResults] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,7 +48,6 @@ const Search = ({ onSearch }) => {
     if (location.pathname === '/') {
       try {
         const response = await axios.get('http://localhost:3001/api/v1/tution/', { params });
-        setResults(response.data.ResultSet);
         navigate('/searchtutor', { state: { resultset: response.data.ResultSet } });
       } catch (error) {
         console.error('Error fetching data:', error);

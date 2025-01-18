@@ -5,15 +5,12 @@ import { useDataLayerValue } from '../StateProviders/StateProvider';
 
 const MyAccount = () => {
     const [{ logged_as, asTeacher, asStudent }] = useDataLayerValue();
-    const [name, setName] = useState('');
     const [img, setImg] = useState('');
 
     useEffect(() => {
         if (logged_as === 'teacher') {
-            setName(asTeacher.name);
             setImg(asTeacher.profilepic);
         } else if (logged_as === 'student') {
-            setName(asStudent.name);
             setImg(asStudent.profilepic);
         }
     }, [logged_as, asTeacher, asStudent]);

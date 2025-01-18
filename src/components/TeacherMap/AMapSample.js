@@ -6,46 +6,47 @@ import { useDataLayerValue } from "../../StateProviders/StateProvider";
 
 
 const MapComponent = ({setLatLng,onClose}) => {
-  const [map, setMap] = useState(null); // State to store the map instance
   const [markers, setMarkers] = useState([]); // State to store all markers
   const [markerLocation, setMarkerLocation] = useState(null);
   const [{asTeacher},] = useDataLayerValue()
 
-  const getLatLng = async () => {
-    try {
-      const resp_1 = await axios.get(
-        `https://nominatim.openstreetmap.org/search?q=${asTeacher.district},${asTeacher.state},India&format=json`
-      );
   
-      // Check if the response contains data and has at least one result
-      if (resp_1.data.length !== 0) {
-        return {
-          lat: Number(resp_1.data[0].lat),
-          lng: Number(resp_1.data[0].lon),
-        };
-      }
   
-      const resp_2 = await axios.get(
-        `https://nominatim.openstreetmap.org/search?q=${asTeacher.state},India&format=json`
-      );
-  
-      if (resp_2.data.length !== 0) {
-        return {
-          lat: Number(resp_2.data[0].lat),
-          lng: Number(resp_2.data[0].lon),
-        };
-      }
-  
-      // Default coordinates
-      return { lat: 22.3511148, lng: 78.6677428 };
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      return { lat: 22.3511148, lng: 78.6677428 }; // Return default in case of error
-    }
-  };
-  
-
   useEffect(() => {
+
+    const getLatLng = async () => {
+      try {
+        const resp_1 = await axios.get(
+          `https://nominatim.openstreetmap.org/search?q=${asTeacher.district},${asTeacher.state},India&format=json`
+        );
+    
+        // Check if the response contains data and has at least one result
+        if (resp_1.data.length !== 0) {
+          return {
+            lat: Number(resp_1.data[0].lat),
+            lng: Number(resp_1.data[0].lon),
+          };
+        }
+    
+        const resp_2 = await axios.get(
+          `https://nominatim.openstreetmap.org/search?q=${asTeacher.state},India&format=json`
+        );
+    
+        if (resp_2.data.length !== 0) {
+          return {
+            lat: Number(resp_2.data[0].lat),
+            lng: Number(resp_2.data[0].lon),
+          };
+        }
+    
+        // Default coordinates
+        return { lat: 22.3511148, lng: 78.6677428 };
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        return { lat: 22.3511148, lng: 78.6677428 }; // Return default in case of error
+      }
+    };
+
     const initMap = async () => {
       try {
         if (window.google) {
@@ -61,7 +62,6 @@ const MapComponent = ({setLatLng,onClose}) => {
             mapId: "MAP_ID_HERE", // Replace with a valid Map ID
           });
 
-          setMap(mapInstance); // Set the map instance in state
 
           // Add a click event listener to the map
           mapInstance.addListener("click", (e) => {
@@ -95,7 +95,7 @@ const MapComponent = ({setLatLng,onClose}) => {
     };
 
     initMap();
-  }, []);
+  }, [asTeacher.district,asTeacher.state]);
 
   
   const handleAddClick = () =>{

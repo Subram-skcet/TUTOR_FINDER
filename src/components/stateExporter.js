@@ -135,4 +135,4 @@ export const qualifications = ["B.A.",
 "M.Voc.",
 "Ph.D."]
 
-export const boards = ['State Board','CBSE','ICSC']
+export const boards = ['State Board','CBSE','ICSE','IB','NIOS','IGCSE','CISCE']

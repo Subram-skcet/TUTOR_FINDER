@@ -3,7 +3,6 @@ import './StudentLogin.css'; // Assuming you save the CSS file as Login.css
 import { useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider'
 import axios from 'axios'
-// import MdWarningAmber from '@mui/icons-material/WarningAmber';
 import { toast } from 'react-toastify';
 import loadgif from '../../assets/89.gif'
 import { MdVisibility } from "react-icons/md";

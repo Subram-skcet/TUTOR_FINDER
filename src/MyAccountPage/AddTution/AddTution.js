@@ -140,7 +140,7 @@ const navigateBack = () =>{
 }
 
   const ValidateTuition = () =>{
-      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0 || !TutionDetails.Fees || !location.lat  || !location.lng){
+      if(TutionDetails.startTime.length === 0 || TutionDetails.endTime.length === 0  || !location.lat  || !location.lng){
         setErrorText("Please fill in all the fields.")
         return false;
       }
