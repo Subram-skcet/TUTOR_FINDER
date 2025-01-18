@@ -6,6 +6,7 @@ import { useDataLayerValue } from "../../StateProviders/StateProvider";
 
 
 const MapComponent = ({setLatLng,onClose}) => {
+   // eslint-disable-next-line
   const [markers, setMarkers] = useState([]); // State to store all markers
   const [markerLocation, setMarkerLocation] = useState(null);
   const [{asTeacher},] = useDataLayerValue()

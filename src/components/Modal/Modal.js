@@ -30,11 +30,13 @@ const Modal = ({ children, isopen, onClose, childrenWidth }) => {
 
     useEffect(() => {
         setStyles();
+         // eslint-disable-next-line
     }, [isopen, children, childrenWidth]);
 
     useEffect(() => {
         window.addEventListener('resize', setStyles);
         return () => window.removeEventListener('resize', setStyles);
+         // eslint-disable-next-line
     }, [childrenWidth]);
 
     if (!isopen) return null;
