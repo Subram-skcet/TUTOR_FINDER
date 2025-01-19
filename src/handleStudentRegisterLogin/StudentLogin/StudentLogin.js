@@ -77,12 +77,16 @@ const Login = () => {
                 return
             }
             try {
-                const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/loginstudent',
+                const response = await axios.post(
+                    'https://find-my-tuition.onrender.com/api/v1/auth/loginstudent',
                     {
-                        email:userDetails.email,
-                        password:userDetails.password
+                      email: userDetails.email,
+                      password: userDetails.password,
+                    },
+                    {
+                      withCredentials: true, // Include credentials (cookies)
                     }
-                )
+                  );
                 if(response.status === 200){
                     toast.success("Logged In Successfully!!")
                     dispatch({
