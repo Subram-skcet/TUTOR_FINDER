@@ -110,7 +110,7 @@ const handleSaveClick = async() =>{
     }
 
     try {
-        const response = await axios.patch(`/api/v1/review/${review._id}`,{
+        const response = await axios.patch(`https://find-my-tuition.onrender.com/api/v1/review/${review._id}`,{
             rating,
             review:editDetails.editreview
         })

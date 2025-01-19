@@ -21,7 +21,7 @@ const MyTution = () => {
     const fetchTutions = async () => {
       setIsLoading(true)
       try {
-        const response = await axios.get('/api/v1/tution/gettutions', {
+        const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/tution/gettutions', {
           params: { createdBy: asTeacher._id },
         });
         setTutions(response.data.tutions || []); 
@@ -38,7 +38,7 @@ const MyTution = () => {
   const handleDeleteClick = async (index) => {
     try {
       const tutionToDelete = tutions[index];
-      const response = await axios.delete(`/api/v1/tution/${tutionToDelete._id}`, {
+      const response = await axios.delete(`https://find-my-tuition.onrender.com/api/v1/tution/${tutionToDelete._id}`, {
         data: { createdBy: tutionToDelete.createdBy } // Include createdBy in the request body
       });
       
@@ -58,7 +58,7 @@ const MyTution = () => {
     let updatedTution = TuitionDetails
     try {
       // Include createdBy in the updated tution data
-      const response = await axios.patch(`/api/v1/tution/${tutions[index]._id}`, {
+      const response = await axios.patch(`https://find-my-tuition.onrender.com/api/v1/tution/${tutions[index]._id}`, {
         ...updatedTution,
         createdBy: asTeacher._id // Ensure createdBy is included in the request body
       });

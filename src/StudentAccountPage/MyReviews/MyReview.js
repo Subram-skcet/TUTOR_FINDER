@@ -15,7 +15,7 @@ const MyReview = () => {
   const fetchMyReviews = async()=>{
     setIsLoading(true)
        try {
-          const response = await axios.get(`/api/v1/review/`)
+          const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/review/`)
           setReviews(response.data.reviews)
         } catch (error) {
          toast.error("Error fetching reviews. Try again later")
@@ -34,7 +34,7 @@ const MyReview = () => {
        option
      }
      try {
-       const response = await axios.post(`/api/v1/student/likereviews/`,req_body)
+       const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body)
        if(response.status === 200){
         const StudentDetails = {...asStudent}
         StudentDetails.likedReviews = response.data.likedReviews
@@ -54,7 +54,7 @@ const MyReview = () => {
 
 const deleteReview = async(id) =>{
   try {
-      const response = await axios.delete(`/api/v1/review/${id}`)
+      const response = await axios.delete(`https://find-my-tuition.onrender.com/api/v1/review/${id}`)
       if(response.status === 200){
         toast.success('Review deleted successfully')
         fetchMyReviews()

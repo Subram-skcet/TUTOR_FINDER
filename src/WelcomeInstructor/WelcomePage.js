@@ -26,7 +26,7 @@ const WelcomePage = () => {
 
    const getCountStats = async() =>{
       try {
-         const response = await axios.get('/api/v1/auth/get-stats')
+         const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/auth/get-stats')
          
          setStatDetails({
             studentCount:response.data.stdnt,

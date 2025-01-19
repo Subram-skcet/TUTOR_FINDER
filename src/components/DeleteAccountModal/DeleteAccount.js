@@ -18,9 +18,9 @@ const DeleteAccount = ({onClose}) => {
         try {
           const subj = logged_as === 'student' ? asStudent : asTeacher
           if(subj.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
-            await axios.delete(`/api/v1/student/delete-img?url=${encodeURIComponent(subj.profilepic)}`);
+            await axios.delete(`https://find-my-tuition.onrender.com/api/v1/student/delete-img?url=${encodeURIComponent(subj.profilepic)}`);
           }
-          const response = await axios.delete(`/api/v1/${logged_as}/`)
+          const response = await axios.delete(`https://find-my-tuition.onrender.com/api/v1/${logged_as}/`)
           if(response.status === 200){
            dispatch({
             type:'LOG_OUT'

@@ -42,7 +42,7 @@ const Login = () => {
         const body = { email:userDetails.email, role:'student'}
         try {
             setForgetClickable(false)
-          const response = await axios.post('/api/v1/auth/changepassword',body)
+          const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/changepassword',body)
           if(response.status === 200){
               toast.info('Check your email for the password reset link. Note that the link is valid for only 10 minutes.')
           }
@@ -77,7 +77,7 @@ const Login = () => {
                 return
             }
             try {
-                const response = await axios.post('/api/v1/auth/loginstudent',
+                const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/loginstudent',
                     {
                         email:userDetails.email,
                         password:userDetails.password

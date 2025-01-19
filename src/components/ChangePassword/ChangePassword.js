@@ -47,7 +47,7 @@ const ChangePassword = () => {
             return;
         }
         try {
-            const response = await axios.post('/api/v1/auth/reset-password', {
+            const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/reset-password', {
                 email,
                 token,
                 role,

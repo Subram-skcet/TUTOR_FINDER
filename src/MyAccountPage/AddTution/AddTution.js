@@ -181,7 +181,7 @@ const navigateBack = () =>{
     if(tuitionValidated){
 
       try {
-        const response = await axios.post('/api/v1/tution/', {
+        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/tution/', {
           createdBy: asTeacher._id,
           subjects: TutionDetails.Subjects,
           duration: [TutionDetails.startTime, TutionDetails.endTime],

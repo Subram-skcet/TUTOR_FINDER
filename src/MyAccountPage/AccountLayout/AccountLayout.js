@@ -16,7 +16,7 @@ const AccountLayout = () => {
 
   const handleLogout = async() =>{
     try {
-      const response = await axios.post('/api/v1/auth/logout')
+      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/logout')
       if(response.data.message === 'User logged out successfully'){
         toast.success('Logged out successfully')
          dispatch({
@@ -42,7 +42,7 @@ const AccountLayout = () => {
       }
     }
     try {
-      const response = await axios.post('/api/v1/auth/changepassword',body)
+      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/changepassword',body)
       if(response.data.msg === 'Mail generated successfully'){
           toast.info('Check your mail for password changing link note that link valid for only 10 minutes')
       }
