@@ -16,7 +16,7 @@ const AccountLayout = () => {
 
   const handleLogout = async() =>{
     try {
-      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/logout',{
+      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/logout',{},{
         withCredentials:true
       })
       if(response.data.message === 'User logged out successfully'){

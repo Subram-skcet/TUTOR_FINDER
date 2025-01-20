@@ -36,7 +36,9 @@ const StudentProfile = () => {
 
   const loadDetails = async () => {
     try {
-      const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/student/')
+      const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/student/',{
+        withCredentials:true
+      })
       setProfile({
         profilepic:response.data.student.profilepic,
         name:response.data.student.name
@@ -101,14 +103,17 @@ const StudentProfile = () => {
       if (selectedImage.file && selectedImage.file!==permImage.file) {
 
         if(profile.profilepic !== "https://res.cloudinary.com/diokpb3jz/image/upload/v1722887830/samples/s8yfrhetwq1s4ytzwo39.png"){
-          await axios.delete(`https://find-my-tuition.onrender.com/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`);
+          await axios.delete(`https://find-my-tuition.onrender.com/api/v1/student/delete-img?url=${encodeURIComponent(profile.profilepic)}`,{
+            withCredentials:true
+          });
         }
 
         const formData = new FormData();
         formData.append('image', selectedImage.file);
         try {
           const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/student/upload', formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 'Content-Type': 'multipart/form-data' },
+            withCredentials:true
           });
           updatedProfilePic = response.data.image;
         } catch (error) {
@@ -120,6 +125,8 @@ const StudentProfile = () => {
         const response = await axios.patch(`https://find-my-tuition.onrender.com/api/v1/student/`, { 
           ...editDetails,
           ...(updatedProfilePic !== profile.profilepic && { profilepic: updatedProfilePic })
+        },{
+          withCredentials:true
         });
         let updatedDetails = response.data.user
         setProfile(updatedDetails)

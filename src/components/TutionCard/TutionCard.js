@@ -39,6 +39,8 @@ function TutionCard({tution,index,profilenavigate,setModalOpen}) {
             const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/favouritetutions/`,{
                 tutionId:tution._id,
                 favourite:!isBookMark
+            },{
+                withCredentials:true
             })
             if(response.status === 201){
                 setBookMark(prevState => !prevState)
