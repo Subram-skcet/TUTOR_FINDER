@@ -190,6 +190,8 @@ const navigateBack = () =>{
           fees: TutionDetails.Fees,
           boards: TutionDetails.Boards,
           location:[location.lat,location.lng]
+        },{
+          withCredentials:true
         });
         
   

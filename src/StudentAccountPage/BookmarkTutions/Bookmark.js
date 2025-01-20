@@ -20,7 +20,9 @@ const Bookmark = () => {
     let tutions = [];
     try {
       for (let i = 0; i < asStudent.favouriteTutions.length; i++) {
-        const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`);
+        const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/tution/gettution/${asStudent.favouriteTutions[i]}`,{
+          withCredentials:true
+        });
         tutions.push(response.data.tution);
       }
       setfavouritetutions(tutions);

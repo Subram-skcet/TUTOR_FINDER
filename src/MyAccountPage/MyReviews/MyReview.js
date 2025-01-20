@@ -13,7 +13,9 @@ const MyReview = () => {
   const fetchReviews = async () => {
     setIsLoading(true)
     try {
-      const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/review/`);
+      const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/review/`,{
+        withCredentials: true
+       });
       setReviews(response.data.reviews);
     } catch (error) {
       console.error('Error fetching reviews:', error);

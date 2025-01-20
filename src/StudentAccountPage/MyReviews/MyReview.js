@@ -38,7 +38,9 @@ const MyReview = () => {
        option
      }
      try {
-       const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body)
+       const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body,{
+        withCredentials:true
+      })
        if(response.status === 200){
         const StudentDetails = {...asStudent}
         StudentDetails.likedReviews = response.data.likedReviews
@@ -58,7 +60,9 @@ const MyReview = () => {
 
 const deleteReview = async(id) =>{
   try {
-      const response = await axios.delete(`https://find-my-tuition.onrender.com/api/v1/review/${id}`)
+      const response = await axios.delete(`https://find-my-tuition.onrender.com/api/v1/review/${id}`,{
+        withCredentials:true
+      })
       if(response.status === 200){
         toast.success('Review deleted successfully')
         fetchMyReviews()

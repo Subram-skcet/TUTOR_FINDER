@@ -123,7 +123,9 @@ const TeacherProfile = () => {
             rating:rating
       }
       try {
-        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/review/',req_body)
+        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/review/',req_body,{
+          withCredentials:true
+        })
         if(response.status === 201){
           toast.success('Review posted successfully')
           await fetchReviews()
@@ -156,7 +158,9 @@ const TeacherProfile = () => {
          option
        }
        try {
-         const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body)
+         const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body,{
+          withCredentials:true
+        })
          if(response.status === 200){
           const StudentDetails = {...asStudent}
           StudentDetails.likedReviews = response.data.likedReviews

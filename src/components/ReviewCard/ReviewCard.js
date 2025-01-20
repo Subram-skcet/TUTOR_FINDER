@@ -113,7 +113,9 @@ const handleSaveClick = async() =>{
         const response = await axios.patch(`https://find-my-tuition.onrender.com/api/v1/review/${review._id}`,{
             rating,
             review:editDetails.editreview
-        })
+        },{
+            withCredentials:true
+          })
         if(response.status === 200){
             toast.success('Review saved successfully')
             setPermDetails({

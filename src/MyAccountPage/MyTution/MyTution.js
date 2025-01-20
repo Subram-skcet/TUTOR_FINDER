@@ -23,6 +23,7 @@ const MyTution = () => {
       try {
         const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/tution/gettutions', {
           params: { createdBy: asTeacher._id },
+          withCredentials: true
         });
         setTutions(response.data.tutions || []); 
       } catch (error) {

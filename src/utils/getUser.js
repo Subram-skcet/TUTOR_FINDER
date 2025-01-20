@@ -3,7 +3,9 @@ import axios from 'axios';
 
 export const GetUser = async (dispatch, location, navigate) => {
   try {
-    const response = await axios.get('/get-user');
+    const response = await axios.get('/get-user',{
+      withCredentials:true
+    });
     dispatch({
       type: 'LOG_USER',
       payload: true
