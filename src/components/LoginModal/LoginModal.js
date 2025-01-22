@@ -47,7 +47,7 @@ const LoginModal = () => {
         }
         setLoginLoad(true)
         try {
-            const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/loginstudent',
+            const response = await axios.post('/api/v1/auth/loginstudent',
                 {
                         email:userDetails.email,
                         password:userDetails.password

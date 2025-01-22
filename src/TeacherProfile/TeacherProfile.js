@@ -53,7 +53,7 @@ const TeacherProfile = () => {
   const fetchReviews = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`https://find-my-tuition.onrender.com/api/v1/review/teacher-reviews/${props._id}`);
+      const response = await axios.get(`/api/v1/review/teacher-reviews/${props._id}`);
       setReviews(response.data.reviews);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -123,7 +123,7 @@ const TeacherProfile = () => {
             rating:rating
       }
       try {
-        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/review/',req_body,{
+        const response = await axios.post('/api/v1/review/',req_body,{
           withCredentials:true
         })
         if(response.status === 201){
@@ -158,7 +158,7 @@ const TeacherProfile = () => {
          option
        }
        try {
-         const response = await axios.post(`https://find-my-tuition.onrender.com/api/v1/student/likereviews/`,req_body,{
+         const response = await axios.post(`/api/v1/student/likereviews/`,req_body,{
           withCredentials:true
         })
          if(response.status === 200){

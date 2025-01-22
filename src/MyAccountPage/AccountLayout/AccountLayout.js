@@ -1,22 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import './AccountLayout.css'
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useLocation,useNavigate } from 'react-router-dom';
 import { useDataLayerValue } from '../../StateProviders/StateProvider';
 import { toast } from 'react-toastify';
 import Modal from '../../components/Modal/Modal';
 import DeleteAccount from '../../components/DeleteAccountModal/DeleteAccount';
 import { MdHome } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
+import { GetUser } from '../../utils/getUser';
 
 const AccountLayout = () => {
-  const navigate = useNavigate()
   const [{asStudent,asTeacher,logged,logged_as},dispatch] = useDataLayerValue();
   const [isDeleteModalOpen,setDeleteModalOpen] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+      GetUser(dispatch,location,navigate)
+  },[])
 
   const handleLogout = async() =>{
     try {
-      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/logout',{},{
+      const response = await axios.post('/api/v1/auth/logout',{},{
         withCredentials:true
       })
       if(response.data.message === 'User logged out successfully'){
@@ -44,7 +50,7 @@ const AccountLayout = () => {
       }
     }
     try {
-      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/changepassword',body)
+      const response = await axios.post('/api/v1/auth/changepassword',body)
       if(response.data.msg === 'Mail generated successfully'){
           toast.info('Check your mail for password changing link note that link valid for only 10 minutes')
       }

@@ -47,7 +47,7 @@ const Search = ({ onSearch }) => {
 
     if (location.pathname === '/') {
       try {
-        const response = await axios.get('https://find-my-tuition.onrender.com/api/v1/tution/', { params });
+        const response = await axios.get('/api/v1/tution/', { params });
         navigate('/searchtutor', { state: { resultset: response.data.ResultSet } });
       } catch (error) {
         console.error('Error fetching data:', error);

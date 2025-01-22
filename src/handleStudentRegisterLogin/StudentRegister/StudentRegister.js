@@ -54,7 +54,7 @@ const RegisterStudent = () => {
     }
     setVerifyClickable(false)
     try {
-        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/generateotp',
+        const response = await axios.post('/api/v1/auth/generateotp',
           {
             email:userDetails.email,
             role:'student'
@@ -103,7 +103,7 @@ const RegisterStudent = () => {
    }
     
      try {
-      const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/verifyemail',{
+      const response = await axios.post('/api/v1/auth/verifyemail',{
         email:userDetails.email,
         otp:otpDetails.otp.join('')
       })
@@ -221,7 +221,7 @@ const RegisterStudent = () => {
     if(userValidated){
       setRegisterLoad(true)
       try {
-        const response = await axios.post('https://find-my-tuition.onrender.com/api/v1/auth/registerstudent', userDetails);
+        const response = await axios.post('/api/v1/auth/registerstudent', userDetails);
         if(response.status === 201){
           toast.success('User Registered successfully')
       
